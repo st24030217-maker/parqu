@@ -33,12 +33,13 @@ import {
 const MainContent = ({ onReplayLoading }) => {
   const { 
     activeSession, 
-    vehicle, 
-    card, 
-    autoPay, 
+    vehicle = {}, 
+    owner = {},
+    card = {}, 
+    autoPay = {}, 
     addBalance, 
-    startSession, 
-    endSession 
+    startParking, 
+    stopParkingAndAutoCharge 
   } = useParking();
   const [activeTab, setActiveTab] = useState('dashboard'); // 'dashboard', 'autopay', 'vehicle', 'history'
   const [showQRQuickModal, setShowQRQuickModal] = useState(false);
@@ -232,13 +233,13 @@ const MainContent = ({ onReplayLoading }) => {
                     icon: Zap,
                     title: 'Modo Autocobro',
                     subtitle: 'Débito continuo sin filas',
-                    badge: autoPay.enabled ? 'ACTIVO' : 'PAUSADO',
-                    badgeClassName: autoPay.enabled ? 'bg-emerald-950/60 text-emerald-300 border-emerald-700/50' : 'bg-rose-950/60 text-rose-300 border-rose-700/50',
+                    badge: autoPay?.enabled ? 'ACTIVO' : 'PAUSADO',
+                    badgeClassName: autoPay?.enabled ? 'bg-emerald-950/60 text-emerald-300 border-emerald-700/50' : 'bg-rose-950/60 text-rose-300 border-rose-700/50',
                     iconBg: 'bg-purple-950/80 border border-purple-500/40 text-purple-400',
                     borderClassName: 'border-neutral-800/80 hover:border-purple-500/50',
                     glowGradient: 'from-purple-500/15 via-transparent to-transparent',
-                    footerText: autoPay.fundingSource === 'CARD' ? 'Débito Bancario' : 'Saldo Virtual',
-                    activeStatus: autoPay.enabled,
+                    footerText: autoPay?.fundingSource === 'CARD' ? 'Débito Bancario' : 'Saldo Virtual',
+                    activeStatus: Boolean(autoPay?.enabled),
                     onClick: () => {
                       setActiveTab('autopay');
                       sileo.info({
@@ -250,14 +251,14 @@ const MainContent = ({ onReplayLoading }) => {
                   {
                     id: 'vehicle',
                     icon: Car,
-                    title: vehicle.plates,
-                    subtitle: `${vehicle.brand} ${vehicle.model}`,
+                    title: vehicle?.plates || 'XYZ-7842',
+                    subtitle: `${vehicle?.brand || 'Volkswagen'} ${vehicle?.model || 'Jetta'}`,
                     badge: 'PADRÓN',
                     badgeClassName: 'bg-amber-950/60 text-amber-300 border-amber-700/50',
                     iconBg: 'bg-amber-950/80 border border-amber-500/40 text-amber-400',
                     borderClassName: 'border-neutral-800/80 hover:border-amber-500/50',
                     glowGradient: 'from-amber-500/15 via-transparent to-transparent',
-                    footerText: owner.fullName,
+                    footerText: owner?.fullName || 'Sebastián Salinas',
                     activeStatus: true,
                     onClick: () => {
                       setActiveTab('vehicle');
