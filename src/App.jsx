@@ -7,7 +7,7 @@ import { Header } from './components/Header';
 import { DigitalCard } from './components/DigitalCard';
 import { VehicleOwnerForm } from './components/VehicleOwnerForm';
 import { AutoPaymentConfig } from './components/AutoPaymentConfig';
-import { ParkingSimulator } from './components/ParkingSimulator';
+import { ParkingMeter } from './components/ParkingMeter';
 import { TransactionHistory } from './components/TransactionHistory';
 import { StaggeredGrid } from './components/ui/staggered-grid';
 import { BackgroundGradientAnimation } from './components/ui/background-gradient-animation';
@@ -113,7 +113,7 @@ const MainContent = ({ onReplayLoading }) => {
       onClick: () => setShowQRQuickModal(true),
     },
     {
-      id: 'simulator',
+      id: 'parking-map',
       icon: MapPin,
       title: activeSession ? 'Cajón Ocupado' : 'Mapa DiDi & Ubicación',
       subtitle: activeSession ? activeSession.zoneName : 'Fijar Ubicación & Registro',
@@ -367,9 +367,9 @@ const MainContent = ({ onReplayLoading }) => {
 
           </div>
 
-          {/* Simulador de Parquímetro */}
+          {/* Parquímetro Metropolitano */}
           <div>
-            <ParkingSimulator />
+            <ParkingMeter />
           </div>
 
           {/* Historial Reciente */}
@@ -450,7 +450,7 @@ const MainContent = ({ onReplayLoading }) => {
           </ErrorBoundary>
         </div>
 
-        {/* 2. SECCIÓN DEL SISTEMA INTERACTIVO (TARJETA, SIMULADOR, CONFIGURACIÓN, HISTORIAL) */}
+        {/* 2. SECCIÓN DEL SISTEMA INTERACTIVO (TARJETA, PARQUÍMETRO, CONFIGURACIÓN, HISTORIAL) */}
         <main 
           ref={systemRef} 
           id="interactive-system"

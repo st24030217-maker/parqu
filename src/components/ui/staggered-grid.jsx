@@ -72,13 +72,13 @@ export function StaggeredGrid({
       tab: 'autopay'
     },
     {
-      id: 'simulator',
+      id: 'parking',
       title: 'Cajones en Tiempo Real',
-      subtitle: 'SIMULADOR METROPOLITANO',
-      desc: 'Simula tu estancia en parquímetros municipales, activa cronómetros y calcula tu tarifa al instante.',
+      subtitle: 'PARQUÍMETRO METROPOLITANO',
+      desc: 'Gestiona tu estancia en parquímetros municipales, activa cronómetros y calcula tu tarifa al instante.',
       icon: MapPin,
       category: 'MOVILIDAD',
-      badge: 'INTERACTIVO',
+      badge: 'EN VIVO',
       tab: 'dashboard'
     },
     {
@@ -197,11 +197,11 @@ export function StaggeredGrid({
     },
     {
       id: 'bento-3',
-      title: 'Simulador en Tiempo Real',
+      title: 'Parquímetro en Tiempo Real',
       subtitle: '03. CONTROL DE CAJONES',
       desc: 'Selecciona cajones metropolitanos, observa el cronómetro dinámico y monitorea el gasto segundo a segundo en vivo.',
       icon: <MapPin className="w-6 h-6 text-white" />,
-      tag: 'SIMULADOR',
+      tag: 'PARQUÍMETRO',
       actionTab: 'dashboard'
     }
   ];

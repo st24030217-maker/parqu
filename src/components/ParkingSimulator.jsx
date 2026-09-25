@@ -25,7 +25,7 @@ const PARKING_ZONES = [
   { id: 'Z4', name: 'Zona Hospitalaria & Médica (Cajón #H-02)', ratePerHour: 14.00 },
 ];
 
-export const ParkingSimulator = () => {
+export const ParkingMeter = () => {
   const { 
     vehicle, 
     owner, 
@@ -77,10 +77,10 @@ export const ParkingSimulator = () => {
           </div>
           <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-2.5">
             <Clock className="w-6 h-6 text-indigo-400" />
-            Simulador de Parquímetro Metropolitano
+            Parquímetro Metropolitano en Vivo
           </h2>
           <p className="text-xs sm:text-sm text-neutral-300 mt-1 font-mono max-w-2xl leading-relaxed">
-            Experimenta el cobro automático segundo a segundo al ocupar y liberar un cajón municipal.
+            Control y cobro automático segundo a segundo al ocupar y liberar un cajón municipal.
           </p>
         </div>
 
@@ -259,4 +259,5 @@ export const ParkingSimulator = () => {
   );
 };
 
-export default ParkingSimulator;
+export const ParkingSimulator = ParkingMeter;
+export default ParkingMeter;

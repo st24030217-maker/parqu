@@ -148,10 +148,10 @@ export const ParkingProvider = ({ children }) => {
   // Punto activo fijado en el mapa
   const [activePinnedLocation, setActivePinnedLocation] = useState(null);
 
-  // Estado de sesión activa de estacionamiento (simulador)
+  // Estado de sesión activa de estacionamiento (parquímetro metropolitano)
   const [activeSession, setActiveSession] = useState(null);
 
-  // Último recibo generado por el simulador de autocobro
+  // Último recibo generado por el sistema de autocobro
   const [lastReceipt, setLastReceipt] = useState(null);
 
   // Guardar en localStorage de forma segura ante cambios
@@ -227,7 +227,7 @@ export const ParkingProvider = ({ children }) => {
     }));
   };
 
-  // Temporizador para el simulador de parquímetro en tiempo real
+  // Temporizador para el parquímetro metropolitano en tiempo real
   useEffect(() => {
     let timer;
     if (activeSession) {
