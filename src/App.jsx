@@ -184,7 +184,7 @@ const MainContent = ({ onReplayLoading }) => {
                     icon: CreditCard,
                     title: 'Recargar Saldo',
                     subtitle: 'Añadir saldo express',
-                    badge: `$${card.balance.toFixed(2)}`,
+                    badge: `$${Number(card?.balance ?? 0).toFixed(2)}`,
                     badgeClassName: 'bg-emerald-950/60 text-emerald-300 border-emerald-700/50',
                     iconBg: 'bg-emerald-950/80 border border-emerald-500/40 text-emerald-400',
                     borderClassName: 'border-neutral-800/80 hover:border-emerald-500/50',
@@ -282,7 +282,7 @@ const MainContent = ({ onReplayLoading }) => {
                 </div>
                 <h3 className="text-lg font-bold text-white mb-1 font-mono">Recarga Rápida de Saldo</h3>
                 <p className="text-xs text-neutral-400 mb-6">
-                  Saldo disponible: <span className="text-emerald-400 font-bold font-mono">${card.balance.toFixed(2)} MXN</span>
+                  Saldo disponible: <span className="text-emerald-400 font-bold font-mono">${Number(card?.balance ?? 0).toFixed(2)} MXN</span>
                 </p>
 
                 <form onSubmit={handleQuickRechargeSubmit} className="space-y-4 text-left">
