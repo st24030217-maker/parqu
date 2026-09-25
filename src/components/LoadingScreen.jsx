@@ -21,9 +21,9 @@ export const LoadingScreen = ({ onComplete }) => {
     >
       {/* Fondo interactivo Aceternity Webcam Pixel Grid a Color con Cámara en Vivo */}
       <WebcamPixelGrid
-        pixelSize={14}
-        gap={2}
-        autoStartCamera={true}
+        pixelSize={18}
+        gap={3}
+        autoStartCamera={false}
         showControls={false}
         className="h-full w-full"
       >

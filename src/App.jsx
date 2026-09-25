@@ -567,13 +567,16 @@ export default function App() {
     <ParkingProvider>
       <Toaster position="top-right" theme="dark" />
       <AnimatePresence mode="wait">
-        {isLoading && (
-          <ErrorBoundary fallbackText="Iniciando Parqu...">
+        {isLoading ? (
+          <ErrorBoundary key="loading-screen" fallbackText="Iniciando Parqu...">
             <LoadingScreen onComplete={handleStart} />
+          </ErrorBoundary>
+        ) : (
+          <ErrorBoundary key="main-content" fallbackText="Cargando Centro de Operaciones Parqu...">
+            <MainContent onReplayLoading={handleReplay} />
           </ErrorBoundary>
         )}
       </AnimatePresence>
-      <MainContent onReplayLoading={handleReplay} />
     </ParkingProvider>
   );
 }
