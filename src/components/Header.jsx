@@ -66,11 +66,6 @@ export const Header = ({ onReplayLoading }) => {
               <span className="font-mono text-xs text-neutral-300">Autocobro Activo</span>
             </div>
           )}
-
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900/90 border border-neutral-800 text-[11px] font-mono text-neutral-300">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            <span className="text-white font-bold">PARQU LIVE</span>
-          </div>
         </div>
 
       </div>
