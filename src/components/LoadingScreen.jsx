@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { WebcamPixelGrid } from './ui/webcam-pixel-grid';
 import { RadialGlowButton } from './ui/radial-glow-button';
@@ -7,6 +7,17 @@ import { TextAnimation } from './ui/staggerText';
 import { ArrowRight, Sparkles } from 'lucide-react';
 
 export const LoadingScreen = ({ onComplete }) => {
+  // Atajo de teclado: Enter o Barra espaciadora para iniciar inmediatamente
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        if (onComplete) onComplete();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onComplete]);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -15,11 +26,11 @@ export const LoadingScreen = ({ onComplete }) => {
         opacity: 0, 
         scale: 1.03, 
         filter: 'blur(10px)', 
-        transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } 
+        transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } 
       }}
       className="fixed inset-0 z-50 flex flex-col bg-black text-white overflow-hidden select-none"
     >
-      {/* Fondo interactivo Aceternity Webcam Pixel Grid a Color con Cámara en Vivo */}
+      {/* Fondo interactivo Aceternity Webcam Pixel Grid a Color con Ondas Cromáticas */}
       <WebcamPixelGrid
         pixelSize={18}
         gap={3}

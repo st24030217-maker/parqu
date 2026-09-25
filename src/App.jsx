@@ -15,6 +15,7 @@ import { HeroParallax } from './components/ui/hero-parallax';
 import { WobbleCard } from './components/ui/wobble-card';
 import { InterfaceCraftsCards } from './components/ui/interface-crafts-cards';
 import { Tabs } from './components/ui/tabs';
+import { LoadingScreen } from './components/LoadingScreen';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { 
   CreditCard, 
@@ -547,12 +548,38 @@ const MainContent = ({ onReplayLoading }) => {
 };
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleStart = () => {
+    setIsLoading(false);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    setTimeout(() => {
+      sileo.success({
+        title: '¡Bienvenido a Parqu!',
+        description: 'Pase digital y red inteligente de parquímetros sincronizados.',
+      });
+    }, 250);
+  };
+
+  const handleReplay = () => {
+    setIsLoading(true);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
   return (
     <ParkingProvider>
       <Toaster position="top-right" theme="dark" />
-      <ErrorBoundary key="main-app" fallbackText="Centro de Operaciones Parqu">
-        <MainContent />
-      </ErrorBoundary>
+      <AnimatePresence mode="wait">
+        {isLoading ? (
+          <ErrorBoundary key="loading-screen" fallbackText="Iniciando Parqu...">
+            <LoadingScreen onComplete={handleStart} />
+          </ErrorBoundary>
+        ) : (
+          <ErrorBoundary key="main-app" fallbackText="Centro de Operaciones Parqu">
+            <MainContent onReplayLoading={handleReplay} />
+          </ErrorBoundary>
+        )}
+      </AnimatePresence>
     </ParkingProvider>
   );
 }
