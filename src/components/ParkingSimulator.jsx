@@ -223,15 +223,6 @@ export const ParkingSimulator = () => {
         /* Cuando NO está estacionado */
         <div className="space-y-6">
           <div>
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-1">
-              <label className="text-xs uppercase tracking-wider font-bold text-neutral-300 block font-mono">
-                1. Mapa de Zonas & Ubicación Satelital (Estilo DiDi)
-              </label>
-              <span className="text-[11px] font-mono text-neutral-400">
-                Selecciona tu cajón en el mapa o en la lista
-              </span>
-            </div>
-
             <DiDiParkingMap
               selectedZone={selectedZone}
               onSelectZone={setSelectedZone}
