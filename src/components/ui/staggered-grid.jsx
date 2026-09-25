@@ -1,70 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { InteractiveParticles } from './interactive-particles';
-import { 
-  CreditCard, 
-  Zap, 
-  MapPin, 
-  Sparkles, 
-  ChevronRight
-} from 'lucide-react';
+import { ChevronDown, Sparkles, Activity } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function StaggeredGrid({
-  bentoItems = [],
   centerText = "BIENVENIDOS A PARQU",
   onSelectFeature,
   className = "",
 }) {
-  const [activeBento, setActiveBento] = useState(0);
   const containerRef = useRef(null);
   const titleSectionRef = useRef(null);
   const titleTextRef = useRef(null);
-  const bentoSectionRef = useRef(null);
 
-  // Bento Items Principales y Concretos
-  const defaultBento = [
-    {
-      id: 'bento-1',
-      title: 'Autocobro Continuo',
-      subtitle: '01. CERO FILAS • CERO MONEDAS',
-      desc: 'El sistema debita de forma ininterrumpida el tiempo de estancia exacto en el parquímetro, protegiéndote contra multas de tránsito.',
-      icon: <Zap className="w-6 h-6 text-white" />,
-      tag: 'CERO FILAS',
-      actionTab: 'autopay'
-    },
-    {
-      id: 'bento-2',
-      title: 'Tarjeta Digital Oficial',
-      subtitle: '02. PASE METROPOLITANO',
-      desc: 'Tu credencial oficial con saldo protegido, sincronización instantánea y código QR para lectura de inspectores viales.',
-      icon: <CreditCard className="w-6 h-6 text-white" />,
-      tag: 'PASE DIGITAL',
-      actionTab: 'dashboard'
-    },
-    {
-      id: 'bento-3',
-      title: 'Parquímetro en Tiempo Real',
-      subtitle: '03. CONTROL DE CAJONES',
-      desc: 'Selecciona cajones metropolitanos, observa el cronómetro dinámico y monitorea el gasto segundo a segundo en vivo.',
-      icon: <MapPin className="w-6 h-6 text-white" />,
-      tag: 'PARQUÍMETRO',
-      actionTab: 'dashboard'
-    }
-  ];
-
-  const bentoList = bentoItems.length > 0 ? bentoItems : defaultBento;
-
-  // Configuración de GSAP ScrollTrigger para la entrada escalonada y acomodo
   useEffect(() => {
     const ctx = gsap.context(() => {
-      
-      // 1. Animación del Título Principal "BIENVENIDOS A PARQU"
       if (titleTextRef.current) {
         const chars = titleTextRef.current.querySelectorAll('.char');
-        
         gsap.fromTo(chars, 
           {
             yPercent: 180,
@@ -91,34 +45,17 @@ export function StaggeredGrid({
           }
         );
       }
-
-      // 2. Animación de la sección Bento (Escalamiento y revelación suave)
-      if (bentoSectionRef.current) {
-        gsap.fromTo(bentoSectionRef.current,
-          {
-            y: 100,
-            autoAlpha: 0,
-            scale: 0.92,
-          },
-          {
-            y: 0,
-            autoAlpha: 1,
-            scale: 1,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: bentoSectionRef.current,
-              start: 'top 90%',
-              end: 'top 50%',
-              scrub: 1.4,
-            }
-          }
-        );
-      }
-
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
+
+  const handleScrollToPanel = () => {
+    const el = document.getElementById('panel-control-metropolitano');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <div ref={containerRef} className={`relative w-full overflow-hidden text-white ${className}`}>
@@ -126,7 +63,7 @@ export function StaggeredGrid({
       {/* 1. Header con Animación de Partículas GPU en las palabras "BIENVENIDO A PARQU" */}
       <section 
         ref={titleSectionRef}
-        className="pt-16 pb-8 px-4 flex flex-col items-center justify-center text-center relative z-10 [perspective:1000px] min-h-[460px] sm:min-h-[520px] bg-transparent"
+        className="pt-12 pb-6 px-4 flex flex-col items-center justify-center text-center relative z-10 [perspective:1000px] min-h-[360px] sm:min-h-[420px] bg-transparent"
       >
         {/* Capa de Partículas Interactivas Three.js que forman el texto "BIENVENIDO A PARQU" con fondo 100% transparente */}
         <div className="absolute inset-0 z-0 pointer-events-auto flex items-center justify-center overflow-hidden bg-transparent">
@@ -141,81 +78,18 @@ export function StaggeredGrid({
             className="w-full h-full bg-transparent"
           />
         </div>
-      </section>
 
-      {/* 2. Sección Bento Expandible (Pilares Principales) */}
-      <section 
-        ref={bentoSectionRef}
-        className="max-w-6xl mx-auto px-4 sm:px-6 py-6 pb-12 relative z-10"
-      >
-        <div className="text-xs font-mono uppercase tracking-[0.2em] text-neutral-400 mb-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-white" />
-            <span className="font-bold text-white">Pilares de la Plataforma</span>
-          </div>
-          <span className="text-[10px] text-neutral-500 hidden sm:inline-block">Pasa el cursor o haz clic para abrir un módulo</span>
-        </div>
-
-        <div className="flex flex-col md:flex-row gap-4 h-auto md:h-72 w-full">
-          {bentoList.map((bento, index) => {
-            const isActive = activeBento === index;
-            return (
-              <div
-                key={bento.id}
-                onClick={() => {
-                  setActiveBento(index);
-                  if (onSelectFeature && bento.actionTab) {
-                    onSelectFeature(bento.actionTab);
-                  }
-                }}
-                onMouseEnter={() => setActiveBento(index)}
-                className={`relative overflow-hidden rounded-3xl p-6 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] cursor-pointer border flex flex-col justify-between ${
-                  isActive
-                    ? 'md:w-3/5 bg-neutral-900/95 border-neutral-600 shadow-[0_0_40px_rgba(255,255,255,0.12)]'
-                    : 'md:w-1/5 bg-neutral-950/80 border-neutral-800/80 hover:border-neutral-700'
-                }`}
-              >
-                {/* Glow ambiental en tarjeta expandida */}
-                {isActive && (
-                  <div className="absolute -top-10 -right-10 w-52 h-52 bg-white/[0.06] rounded-full blur-3xl pointer-events-none" />
-                )}
-
-                {/* Encabezado */}
-                <div className="flex items-center justify-between w-full relative z-10">
-                  <span className="text-[10px] font-mono font-bold tracking-widest text-neutral-400 uppercase">
-                    {bento.tag}
-                  </span>
-                  <div className="p-2.5 rounded-2xl bg-neutral-900 border border-neutral-800 text-white">
-                    {bento.icon}
-                  </div>
-                </div>
-
-                {/* Contenido */}
-                <div className="relative z-10 space-y-1.5 mt-4">
-                  <span className="text-[10px] font-mono text-neutral-400 tracking-wider block">
-                    {bento.subtitle}
-                  </span>
-                  <h3 className="text-xl font-black text-white tracking-tight">
-                    {bento.title}
-                  </h3>
-                  
-                  {isActive && (
-                    <p className="text-xs sm:text-sm text-neutral-400 font-mono leading-relaxed pt-1 animate-in fade-in duration-300">
-                      {bento.desc}
-                    </p>
-                  )}
-                </div>
-
-                {/* Indicador de acción */}
-                {isActive && (
-                  <div className="pt-4 relative z-10 flex items-center gap-2 text-xs font-mono text-white font-bold">
-                    <span>Ir a este módulo</span>
-                    <ChevronRight className="w-4 h-4 text-white" />
-                  </div>
-                )}
-              </div>
-            );
-          })}
+        {/* Botón de Acceso Inmediato al Panel de Control Metropolitano */}
+        <div className="relative z-20 mt-auto pt-4 flex flex-col items-center gap-2">
+          <button
+            type="button"
+            onClick={handleScrollToPanel}
+            className="group px-6 py-2.5 rounded-full bg-neutral-900/90 hover:bg-white text-white hover:text-black border border-neutral-700/80 hover:border-white font-mono text-xs font-bold transition-all duration-300 flex items-center gap-2.5 shadow-[0_0_30px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(255,255,255,0.3)] cursor-pointer transform hover:scale-105 active:scale-95"
+          >
+            <Activity className="w-3.5 h-3.5 text-emerald-400 group-hover:text-black animate-pulse" />
+            <span>Acceder al Panel de Control Metropolitano</span>
+            <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+          </button>
         </div>
       </section>
 

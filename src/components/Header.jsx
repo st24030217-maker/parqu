@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { ShieldCheck, Clock, Zap, Sparkles } from 'lucide-react';
+import { ShieldCheck, Clock, Zap, Sparkles, Activity } from 'lucide-react';
 import { useParking } from '../context/ParkingContext';
 
-export const Header = ({ onReplayLoading }) => {
+export const Header = ({ onReplayLoading, onNavigateToPanel }) => {
   const { activeSession, vehicle } = useParking();
   const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -66,6 +66,24 @@ export const Header = ({ onReplayLoading }) => {
               <span className="font-mono text-xs text-neutral-300">Autocobro Activo</span>
             </div>
           )}
+
+          {/* Botón Acceso Rápido al Panel de Control Metropolitano */}
+          <button
+            type="button"
+            onClick={() => {
+              if (onNavigateToPanel) {
+                onNavigateToPanel();
+              } else {
+                const el = document.getElementById('panel-control-metropolitano');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white text-black hover:bg-neutral-200 text-xs font-mono font-bold transition active:scale-95 cursor-pointer shadow-[0_0_15px_rgba(255,255,255,0.25)]"
+            title="Ir directo al Panel de Control Metropolitano"
+          >
+            <Activity className="w-3.5 h-3.5 text-black" />
+            <span>Panel de Control</span>
+          </button>
         </div>
 
       </div>

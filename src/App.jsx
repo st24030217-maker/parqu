@@ -434,7 +434,13 @@ const MainContent = ({ onReplayLoading }) => {
       className="min-h-screen flex flex-col text-white selection:bg-white selection:text-black"
     >
       <div className="relative z-10 flex flex-col min-h-screen">
-        <Header onReplayLoading={onReplayLoading} />
+        <Header 
+          onReplayLoading={onReplayLoading} 
+          onNavigateToPanel={() => {
+            const el = document.getElementById('panel-control-metropolitano');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }}
+        />
 
         {/* Banner de Sesión Activa si está en otra pestaña */}
         {activeSession && activeTab !== 'dashboard' && (
@@ -462,10 +468,17 @@ const MainContent = ({ onReplayLoading }) => {
         <main 
           ref={systemRef} 
           id="interactive-system"
-          className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 scroll-mt-24"
+          className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 scroll-mt-24"
         >
           
-          {/* ENCABEZADO DEL CENTRO DE OPERACIONES */}
+          {/* 1. PANEL DE CONTROL METROPOLITANO (ACCESO INMEDIATO Y CENTRAL) */}
+          <AnimeMetricsHub 
+            onNavigateTab={handleSelectFeature}
+            onOpenRecharge={() => setShowRechargeQuickModal(true)}
+            onOpenQR={() => setShowQRQuickModal(true)}
+          />
+
+          {/* 2. ENCABEZADO DEL CENTRO DE OPERACIONES */}
           <div className="p-6 sm:p-8 rounded-3xl bg-neutral-950/90 border border-neutral-800/90 backdrop-blur-xl shadow-2xl flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div>
               <div className="flex items-center gap-2 mb-1.5 text-xs font-mono text-neutral-400">
@@ -503,14 +516,7 @@ const MainContent = ({ onReplayLoading }) => {
             </div>
           </div>
 
-          {/* 1. HUB DE MÉTRICAS Y TELEMETRÍA ORGANIZADO CON ANIME.JS */}
-          <AnimeMetricsHub 
-            onNavigateTab={handleSelectFeature}
-            onOpenRecharge={() => setShowRechargeQuickModal(true)}
-            onOpenQR={() => setShowQRQuickModal(true)}
-          />
-
-          {/* 2. HUD DE RADAR SATELITAL Y FRECUENCIA ANIME.JS */}
+          {/* 3. HUD DE RADAR SATELITAL Y FRECUENCIA ANIME.JS */}
           <AnimeTelemetryHud />
 
           {/* Modal Rápido de Recarga de Saldo */}

@@ -60,7 +60,7 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
   }, []);
 
   return (
-    <div className="w-full space-y-3 font-mono">
+    <div id="panel-control-metropolitano" className="w-full space-y-3 font-mono scroll-mt-28">
       {/* Subtítulo organizador */}
       <div className="flex items-center justify-between px-1">
         <div className="flex items-center gap-2 text-xs text-neutral-400">
