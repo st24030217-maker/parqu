@@ -16,6 +16,7 @@ import { useParking } from '../context/ParkingContext';
 import { formatCurrency, formatTimeFromSeconds, formatPlate } from '../utils/formatters';
 import { WobbleCard } from './ui/wobble-card';
 import { DiDiParkingMap } from './DiDiParkingMap';
+import { AnimeCounter } from './ui/anime-counter';
 
 const PARKING_ZONES = [
   { id: 'Z1', name: 'Zona Centro Histórico (Cajón #A-14)', ratePerHour: 18.00 },
@@ -157,7 +158,13 @@ export const ParkingSimulator = () => {
                   Monto a Cobrar (Autocobro)
                 </span>
                 <div className="font-mono text-4xl sm:text-5xl font-black text-emerald-400 drop-shadow-[0_0_25px_rgba(52,211,153,0.3)]">
-                  {formatCurrency(activeSession.currentCost)}
+                  <AnimeCounter
+                    value={activeSession.currentCost}
+                    prefix="$"
+                    decimals={2}
+                    duration={400}
+                    className="font-mono text-4xl sm:text-5xl font-black text-emerald-400"
+                  />
                 </div>
                 <div className="text-xs text-neutral-400 mt-1 flex items-center justify-center md:justify-start gap-1.5 font-mono">
                   <CurrencyDollarIcon size={14} className="text-amber-400 inline shrink-0" />

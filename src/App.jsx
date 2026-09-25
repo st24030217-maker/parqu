@@ -19,6 +19,7 @@ import { MultiStepLoader } from './components/ui/multi-step-loader';
 import { LoadingScreen } from './components/LoadingScreen';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { CurrencyDollarIcon } from './components/icons/currency-dollar-icon';
+import { AnimeTelemetryHud } from './components/ui/anime-telemetry-hud';
 import { 
   CreditCard, 
   Car, 
@@ -493,6 +494,9 @@ const MainContent = ({ onReplayLoading }) => {
               </div>
             </div>
           </div>
+
+          {/* HUD de Telemetría Dinámico impulsado por Anime.js v4 */}
+          <AnimeTelemetryHud />
 
           {/* APARTADO DE FUNCIONES RÁPIDAS (Tecnología @aceternity/interface-crafts-cards) */}
           <section id="apartado-funciones-rapidas" className="p-6 sm:p-8 rounded-3xl bg-neutral-950/90 border border-neutral-800/90 backdrop-blur-xl shadow-2xl relative overflow-hidden space-y-6">

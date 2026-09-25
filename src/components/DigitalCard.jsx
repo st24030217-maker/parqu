@@ -18,6 +18,8 @@ import { formatCurrency, formatPlate } from '../utils/formatters';
 
 import { DirectionAwareHover } from './ui/direction-aware-hover';
 import { CardContainer, CardBody, CardItem } from './ui/3d-card';
+import { AnimeCounter } from './ui/anime-counter';
+import { AnimeCardSheen } from './ui/anime-card-sheen';
 
 export const DigitalCard = () => {
   const { vehicle, owner, card, autoPay, addBalance, activeSession } = useParking();
@@ -84,11 +86,12 @@ export const DigitalCard = () => {
         <div className="flex items-center gap-2">
           <span className={`w-2 h-2 rounded-full ${isParked ? 'bg-amber-400 animate-ping' : 'bg-emerald-400'}`} />
           <span className="text-neutral-300 font-medium">
-            {isParked ? 'Cajón Activo' : 'Pase Virtual'}
+            {isParked ? 'Cajón Activo' : 'Saldo:'}{' '}
+            <AnimeCounter value={card.balance} prefix="$" decimals={2} suffix=" MXN" className="text-white font-bold" />
           </span>
         </div>
         <div className="flex items-center gap-1 text-neutral-400 font-medium group-hover:text-white transition-colors">
-          <span>Pasa el mouse para ver datos</span>
+          <span>Toca o pasa el mouse</span>
           <Sparkles className="w-3.5 h-3.5 text-white animate-pulse" />
         </div>
       </CardItem>
@@ -97,8 +100,10 @@ export const DigitalCard = () => {
 
   return (
     <div className="w-full">
-      {/* Contenedor 3D Card Tilt + Direction-Aware Hover */}
-      <CardContainer className="w-full">
+      {/* Contenedor Holográfico Interactivo con Anime.js */}
+      <AnimeCardSheen>
+        {/* Contenedor 3D Card Tilt + Direction-Aware Hover */}
+        <CardContainer className="w-full">
         <div className="relative w-full group">
           {/* Glow de fondo animado */}
           <div className={`absolute -inset-1 rounded-3xl blur-xl opacity-40 transition duration-1000 group-hover:opacity-85 ${
@@ -217,12 +222,22 @@ export const DigitalCard = () => {
                         Desactivado
                       </span>
                     )}
-                    <span className="text-[11px] text-neutral-400 font-mono block">
-                      {autoPay.fundingSource === 'WALLET_BALANCE' 
-                        ? `Saldo: ${formatCurrency(card.balance)}`
-                        : autoPay.bank || 'Tarjeta vinculada'
-                      }
-                    </span>
+                    <div className="text-[11px] text-neutral-400 font-mono block">
+                      {autoPay.fundingSource === 'WALLET_BALANCE' ? (
+                        <span className="flex items-center gap-1 justify-end">
+                          <span>Saldo:</span>
+                          <AnimeCounter
+                            value={card.balance}
+                            prefix="$"
+                            decimals={2}
+                            suffix=" MXN"
+                            className="font-bold text-white text-xs drop-shadow-[0_0_10px_rgba(255,255,255,0.4)]"
+                          />
+                        </span>
+                      ) : (
+                        autoPay.bank || 'Tarjeta vinculada'
+                      )}
+                    </div>
                   </div>
 
                   {/* Botón QR Flotante en 3D */}
@@ -246,6 +261,7 @@ export const DigitalCard = () => {
           </DirectionAwareHover>
         </div>
       </CardContainer>
+      </AnimeCardSheen>
 
       {/* Botones de acción rápida debajo de la tarjeta */}
       <div className="mt-4 flex items-center justify-between text-xs text-neutral-400 px-1 font-mono">
