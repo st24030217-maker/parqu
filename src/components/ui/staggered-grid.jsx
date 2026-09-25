@@ -323,22 +323,6 @@ export function StaggeredGrid({
           />
         </div>
 
-        {/* Contenido en primer plano: Todo uniforme en color blanco y fondo transparente */}
-        <div className="relative z-10 flex flex-col items-center justify-center pointer-events-none mt-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-transparent border border-white/40 text-xs font-mono text-white mb-6 backdrop-blur-sm shadow-[0_0_20px_rgba(255,255,255,0.15)] pointer-events-auto">
-            <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-            <span className="tracking-[0.25em] uppercase font-bold text-[11px] text-white">SISTEMA INTELIGENTE DE PARQUÍMETROS</span>
-          </div>
-
-          <p className="text-xs sm:text-sm md:text-base text-white font-mono max-w-2xl leading-relaxed px-4 drop-shadow-[0_0_15px_rgba(255,255,255,0.35)] pointer-events-auto font-medium">
-            Pasa el cursor sobre el texto de partículas para interactuar. Desliza hacia abajo para ver las funciones de <span className="text-white font-bold underline decoration-white/60">Parqu</span>.
-          </p>
-
-          <div className="flex items-center gap-2 mt-8 text-xs font-mono text-white animate-bounce pointer-events-auto font-medium">
-            <span className="text-white">Desliza para ver las funciones</span>
-            <ArrowDown className="w-3.5 h-3.5 text-white" />
-          </div>
-        </div>
       </section>
 
       {/* 2. Sección Bento Expandible (Pilares Principales) */}
