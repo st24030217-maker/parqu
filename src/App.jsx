@@ -30,7 +30,8 @@ import {
   ChevronRight,
   Sliders,
   QrCode,
-  Activity
+  Activity,
+  MapPin
 } from 'lucide-react';
 
 const MainContent = ({ onReplayLoading }) => {
@@ -69,8 +70,195 @@ const MainContent = ({ onReplayLoading }) => {
     }
   };
 
+  // Configuración de accesos directos para el Apartado de Funciones Rápidas (@aceternity/interface-crafts-cards)
+  const quickActionsItems = [
+    {
+      id: 'recharge',
+      icon: CurrencyDollarIcon,
+      title: 'Recargar Saldo',
+      subtitle: 'Añadir saldo express',
+      badge: `$${Number(card?.balance ?? 0).toFixed(2)}`,
+      badgeClassName: 'bg-emerald-950/60 text-emerald-300 border-emerald-700/50 font-mono',
+      iconBg: 'bg-emerald-950/80 border border-emerald-500/40 text-emerald-400',
+      borderClassName: 'border-neutral-800/80 hover:border-emerald-500/50',
+      glowGradient: 'from-emerald-500/15 via-transparent to-transparent',
+      footerText: 'Monedero Parqu Activo',
+      activeStatus: true,
+      onClick: () => setShowRechargeQuickModal(true),
+    },
+    {
+      id: 'qr-credential',
+      icon: QrCode,
+      title: 'Credencial QR',
+      subtitle: 'Inspección de tránsito',
+      badge: 'AES-256',
+      badgeClassName: 'bg-cyan-950/60 text-cyan-300 border-cyan-700/50 font-mono',
+      iconBg: 'bg-cyan-950/80 border border-cyan-500/40 text-cyan-400',
+      borderClassName: 'border-neutral-800/80 hover:border-cyan-500/50',
+      glowGradient: 'from-cyan-500/15 via-transparent to-transparent',
+      footerText: 'Pase Contactless Oficial',
+      activeStatus: true,
+      onClick: () => setShowQRQuickModal(true),
+    },
+    {
+      id: 'simulator',
+      icon: MapPin,
+      title: activeSession ? 'Cajón Ocupado' : 'Mapa DiDi & Cajones',
+      subtitle: activeSession ? activeSession.zoneName : 'Parquímetro satelital',
+      badge: activeSession ? 'EN VIVO' : 'GPS SATELITAL',
+      badgeClassName: activeSession ? 'bg-amber-950/60 text-amber-300 border-amber-700/50 animate-pulse font-mono' : 'bg-blue-950/60 text-blue-300 border-blue-700/50 font-mono',
+      iconBg: 'bg-blue-950/80 border border-blue-500/40 text-blue-400',
+      borderClassName: 'border-neutral-800/80 hover:border-blue-500/50',
+      glowGradient: 'from-blue-500/15 via-transparent to-transparent',
+      footerText: activeSession ? 'Debitando segundo a segundo' : 'Listo para estacionar',
+      activeStatus: activeSession !== null,
+      onClick: () => {
+        setActiveTab('dashboard');
+        sileo.info({
+          title: 'Mapa DiDi & Parquímetro',
+          description: 'Selecciona tu cajón en el mapa satelital interactivo.',
+        });
+      },
+    },
+    {
+      id: 'autopay',
+      icon: Zap,
+      title: 'Modo Autocobro',
+      subtitle: 'Débito continuo sin filas',
+      badge: autoPay?.enabled ? 'ACTIVO' : 'PAUSADO',
+      badgeClassName: autoPay?.enabled ? 'bg-emerald-950/60 text-emerald-300 border-emerald-700/50 font-mono' : 'bg-rose-950/60 text-rose-300 border-rose-700/50 font-mono',
+      iconBg: 'bg-purple-950/80 border border-purple-500/40 text-purple-400',
+      borderClassName: 'border-neutral-800/80 hover:border-purple-500/50',
+      glowGradient: 'from-purple-500/15 via-transparent to-transparent',
+      footerText: autoPay?.fundingSource === 'CARD' ? 'Débito Bancario' : 'Saldo Virtual',
+      activeStatus: Boolean(autoPay?.enabled),
+      onClick: () => {
+        setActiveTab('autopay');
+        sileo.info({
+          title: 'Configuración de Autocobro',
+          description: 'Ajusta límites, cuenta bancaria y reglas de débito.',
+        });
+      },
+    },
+    {
+      id: 'vehicle',
+      icon: Car,
+      title: vehicle?.plates || 'XYZ-7842',
+      subtitle: `${vehicle?.brand || 'Volkswagen'} ${vehicle?.model || 'Jetta'}`,
+      badge: 'PADRÓN',
+      badgeClassName: 'bg-amber-950/60 text-amber-300 border-amber-700/50 font-mono',
+      iconBg: 'bg-amber-950/80 border border-amber-500/40 text-amber-400',
+      borderClassName: 'border-neutral-800/80 hover:border-amber-500/50',
+      glowGradient: 'from-amber-500/15 via-transparent to-transparent',
+      footerText: owner?.fullName || 'Sebastián Salinas',
+      activeStatus: true,
+      onClick: () => {
+        setActiveTab('vehicle');
+        sileo.info({
+          title: 'Padrón Vehicular',
+          description: `Vehículo actual: ${vehicle.plates} • ${vehicle.brand} ${vehicle.model}`,
+        });
+      },
+    },
+  ];
+
   // Definición oficial de pestañas con Aceternity UI Tabs
   const systemTabs = [
+    {
+      title: 'Funciones Rápidas',
+      value: 'quick-actions',
+      icon: Zap,
+      badge: 'CRAFTS',
+      content: (
+        <div className="space-y-6 animate-in fade-in duration-300">
+          <div className="p-6 sm:p-8 rounded-3xl bg-neutral-950/90 border border-neutral-800/90 backdrop-blur-xl shadow-2xl space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-neutral-800/80 pb-4">
+              <div>
+                <div className="flex items-center gap-2 mb-1 text-xs font-mono text-neutral-400">
+                  <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                  <span className="tracking-widest uppercase font-bold text-white text-[11px]">
+                    ACETERNITY INTERFACE CRAFTS
+                  </span>
+                  <span className="text-neutral-600">•</span>
+                  <span className="text-neutral-400 text-[11px]">PANEL DE ACCESO INMEDIATO</span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2.5 font-mono">
+                  <Zap className="w-5 h-5 text-white" />
+                  Apartado de Funciones Rápidas
+                </h3>
+                <p className="text-xs text-neutral-400 mt-1 font-mono">
+                  Ejecuta recargas, abre la credencial QR para tránsitos, explora cajones en el mapa DiDi o administra el autocobro en 1 toque.
+                </p>
+              </div>
+
+              <span className="text-[11px] font-bold text-neutral-200 bg-neutral-900 border border-neutral-700/80 px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm font-mono w-fit">
+                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                5 Accesos Configurados
+              </span>
+            </div>
+
+            <InterfaceCraftsCards items={quickActionsItems} />
+
+            {/* Accesos de 1 clic a montos rápidos de recarga y acciones instantáneas */}
+            <div className="pt-4 border-t border-neutral-800/80 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div 
+                onClick={() => setShowRechargeQuickModal(true)}
+                className="p-4 rounded-2xl bg-neutral-900/60 border border-neutral-800 hover:border-emerald-500/50 cursor-pointer transition group"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-bold text-white font-mono flex items-center gap-1.5">
+                    <CurrencyDollarIcon size={14} className="text-emerald-400" />
+                    Recarga Inmediata
+                  </span>
+                  <span className="text-[10px] font-mono text-emerald-400 px-2 py-0.5 rounded-full bg-emerald-950/60 border border-emerald-700/50">
+                    EXPRESS
+                  </span>
+                </div>
+                <p className="text-[11px] text-neutral-400 font-mono">
+                  Añade $100, $200 o $500 a tu tarjeta Parqu sin comisiones.
+                </p>
+              </div>
+
+              <div 
+                onClick={() => setShowQRQuickModal(true)}
+                className="p-4 rounded-2xl bg-neutral-900/60 border border-neutral-800 hover:border-cyan-500/50 cursor-pointer transition group"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-bold text-white font-mono flex items-center gap-1.5">
+                    <QrCode className="w-3.5 h-3.5 text-cyan-400" />
+                    Credencial QR Oficial
+                  </span>
+                  <span className="text-[10px] font-mono text-cyan-400 px-2 py-0.5 rounded-full bg-cyan-950/60 border border-cyan-700/50">
+                    AES-256
+                  </span>
+                </div>
+                <p className="text-[11px] text-neutral-400 font-mono">
+                  Muestra tu pase contactless al oficial vial para verificar estancia.
+                </p>
+              </div>
+
+              <div 
+                onClick={() => handleSelectFeature('dashboard')}
+                className="p-4 rounded-2xl bg-neutral-900/60 border border-neutral-800 hover:border-indigo-500/50 cursor-pointer transition group"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-bold text-white font-mono flex items-center gap-1.5">
+                    <MapPin className="w-3.5 h-3.5 text-indigo-400" />
+                    Mapa Satelital DiDi
+                  </span>
+                  <span className="text-[10px] font-mono text-indigo-400 px-2 py-0.5 rounded-full bg-indigo-950/60 border border-indigo-700/50">
+                    EN VIVO
+                  </span>
+                </div>
+                <p className="text-[11px] text-neutral-400 font-mono">
+                  Ubica cajones disponibles cerca de tu posición GPS y calcula tarifas.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+    },
     {
       title: 'Tarjeta & Parquímetro',
       value: 'dashboard',
@@ -243,140 +431,65 @@ const MainContent = ({ onReplayLoading }) => {
           className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 scroll-mt-24"
         >
           
-          {/* ENCABEZADO PRINCIPAL DEL CENTRO DE OPERACIONES & ACCESO RÁPIDO */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-neutral-950/90 border border-neutral-800/90 backdrop-blur-xl shadow-2xl space-y-6">
-            
-            {/* Fila Superior: Título, Estatus en Vivo */}
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          {/* ENCABEZADO DEL CENTRO DE OPERACIONES */}
+          <div className="p-6 sm:p-8 rounded-3xl bg-neutral-950/90 border border-neutral-800/90 backdrop-blur-xl shadow-2xl flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div>
+              <div className="flex items-center gap-2 mb-1.5 text-xs font-mono text-neutral-400">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="tracking-widest uppercase font-bold text-emerald-300">SISTEMA METROPOLITANO EN VIVO</span>
+                <span className="text-neutral-600">•</span>
+                <span className="text-neutral-400">0 Filas • 0 Monedas</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-3">
+                <span>Centro de Operaciones Parqu</span>
+              </h2>
+              <p className="text-xs sm:text-sm text-neutral-400 mt-1 font-mono">
+                Control centralizado de tarjeta virtual, parquímetros municipales y telemetría de autocobro.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-neutral-900/90 border border-neutral-800/80 shrink-0">
+              <Activity className="w-4 h-4 text-emerald-400 animate-pulse" />
+              <div className="text-left font-mono">
+                <div className="text-[10px] text-neutral-400 uppercase tracking-widest font-bold">Telemetría Online</div>
+                <div className="text-xs font-bold text-white">Red Municipal Activa</div>
+              </div>
+            </div>
+          </div>
+
+          {/* APARTADO DE FUNCIONES RÁPIDAS (Tecnología @aceternity/interface-crafts-cards) */}
+          <section id="apartado-funciones-rapidas" className="p-6 sm:p-8 rounded-3xl bg-neutral-950/90 border border-neutral-800/90 backdrop-blur-xl shadow-2xl relative overflow-hidden space-y-6">
+            <div className="absolute top-0 right-1/4 w-96 h-32 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-800/80 pb-5">
               <div>
-                <div className="flex items-center gap-2 mb-1.5 text-xs font-mono text-neutral-400">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="tracking-widest uppercase font-bold text-emerald-300">SISTEMA METROPOLITANO EN VIVO</span>
+                <div className="flex items-center gap-2 mb-1 text-xs font-mono text-neutral-400">
+                  <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                  <span className="tracking-widest uppercase font-bold text-white text-[11px]">
+                    ACETERNITY INTERFACE CRAFTS
+                  </span>
                   <span className="text-neutral-600">•</span>
-                  <span className="text-neutral-400">0 Filas • 0 Monedas</span>
+                  <span className="text-neutral-400 text-[11px]">ACCIONES INMEDIATAS EN 1 TOQUE</span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-3">
-                  <span>Centro de Operaciones Parqu</span>
-                </h2>
-                <p className="text-xs sm:text-sm text-neutral-400 mt-1 font-mono">
-                  Control centralizado de tarjeta virtual, parquímetros municipales y telemetría de autocobro.
+                <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2.5 font-mono">
+                  <Zap className="w-5 h-5 text-white" />
+                  Apartado de Funciones Rápidas
+                </h3>
+                <p className="text-xs text-neutral-400 mt-1 font-mono">
+                  Accesos directos inteligentes para recargas, credencial QR, mapa de cajones DiDi, autocobro y padrón vehicular.
                 </p>
               </div>
 
-              <div className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-neutral-900/90 border border-neutral-800/80">
-                <Activity className="w-4 h-4 text-emerald-400 animate-pulse" />
-                <div className="text-left font-mono">
-                  <div className="text-[10px] text-neutral-400 uppercase tracking-widest font-bold">Telemetría Online</div>
-                  <div className="text-xs font-bold text-white">Red Municipal Activa</div>
-                </div>
-              </div>
-            </div>
-
-            {/* BARRA DE ACCESO RÁPIDO (INTERFACE CRAFTS CARDS) */}
-            <div className="pt-4 border-t border-neutral-800/80">
-              <div className="flex items-center justify-between mb-3 text-[11px] font-mono text-neutral-400 uppercase tracking-wider">
-                <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 font-mono">
+                <span className="text-[11px] font-bold text-neutral-200 bg-neutral-900 border border-neutral-700/80 px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm">
                   <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                  <span className="font-bold text-white">Acceso Rápido • Interface Crafts</span>
-                </div>
-                <span className="text-neutral-500">Ejecución inmediata en 1 toque</span>
+                  5 Funciones Rápidas Conectadas
+                </span>
               </div>
-
-              <InterfaceCraftsCards
-                items={[
-                  {
-                    id: 'recharge',
-                    icon: CurrencyDollarIcon,
-                    title: 'Recargar Saldo',
-                    subtitle: 'Añadir saldo express',
-                    badge: `$${Number(card?.balance ?? 0).toFixed(2)}`,
-                    badgeClassName: 'bg-emerald-950/60 text-emerald-300 border-emerald-700/50 font-mono',
-                    iconBg: 'bg-emerald-950/80 border border-emerald-500/40 text-emerald-400',
-                    borderClassName: 'border-neutral-800/80 hover:border-emerald-500/50',
-                    glowGradient: 'from-emerald-500/15 via-transparent to-transparent',
-                    footerText: 'Monedero Parqu Activo',
-                    activeStatus: true,
-                    onClick: () => setShowRechargeQuickModal(true),
-                  },
-                  {
-                    id: 'qr-credential',
-                    icon: QrCode,
-                    title: 'Credencial QR',
-                    subtitle: 'Inspección de tránsito',
-                    badge: 'AES-256',
-                    badgeClassName: 'bg-cyan-950/60 text-cyan-300 border-cyan-700/50 font-mono',
-                    iconBg: 'bg-cyan-950/80 border border-cyan-500/40 text-cyan-400',
-                    borderClassName: 'border-neutral-800/80 hover:border-cyan-500/50',
-                    glowGradient: 'from-cyan-500/15 via-transparent to-transparent',
-                    footerText: 'Pase Contactless Oficial',
-                    activeStatus: true,
-                    onClick: () => setShowQRQuickModal(true),
-                  },
-                  {
-                    id: 'simulator',
-                    icon: Clock,
-                    title: activeSession ? 'Cajón Activo' : 'Simular Estancia',
-                    subtitle: activeSession ? activeSession.zoneName : 'Parquímetro en vivo',
-                    badge: activeSession ? 'EN VIVO' : '$0.25/MIN',
-                    badgeClassName: activeSession ? 'bg-amber-950/60 text-amber-300 border-amber-700/50 animate-pulse font-mono' : 'bg-indigo-950/60 text-indigo-300 border-indigo-700/50 font-mono',
-                    iconBg: 'bg-indigo-950/80 border border-indigo-500/40 text-indigo-400',
-                    borderClassName: 'border-neutral-800/80 hover:border-indigo-500/50',
-                    glowGradient: 'from-indigo-500/15 via-transparent to-transparent',
-                    footerText: activeSession ? 'Debitando segundo a segundo' : 'Listo para estacionar',
-                    activeStatus: activeSession !== null,
-                    onClick: () => {
-                      setActiveTab('dashboard');
-                      sileo.info({
-                        title: 'Simulador de Parquímetro',
-                        description: 'Selecciona tu cajón metropolitano o inicia estancia.',
-                      });
-                    },
-                  },
-                  {
-                    id: 'autopay',
-                    icon: Zap,
-                    title: 'Modo Autocobro',
-                    subtitle: 'Débito continuo sin filas',
-                    badge: autoPay?.enabled ? 'ACTIVO' : 'PAUSADO',
-                    badgeClassName: autoPay?.enabled ? 'bg-emerald-950/60 text-emerald-300 border-emerald-700/50 font-mono' : 'bg-rose-950/60 text-rose-300 border-rose-700/50 font-mono',
-                    iconBg: 'bg-purple-950/80 border border-purple-500/40 text-purple-400',
-                    borderClassName: 'border-neutral-800/80 hover:border-purple-500/50',
-                    glowGradient: 'from-purple-500/15 via-transparent to-transparent',
-                    footerText: autoPay?.fundingSource === 'CARD' ? 'Débito Bancario' : 'Saldo Virtual',
-                    activeStatus: Boolean(autoPay?.enabled),
-                    onClick: () => {
-                      setActiveTab('autopay');
-                      sileo.info({
-                        title: 'Configuración de Autocobro',
-                        description: 'Ajusta límites, cuenta bancaria y reglas de débito.',
-                      });
-                    },
-                  },
-                  {
-                    id: 'vehicle',
-                    icon: Car,
-                    title: vehicle?.plates || 'XYZ-7842',
-                    subtitle: `${vehicle?.brand || 'Volkswagen'} ${vehicle?.model || 'Jetta'}`,
-                    badge: 'PADRÓN',
-                    badgeClassName: 'bg-amber-950/60 text-amber-300 border-amber-700/50 font-mono',
-                    iconBg: 'bg-amber-950/80 border border-amber-500/40 text-amber-400',
-                    borderClassName: 'border-neutral-800/80 hover:border-amber-500/50',
-                    glowGradient: 'from-amber-500/15 via-transparent to-transparent',
-                    footerText: owner?.fullName || 'Sebastián Salinas',
-                    activeStatus: true,
-                    onClick: () => {
-                      setActiveTab('vehicle');
-                      sileo.info({
-                        title: 'Padrón Vehicular',
-                        description: `Vehículo actual: ${vehicle.plates} • ${vehicle.brand} ${vehicle.model}`,
-                      });
-                    },
-                  },
-                ]}
-              />
             </div>
 
-          </div>
+            <InterfaceCraftsCards items={quickActionsItems} />
+          </section>
 
           {/* Modal Rápido de Recarga de Saldo */}
           {showRechargeQuickModal && (
