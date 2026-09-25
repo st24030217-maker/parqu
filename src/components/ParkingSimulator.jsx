@@ -11,6 +11,7 @@ import {
   ShieldCheck,
   Sparkles
 } from 'lucide-react';
+import { CurrencyDollarIcon } from './icons/currency-dollar-icon';
 import { useParking } from '../context/ParkingContext';
 import { formatCurrency, formatTimeFromSeconds, formatPlate } from '../utils/formatters';
 import { WobbleCard } from './ui/wobble-card';
@@ -155,8 +156,8 @@ export const ParkingSimulator = () => {
                 <div className="font-mono text-4xl sm:text-5xl font-black text-emerald-400 drop-shadow-[0_0_25px_rgba(52,211,153,0.3)]">
                   {formatCurrency(activeSession.currentCost)}
                 </div>
-                <div className="text-xs text-neutral-400 mt-1 flex items-center justify-center md:justify-start gap-1 font-mono">
-                  <Zap className="w-3.5 h-3.5 text-amber-400" />
+                <div className="text-xs text-neutral-400 mt-1 flex items-center justify-center md:justify-start gap-1.5 font-mono">
+                  <CurrencyDollarIcon size={14} className="text-amber-400 inline shrink-0" />
                   <span>Tarifa: {formatCurrency(activeSession.ratePerHour)}/hr</span>
                 </div>
               </div>
@@ -238,8 +239,9 @@ export const ParkingSimulator = () => {
                         <span className="text-sm font-bold text-white block font-mono">
                           {zone.name}
                         </span>
-                        <span className="text-xs text-neutral-400 font-mono">
-                          Tarifa: {formatCurrency(zone.ratePerHour)} por hora
+                        <span className="text-xs text-neutral-400 font-mono flex items-center gap-1 mt-0.5">
+                          <CurrencyDollarIcon size={12} className="text-indigo-400 inline shrink-0" />
+                          <span>Tarifa: {formatCurrency(zone.ratePerHour)} por hora</span>
                         </span>
                       </div>
                     </div>

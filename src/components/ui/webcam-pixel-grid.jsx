@@ -21,6 +21,7 @@ export function WebcamPixelGrid({
   interactive = true,
   autoStartCamera = false,
   showControls = false,
+  monochrome = true,
   onCameraStatusChange,
   children,
 }) {
@@ -208,44 +209,74 @@ export function WebcamPixelGrid({
             let green = pixelData[index + 1];
             let blue = pixelData[index + 2];
 
-            if (mouse.active) {
-              const dx = centerX - mouse.x;
-              const dy = centerY - mouse.y;
-              const dist = Math.hypot(dx, dy);
-              if (dist < 140) {
-                const boost = (1 - dist / 140) * 80;
-                red = Math.min(255, red + boost);
-                green = Math.min(255, green + boost);
-                blue = Math.min(255, blue + boost);
+            if (monochrome) {
+              let gray = Math.round(0.299 * red + 0.587 * green + 0.114 * blue);
+              if (mouse.active) {
+                const dx = centerX - mouse.x;
+                const dy = centerY - mouse.y;
+                const dist = Math.hypot(dx, dy);
+                if (dist < 140) {
+                  const boost = (1 - dist / 140) * 80;
+                  gray = Math.min(255, Math.round(gray + boost));
+                }
               }
+              colorFill = `rgb(${gray},${gray},${gray})`;
+            } else {
+              if (mouse.active) {
+                const dx = centerX - mouse.x;
+                const dy = centerY - mouse.y;
+                const dist = Math.hypot(dx, dy);
+                if (dist < 140) {
+                  const boost = (1 - dist / 140) * 80;
+                  red = Math.min(255, red + boost);
+                  green = Math.min(255, green + boost);
+                  blue = Math.min(255, blue + boost);
+                }
+              }
+              colorFill = `rgb(${red},${green},${blue})`;
             }
-
-            colorFill = `rgb(${red},${green},${blue})`;
           } else {
-            // Ondas cromáticas procedurales hiperfluidas
+            // Ondas monocromáticas procedurales en blanco y negro (Grayscale / B&W)
             const distToCenter = Math.hypot(centerX - halfW, centerY - halfH);
             const wave1 = Math.sin(c * 0.14 + time * 1.6);
             const wave2 = Math.cos(r * 0.14 - time * 1.3);
             const ripple = Math.sin(distToCenter * 0.02 - time * 2.2);
 
             const rawIntensity = (wave1 * 0.35 + wave2 * 0.35 + ripple * 0.3) * 0.5 + 0.5;
-            
-            let hue = (c * 4 + r * 3 + time * 32) % 360;
-            let saturation = 90;
-            let lightness = Math.max(10, Math.min(65, rawIntensity * 60 + 10));
 
-            if (mouse.active) {
-              const dx = centerX - mouse.x;
-              const dy = centerY - mouse.y;
-              const dist = Math.hypot(dx, dy);
-              if (dist < 160) {
-                const mousePower = 1 - dist / 160;
-                lightness = Math.min(85, lightness + mousePower * 45);
-                hue = (hue + mousePower * 60) % 360;
+            if (monochrome) {
+              // Escala de grises pura / Blanco y negro estilizado
+              let grayVal = Math.round(18 + rawIntensity * 135);
+
+              if (mouse.active) {
+                const dx = centerX - mouse.x;
+                const dy = centerY - mouse.y;
+                const dist = Math.hypot(dx, dy);
+                if (dist < 160) {
+                  const mousePower = 1 - dist / 160;
+                  grayVal = Math.min(255, Math.round(grayVal + mousePower * 115));
+                }
               }
-            }
 
-            colorFill = getHslRgb(hue, saturation, lightness);
+              colorFill = `rgb(${grayVal},${grayVal},${grayVal})`;
+            } else {
+              let hue = (c * 4 + r * 3 + time * 32) % 360;
+              let saturation = 90;
+              let lightness = Math.max(10, Math.min(65, rawIntensity * 60 + 10));
+
+              if (mouse.active) {
+                const dx = centerX - mouse.x;
+                const dy = centerY - mouse.y;
+                const dist = Math.hypot(dx, dy);
+                if (dist < 160) {
+                  const mousePower = 1 - dist / 160;
+                  lightness = Math.min(85, lightness + mousePower * 45);
+                  hue = (hue + mousePower * 60) % 360;
+                }
+              }
+
+              colorFill = getHslRgb(hue, saturation, lightness);
+            }
           }
 
           ctx.fillStyle = colorFill;
@@ -265,7 +296,7 @@ export function WebcamPixelGrid({
         cancelAnimationFrame(animFrameRef.current);
       }
     };
-  }, [pixelSize, gap, isCameraActive, interactive]);
+  }, [pixelSize, gap, isCameraActive, interactive, monochrome]);
 
   return (
     <div

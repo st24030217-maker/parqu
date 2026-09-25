@@ -12,6 +12,7 @@ import {
   FileCheck2,
   Sparkles
 } from 'lucide-react';
+import { CurrencyDollarIcon } from './icons/currency-dollar-icon';
 import { useParking } from '../context/ParkingContext';
 import { WobbleCard } from './ui/wobble-card';
 
@@ -299,7 +300,9 @@ export const AutoPaymentConfig = () => {
               Tope Máximo de Autocobro por Sesión (MXN)
             </label>
             <div className="relative">
-              <span className="absolute left-3.5 top-2.5 text-neutral-500 text-sm font-mono">$</span>
+              <span className="absolute left-3 top-2.5 text-neutral-500 pointer-events-none flex items-center justify-center">
+                <CurrencyDollarIcon size={16} strokeWidth={2} className="text-neutral-400" />
+              </span>
               <input
                 type="number"
                 name="maxLimitPerSession"
@@ -307,7 +310,7 @@ export const AutoPaymentConfig = () => {
                 max="800"
                 value={formData.maxLimitPerSession}
                 onChange={handleChange}
-                className="w-full pl-8 pr-3.5 py-2.5 rounded-xl bg-neutral-900 border border-neutral-800 text-white font-mono focus:outline-none focus:border-indigo-500 transition text-sm"
+                className="w-full pl-9 pr-3.5 py-2.5 rounded-xl bg-neutral-900 border border-neutral-800 text-white font-mono focus:outline-none focus:border-indigo-500 transition text-sm"
               />
             </div>
             <p className="text-[11px] text-neutral-400 mt-1 font-mono">

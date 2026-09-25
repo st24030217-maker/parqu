@@ -10,6 +10,7 @@ import {
   TrendingUp,
   CreditCard
 } from 'lucide-react';
+import { CurrencyDollarIcon } from './icons/currency-dollar-icon';
 import { useParking } from '../context/ParkingContext';
 import { formatCurrency, formatDate, formatPlate } from '../utils/formatters';
 import { WobbleCard } from './ui/wobble-card';
@@ -46,7 +47,10 @@ export const TransactionHistory = () => {
         <div className="flex items-center gap-3 font-mono">
           <div className="text-right">
             <span className="text-[10px] uppercase tracking-wider text-neutral-400 block">Total Acumulado</span>
-            <span className="text-lg font-black text-emerald-400">{formatCurrency(totalSpent)}</span>
+            <span className="text-lg font-black text-emerald-400 flex items-center justify-end gap-1">
+              <CurrencyDollarIcon size={16} className="text-emerald-400" />
+              <span>{formatCurrency(totalSpent)}</span>
+            </span>
           </div>
           <span className="text-xs font-mono text-white bg-neutral-900/90 border border-neutral-800 px-3.5 py-1.5 rounded-full">
             {transactions.length} Registros
@@ -96,8 +100,11 @@ export const TransactionHistory = () => {
                       {txn.method}
                     </span>
                   </td>
-                  <td className="py-3.5 px-4 text-right font-bold text-sm text-emerald-400">
-                    {formatCurrency(txn.amount)}
+                  <td className="py-3.5 px-4 text-right font-bold text-sm text-emerald-400 font-mono">
+                    <span className="inline-flex items-center gap-1 justify-end">
+                      <CurrencyDollarIcon size={13} className="text-emerald-400 inline shrink-0" />
+                      <span>{formatCurrency(txn.amount)}</span>
+                    </span>
                   </td>
                   <td className="py-3.5 px-4 text-center">
                     <button

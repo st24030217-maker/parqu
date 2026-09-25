@@ -30,10 +30,11 @@ export const LoadingScreen = ({ onComplete }) => {
       }}
       className="fixed inset-0 z-50 flex flex-col bg-black text-white overflow-hidden select-none"
     >
-      {/* Fondo interactivo Aceternity Webcam Pixel Grid a Color con Ondas Cromáticas */}
+      {/* Fondo interactivo Aceternity Webcam Pixel Grid Monocromático Blanco y Negro */}
       <WebcamPixelGrid
         pixelSize={18}
         gap={3}
+        monochrome={true}
         autoStartCamera={false}
         showControls={false}
         className="h-full w-full"
@@ -54,7 +55,7 @@ export const LoadingScreen = ({ onComplete }) => {
           </motion.div>
 
           {/* Hero Central: Logotipo Parqu, Animación Flip-Fade Text y Botón "Empecemos" */}
-          <main className="flex flex-col items-center justify-center text-center max-w-xl w-full my-auto space-y-7">
+          <main className="flex flex-col items-center justify-center text-center max-w-xl w-full my-auto space-y-8">
             
             {/* Logotipo Parqu 100% Transparente con resplandor */}
             <motion.div
@@ -90,15 +91,11 @@ export const LoadingScreen = ({ onComplete }) => {
               />
             </div>
 
-            <p className="text-xs sm:text-sm font-mono text-neutral-300 max-w-md drop-shadow-md">
-              Control de parquímetros inteligentes, tarjeta virtual y telemetría de autocobro continuo.
-            </p>
-
             {/* BOTÓN PRINCIPAL CON ANIMACIÓN RADIAL GLOW: Empecemos */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="pt-2 flex flex-col items-center justify-center"
             >
               <RadialGlowButton

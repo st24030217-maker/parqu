@@ -17,6 +17,7 @@ import { InterfaceCraftsCards } from './components/ui/interface-crafts-cards';
 import { Tabs } from './components/ui/tabs';
 import { LoadingScreen } from './components/LoadingScreen';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import { CurrencyDollarIcon } from './components/icons/currency-dollar-icon';
 import { 
   CreditCard, 
   Car, 
@@ -285,11 +286,11 @@ const MainContent = ({ onReplayLoading }) => {
                 items={[
                   {
                     id: 'recharge',
-                    icon: CreditCard,
+                    icon: CurrencyDollarIcon,
                     title: 'Recargar Saldo',
                     subtitle: 'Añadir saldo express',
                     badge: `$${Number(card?.balance ?? 0).toFixed(2)}`,
-                    badgeClassName: 'bg-emerald-950/60 text-emerald-300 border-emerald-700/50',
+                    badgeClassName: 'bg-emerald-950/60 text-emerald-300 border-emerald-700/50 font-mono',
                     iconBg: 'bg-emerald-950/80 border border-emerald-500/40 text-emerald-400',
                     borderClassName: 'border-neutral-800/80 hover:border-emerald-500/50',
                     glowGradient: 'from-emerald-500/15 via-transparent to-transparent',
@@ -303,7 +304,7 @@ const MainContent = ({ onReplayLoading }) => {
                     title: 'Credencial QR',
                     subtitle: 'Inspección de tránsito',
                     badge: 'AES-256',
-                    badgeClassName: 'bg-cyan-950/60 text-cyan-300 border-cyan-700/50',
+                    badgeClassName: 'bg-cyan-950/60 text-cyan-300 border-cyan-700/50 font-mono',
                     iconBg: 'bg-cyan-950/80 border border-cyan-500/40 text-cyan-400',
                     borderClassName: 'border-neutral-800/80 hover:border-cyan-500/50',
                     glowGradient: 'from-cyan-500/15 via-transparent to-transparent',
@@ -317,7 +318,7 @@ const MainContent = ({ onReplayLoading }) => {
                     title: activeSession ? 'Cajón Activo' : 'Simular Estancia',
                     subtitle: activeSession ? activeSession.zoneName : 'Parquímetro en vivo',
                     badge: activeSession ? 'EN VIVO' : '$0.25/MIN',
-                    badgeClassName: activeSession ? 'bg-amber-950/60 text-amber-300 border-amber-700/50 animate-pulse' : 'bg-indigo-950/60 text-indigo-300 border-indigo-700/50',
+                    badgeClassName: activeSession ? 'bg-amber-950/60 text-amber-300 border-amber-700/50 animate-pulse font-mono' : 'bg-indigo-950/60 text-indigo-300 border-indigo-700/50 font-mono',
                     iconBg: 'bg-indigo-950/80 border border-indigo-500/40 text-indigo-400',
                     borderClassName: 'border-neutral-800/80 hover:border-indigo-500/50',
                     glowGradient: 'from-indigo-500/15 via-transparent to-transparent',
@@ -337,7 +338,7 @@ const MainContent = ({ onReplayLoading }) => {
                     title: 'Modo Autocobro',
                     subtitle: 'Débito continuo sin filas',
                     badge: autoPay?.enabled ? 'ACTIVO' : 'PAUSADO',
-                    badgeClassName: autoPay?.enabled ? 'bg-emerald-950/60 text-emerald-300 border-emerald-700/50' : 'bg-rose-950/60 text-rose-300 border-rose-700/50',
+                    badgeClassName: autoPay?.enabled ? 'bg-emerald-950/60 text-emerald-300 border-emerald-700/50 font-mono' : 'bg-rose-950/60 text-rose-300 border-rose-700/50 font-mono',
                     iconBg: 'bg-purple-950/80 border border-purple-500/40 text-purple-400',
                     borderClassName: 'border-neutral-800/80 hover:border-purple-500/50',
                     glowGradient: 'from-purple-500/15 via-transparent to-transparent',
@@ -357,7 +358,7 @@ const MainContent = ({ onReplayLoading }) => {
                     title: vehicle?.plates || 'XYZ-7842',
                     subtitle: `${vehicle?.brand || 'Volkswagen'} ${vehicle?.model || 'Jetta'}`,
                     badge: 'PADRÓN',
-                    badgeClassName: 'bg-amber-950/60 text-amber-300 border-amber-700/50',
+                    badgeClassName: 'bg-amber-950/60 text-amber-300 border-amber-700/50 font-mono',
                     iconBg: 'bg-amber-950/80 border border-amber-500/40 text-amber-400',
                     borderClassName: 'border-neutral-800/80 hover:border-amber-500/50',
                     glowGradient: 'from-amber-500/15 via-transparent to-transparent',
@@ -381,15 +382,15 @@ const MainContent = ({ onReplayLoading }) => {
           {showRechargeQuickModal && (
             <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
               <div className="bg-neutral-950 border border-neutral-800 rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
-                <div className="w-12 h-12 rounded-2xl bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mx-auto mb-3">
-                  <CreditCard className="w-6 h-6" />
+                <div className="w-12 h-12 rounded-2xl bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mx-auto mb-3 shadow-[0_0_20px_rgba(16,185,129,0.25)]">
+                  <CurrencyDollarIcon size={24} strokeWidth={2} />
                 </div>
                 <h3 className="text-lg font-bold text-white mb-1 font-mono">Recarga Rápida de Saldo</h3>
-                <p className="text-xs text-neutral-400 mb-6">
+                <p className="text-xs text-neutral-400 mb-6 font-mono">
                   Saldo disponible: <span className="text-emerald-400 font-bold font-mono">${Number(card?.balance ?? 0).toFixed(2)} MXN</span>
                 </p>
 
-                <form onSubmit={handleQuickRechargeSubmit} className="space-y-4 text-left">
+                <form onSubmit={handleQuickRechargeSubmit} className="space-y-4 text-left font-mono">
                   <div>
                     <label className="text-xs text-neutral-400 font-mono block mb-2">Selecciona un monto:</label>
                     <div className="grid grid-cols-3 gap-2">
@@ -398,13 +399,14 @@ const MainContent = ({ onReplayLoading }) => {
                           key={amt}
                           type="button"
                           onClick={() => setRechargeAmt(amt)}
-                          className={`py-2 rounded-xl text-xs font-mono font-bold border transition ${
+                          className={`py-2 rounded-xl text-xs font-mono font-bold border transition flex items-center justify-center gap-1 ${
                             rechargeAmt === amt
-                              ? 'bg-white text-black border-white'
+                              ? 'bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.3)]'
                               : 'bg-neutral-900 text-neutral-300 border-neutral-800 hover:border-neutral-700'
                           }`}
                         >
-                          ${amt}
+                          <CurrencyDollarIcon size={12} strokeWidth={2.2} />
+                          <span>{amt}</span>
                         </button>
                       ))}
                     </div>
@@ -420,9 +422,10 @@ const MainContent = ({ onReplayLoading }) => {
                     </button>
                     <button
                       type="submit"
-                      className="flex-1 py-2.5 rounded-xl bg-white text-black text-xs font-mono font-bold hover:bg-neutral-200 transition shadow-[0_0_20px_rgba(255,255,255,0.25)]"
+                      className="flex-1 py-2.5 rounded-xl bg-white text-black text-xs font-mono font-bold hover:bg-neutral-200 transition shadow-[0_0_20px_rgba(255,255,255,0.25)] flex items-center justify-center gap-1.5"
                     >
-                      Recargar ${rechargeAmt}
+                      <CurrencyDollarIcon size={14} strokeWidth={2.2} />
+                      <span>Recargar ${rechargeAmt}</span>
                     </button>
                   </div>
                 </form>

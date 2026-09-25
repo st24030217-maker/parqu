@@ -12,6 +12,7 @@ import {
   PlusCircle,
   Sparkles
 } from 'lucide-react';
+import { CurrencyDollarIcon } from './icons/currency-dollar-icon';
 import { useParking } from '../context/ParkingContext';
 import { formatCurrency, formatPlate } from '../utils/formatters';
 
@@ -256,9 +257,9 @@ export const DigitalCard = () => {
           {autoPay.fundingSource === 'WALLET_BALANCE' && (
             <button
               onClick={() => setShowRechargeModal(true)}
-              className="text-neutral-300 hover:text-white font-medium flex items-center gap-1 transition"
+              className="text-neutral-300 hover:text-white font-medium flex items-center gap-1.5 transition"
             >
-              <PlusCircle className="w-3.5 h-3.5" />
+              <CurrencyDollarIcon size={14} className="text-emerald-400" />
               Recargar Saldo
             </button>
           )}
@@ -356,12 +357,15 @@ export const DigitalCard = () => {
       {showRechargeModal && (
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
           <div className="bg-neutral-950 border border-neutral-800 rounded-3xl max-w-sm w-full p-6 shadow-2xl relative">
-            <h3 className="text-lg font-bold text-white mb-1 font-mono">Recargar Saldo de Parquímetro</h3>
-            <p className="text-xs text-neutral-400 mb-5">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mx-auto mb-3 shadow-[0_0_20px_rgba(16,185,129,0.25)]">
+              <CurrencyDollarIcon size={24} strokeWidth={2} />
+            </div>
+            <h3 className="text-lg font-bold text-white mb-1 font-mono text-center">Recargar Saldo de Parquímetro</h3>
+            <p className="text-xs text-neutral-400 mb-5 font-mono text-center">
               Agrega fondos inmediatos a tu Tarjeta Digital para autocobros
             </p>
 
-            <form onSubmit={handleRecharge} className="space-y-4">
+            <form onSubmit={handleRecharge} className="space-y-4 font-mono">
               <div>
                 <label className="text-xs text-neutral-300 font-mono block mb-2">
                   Selecciona o ingresa monto (MXN)
@@ -372,13 +376,14 @@ export const DigitalCard = () => {
                       type="button"
                       key={amt}
                       onClick={() => setRechargeAmount(amt)}
-                      className={`py-2 rounded-xl font-bold font-mono text-sm border transition ${
+                      className={`py-2 rounded-xl font-bold font-mono text-sm border transition flex items-center justify-center gap-1 ${
                         rechargeAmount === amt
                           ? 'bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.25)]'
                           : 'bg-neutral-900 border-neutral-800 text-neutral-300 hover:bg-neutral-800'
                       }`}
                     >
-                      ${amt}
+                      <CurrencyDollarIcon size={13} strokeWidth={2.2} />
+                      <span>{amt}</span>
                     </button>
                   ))}
                 </div>
@@ -402,9 +407,10 @@ export const DigitalCard = () => {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 bg-white hover:bg-neutral-200 text-black font-mono text-xs font-bold rounded-xl transition shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+                  className="flex-1 py-2.5 bg-white hover:bg-neutral-200 text-black font-mono text-xs font-bold rounded-xl transition shadow-[0_0_15px_rgba(255,255,255,0.2)] flex items-center justify-center gap-1.5"
                 >
-                  Confirmar ${rechargeAmount}
+                  <CurrencyDollarIcon size={14} strokeWidth={2.2} />
+                  <span>Confirmar ${rechargeAmount}</span>
                 </button>
               </div>
             </form>
