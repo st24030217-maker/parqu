@@ -20,6 +20,9 @@ import { LoadingScreen } from './components/LoadingScreen';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { CurrencyDollarIcon } from './components/icons/currency-dollar-icon';
 import { AnimeTelemetryHud } from './components/ui/anime-telemetry-hud';
+import { AnimeMetricsHub } from './components/ui/anime-metrics-hub';
+import { AnimeDockNav } from './components/ui/anime-dock-nav';
+import { AnimeStaggerGroup } from './components/ui/anime-stagger-group';
 import { 
   CreditCard, 
   Car, 
@@ -196,8 +199,8 @@ const MainContent = ({ onReplayLoading }) => {
       icon: Zap,
       badge: 'CRAFTS',
       content: (
-        <div className="space-y-6 animate-in fade-in duration-300">
-          <div className="p-6 sm:p-8 rounded-3xl bg-neutral-950/90 border border-neutral-800/90 backdrop-blur-xl shadow-2xl space-y-6">
+        <AnimeStaggerGroup triggerKey={activeTab} className="space-y-6">
+          <div className="anime-stagger-card p-6 sm:p-8 rounded-3xl bg-neutral-950/90 border border-neutral-800/90 backdrop-blur-xl shadow-2xl space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-neutral-800/80 pb-4">
               <div>
                 <div className="flex items-center gap-2 mb-1 text-xs font-mono text-neutral-400">
@@ -219,7 +222,7 @@ const MainContent = ({ onReplayLoading }) => {
 
               <span className="text-[11px] font-bold text-neutral-200 bg-neutral-900 border border-neutral-700/80 px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm font-mono w-fit">
                 <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                5 Accesos Configurados
+                6 Accesos Configurados
               </span>
             </div>
 
@@ -282,7 +285,7 @@ const MainContent = ({ onReplayLoading }) => {
               </div>
             </div>
           </div>
-        </div>
+        </AnimeStaggerGroup>
       ),
     },
     {
@@ -291,12 +294,12 @@ const MainContent = ({ onReplayLoading }) => {
       icon: CreditCard,
       badge: activeSession ? 'EN VIVO' : null,
       content: (
-        <div className="space-y-8 animate-in fade-in duration-300">
+        <AnimeStaggerGroup triggerKey={activeTab} className="space-y-8">
           {/* Grid Superior: Tarjeta Digital & Resumen Rápido */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             {/* Tarjeta Digital (Col 1 a 7) */}
-            <div className="lg:col-span-7 space-y-4">
+            <div className="anime-stagger-card lg:col-span-7 space-y-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-xs uppercase tracking-wider font-bold text-neutral-400 font-mono flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-white" />
@@ -311,7 +314,7 @@ const MainContent = ({ onReplayLoading }) => {
             </div>
 
             {/* Panel de Ayuda y Estatus Rápido (Col 8 a 12) */}
-            <div className="lg:col-span-5 h-full">
+            <div className="anime-stagger-card lg:col-span-5 h-full">
               <WobbleCard
                 containerClassName="w-full h-full bg-gradient-to-br from-cyan-950/70 via-neutral-950 to-black border-cyan-900/40 hover:border-cyan-500/60 transition-colors shadow-2xl"
                 className="p-6 sm:p-7 flex flex-col justify-between"
@@ -368,15 +371,15 @@ const MainContent = ({ onReplayLoading }) => {
           </div>
 
           {/* Parquímetro Metropolitano */}
-          <div>
+          <div className="anime-stagger-card">
             <ParkingMeter />
           </div>
 
           {/* Historial Reciente */}
-          <div>
+          <div className="anime-stagger-card">
             <TransactionHistory />
           </div>
-        </div>
+        </AnimeStaggerGroup>
       ),
     },
     {
@@ -385,9 +388,11 @@ const MainContent = ({ onReplayLoading }) => {
       icon: Zap,
       badge: 'CONFIG',
       content: (
-        <div className="animate-in fade-in duration-300 max-w-4xl mx-auto space-y-6">
-          <AutoPaymentConfig />
-        </div>
+        <AnimeStaggerGroup triggerKey={activeTab} className="max-w-4xl mx-auto space-y-6">
+          <div className="anime-stagger-card">
+            <AutoPaymentConfig />
+          </div>
+        </AnimeStaggerGroup>
       ),
     },
     {
@@ -395,9 +400,11 @@ const MainContent = ({ onReplayLoading }) => {
       value: 'vehicle',
       icon: Car,
       content: (
-        <div className="animate-in fade-in duration-300 max-w-4xl mx-auto space-y-6">
-          <VehicleOwnerForm />
-        </div>
+        <AnimeStaggerGroup triggerKey={activeTab} className="max-w-4xl mx-auto space-y-6">
+          <div className="anime-stagger-card">
+            <VehicleOwnerForm />
+          </div>
+        </AnimeStaggerGroup>
       ),
     },
     {
@@ -405,9 +412,11 @@ const MainContent = ({ onReplayLoading }) => {
       value: 'history',
       icon: History,
       content: (
-        <div className="animate-in fade-in duration-300 space-y-6">
-          <TransactionHistory />
-        </div>
+        <AnimeStaggerGroup triggerKey={activeTab} className="space-y-6">
+          <div className="anime-stagger-card">
+            <TransactionHistory />
+          </div>
+        </AnimeStaggerGroup>
       ),
     },
   ];
@@ -454,7 +463,7 @@ const MainContent = ({ onReplayLoading }) => {
         <main 
           ref={systemRef} 
           id="interactive-system"
-          className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 scroll-mt-24"
+          className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 scroll-mt-24 pb-28"
         >
           
           {/* ENCABEZADO DEL CENTRO DE OPERACIONES */}
@@ -495,42 +504,15 @@ const MainContent = ({ onReplayLoading }) => {
             </div>
           </div>
 
-          {/* HUD de Telemetría Dinámico impulsado por Anime.js v4 */}
+          {/* 1. HUB DE MÉTRICAS Y TELEMETRÍA ORGANIZADO CON ANIME.JS */}
+          <AnimeMetricsHub 
+            onNavigateTab={handleSelectFeature}
+            onOpenRecharge={() => setShowRechargeQuickModal(true)}
+            onOpenQR={() => setShowQRQuickModal(true)}
+          />
+
+          {/* 2. HUD DE RADAR SATELITAL Y FRECUENCIA ANIME.JS */}
           <AnimeTelemetryHud />
-
-          {/* APARTADO DE FUNCIONES RÁPIDAS (Tecnología @aceternity/interface-crafts-cards) */}
-          <section id="apartado-funciones-rapidas" className="p-6 sm:p-8 rounded-3xl bg-neutral-950/90 border border-neutral-800/90 backdrop-blur-xl shadow-2xl relative overflow-hidden space-y-6">
-            <div className="absolute top-0 right-1/4 w-96 h-32 bg-white/5 rounded-full blur-3xl pointer-events-none" />
-
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-800/80 pb-5">
-              <div>
-                <div className="flex items-center gap-2 mb-1 text-xs font-mono text-neutral-400">
-                  <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-                  <span className="tracking-widest uppercase font-bold text-white text-[11px]">
-                    ACETERNITY INTERFACE CRAFTS
-                  </span>
-                  <span className="text-neutral-600">•</span>
-                  <span className="text-neutral-400 text-[11px]">ACCIONES INMEDIATAS EN 1 TOQUE</span>
-                </div>
-                <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2.5 font-mono">
-                  <Zap className="w-5 h-5 text-white" />
-                  Apartado de Funciones Rápidas
-                </h3>
-                <p className="text-xs text-neutral-400 mt-1 font-mono">
-                  Accesos directos inteligentes para recargas, credencial QR, mapa de cajones DiDi, autocobro, padrón vehicular y diagnóstico en vivo.
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2 font-mono">
-                <span className="text-[11px] font-bold text-neutral-200 bg-neutral-900 border border-neutral-700/80 px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                  6 Funciones Rápidas Conectadas
-                </span>
-              </div>
-            </div>
-
-            <InterfaceCraftsCards items={quickActionsItems} />
-          </section>
 
           {/* Modal Rápido de Recarga de Saldo */}
           {showRechargeQuickModal && (
@@ -664,6 +646,9 @@ const MainContent = ({ onReplayLoading }) => {
           />
 
         </main>
+
+        {/* Dock Flotante de Control Organizado con Anime.js v4 */}
+        <AnimeDockNav activeTab={activeTab} onSelectTab={handleSelectFeature} />
 
         {/* 3. SECCIÓN BANNER: La Nueva Era del Parquímetro Digital */}
         <section className="w-full border-t border-neutral-900 overflow-hidden">
