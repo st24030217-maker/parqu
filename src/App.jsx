@@ -21,7 +21,6 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import { CurrencyDollarIcon } from './components/icons/currency-dollar-icon';
 import { AnimeTelemetryHud } from './components/ui/anime-telemetry-hud';
 import { AnimeMetricsHub } from './components/ui/anime-metrics-hub';
-import { AnimeDockNav } from './components/ui/anime-dock-nav';
 import { AnimeStaggerGroup } from './components/ui/anime-stagger-group';
 import { 
   CreditCard, 
@@ -463,7 +462,7 @@ const MainContent = ({ onReplayLoading }) => {
         <main 
           ref={systemRef} 
           id="interactive-system"
-          className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 scroll-mt-24 pb-28"
+          className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 scroll-mt-24"
         >
           
           {/* ENCABEZADO DEL CENTRO DE OPERACIONES */}
@@ -646,9 +645,6 @@ const MainContent = ({ onReplayLoading }) => {
           />
 
         </main>
-
-        {/* Dock Flotante de Control Organizado con Anime.js v4 */}
-        <AnimeDockNav activeTab={activeTab} onSelectTab={handleSelectFeature} />
 
         {/* 3. SECCIÓN BANNER: La Nueva Era del Parquímetro Digital */}
         <section className="w-full border-t border-neutral-900 overflow-hidden">
