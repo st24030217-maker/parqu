@@ -15,6 +15,7 @@ import { HeroParallax } from './components/ui/hero-parallax';
 import { WobbleCard } from './components/ui/wobble-card';
 import { InterfaceCraftsCards } from './components/ui/interface-crafts-cards';
 import { Tabs } from './components/ui/tabs';
+import { MultiStepLoader } from './components/ui/multi-step-loader';
 import { LoadingScreen } from './components/LoadingScreen';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { CurrencyDollarIcon } from './components/icons/currency-dollar-icon';
@@ -34,6 +35,15 @@ import {
   MapPin
 } from 'lucide-react';
 
+const PARQU_LOADING_STATES = [
+  { text: "Conectando con Satélites GPS Metropolitanos..." },
+  { text: "Sincronizando Sensores de Cajones y Disponibilidad..." },
+  { text: "Validando Credencial Digital y Monedero Parqu..." },
+  { text: "Activando Encriptación AES-256 de SSS.Solutions..." },
+  { text: "Sincronizando Protocolo de Autocobro Cero Multas..." },
+  { text: "Red Satelital Parqu Conectada y Lista" },
+];
+
 const MainContent = ({ onReplayLoading }) => {
   const { 
     activeSession, 
@@ -48,6 +58,7 @@ const MainContent = ({ onReplayLoading }) => {
   const [activeTab, setActiveTab] = useState('dashboard'); // 'dashboard', 'autopay', 'vehicle', 'history'
   const [showQRQuickModal, setShowQRQuickModal] = useState(false);
   const [showRechargeQuickModal, setShowRechargeQuickModal] = useState(false);
+  const [showMultiStepLoader, setShowMultiStepLoader] = useState(false);
   const [rechargeAmt, setRechargeAmt] = useState(150);
   const systemRef = useRef(null);
 
@@ -159,6 +170,20 @@ const MainContent = ({ onReplayLoading }) => {
           description: `Vehículo actual: ${vehicle.plates} • ${vehicle.brand} ${vehicle.model}`,
         });
       },
+    },
+    {
+      id: 'multi-step-loader',
+      icon: Activity,
+      title: 'Diagnóstico en Vivo',
+      subtitle: 'Multi-Step Loader',
+      badge: 'ANIMACIÓN',
+      badgeClassName: 'bg-white text-black border-white font-mono',
+      iconBg: 'bg-neutral-900 border border-neutral-700 text-white',
+      borderClassName: 'border-neutral-800/80 hover:border-white/50',
+      glowGradient: 'from-white/20 via-transparent to-transparent',
+      footerText: 'Verificar Red en 6 Pasos',
+      activeStatus: true,
+      onClick: () => setShowMultiStepLoader(true),
     },
   ];
 
@@ -415,7 +440,7 @@ const MainContent = ({ onReplayLoading }) => {
         )}
 
         {/* 1. SECCIÓN DE BIENVENIDA & STAGGERED GRID SHOWCASE DE FUNCIONES */}
-        <div className="w-full border-b border-neutral-900">
+        <div className="w-full bg-transparent border-b border-white/10">
           <ErrorBoundary fallbackText="Bienvenido a Parqu - Cargando Funciones...">
             <StaggeredGrid 
               centerText="BIENVENIDOS A PARQU"
@@ -448,11 +473,23 @@ const MainContent = ({ onReplayLoading }) => {
               </p>
             </div>
 
-            <div className="flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-neutral-900/90 border border-neutral-800/80 shrink-0">
-              <Activity className="w-4 h-4 text-emerald-400 animate-pulse" />
-              <div className="text-left font-mono">
-                <div className="text-[10px] text-neutral-400 uppercase tracking-widest font-bold">Telemetría Online</div>
-                <div className="text-xs font-bold text-white">Red Municipal Activa</div>
+            <div className="flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setShowMultiStepLoader(true)}
+                className="px-4 py-2.5 rounded-2xl bg-white hover:bg-neutral-200 text-black font-mono font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.25)] transition-all transform active:scale-95 cursor-pointer"
+                title="Ejecutar diagnóstico y telemetría de red con animación Multi-Step Loader"
+              >
+                <Sparkles className="w-4 h-4 fill-current text-black" />
+                <span>Diagnóstico Multi-Step</span>
+              </button>
+
+              <div className="flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-neutral-900/90 border border-neutral-800/80 shrink-0">
+                <Activity className="w-4 h-4 text-emerald-400 animate-pulse" />
+                <div className="text-left font-mono">
+                  <div className="text-[10px] text-neutral-400 uppercase tracking-widest font-bold">Telemetría Online</div>
+                  <div className="text-xs font-bold text-white">Red Municipal Activa</div>
+                </div>
               </div>
             </div>
           </div>
@@ -476,14 +513,14 @@ const MainContent = ({ onReplayLoading }) => {
                   Apartado de Funciones Rápidas
                 </h3>
                 <p className="text-xs text-neutral-400 mt-1 font-mono">
-                  Accesos directos inteligentes para recargas, credencial QR, mapa de cajones DiDi, autocobro y padrón vehicular.
+                  Accesos directos inteligentes para recargas, credencial QR, mapa de cajones DiDi, autocobro, padrón vehicular y diagnóstico en vivo.
                 </p>
               </div>
 
               <div className="flex items-center gap-2 font-mono">
                 <span className="text-[11px] font-bold text-neutral-200 bg-neutral-900 border border-neutral-700/80 px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm">
                   <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                  5 Funciones Rápidas Conectadas
+                  6 Funciones Rápidas Conectadas
                 </span>
               </div>
             </div>
@@ -599,6 +636,22 @@ const MainContent = ({ onReplayLoading }) => {
             </div>
           )}
 
+          {/* Componente Aceternity MultiStepLoader (@aceternity/multi-step-loader) */}
+          <MultiStepLoader
+            loading={showMultiStepLoader}
+            loadingStates={PARQU_LOADING_STATES}
+            duration={1500}
+            loop={false}
+            onClose={() => setShowMultiStepLoader(false)}
+            onComplete={() => {
+              setShowMultiStepLoader(false);
+              sileo.success({
+                title: 'Diagnóstico Completado',
+                description: 'Telemetría metropolitana y cajones en vivo operando al 100%.',
+              });
+            }}
+          />
+
           {/* COMPONENTE ACETERNITY UI TABS (Control centralizado de funciones con animación spring) */}
           <Tabs 
             tabs={systemTabs} 
@@ -665,8 +718,14 @@ const MainContent = ({ onReplayLoading }) => {
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isBootstrapping, setIsBootstrapping] = useState(false);
 
   const handleStart = () => {
+    setIsBootstrapping(true);
+  };
+
+  const handleBootComplete = () => {
+    setIsBootstrapping(false);
     setIsLoading(false);
     window.scrollTo({ top: 0, behavior: 'instant' });
     setTimeout(() => {
@@ -685,6 +744,15 @@ export default function App() {
   return (
     <ParkingProvider>
       <Toaster position="top-right" theme="dark" />
+      {/* Animación Multi-Step Loader de arranque al ingresar */}
+      <MultiStepLoader
+        loading={isBootstrapping}
+        loadingStates={PARQU_LOADING_STATES}
+        duration={1100}
+        loop={false}
+        onClose={handleBootComplete}
+        onComplete={handleBootComplete}
+      />
       <AnimatePresence mode="wait">
         {isLoading ? (
           <ErrorBoundary key="loading-screen" fallbackText="Iniciando Parqu...">

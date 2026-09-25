@@ -307,10 +307,10 @@ export function StaggeredGrid({
       {/* 1. Header con Animación de Partículas GPU en las palabras "BIENVENIDO A PARQU" */}
       <section 
         ref={titleSectionRef}
-        className="pt-16 pb-12 px-4 flex flex-col items-center justify-center text-center relative z-10 [perspective:1000px] min-h-[460px] sm:min-h-[520px]"
+        className="pt-16 pb-12 px-4 flex flex-col items-center justify-center text-center relative z-10 [perspective:1000px] min-h-[460px] sm:min-h-[520px] bg-transparent"
       >
-        {/* Capa de Partículas Interactivas Three.js que forman el texto "BIENVENIDO A PARQU" */}
-        <div className="absolute inset-0 z-0 pointer-events-auto flex items-center justify-center overflow-hidden">
+        {/* Capa de Partículas Interactivas Three.js que forman el texto "BIENVENIDO A PARQU" con fondo 100% transparente */}
+        <div className="absolute inset-0 z-0 pointer-events-auto flex items-center justify-center overflow-hidden bg-transparent">
           <InteractiveParticles
             text="BIENVENIDO A PARQU"
             size={1.5}
@@ -318,26 +318,24 @@ export function StaggeredGrid({
             depth={4.0}
             touchRadius={0.3}
             color="#ffffff"
-            className="w-full h-full"
+            background="transparent"
+            className="w-full h-full bg-transparent"
           />
         </div>
 
-        {/* Gradiente sutil para garantizar legibilidad del contenido */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/90 pointer-events-none z-1" />
-
-        {/* Contenido en primer plano */}
+        {/* Contenido en primer plano: Todo uniforme en color blanco y fondo transparente */}
         <div className="relative z-10 flex flex-col items-center justify-center pointer-events-none mt-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-neutral-950/80 border border-neutral-800 text-xs font-mono text-neutral-300 mb-6 backdrop-blur-md shadow-[0_0_25px_rgba(255,255,255,0.06)] pointer-events-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-transparent border border-white/40 text-xs font-mono text-white mb-6 backdrop-blur-sm shadow-[0_0_20px_rgba(255,255,255,0.15)] pointer-events-auto">
             <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-            <span className="tracking-[0.25em] uppercase font-bold text-[11px]">SISTEMA INTELIGENTE DE PARQUÍMETROS</span>
+            <span className="tracking-[0.25em] uppercase font-bold text-[11px] text-white">SISTEMA INTELIGENTE DE PARQUÍMETROS</span>
           </div>
 
-          <p className="text-xs sm:text-sm md:text-base text-neutral-300 font-mono max-w-2xl leading-relaxed px-4 drop-shadow-md pointer-events-auto">
-            Pasa el cursor sobre el texto de partículas para interactuar. Desliza hacia abajo para ver las funciones de <span className="text-white font-bold">Parqu</span>.
+          <p className="text-xs sm:text-sm md:text-base text-white font-mono max-w-2xl leading-relaxed px-4 drop-shadow-[0_0_15px_rgba(255,255,255,0.35)] pointer-events-auto font-medium">
+            Pasa el cursor sobre el texto de partículas para interactuar. Desliza hacia abajo para ver las funciones de <span className="text-white font-bold underline decoration-white/60">Parqu</span>.
           </p>
 
-          <div className="flex items-center gap-2 mt-8 text-xs font-mono text-neutral-400 animate-bounce pointer-events-auto">
-            <span>Desliza para ver las funciones</span>
+          <div className="flex items-center gap-2 mt-8 text-xs font-mono text-white animate-bounce pointer-events-auto font-medium">
+            <span className="text-white">Desliza para ver las funciones</span>
             <ArrowDown className="w-3.5 h-3.5 text-white" />
           </div>
         </div>
