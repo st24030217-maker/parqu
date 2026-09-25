@@ -15,6 +15,7 @@ import { CurrencyDollarIcon } from './icons/currency-dollar-icon';
 import { useParking } from '../context/ParkingContext';
 import { formatCurrency, formatTimeFromSeconds, formatPlate } from '../utils/formatters';
 import { WobbleCard } from './ui/wobble-card';
+import { DiDiParkingMap } from './DiDiParkingMap';
 
 const PARKING_ZONES = [
   { id: 'Z1', name: 'Zona Centro Histórico (Cajón #A-14)', ratePerHour: 18.00 },
@@ -213,46 +214,21 @@ export const ParkingSimulator = () => {
         /* Cuando NO está estacionado */
         <div className="space-y-6">
           <div>
-            <label className="text-xs uppercase tracking-wider font-bold text-neutral-300 block mb-3 font-mono">
-              1. Selecciona la Zona de Estacionamiento a Ocupar
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {PARKING_ZONES.map((zone) => {
-                const isSelected = selectedZone.id === zone.id;
-                return (
-                  <div
-                    key={zone.id}
-                    onClick={() => setSelectedZone(zone)}
-                    className={`p-4 rounded-2xl border cursor-pointer transition flex items-center justify-between ${
-                      isSelected
-                        ? 'bg-indigo-950/60 border-indigo-400 shadow-[0_0_20px_rgba(99,102,241,0.2)]'
-                        : 'bg-neutral-900/60 border-neutral-800 hover:bg-neutral-900/90 hover:border-neutral-700'
-                    }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${
-                        isSelected ? 'bg-indigo-500 text-white font-bold' : 'bg-neutral-800 text-neutral-400'
-                      }`}>
-                        <MapPin className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <span className="text-sm font-bold text-white block font-mono">
-                          {zone.name}
-                        </span>
-                        <span className="text-xs text-neutral-400 font-mono flex items-center gap-1 mt-0.5">
-                          <CurrencyDollarIcon size={12} className="text-indigo-400 inline shrink-0" />
-                          <span>Tarifa: {formatCurrency(zone.ratePerHour)} por hora</span>
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="w-5 h-5 rounded-full border flex items-center justify-center border-neutral-700">
-                      {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-indigo-400 shadow-[0_0_8px_rgba(99,102,241,1)]"></div>}
-                    </div>
-                  </div>
-                );
-              })}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-1">
+              <label className="text-xs uppercase tracking-wider font-bold text-neutral-300 block font-mono">
+                1. Mapa de Zonas & Ubicación Satelital (Estilo DiDi)
+              </label>
+              <span className="text-[11px] font-mono text-neutral-400">
+                Selecciona tu cajón en el mapa o en la lista
+              </span>
             </div>
+
+            <DiDiParkingMap
+              selectedZone={selectedZone}
+              onSelectZone={setSelectedZone}
+              onStartSession={handleStart}
+              activeSession={activeSession}
+            />
           </div>
 
           {/* Resumen del Vehículo y Autocobro antes de iniciar */}

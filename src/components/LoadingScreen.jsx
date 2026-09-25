@@ -4,7 +4,7 @@ import { WebcamPixelGrid } from './ui/webcam-pixel-grid';
 import { RadialGlowButton } from './ui/radial-glow-button';
 import { FlipFadeText } from './ui/flip-fade-text';
 import { TextAnimation } from './ui/staggerText';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export const LoadingScreen = ({ onComplete }) => {
   // Atajo de teclado: Enter o Barra espaciadora para iniciar inmediatamente
@@ -41,19 +41,6 @@ export const LoadingScreen = ({ onComplete }) => {
       >
         <div className="flex flex-col justify-between items-center h-full w-full px-4 sm:px-6 py-8 sm:py-12 relative z-10">
           
-          {/* Tag Superior de Bienvenida */}
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-neutral-900/80 border border-neutral-700/60 text-xs font-mono text-neutral-300 shadow-lg backdrop-blur-md"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
-            <span className="tracking-[0.25em] uppercase font-bold text-[11px] text-white">
-              SISTEMA METROPOLITANO PARQU
-            </span>
-          </motion.div>
-
           {/* Hero Central: Logotipo Parqu, Animación Flip-Fade Text y Botón "Empecemos" */}
           <main className="flex flex-col items-center justify-center text-center max-w-xl w-full my-auto space-y-8">
             
