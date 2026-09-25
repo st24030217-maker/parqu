@@ -14,6 +14,7 @@ import { BackgroundGradientAnimation } from './components/ui/background-gradient
 import { HeroParallax } from './components/ui/hero-parallax';
 import { WobbleCard } from './components/ui/wobble-card';
 import { InterfaceCraftsCards } from './components/ui/interface-crafts-cards';
+import { Tabs } from './components/ui/tabs';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { 
   CreditCard, 
@@ -26,7 +27,8 @@ import {
   Smartphone,
   ChevronRight,
   Sliders,
-  QrCode
+  QrCode,
+  Activity
 } from 'lucide-react';
 
 const MainContent = ({ onReplayLoading }) => {
@@ -46,13 +48,6 @@ const MainContent = ({ onReplayLoading }) => {
   const [rechargeAmt, setRechargeAmt] = useState(150);
   const systemRef = useRef(null);
 
-  const tabs = [
-    { id: 'dashboard', label: 'Tarjeta & Parquímetro', icon: CreditCard, badge: activeSession ? 'EN VIVO' : null },
-    { id: 'autopay', label: 'Formato de Autocobro', icon: Zap, badge: 'CONFIG' },
-    { id: 'vehicle', label: 'Vehículo & Titular', icon: Car },
-    { id: 'history', label: 'Historial de Cobros', icon: History },
-  ];
-
   const handleSelectFeature = (tabId) => {
     setActiveTab(tabId);
     if (systemRef.current) {
@@ -71,6 +66,135 @@ const MainContent = ({ onReplayLoading }) => {
       setShowRechargeQuickModal(false);
     }
   };
+
+  // Definición oficial de pestañas con Aceternity UI Tabs
+  const systemTabs = [
+    {
+      title: 'Tarjeta & Parquímetro',
+      value: 'dashboard',
+      icon: CreditCard,
+      badge: activeSession ? 'EN VIVO' : null,
+      content: (
+        <div className="space-y-8 animate-in fade-in duration-300">
+          {/* Grid Superior: Tarjeta Digital & Resumen Rápido */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            {/* Tarjeta Digital (Col 1 a 7) */}
+            <div className="lg:col-span-7 space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-xs uppercase tracking-wider font-bold text-neutral-400 font-mono flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-white" />
+                  Tu Tarjeta Digital de Parquímetro
+                </h3>
+                <span className="text-[11px] text-neutral-500 font-mono">
+                  Actualización en tiempo real
+                </span>
+              </div>
+
+              <DigitalCard />
+            </div>
+
+            {/* Panel de Ayuda y Estatus Rápido (Col 8 a 12) */}
+            <div className="lg:col-span-5 h-full">
+              <WobbleCard
+                containerClassName="w-full h-full bg-gradient-to-br from-cyan-950/70 via-neutral-950 to-black border-cyan-900/40 hover:border-cyan-500/60 transition-colors shadow-2xl"
+                className="p-6 sm:p-7 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="px-3 py-1 rounded-full bg-cyan-900/60 border border-cyan-700/50 text-[10px] font-mono font-bold uppercase tracking-widest text-cyan-200">
+                      GARANTÍA CERO MULTAS
+                    </span>
+                    <span className="text-[11px] font-mono text-emerald-400 flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      Activo
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight leading-tight">
+                    Protección & Telemetría Satelital
+                  </h3>
+                  <p className="mt-2 text-xs text-neutral-300 font-mono leading-relaxed">
+                    El sistema debita segundo a segundo exacto con tarifa regulada de <strong className="text-white">$0.25 MXN/min</strong> con encriptación oficial de <strong className="text-white">SSS.Solutions</strong>.
+                  </p>
+
+                  <div className="space-y-3 mt-4 text-xs font-mono">
+                    <div className="flex items-start gap-3 p-3 rounded-xl bg-neutral-900/80 border border-neutral-800">
+                      <Zap className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <span className="font-bold text-white block">Sin multas por expiración</span>
+                        <span className="text-[11px] text-neutral-400">Débito continuo sin necesidad de volver al coche.</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3 p-3 rounded-xl bg-neutral-900/80 border border-neutral-800">
+                      <Smartphone className="w-4 h-4 text-cyan-400 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <span className="font-bold text-white block">Credencial Oficial de Tránsito</span>
+                        <span className="text-[11px] text-neutral-400">Escaneo QR oficial y contactless NFC para agentes viales.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-4 mt-4 border-t border-cyan-900/40">
+                  <button
+                    onClick={() => setActiveTab('autopay')}
+                    className="w-full py-2.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-black font-mono font-bold text-xs transition flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(6,175,205,0.3)]"
+                  >
+                    <Zap className="w-4 h-4" />
+                    Configurar Reglas del Autocobro
+                  </button>
+                </div>
+              </WobbleCard>
+            </div>
+
+          </div>
+
+          {/* Simulador de Parquímetro */}
+          <div>
+            <ParkingSimulator />
+          </div>
+
+          {/* Historial Reciente */}
+          <div>
+            <TransactionHistory />
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: 'Formato de Autocobro',
+      value: 'autopay',
+      icon: Zap,
+      badge: 'CONFIG',
+      content: (
+        <div className="animate-in fade-in duration-300 max-w-4xl mx-auto space-y-6">
+          <AutoPaymentConfig />
+        </div>
+      ),
+    },
+    {
+      title: 'Vehículo & Titular',
+      value: 'vehicle',
+      icon: Car,
+      content: (
+        <div className="animate-in fade-in duration-300 max-w-4xl mx-auto space-y-6">
+          <VehicleOwnerForm />
+        </div>
+      ),
+    },
+    {
+      title: 'Historial de Cobros',
+      value: 'history',
+      icon: History,
+      content: (
+        <div className="animate-in fade-in duration-300 space-y-6">
+          <TransactionHistory />
+        </div>
+      ),
+    },
+  ];
 
   return (
     <BackgroundGradientAnimation
@@ -117,10 +241,10 @@ const MainContent = ({ onReplayLoading }) => {
           className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 scroll-mt-24"
         >
           
-          {/* ENCABEZADO PRINCIPAL DEL CENTRO DE OPERACIONES & SELECTOR DE PESTAÑAS */}
+          {/* ENCABEZADO PRINCIPAL DEL CENTRO DE OPERACIONES & ACCESO RÁPIDO */}
           <div className="p-6 sm:p-8 rounded-3xl bg-neutral-950/90 border border-neutral-800/90 backdrop-blur-xl shadow-2xl space-y-6">
             
-            {/* Fila Superior: Título, Estatus en Vivo y Pestañas */}
+            {/* Fila Superior: Título, Estatus en Vivo */}
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
               <div>
                 <div className="flex items-center gap-2 mb-1.5 text-xs font-mono text-neutral-400">
@@ -137,33 +261,12 @@ const MainContent = ({ onReplayLoading }) => {
                 </p>
               </div>
 
-              {/* Selector de Pestañas Moderno */}
-              <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-neutral-900/90 border border-neutral-800 flex-wrap">
-                {tabs.map((tab) => {
-                  const Icon = tab.icon;
-                  const isActive = activeTab === tab.id;
-                  return (
-                    <button
-                      key={tab.id}
-                      onClick={() => setActiveTab(tab.id)}
-                      className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-mono font-bold transition-all duration-200 ${
-                        isActive
-                          ? 'bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-[1.02]'
-                          : 'text-neutral-400 hover:text-white hover:bg-neutral-800/80'
-                      }`}
-                    >
-                      <Icon className="w-4 h-4" />
-                      <span>{tab.label}</span>
-                      {tab.badge && (
-                        <span className={`text-[9px] px-2 py-0.5 rounded-full font-mono ${
-                          isActive ? 'bg-black text-white' : 'bg-neutral-800 text-neutral-300'
-                        }`}>
-                          {tab.badge}
-                        </span>
-                      )}
-                    </button>
-                  );
-                })}
+              <div className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-neutral-900/90 border border-neutral-800/80">
+                <Activity className="w-4 h-4 text-emerald-400 animate-pulse" />
+                <div className="text-left font-mono">
+                  <div className="text-[10px] text-neutral-400 uppercase tracking-widest font-bold">Telemetría Online</div>
+                  <div className="text-xs font-bold text-white">Red Municipal Activa</div>
+                </div>
               </div>
             </div>
 
@@ -379,113 +482,12 @@ const MainContent = ({ onReplayLoading }) => {
             </div>
           )}
 
-          {/* Contenido Dinámico según Pestaña */}
-          {activeTab === 'dashboard' && (
-            <div className="space-y-8 animate-in fade-in duration-300">
-              {/* Grid Superior: Tarjeta Digital & Resumen Rápido */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                
-                {/* Tarjeta Digital (Col 1 a 7) */}
-                <div className="lg:col-span-7 space-y-4">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-xs uppercase tracking-wider font-bold text-neutral-400 font-mono flex items-center gap-2">
-                      <Sparkles className="w-4 h-4 text-white" />
-                      Tu Tarjeta Digital de Parquímetro
-                    </h3>
-                    <span className="text-[11px] text-neutral-500 font-mono">
-                      Actualización en tiempo real
-                    </span>
-                  </div>
-
-                  <DigitalCard />
-                </div>
-
-                {/* Panel de Ayuda y Estatus Rápido (Col 8 a 12) */}
-                <div className="lg:col-span-5 h-full">
-                  <WobbleCard
-                    containerClassName="w-full h-full bg-gradient-to-br from-cyan-950/70 via-neutral-950 to-black border-cyan-900/40 hover:border-cyan-500/60 transition-colors shadow-2xl"
-                    className="p-6 sm:p-7 flex flex-col justify-between"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="px-3 py-1 rounded-full bg-cyan-900/60 border border-cyan-700/50 text-[10px] font-mono font-bold uppercase tracking-widest text-cyan-200">
-                          GARANTÍA CERO MULTAS
-                        </span>
-                        <span className="text-[11px] font-mono text-emerald-400 flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                          Activo
-                        </span>
-                      </div>
-
-                      <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight leading-tight">
-                        Protección & Telemetría Satelital
-                      </h3>
-                      <p className="mt-2 text-xs text-neutral-300 font-mono leading-relaxed">
-                        El sistema debita segundo a segundo exacto con tarifa regulada de <strong className="text-white">$0.25 MXN/min</strong> con encriptación oficial de <strong className="text-white">SSS.Solutions</strong>.
-                      </p>
-
-                      <div className="space-y-3 mt-4 text-xs font-mono">
-                        <div className="flex items-start gap-3 p-3 rounded-xl bg-neutral-900/80 border border-neutral-800">
-                          <Zap className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
-                          <div>
-                            <span className="font-bold text-white block">Sin multas por expiración</span>
-                            <span className="text-[11px] text-neutral-400">Débito continuo sin necesidad de volver al coche.</span>
-                          </div>
-                        </div>
-
-                        <div className="flex items-start gap-3 p-3 rounded-xl bg-neutral-900/80 border border-neutral-800">
-                          <Smartphone className="w-4 h-4 text-cyan-400 flex-shrink-0 mt-0.5" />
-                          <div>
-                            <span className="font-bold text-white block">Credencial Oficial de Tránsito</span>
-                            <span className="text-[11px] text-neutral-400">Escaneo QR oficial y contactless NFC para agentes viales.</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="pt-4 mt-4 border-t border-cyan-900/40">
-                      <button
-                        onClick={() => setActiveTab('autopay')}
-                        className="w-full py-2.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-black font-mono font-bold text-xs transition flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(6,175,205,0.3)]"
-                      >
-                        <Zap className="w-4 h-4" />
-                        Configurar Reglas del Autocobro
-                      </button>
-                    </div>
-                  </WobbleCard>
-                </div>
-
-              </div>
-
-              {/* Simulador de Parquímetro */}
-              <div>
-                <ParkingSimulator />
-              </div>
-
-              {/* Historial Reciente */}
-              <div>
-                <TransactionHistory />
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'autopay' && (
-            <div className="animate-in fade-in duration-300 max-w-4xl mx-auto space-y-6">
-              <AutoPaymentConfig />
-            </div>
-          )}
-
-          {activeTab === 'vehicle' && (
-            <div className="animate-in fade-in duration-300 max-w-4xl mx-auto space-y-6">
-              <VehicleOwnerForm />
-            </div>
-          )}
-
-          {activeTab === 'history' && (
-            <div className="animate-in fade-in duration-300 space-y-6">
-              <TransactionHistory />
-            </div>
-          )}
+          {/* COMPONENTE ACETERNITY UI TABS (Control centralizado de funciones con animación spring) */}
+          <Tabs 
+            tabs={systemTabs} 
+            activeTab={activeTab} 
+            onTabChange={setActiveTab} 
+          />
 
         </main>
 
