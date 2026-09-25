@@ -4,7 +4,6 @@ import { Toaster, sileo } from 'sileo';
 import 'sileo/styles.css';
 import { ParkingProvider, useParking } from './context/ParkingContext';
 import { Header } from './components/Header';
-import { LoadingScreen } from './components/LoadingScreen';
 import { DigitalCard } from './components/DigitalCard';
 import { VehicleOwnerForm } from './components/VehicleOwnerForm';
 import { AutoPaymentConfig } from './components/AutoPaymentConfig';
@@ -546,38 +545,12 @@ const MainContent = ({ onReplayLoading }) => {
 };
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  const handleStart = () => {
-    setIsLoading(false);
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    setTimeout(() => {
-      sileo.success({
-        title: '¡Bienvenido a Parqu!',
-        description: 'Credencial digital y red inteligente de autocobro sincronizadas con tecnología SSS.Solutions.',
-      });
-    }, 300);
-  };
-
-  const handleReplay = () => {
-    setIsLoading(true);
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  };
-
   return (
     <ParkingProvider>
       <Toaster position="top-right" theme="dark" />
-      <AnimatePresence mode="wait">
-        {isLoading ? (
-          <ErrorBoundary key="loading-screen" fallbackText="Iniciando Parqu...">
-            <LoadingScreen onComplete={handleStart} />
-          </ErrorBoundary>
-        ) : (
-          <ErrorBoundary key="main-content" fallbackText="Cargando Centro de Operaciones Parqu...">
-            <MainContent onReplayLoading={handleReplay} />
-          </ErrorBoundary>
-        )}
-      </AnimatePresence>
+      <ErrorBoundary key="main-app" fallbackText="Centro de Operaciones Parqu">
+        <MainContent />
+      </ErrorBoundary>
     </ParkingProvider>
   );
 }
