@@ -431,11 +431,11 @@ const MainContent = ({ onReplayLoading }) => {
         {activeSession && activeTab !== 'dashboard' && (
           <div 
             onClick={() => handleSelectFeature('dashboard')}
-            className="bg-neutral-900/90 border-b border-amber-500/40 px-4 py-2.5 text-center text-xs font-mono font-semibold text-amber-300 flex items-center justify-center gap-2 cursor-pointer hover:bg-neutral-900 transition backdrop-blur-md sticky top-20 z-30"
+            className="bg-black/95 border-b border-neutral-800 px-4 py-2.5 text-center text-xs font-mono font-semibold text-white flex items-center justify-center gap-2 cursor-pointer hover:bg-neutral-950 transition backdrop-blur-md sticky top-20 z-30 shadow-2xl"
           >
             <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
             <span>Vehículo {vehicle.plates} actualmente en parquímetro. Clic para ver contador o liberar cajón.</span>
-            <ChevronRight className="w-3.5 h-3.5" />
+            <ChevronRight className="w-3.5 h-3.5 text-neutral-400" />
           </div>
         )}
 
@@ -743,7 +743,7 @@ export default function App() {
 
   return (
     <ParkingProvider>
-      <Toaster position="top-right" theme="dark" />
+      <Toaster position="top-right" theme="light" options={{ fill: '#000000' }} />
       {/* Animación Multi-Step Loader de arranque al ingresar */}
       <MultiStepLoader
         loading={isBootstrapping}

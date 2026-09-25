@@ -100,16 +100,16 @@ export const ParkingSimulator = () => {
 
       {/* Notificación de Autocobro Ejecutado */}
       {justChargedNotice && !activeSession && (
-        <div className="mb-6 p-5 rounded-2xl bg-neutral-900/90 border border-emerald-500/40 shadow-[0_0_30px_rgba(16,185,129,0.15)] animate-in fade-in slide-in-from-top-2">
+        <div className="mb-6 p-5 rounded-2xl bg-black border border-neutral-800 shadow-[0_0_35px_rgba(0,0,0,0.9)] animate-in fade-in slide-in-from-top-2">
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-emerald-400 text-black flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(16,185,129,0.4)]">
-                <CheckCircle className="w-6 h-6" />
+              <div className="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-700 text-white flex items-center justify-center flex-shrink-0 shadow-md">
+                <CheckCircle className="w-6 h-6 text-emerald-400" />
               </div>
               <div>
                 <h4 className="text-sm font-bold text-white flex items-center gap-2 font-mono">
                   ¡Autocobro Liquidado con Éxito!
-                  <span className="text-xs font-normal text-emerald-300 bg-emerald-950/80 px-2.5 py-0.5 rounded-full border border-emerald-700/50 font-mono">
+                  <span className="text-xs font-normal text-white bg-neutral-900 px-2.5 py-0.5 rounded-full border border-neutral-700 font-mono">
                     Folio: {justChargedNotice.folio}
                   </span>
                 </h4>

@@ -633,7 +633,7 @@ export const DiDiParkingMap = ({
 
       {/* 3. CARD FLOTANTE DE UBICACIÓN FIJADA ACTIVA (Aparece cuando el usuario fijó un punto) */}
       {pinnedSpot && (
-        <div className="absolute bottom-44 sm:bottom-40 left-3 right-3 sm:left-4 sm:right-auto sm:max-w-md z-[400] pointer-events-auto p-4 rounded-2xl bg-neutral-950/95 border-2 border-amber-400/90 backdrop-blur-xl shadow-[0_0_35px_rgba(245,158,11,0.3)] animate-in fade-in slide-in-from-bottom-3 space-y-3 font-mono">
+        <div className="absolute bottom-44 sm:bottom-40 left-3 right-3 sm:left-4 sm:right-auto sm:max-w-md z-[400] pointer-events-auto p-4 rounded-2xl bg-black/95 border border-neutral-800 backdrop-blur-xl shadow-[0_0_35px_rgba(0,0,0,0.95)] animate-in fade-in slide-in-from-bottom-3 space-y-3 font-mono">
           <div className="flex items-start justify-between gap-2 border-b border-neutral-800 pb-2.5">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-xl bg-amber-400 text-black flex items-center justify-center font-bold shadow-md">
