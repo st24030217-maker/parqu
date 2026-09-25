@@ -15,6 +15,9 @@ import {
 import { useParking } from '../context/ParkingContext';
 import { formatCurrency, formatPlate } from '../utils/formatters';
 
+import { DirectionAwareHover } from './ui/direction-aware-hover';
+import { CardContainer, CardBody, CardItem } from './ui/3d-card';
+
 export const DigitalCard = () => {
   const { vehicle, owner, card, autoPay, addBalance, activeSession } = useParking();
   const [showQRModal, setShowQRModal] = useState(false);
@@ -35,148 +38,213 @@ export const DigitalCard = () => {
 
   const isParked = activeSession !== null;
 
+  // Portada frontal completamente lisa con efecto 3D y el logo oficial de SSS.Solutions
+  const FrontCover = (
+    <CardBody className="relative w-full h-full min-h-[270px] md:min-h-[295px] rounded-3xl bg-gradient-to-br from-[#141418] via-[#09090b] to-[#18181f] border border-neutral-700/60 p-6 md:p-8 flex flex-col justify-between overflow-hidden shadow-2xl">
+      {/* Resplandor holográfico y textura de grano ultra-fina */}
+      <div className="absolute -top-20 -left-20 w-64 h-64 bg-white/[0.05] rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-white/[0.04] rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(#ffffff0d_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none" />
+
+      {/* Fila Superior: Marca y Contactless en 3D */}
+      <CardItem translateZ="40" className="w-full flex items-center justify-between z-10">
+        <div className="flex items-center gap-2.5">
+          <img 
+            src="/parqu-logo-white.png" 
+            alt="Parqu" 
+            className="h-6 w-auto object-contain opacity-75"
+          />
+          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-neutral-400 font-bold">
+            PARQU DIGITAL PASS
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Wifi className="w-5 h-5 text-white/60 rotate-90" />
+        </div>
+      </CardItem>
+
+      {/* Centro: Logotipo Oficial SSS.Solutions flotando en 3D */}
+      <CardItem translateZ="75" className="w-full my-auto z-10 flex flex-col items-center justify-center text-center space-y-2.5 py-4">
+        <div className="relative group/logo">
+          <div className="absolute -inset-4 bg-white/10 rounded-full blur-2xl pointer-events-none" />
+          <img
+            src="/sss-solutions-logo.png"
+            alt="SSS.Solutions"
+            className="h-14 md:h-16 w-auto object-contain drop-shadow-[0_0_35px_rgba(255,255,255,0.45)] hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+        <span className="text-[10px] uppercase font-mono tracking-[0.3em] text-neutral-400 font-semibold">
+          TECNOLOGÍA SSS.SOLUTIONS
+        </span>
+      </CardItem>
+
+      {/* Fila Inferior: Indicador minimalista en 3D para pasar el cursor */}
+      <CardItem translateZ="35" className="w-full flex items-center justify-between z-10 pt-3 border-t border-neutral-800/80 text-[11px] font-mono text-neutral-400">
+        <div className="flex items-center gap-2">
+          <span className={`w-2 h-2 rounded-full ${isParked ? 'bg-amber-400 animate-ping' : 'bg-emerald-400'}`} />
+          <span className="text-neutral-300 font-medium">
+            {isParked ? 'Cajón Activo' : 'Pase Virtual'}
+          </span>
+        </div>
+        <div className="flex items-center gap-1 text-neutral-400 font-medium group-hover:text-white transition-colors">
+          <span>Pasa el mouse para ver datos</span>
+          <Sparkles className="w-3.5 h-3.5 text-white animate-pulse" />
+        </div>
+      </CardItem>
+    </CardBody>
+  );
+
   return (
     <div className="w-full">
-      {/* Contenedor de la Tarjeta con Efectos de Sombra Neón */}
-      <div className="relative group">
-        {/* Glow de fondo animado */}
-        <div className={`absolute -inset-1 rounded-3xl blur-xl opacity-40 transition duration-1000 group-hover:opacity-75 ${
-          isParked 
-            ? 'bg-gradient-to-r from-amber-500/60 via-orange-500/60 to-red-500/60' 
-            : 'bg-gradient-to-r from-white/30 via-neutral-400/20 to-white/30'
-        }`} />
+      {/* Contenedor 3D Card Tilt + Direction-Aware Hover */}
+      <CardContainer className="w-full">
+        <div className="relative w-full group">
+          {/* Glow de fondo animado */}
+          <div className={`absolute -inset-1 rounded-3xl blur-xl opacity-40 transition duration-1000 group-hover:opacity-85 ${
+            isParked 
+              ? 'bg-gradient-to-r from-amber-500/60 via-orange-500/60 to-red-500/60' 
+              : 'bg-gradient-to-r from-white/30 via-neutral-400/20 to-white/30'
+          }`} />
 
-        {/* Tarjeta Física Virtual Obsidian */}
-        <div className="relative card-hologram rounded-3xl border border-neutral-700/60 p-6 md:p-8 text-white shadow-2xl flex flex-col justify-between min-h-[260px] md:min-h-[290px] transition-transform duration-300 group-hover:scale-[1.008]">
-          
-          {/* Fila Superior: Marca, Contactless y Estatus */}
-          <div className="flex items-center justify-between z-10">
-            <div className="flex items-center gap-3">
-              {/* Logo Park 100% Transparente sin cajas de fondo */}
-              <div className="flex items-center justify-center">
-                <img 
-                  src="/parqu-logo-white.png" 
-                  alt="Park" 
-                  className="h-9 w-auto object-contain drop-shadow-[0_0_12px_rgba(255,255,255,0.3)]"
-                />
-              </div>
-              <div>
-                <span className="font-black text-base tracking-wider uppercase text-white font-mono">
-                  Park
-                </span>
-                <span className="block text-[9px] text-neutral-400 tracking-widest font-mono">
-                  TARJETA DIGITAL DE PARQUÍMETRO
-                </span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <Wifi className="w-5 h-5 text-white/70 rotate-90" />
-              <div className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold tracking-wider uppercase border flex items-center gap-1.5 ${
-                isParked
-                  ? 'bg-amber-500/15 text-amber-300 border-amber-400/30'
-                  : 'bg-neutral-900/90 text-white border-neutral-700'
-              }`}>
-                <span className={`w-1.5 h-1.5 rounded-full ${isParked ? 'bg-amber-400 animate-ping' : 'bg-emerald-400'}`}></span>
-                {isParked ? 'EN ESTACIONAMIENTO' : 'TARJETA ACTIVA'}
-              </div>
-            </div>
-          </div>
-
-          {/* Fila Media: Chip EMV y Placas en Alto Relieve */}
-          <div className="my-4 z-10 flex items-center justify-between flex-wrap gap-4">
-            <div className="flex items-center gap-4">
-              {/* Chip Plateado / Platino Monocromático */}
-              <div className="w-11 h-8 rounded-md bg-gradient-to-br from-neutral-200 via-neutral-300 to-neutral-400 border border-neutral-100/50 shadow-inner flex items-center justify-center p-1">
-                <div className="w-full h-full border border-neutral-500/40 rounded-sm grid grid-cols-2 gap-0.5">
-                  <div className="border-r border-b border-neutral-600/40"></div>
-                  <div className="border-b border-neutral-600/40"></div>
-                  <div className="border-r border-neutral-600/40"></div>
-                  <div></div>
+          {/* Componente Aceternity Direction Aware Hover */}
+          <DirectionAwareHover frontContent={FrontCover}>
+            {/* Tarjeta Física Virtual Obsidian con efectos 3D de profundidad */}
+            <CardBody className="relative card-hologram w-full h-full min-h-[270px] md:min-h-[295px] rounded-3xl border border-neutral-600/80 p-6 md:p-8 text-white shadow-2xl flex flex-col justify-between">
+              
+              {/* Fila Superior: Marca, Contactless y Estatus */}
+              <CardItem translateZ="45" className="w-full flex items-center justify-between z-10">
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center justify-center">
+                    <img 
+                      src="/parqu-logo-white.png" 
+                      alt="Parqu" 
+                      className="h-9 w-auto object-contain drop-shadow-[0_0_12px_rgba(255,255,255,0.3)]"
+                    />
+                  </div>
+                  <div>
+                    <span className="font-black text-base tracking-wider uppercase text-white font-mono">
+                      Parqu
+                    </span>
+                    <span className="block text-[9px] text-neutral-400 tracking-widest font-mono">
+                      TARJETA DIGITAL DE PARQUÍMETRO
+                    </span>
+                  </div>
                 </div>
-              </div>
 
-              {/* Placas del Coche */}
-              <div>
-                <span className="text-[10px] text-neutral-400 uppercase tracking-widest block font-medium font-mono">
-                  Placas del Vehículo
-                </span>
-                <div className="bg-black/80 px-3.5 py-1 rounded-lg border border-neutral-700 shadow-inner inline-block">
-                  <span className="font-mono text-xl sm:text-2xl font-black text-white license-plate-badge tracking-wider">
-                    {formatPlate(vehicle.plates)}
+                <div className="flex items-center gap-3">
+                  <Wifi className="w-5 h-5 text-white/70 rotate-90" />
+                  <div className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold tracking-wider uppercase border flex items-center gap-1.5 ${
+                    isParked
+                      ? 'bg-amber-500/15 text-amber-300 border-amber-400/30'
+                      : 'bg-neutral-900/90 text-white border-neutral-700'
+                  }`}>
+                    <span className={`w-1.5 h-1.5 rounded-full ${isParked ? 'bg-amber-400 animate-ping' : 'bg-emerald-400'}`}></span>
+                    {isParked ? 'EN ESTACIONAMIENTO' : 'TARJETA ACTIVA'}
+                  </div>
+                </div>
+              </CardItem>
+
+              {/* Fila Media: Chip EMV y Placas en Alto Relieve 3D */}
+              <CardItem translateZ="75" className="w-full my-3 z-10 flex items-center justify-between flex-wrap gap-4">
+                <div className="flex items-center gap-4">
+                  {/* Chip Plateado / Platino Monocromático */}
+                  <div className="w-11 h-8 rounded-md bg-gradient-to-br from-neutral-200 via-neutral-300 to-neutral-400 border border-neutral-100/50 shadow-inner flex items-center justify-center p-1">
+                    <div className="w-full h-full border border-neutral-500/40 rounded-sm grid grid-cols-2 gap-0.5">
+                      <div className="border-r border-b border-neutral-600/40"></div>
+                      <div className="border-b border-neutral-600/40"></div>
+                      <div className="border-r border-neutral-600/40"></div>
+                      <div></div>
+                    </div>
+                  </div>
+
+                  {/* Placas del Coche en Alto Relieve */}
+                  <div>
+                    <span className="text-[10px] text-neutral-400 uppercase tracking-widest block font-medium font-mono">
+                      Placas del Vehículo
+                    </span>
+                    <div className="bg-black/90 px-3.5 py-1 rounded-lg border border-neutral-700 shadow-inner inline-block">
+                      <span className="font-mono text-xl sm:text-2xl font-black text-white license-plate-badge tracking-wider">
+                        {formatPlate(vehicle.plates)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Vehículo Modelo */}
+                <div className="text-right">
+                  <span className="text-[10px] text-neutral-400 uppercase tracking-widest block font-mono">
+                    Vehículo Registrado
+                  </span>
+                  <span className="font-bold text-sm text-white block">
+                    {vehicle.brand || 'Marca'} {vehicle.model || 'Modelo'}
+                  </span>
+                  <span className="text-xs text-neutral-400 font-mono">
+                    {vehicle.color || 'Color'} • {vehicle.year || 'Año'}
                   </span>
                 </div>
-              </div>
-            </div>
+              </CardItem>
 
-            {/* Vehículo Modelo */}
-            <div className="text-right">
-              <span className="text-[10px] text-neutral-400 uppercase tracking-widest block font-mono">
-                Vehículo Registrado
-              </span>
-              <span className="font-bold text-sm text-white block">
-                {vehicle.brand || 'Marca'} {vehicle.model || 'Modelo'}
-              </span>
-              <span className="text-xs text-neutral-400 font-mono">
-                {vehicle.color || 'Color'} • {vehicle.year || 'Año'}
-              </span>
-            </div>
-          </div>
-
-          {/* Fila Inferior: Titular, Autocobro y QR */}
-          <div className="flex items-end justify-between z-10 pt-3 border-t border-neutral-800 flex-wrap gap-3">
-            <div>
-              <span className="text-[10px] text-neutral-400 uppercase tracking-wider block font-semibold font-mono">
-                Titular / Propietario
-              </span>
-              <span className="font-mono-card font-bold text-base tracking-wide text-white uppercase flex items-center gap-1.5">
-                <User className="w-4 h-4 text-neutral-300 inline" />
-                {owner.fullName || 'NOMBRE DEL TITULAR'}
-              </span>
-              <span className="text-[11px] text-neutral-400 block font-mono">
-                ID: {owner.idNumber || 'INE-0000000'}
-              </span>
-            </div>
-
-            {/* Estado de Cobro y QR */}
-            <div className="flex items-center gap-4">
-              <div className="text-right">
-                <span className="text-[10px] text-neutral-400 uppercase tracking-wider block font-semibold font-mono">
-                  Modalidad Autocobro
-                </span>
-                {autoPay.enabled ? (
-                  <span className="text-xs font-semibold text-neutral-200 flex items-center gap-1 justify-end font-mono">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
-                    {autoPay.fundingSource === 'CARD' ? 'Débito Bancario' : 'Saldo Monedero'}
+              {/* Fila Inferior: Titular, Autocobro y Botón QR Flotante 3D */}
+              <CardItem translateZ="60" className="w-full flex items-end justify-between z-10 pt-3 border-t border-neutral-800 flex-wrap gap-3">
+                <div>
+                  <span className="text-[10px] text-neutral-400 uppercase tracking-wider block font-semibold font-mono">
+                    Titular / Propietario
                   </span>
-                ) : (
-                  <span className="text-xs font-semibold text-rose-400 flex items-center gap-1 justify-end font-mono">
-                    <AlertCircle className="w-3.5 h-3.5" />
-                    Desactivado
+                  <span className="font-mono-card font-bold text-base tracking-wide text-white uppercase flex items-center gap-1.5">
+                    <User className="w-4 h-4 text-neutral-300 inline" />
+                    {owner.fullName || 'NOMBRE DEL TITULAR'}
                   </span>
-                )}
-                <span className="text-[11px] text-neutral-400 font-mono block">
-                  {autoPay.fundingSource === 'WALLET_BALANCE' 
-                    ? `Saldo: ${formatCurrency(card.balance)}`
-                    : autoPay.bank || 'Tarjeta vinculada'
-                  }
-                </span>
-              </div>
+                  <span className="text-[11px] text-neutral-400 block font-mono">
+                    ID: {owner.idNumber || 'INE-0000000'}
+                  </span>
+                </div>
 
-              {/* Botón QR */}
-              <button
-                onClick={() => setShowQRModal(true)}
-                title="Mostrar Código QR para Agente"
-                className="w-11 h-11 rounded-2xl bg-white text-black flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:bg-neutral-200 transition transform hover:scale-105 active:scale-95"
-              >
-                <QrCode className="w-6 h-6 text-black" />
-              </button>
-            </div>
+                {/* Estado de Cobro y QR */}
+                <div className="flex items-center gap-4">
+                  <div className="text-right">
+                    <span className="text-[10px] text-neutral-400 uppercase tracking-wider block font-semibold font-mono">
+                      Modalidad Autocobro
+                    </span>
+                    {autoPay.enabled ? (
+                      <span className="text-xs font-semibold text-neutral-200 flex items-center gap-1 justify-end font-mono">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
+                        {autoPay.fundingSource === 'CARD' ? 'Débito Bancario' : 'Saldo Monedero'}
+                      </span>
+                    ) : (
+                      <span className="text-xs font-semibold text-rose-400 flex items-center gap-1 justify-end font-mono">
+                        <AlertCircle className="w-3.5 h-3.5" />
+                        Desactivado
+                      </span>
+                    )}
+                    <span className="text-[11px] text-neutral-400 font-mono block">
+                      {autoPay.fundingSource === 'WALLET_BALANCE' 
+                        ? `Saldo: ${formatCurrency(card.balance)}`
+                        : autoPay.bank || 'Tarjeta vinculada'
+                      }
+                    </span>
+                  </div>
 
-          </div>
+                  {/* Botón QR Flotante en 3D */}
+                  <CardItem translateZ="90">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowQRModal(true);
+                      }}
+                      title="Mostrar Código QR para Agente"
+                      className="w-11 h-11 rounded-2xl bg-white text-black flex items-center justify-center shadow-[0_0_25px_rgba(255,255,255,0.3)] hover:bg-neutral-200 transition transform hover:scale-110 active:scale-95"
+                    >
+                      <QrCode className="w-6 h-6 text-black" />
+                    </button>
+                  </CardItem>
+                </div>
 
+              </CardItem>
+
+            </CardBody>
+          </DirectionAwareHover>
         </div>
-      </div>
+      </CardContainer>
 
       {/* Botones de acción rápida debajo de la tarjeta */}
       <div className="mt-4 flex items-center justify-between text-xs text-neutral-400 px-1 font-mono">

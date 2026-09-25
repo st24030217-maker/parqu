@@ -1,157 +1,136 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
+import { WebcamPixelGrid } from './ui/webcam-pixel-grid';
+import { RadialGlowButton } from './ui/radial-glow-button';
+import { FlipFadeText } from './ui/flip-fade-text';
 import { TextAnimation } from './ui/staggerText';
-import { ChevronRight } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 
 export const LoadingScreen = ({ onComplete }) => {
-  const [progress, setProgress] = useState(0);
-  const [statusMessage, setStatusMessage] = useState('Iniciando sistema...');
-
-  useEffect(() => {
-    const messages = [
-      { at: 15, msg: 'Conectando con red de parquímetros...' },
-      { at: 45, msg: 'Verificando tarjeta digital...' },
-      { at: 75, msg: 'Sincronizando cajones en tiempo real...' },
-      { at: 95, msg: 'Acceso seguro concedido' },
-    ];
-
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        const next = prev + 2;
-        const currentMsg = messages.find((m) => next >= m.at && prev < m.at);
-        if (currentMsg) {
-          setStatusMessage(currentMsg.msg);
-        }
-
-        if (next >= 100) {
-          clearInterval(interval);
-          setTimeout(() => {
-            if (onComplete) onComplete();
-          }, 450);
-          return 100;
-        }
-        return next;
-      });
-    }, 45); // ~2.5 segundos
-
-    return () => clearInterval(interval);
-  }, [onComplete]);
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ 
         opacity: 0, 
-        scale: 1.02, 
-        filter: 'blur(8px)', 
-        transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } 
+        scale: 1.03, 
+        filter: 'blur(10px)', 
+        transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } 
       }}
-      className="fixed inset-0 z-50 flex flex-col justify-between items-center bg-black text-white overflow-hidden select-none"
+      className="fixed inset-0 z-50 flex flex-col bg-black text-white overflow-hidden select-none"
     >
-      {/* Luces y texturas ambientales en Blanco y Negro */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/[0.04] rounded-full blur-[140px]" />
-        <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-[450px] h-[450px] bg-white/[0.02] rounded-full blur-[100px]" />
-        <div className="absolute inset-0 bg-[radial-gradient(#333333_1px,transparent_1px)] [background-size:28px_28px] opacity-30" />
-      </div>
-
-      {/* Barra superior minimalista monocromática */}
-      <div className="w-full max-w-5xl px-6 pt-6 flex justify-between items-center z-10">
-        <div className="flex items-center gap-2.5 text-xs font-mono text-neutral-400">
-          <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-          <span className="tracking-widest">PARK • SISTEMA DIGITAL</span>
-        </div>
-        <button
-          onClick={onComplete}
-          className="text-xs text-neutral-400 hover:text-white transition flex items-center gap-1 py-1.5 px-3.5 rounded-full bg-neutral-900 border border-neutral-800 hover:border-white/30"
-        >
-          <span>Saltar</span>
-          <ChevronRight className="w-3.5 h-3.5" />
-        </button>
-      </div>
-
-      {/* Contenedor Central: Logo Park, Stagger Text y Progreso en Blanco y Negro */}
-      <div className="flex flex-col items-center justify-center text-center px-4 z-10 max-w-md w-full">
-        {/* Logotipo Oficial de Park */}
-        <motion.div
-          initial={{ scale: 0.8, opacity: 0, y: -20 }}
-          animate={{ scale: 1, opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mb-6 flex items-center justify-center"
-        >
-          <div className="absolute -inset-4 bg-white/15 rounded-full blur-2xl pointer-events-none" />
-          <img
-            src="/parqu-logo-white.png"
-            alt="Park Logo"
-            className="h-20 sm:h-24 w-auto object-contain relative z-10 drop-shadow-[0_0_30px_rgba(255,255,255,0.35)]"
-          />
-        </motion.div>
-
-        {/* Nombre de la app: PARK con Stagger Text (letra por letra) */}
-        <div className="mb-2">
-          <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-white flex items-center justify-center">
-            <TextAnimation delay={0.2} divideBy="letter" className="font-extrabold text-white">
-              Park
-            </TextAnimation>
-          </h1>
-        </div>
-
-        {/* Subtítulo minimalista con Stagger Text */}
-        <div className="h-6 mb-8 text-xs sm:text-sm text-neutral-400 uppercase tracking-widest font-mono">
-          <TextAnimation delay={0.4} divideBy="word">
-            Parquímetro Digital Metropolitano
-          </TextAnimation>
-        </div>
-
-        {/* Barra de progreso de carga en Blanco y Negro */}
-        <div className="w-full space-y-2.5">
-          <div className="w-full h-2 bg-neutral-900 rounded-full overflow-hidden border border-neutral-800 p-[1px]">
-            <motion.div
-              className="h-full bg-white rounded-full shadow-[0_0_12px_rgba(255,255,255,0.6)]"
-              style={{ width: `${progress}%` }}
-              transition={{ ease: 'linear' }}
-            />
-          </div>
-
-          <div className="flex justify-between items-center text-xs font-mono">
-            <span className="text-neutral-400 transition-all duration-300">{statusMessage}</span>
-            <span className="text-white font-bold">{progress}%</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Sección Inferior: Deletreo SSS.Solutions con Stagger Text y su Logotipo */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5, duration: 0.6 }}
-        className="w-full max-w-sm pb-8 px-4 flex flex-col items-center justify-center gap-3 z-10"
+      {/* Fondo interactivo Aceternity Webcam Pixel Grid a Color con Cámara en Vivo */}
+      <WebcamPixelGrid
+        pixelSize={14}
+        gap={2}
+        autoStartCamera={true}
+        showControls={false}
+        className="h-full w-full"
       >
-        <span className="text-[11px] uppercase tracking-[0.25em] text-neutral-400 font-mono">
-          Powered by
-        </span>
+        <div className="flex flex-col justify-between items-center h-full w-full px-4 sm:px-6 py-8 sm:py-12 relative z-10">
+          
+          {/* Tag Superior de Bienvenida */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-neutral-900/80 border border-neutral-700/60 text-xs font-mono text-neutral-300 shadow-lg backdrop-blur-md"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+            <span className="tracking-[0.25em] uppercase font-bold text-[11px] text-white">
+              SISTEMA METROPOLITANO PARQU
+            </span>
+          </motion.div>
 
-        {/* Animación que DELETREA "SSS.Solutions" letra por letra con stagger-text */}
-        <div className="text-lg sm:text-xl font-bold tracking-wider text-white font-mono flex items-center justify-center">
-          <TextAnimation delay={0.7} divideBy="letter" className="text-white">
-            SSS.Solutions
-          </TextAnimation>
+          {/* Hero Central: Logotipo Parqu, Animación Flip-Fade Text y Botón "Empecemos" */}
+          <main className="flex flex-col items-center justify-center text-center max-w-xl w-full my-auto space-y-7">
+            
+            {/* Logotipo Parqu 100% Transparente con resplandor */}
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0, y: -20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="relative flex items-center justify-center"
+            >
+              <div className="absolute -inset-6 bg-white/10 rounded-full blur-3xl pointer-events-none" />
+              <img
+                src="/parqu-logo-white.png"
+                alt="Parqu Logo"
+                style={{ maxHeight: '144px' }}
+                className="h-28 sm:h-32 md:h-36 w-auto object-contain relative z-10 drop-shadow-[0_0_40px_rgba(255,255,255,0.45)]"
+              />
+            </motion.div>
+
+            {/* Animación Flip-Fade Text: PARQU -> MÁS FÁCIL -> SIN FILAS -> SIN MONEDAS -> EN UN TOQUE */}
+            <div className="w-full flex items-center justify-center py-2">
+              <FlipFadeText
+                words={[
+                  "PARQU",
+                  "MÁS FÁCIL",
+                  "SIN FILAS",
+                  "SIN MONEDAS",
+                  "EN UN TOQUE",
+                  "AUTOCOBRO"
+                ]}
+                interval={2600}
+                letterDuration={0.55}
+                staggerDelay={0.07}
+                textClassName="text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight drop-shadow-[0_0_35px_rgba(255,255,255,0.35)]"
+              />
+            </div>
+
+            <p className="text-xs sm:text-sm font-mono text-neutral-300 max-w-md drop-shadow-md">
+              Control de parquímetros inteligentes, tarjeta virtual y telemetría de autocobro continuo.
+            </p>
+
+            {/* BOTÓN PRINCIPAL CON ANIMACIÓN RADIAL GLOW: Empecemos */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="pt-2 flex flex-col items-center justify-center"
+            >
+              <RadialGlowButton
+                onClick={onComplete}
+                className="text-base sm:text-lg font-bold shadow-2xl"
+              >
+                <span>Empecemos</span>
+                <ArrowRight className="w-5 h-5 text-white inline transition-transform duration-300 group-hover:translate-x-1.5" />
+              </RadialGlowButton>
+            </motion.div>
+
+          </main>
+
+          {/* Footer: Powered by SSS.Solutions con Logotipo Transparente */}
+          <footer className="w-full max-w-md flex flex-col items-center justify-center gap-2 pt-4">
+            <span className="text-[11px] uppercase tracking-[0.25em] text-neutral-400 font-mono">
+              Powered by
+            </span>
+
+            {/* Animación de texto que deletrea SSS.Solutions */}
+            <div className="text-base sm:text-lg font-bold tracking-wider text-white font-mono flex items-center justify-center">
+              <TextAnimation delay={0.5} divideBy="letter" className="text-white">
+                SSS.Solutions
+              </TextAnimation>
+            </div>
+
+            {/* Logotipo Oficial de SSS.Solutions (Totalmente transparente sin fondos) */}
+            <div className="flex items-center justify-center py-1">
+              <img
+                src="/sss-solutions-logo.png"
+                alt="SSS.Solutions Logo"
+                style={{ maxHeight: '36px' }}
+                className="h-8 sm:h-9 w-auto object-contain drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+
+            <span className="text-[10px] text-neutral-400 font-mono tracking-wider text-center">
+              Tecnología de Autocobro & Movilidad Urbana • Encriptación 256-bit
+            </span>
+          </footer>
+
         </div>
-
-        {/* Logotipo Oficial de SSS.Solutions (Totalmente transparente sin fondos) */}
-        <div className="flex items-center justify-center hover:scale-105 transition-transform duration-300 py-1">
-          <img
-            src="/sss-solutions-logo.png"
-            alt="SSS.Solutions Logo"
-            className="h-8 sm:h-10 w-auto object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.25)]"
-          />
-        </div>
-
-        <span className="text-[10px] text-neutral-500 font-mono tracking-wider">
-          Tecnología de Autocobro & Movilidad Urbana
-        </span>
-      </motion.div>
+      </WebcamPixelGrid>
     </motion.div>
   );
 };
