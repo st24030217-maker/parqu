@@ -117,15 +117,29 @@ export const DiDiParkingMap = ({
     const map = L.map(mapContainerRef.current, {
       center: [DEFAULT_CENTER.lat, DEFAULT_CENTER.lng],
       zoom: 16,
+      maxZoom: 16,
+      minZoom: 12,
       zoomControl: false,
       attributionControl: false,
     });
 
-    // Capa de losetas oscuras CartoDB Dark Matter (Estilo DiDi / Uber Black)
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      maxZoom: 19,
-      subdomains: 'abcd',
-    }).addTo(map);
+    // Capa base oscura nocturna (ESRI World Dark Gray - 100% libre y sin API key)
+    L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+      {
+        maxZoom: 16,
+        attribution: 'Esri &copy; DeLorme, NAVTEQ',
+      }
+    ).addTo(map);
+
+    // Capa de referencias urbanas y nombres de calles (ESRI World Dark Gray Reference)
+    L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}',
+      {
+        maxZoom: 16,
+        attribution: '',
+      }
+    ).addTo(map);
 
     // Controles de Zoom en esquina superior derecha
     L.control.zoom({ position: 'topright' }).addTo(map);
@@ -318,7 +332,7 @@ export const DiDiParkingMap = ({
     setIsCentering(true);
 
     const target = userLocation || DEFAULT_CENTER;
-    map.flyTo([target.lat, target.lng], 16.5, {
+    map.flyTo([target.lat, target.lng], 16, {
       duration: 1.0,
       easeLinearity: 0.25,
     });
@@ -380,7 +394,7 @@ export const DiDiParkingMap = ({
                   if (onSelectZone) onSelectZone(zone);
                   const map = mapInstanceRef.current;
                   if (map && zone.lat && zone.lng) {
-                    map.flyTo([zone.lat, zone.lng], 16.5, { duration: 0.8 });
+                    map.flyTo([zone.lat, zone.lng], 16, { duration: 0.8 });
                   }
                 }}
                 className={`px-3.5 py-2 rounded-xl text-xs font-mono font-bold whitespace-nowrap transition-all duration-200 border flex items-center gap-2 ${
