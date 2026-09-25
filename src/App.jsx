@@ -114,20 +114,20 @@ const MainContent = ({ onReplayLoading }) => {
     {
       id: 'simulator',
       icon: MapPin,
-      title: activeSession ? 'Cajón Ocupado' : 'Mapa DiDi & Cajones',
-      subtitle: activeSession ? activeSession.zoneName : 'Parquímetro satelital',
-      badge: activeSession ? 'EN VIVO' : 'GPS SATELITAL',
+      title: activeSession ? 'Cajón Ocupado' : 'Mapa DiDi & Ubicación',
+      subtitle: activeSession ? activeSession.zoneName : 'Fijar Ubicación & Registro',
+      badge: activeSession ? 'EN VIVO' : 'GPS & BITÁCORA',
       badgeClassName: activeSession ? 'bg-amber-950/60 text-amber-300 border-amber-700/50 animate-pulse font-mono' : 'bg-blue-950/60 text-blue-300 border-blue-700/50 font-mono',
       iconBg: 'bg-blue-950/80 border border-blue-500/40 text-blue-400',
       borderClassName: 'border-neutral-800/80 hover:border-blue-500/50',
       glowGradient: 'from-blue-500/15 via-transparent to-transparent',
-      footerText: activeSession ? 'Debitando segundo a segundo' : 'Listo para estacionar',
+      footerText: activeSession ? 'Debitando segundo a segundo' : 'Fija tu auto y guarda registro',
       activeStatus: activeSession !== null,
       onClick: () => {
         setActiveTab('dashboard');
         sileo.info({
-          title: 'Mapa DiDi & Parquímetro',
-          description: 'Selecciona tu cajón en el mapa satelital interactivo.',
+          title: 'Mapa Satelital DiDi',
+          description: 'Fija tu ubicación con un toque o arrastrando el pin y guárdala en tu registro.',
         });
       },
     },

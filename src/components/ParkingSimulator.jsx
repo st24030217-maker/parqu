@@ -37,12 +37,14 @@ export const ParkingSimulator = () => {
   const [selectedZone, setSelectedZone] = useState(PARKING_ZONES[0]);
   const [justChargedNotice, setJustChargedNotice] = useState(null);
 
-  const handleStart = () => {
-    startParking(selectedZone.name, selectedZone.ratePerHour);
+  const handleStart = (zoneParam = null) => {
+    const targetZone = (zoneParam && zoneParam.name) ? zoneParam : selectedZone;
+    const coords = (targetZone.lat && targetZone.lng) ? { lat: targetZone.lat, lng: targetZone.lng } : null;
+    startParking(targetZone.name, targetZone.ratePerHour || 18.00, coords);
     setJustChargedNotice(null);
     sileo.info({
       title: 'Parquímetro Activado',
-      description: `Cajón ocupado en ${selectedZone.name}. Autocobro activo para ${vehicle.plates}.`,
+      description: `Cajón ocupado en ${targetZone.name}. Autocobro activo para ${vehicle.plates}.`,
     });
   };
 
