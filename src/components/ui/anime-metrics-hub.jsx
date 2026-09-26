@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { animate, stagger } from 'animejs';
+import { AnimatePresence, motion } from 'framer-motion';
 import { 
   Car, 
   MapPin, 
@@ -12,6 +13,7 @@ import {
 import { CurrencyDollarIcon } from '../icons/currency-dollar-icon';
 import { useParking } from '../../context/ParkingContext';
 import { AnimeCounter } from './anime-counter';
+import { CanvasRevealEffect, AceternityCornerIcon } from './canvas-reveal-effect';
 import { formatCurrency, formatPlate, formatTimeFromSeconds } from '../../utils/formatters';
 
 export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => {
@@ -23,6 +25,7 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
     pinnedLocations = [] 
   } = useParking();
 
+  const [hoveredCard, setHoveredCard] = useState(null);
   const containerRef = useRef(null);
   const barsRef = useRef(null);
 
@@ -69,7 +72,7 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
             PANEL DE CONTROL METROPOLITANO
           </span>
           <span className="text-neutral-600">•</span>
-          <span className="text-neutral-500 text-[10px]">MÉTRICAS Y ACCESOS EN VIVO</span>
+          <span className="text-neutral-500 text-[10px]">MÉTRICAS & CANVAS REVEAL EFFECT</span>
         </div>
 
         {/* Telemetría mini-bars */}
@@ -85,19 +88,49 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
         </div>
       </div>
 
-      {/* Grid de 4 Bloques Organizados */}
+      {/* Grid de 4 Bloques Organizados con Canvas Reveal Effect */}
       <div ref={containerRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         
         {/* 1. ESTADO DE PARQUÍMETRO */}
         <div 
           onClick={() => onNavigateTab && onNavigateTab('dashboard')}
-          className="metric-hub-card group relative p-5 rounded-2xl bg-neutral-950/80 border border-neutral-800/90 hover:border-indigo-500/60 transition-all cursor-pointer shadow-lg hover:shadow-indigo-500/10 flex flex-col justify-between overflow-hidden"
+          onMouseEnter={() => setHoveredCard(1)}
+          onMouseLeave={() => setHoveredCard(null)}
+          className="metric-hub-card group relative p-5 rounded-2xl bg-neutral-950/90 border border-neutral-800/90 hover:border-indigo-500/60 transition-all cursor-pointer shadow-lg hover:shadow-indigo-500/20 flex flex-col justify-between overflow-hidden"
         >
-          <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition-all pointer-events-none" />
-          
-          <div>
+          {/* Aceternity Corner Cross Accents */}
+          <AceternityCornerIcon className="absolute -top-1.5 -left-1.5 text-neutral-600 group-hover:text-indigo-400 transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -bottom-1.5 -left-1.5 text-neutral-600 group-hover:text-indigo-400 transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -top-1.5 -right-1.5 text-neutral-600 group-hover:text-indigo-400 transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -bottom-1.5 -right-1.5 text-neutral-600 group-hover:text-indigo-400 transition-colors z-20" />
+
+          {/* Aceternity Canvas Reveal Effect */}
+          <AnimatePresence>
+            {(hoveredCard === 1 || activeSession) && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                className="absolute inset-0 pointer-events-none z-0"
+              >
+                <CanvasRevealEffect
+                  animationSpeed={3.0}
+                  containerClassName="bg-black/60"
+                  colors={[
+                    [99, 102, 241],
+                    [16, 185, 129],
+                  ]}
+                  dotSize={2}
+                />
+                <div className="absolute inset-0 [mask-image:radial-gradient(160px_at_center,white,transparent)] bg-black/40" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <div className="relative z-10">
             <div className="flex items-center justify-between mb-3">
-              <span className="p-2 rounded-xl bg-indigo-950/60 border border-indigo-700/50 text-indigo-400">
+              <span className="p-2 rounded-xl bg-indigo-950/60 border border-indigo-700/50 text-indigo-400 shadow-sm">
                 <Clock className="w-4 h-4" />
               </span>
               <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${
@@ -137,7 +170,7 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
             </div>
           </div>
 
-          <div className="pt-3 mt-3 border-t border-neutral-800/70 flex items-center justify-between text-[11px] text-neutral-400 group-hover:text-indigo-300 transition">
+          <div className="relative z-10 pt-3 mt-3 border-t border-neutral-800/70 flex items-center justify-between text-[11px] text-neutral-400 group-hover:text-indigo-300 transition">
             <span className="truncate max-w-[140px]">
               {activeSession ? activeSession.zoneName : '4 Zonas Disponibles'}
             </span>
@@ -148,13 +181,43 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
         {/* 2. SALDO Y PASE DIGITAL */}
         <div 
           onClick={() => onOpenRecharge && onOpenRecharge()}
-          className="metric-hub-card group relative p-5 rounded-2xl bg-neutral-950/80 border border-neutral-800/90 hover:border-emerald-500/60 transition-all cursor-pointer shadow-lg hover:shadow-emerald-500/10 flex flex-col justify-between overflow-hidden"
+          onMouseEnter={() => setHoveredCard(2)}
+          onMouseLeave={() => setHoveredCard(null)}
+          className="metric-hub-card group relative p-5 rounded-2xl bg-neutral-950/90 border border-neutral-800/90 hover:border-emerald-500/60 transition-all cursor-pointer shadow-lg hover:shadow-emerald-500/20 flex flex-col justify-between overflow-hidden"
         >
-          <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all pointer-events-none" />
+          {/* Aceternity Corner Cross Accents */}
+          <AceternityCornerIcon className="absolute -top-1.5 -left-1.5 text-neutral-600 group-hover:text-emerald-400 transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -bottom-1.5 -left-1.5 text-neutral-600 group-hover:text-emerald-400 transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -top-1.5 -right-1.5 text-neutral-600 group-hover:text-emerald-400 transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -bottom-1.5 -right-1.5 text-neutral-600 group-hover:text-emerald-400 transition-colors z-20" />
 
-          <div>
+          {/* Aceternity Canvas Reveal Effect */}
+          <AnimatePresence>
+            {hoveredCard === 2 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                className="absolute inset-0 pointer-events-none z-0"
+              >
+                <CanvasRevealEffect
+                  animationSpeed={3.5}
+                  containerClassName="bg-black/60"
+                  colors={[
+                    [16, 185, 129],
+                    [52, 211, 153],
+                  ]}
+                  dotSize={2}
+                />
+                <div className="absolute inset-0 [mask-image:radial-gradient(160px_at_center,white,transparent)] bg-black/40" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <div className="relative z-10">
             <div className="flex items-center justify-between mb-3">
-              <span className="p-2 rounded-xl bg-emerald-950/60 border border-emerald-700/50 text-emerald-400">
+              <span className="p-2 rounded-xl bg-emerald-950/60 border border-emerald-700/50 text-emerald-400 shadow-sm">
                 <CurrencyDollarIcon size={16} strokeWidth={2.2} />
               </span>
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-950/60 text-emerald-300 border border-emerald-700/50">
@@ -178,7 +241,7 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
             </div>
           </div>
 
-          <div className="pt-3 mt-3 border-t border-neutral-800/70 flex items-center justify-between text-[11px] text-neutral-400 group-hover:text-emerald-300 transition">
+          <div className="relative z-10 pt-3 mt-3 border-t border-neutral-800/70 flex items-center justify-between text-[11px] text-neutral-400 group-hover:text-emerald-300 transition">
             <span>Pase Contactless Activo</span>
             <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
           </div>
@@ -187,13 +250,43 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
         {/* 3. PADRÓN VEHICULAR & PLACAS */}
         <div 
           onClick={() => onNavigateTab && onNavigateTab('vehicle')}
-          className="metric-hub-card group relative p-5 rounded-2xl bg-neutral-950/80 border border-neutral-800/90 hover:border-cyan-500/60 transition-all cursor-pointer shadow-lg hover:shadow-cyan-500/10 flex flex-col justify-between overflow-hidden"
+          onMouseEnter={() => setHoveredCard(3)}
+          onMouseLeave={() => setHoveredCard(null)}
+          className="metric-hub-card group relative p-5 rounded-2xl bg-neutral-950/90 border border-neutral-800/90 hover:border-cyan-500/60 transition-all cursor-pointer shadow-lg hover:shadow-cyan-500/20 flex flex-col justify-between overflow-hidden"
         >
-          <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all pointer-events-none" />
+          {/* Aceternity Corner Cross Accents */}
+          <AceternityCornerIcon className="absolute -top-1.5 -left-1.5 text-neutral-600 group-hover:text-cyan-400 transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -bottom-1.5 -left-1.5 text-neutral-600 group-hover:text-cyan-400 transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -top-1.5 -right-1.5 text-neutral-600 group-hover:text-cyan-400 transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -bottom-1.5 -right-1.5 text-neutral-600 group-hover:text-cyan-400 transition-colors z-20" />
 
-          <div>
+          {/* Aceternity Canvas Reveal Effect */}
+          <AnimatePresence>
+            {hoveredCard === 3 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                className="absolute inset-0 pointer-events-none z-0"
+              >
+                <CanvasRevealEffect
+                  animationSpeed={3.0}
+                  containerClassName="bg-black/60"
+                  colors={[
+                    [6, 182, 212],
+                    [59, 130, 246],
+                  ]}
+                  dotSize={2}
+                />
+                <div className="absolute inset-0 [mask-image:radial-gradient(160px_at_center,white,transparent)] bg-black/40" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <div className="relative z-10">
             <div className="flex items-center justify-between mb-3">
-              <span className="p-2 rounded-xl bg-cyan-950/60 border border-cyan-700/50 text-cyan-400">
+              <span className="p-2 rounded-xl bg-cyan-950/60 border border-cyan-700/50 text-cyan-400 shadow-sm">
                 <Car className="w-4 h-4" />
               </span>
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-950/60 text-cyan-300 border border-cyan-700/50">
@@ -210,7 +303,7 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
             </div>
           </div>
 
-          <div className="pt-3 mt-3 border-t border-neutral-800/70 flex items-center justify-between text-[11px] text-neutral-400 group-hover:text-cyan-300 transition">
+          <div className="relative z-10 pt-3 mt-3 border-t border-neutral-800/70 flex items-center justify-between text-[11px] text-neutral-400 group-hover:text-cyan-300 transition">
             <span className="truncate max-w-[140px]">{vehicle.brand} {vehicle.model}</span>
             <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
           </div>
@@ -219,13 +312,43 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
         {/* 4. BITÁCORA GPS & AUTOCOBRO */}
         <div 
           onClick={() => onNavigateTab && onNavigateTab('history')}
-          className="metric-hub-card group relative p-5 rounded-2xl bg-neutral-950/80 border border-neutral-800/90 hover:border-amber-500/60 transition-all cursor-pointer shadow-lg hover:shadow-amber-500/10 flex flex-col justify-between overflow-hidden"
+          onMouseEnter={() => setHoveredCard(4)}
+          onMouseLeave={() => setHoveredCard(null)}
+          className="metric-hub-card group relative p-5 rounded-2xl bg-neutral-950/90 border border-neutral-800/90 hover:border-amber-500/60 transition-all cursor-pointer shadow-lg hover:shadow-amber-500/20 flex flex-col justify-between overflow-hidden"
         >
-          <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all pointer-events-none" />
+          {/* Aceternity Corner Cross Accents */}
+          <AceternityCornerIcon className="absolute -top-1.5 -left-1.5 text-neutral-600 group-hover:text-amber-400 transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -bottom-1.5 -left-1.5 text-neutral-600 group-hover:text-amber-400 transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -top-1.5 -right-1.5 text-neutral-600 group-hover:text-amber-400 transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -bottom-1.5 -right-1.5 text-neutral-600 group-hover:text-amber-400 transition-colors z-20" />
 
-          <div>
+          {/* Aceternity Canvas Reveal Effect */}
+          <AnimatePresence>
+            {hoveredCard === 4 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                className="absolute inset-0 pointer-events-none z-0"
+              >
+                <CanvasRevealEffect
+                  animationSpeed={3.0}
+                  containerClassName="bg-black/60"
+                  colors={[
+                    [245, 158, 11],
+                    [217, 119, 6],
+                  ]}
+                  dotSize={2}
+                />
+                <div className="absolute inset-0 [mask-image:radial-gradient(160px_at_center,white,transparent)] bg-black/40" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <div className="relative z-10">
             <div className="flex items-center justify-between mb-3">
-              <span className="p-2 rounded-xl bg-amber-950/60 border border-amber-700/50 text-amber-400">
+              <span className="p-2 rounded-xl bg-amber-950/60 border border-amber-700/50 text-amber-400 shadow-sm">
                 <MapPin className="w-4 h-4" />
               </span>
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-950/60 text-amber-300 border border-amber-700/50">
@@ -243,7 +366,7 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
             </div>
           </div>
 
-          <div className="pt-3 mt-3 border-t border-neutral-800/70 flex items-center justify-between text-[11px] text-neutral-400 group-hover:text-amber-300 transition">
+          <div className="relative z-10 pt-3 mt-3 border-t border-neutral-800/70 flex items-center justify-between text-[11px] text-neutral-400 group-hover:text-amber-300 transition">
             <span>Autocobro: {autoPay?.enabled ? 'Activo' : 'Pausado'}</span>
             <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
           </div>
