@@ -24,6 +24,7 @@ import { sileo } from 'sileo';
 import { CurrencyDollarIcon } from './icons/currency-dollar-icon';
 import { useParking } from '../context/ParkingContext';
 import { formatCurrency, formatDate } from '../utils/formatters';
+import { AniRouteMap } from './AniRouteMap';
 
 // Coordenadas metropolitanas base por defecto (CDMX Paseo de la Reforma / Centro)
 const DEFAULT_CENTER = { lat: 19.4326, lng: -99.1332 };
@@ -55,6 +56,7 @@ export const DiDiParkingMap = ({
   const [zonesWithCoords, setZonesWithCoords] = useState([]);
   const [isCentering, setIsCentering] = useState(false);
   const [activeTabMode, setActiveTabMode] = useState('zones'); // 'zones' | 'history'
+  const [viewMode, setViewMode] = useState('map'); // 'map' | 'animaps'
 
   // Ubicación que el usuario está fijando actualmente en el mapa
   const [pinnedSpot, setPinnedSpot] = useState(() => {
@@ -579,57 +581,110 @@ export const DiDiParkingMap = ({
   return (
     <div className={`relative w-full rounded-3xl overflow-hidden border border-neutral-800 bg-neutral-950 shadow-2xl flex flex-col ${className}`}>
       
-      {/* 1. BARRA SUPERIOR FLOTANTE DEL MAPA (Estatus GPS y Telemetría tipo DiDi) */}
-      <div className="absolute top-3 left-3 right-3 z-[400] flex flex-wrap items-center justify-between gap-2 pointer-events-none">
-        
-        {/* Badge GPS y Cajones */}
-        <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-950/90 backdrop-blur-md border border-neutral-700/80 shadow-xl text-xs font-mono pointer-events-auto">
-          <span className={`w-2 h-2 rounded-full ${
-            gpsStatus === 'locked' ? 'bg-emerald-400 animate-pulse' : 'bg-blue-400'
-          }`} />
-          <span className="text-white font-bold text-[11px] uppercase tracking-wider">
-            {gpsStatus === 'locked' ? 'GPS SATELITAL EN VIVO' : 'MAPA METROPOLITANO'}
-          </span>
-          <span className="text-neutral-500">•</span>
-          <span className="text-neutral-300 text-[10px]">
-            {zonesWithCoords.length} Cajones
-          </span>
-          <span className="text-neutral-500">•</span>
-          <span className="text-amber-300 font-bold text-[10px]">
-            {pinnedLocations.length} Fijadas
-          </span>
+      {/* MODO 3D ANIMADO CON ANIMAPS-REACT */}
+      {viewMode === 'animaps' && (
+        <AniRouteMap
+          userLocation={userLocation}
+          selectedZone={currentZone}
+          pinnedSpot={pinnedSpot}
+          vehicle={vehicle}
+          onBackToLeaflet={() => {
+            setViewMode('map');
+            setTimeout(() => {
+              mapInstanceRef.current?.invalidateSize();
+            }, 150);
+          }}
+        />
+      )}
+
+      {/* MODO MAPA INTERACTIVO DIDI (LEAFLET) */}
+      <div className={`relative w-full flex flex-col ${viewMode === 'animaps' ? 'hidden' : ''}`}>
+
+        {/* 1. BARRA SUPERIOR FLOTANTE DEL MAPA (Estatus GPS y Telemetría tipo DiDi) */}
+        <div className="absolute top-3 left-3 right-3 z-[400] flex flex-wrap items-center justify-between gap-2 pointer-events-none">
+          
+          {/* Badge GPS y Cajones */}
+          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-950/90 backdrop-blur-md border border-neutral-700/80 shadow-xl text-xs font-mono pointer-events-auto">
+            <span className={`w-2 h-2 rounded-full ${
+              gpsStatus === 'locked' ? 'bg-emerald-400 animate-pulse' : 'bg-blue-400'
+            }`} />
+            <span className="text-white font-bold text-[11px] uppercase tracking-wider">
+              {gpsStatus === 'locked' ? 'GPS SATELITAL EN VIVO' : 'MAPA METROPOLITANO'}
+            </span>
+            <span className="text-neutral-500">•</span>
+            <span className="text-neutral-300 text-[10px]">
+              {zonesWithCoords.length} Cajones
+            </span>
+            <span className="text-neutral-500">•</span>
+            <span className="text-amber-300 font-bold text-[10px]">
+              {pinnedLocations.length} Fijadas
+            </span>
+          </div>
+
+          {/* Selector de Modo de Mapa: DiDi (Leaflet) / AniMaps (3D) */}
+          <div className="flex items-center gap-1 bg-neutral-950/90 backdrop-blur-md p-1 rounded-full border border-neutral-700/80 shadow-xl pointer-events-auto text-xs font-mono">
+            <button
+              type="button"
+              onClick={() => setViewMode('map')}
+              className={`px-3 py-1 rounded-full font-bold transition flex items-center gap-1.5 ${
+                viewMode === 'map'
+                  ? 'bg-white text-black shadow'
+                  : 'text-neutral-400 hover:text-white'
+              }`}
+            >
+              <MapPin className="w-3.5 h-3.5" />
+              <span>Mapa DiDi</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewMode('animaps')}
+              className={`px-3 py-1 rounded-full font-bold transition flex items-center gap-1.5 ${
+                viewMode === 'animaps'
+                  ? 'bg-indigo-600 text-white shadow-[0_0_15px_rgba(99,102,241,0.5)]'
+                  : 'text-indigo-400 hover:text-white'
+              }`}
+              title="Abrir simulador cinemático de ruta con animaps-react"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-indigo-400 animate-pulse" />
+              <span>Ruta AniMaps 3D</span>
+            </button>
+          </div>
         </div>
 
-        {/* Indicador de ayuda al usuario */}
-        <div className="hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-700/80 text-[10px] font-mono text-neutral-300 backdrop-blur-md pointer-events-auto shadow-md">
-          <span className="text-amber-400">💡</span>
-          <span>Haz clic en cualquier calle o pulsa <strong>"Fijar mi Ubicación"</strong></span>
+        {/* 2. BOTONES FLOTANTES LATERALES (Centrar, Fijar Ubicación y Acceso Rápido a AniMaps) */}
+        <div className="absolute top-16 right-3 z-[400] pointer-events-auto flex flex-col gap-2">
+          {/* Botón: Ver Ruta Animada con AniMaps */}
+          <button
+            type="button"
+            onClick={() => setViewMode('animaps')}
+            title="Ver simulación cinemática del trayecto con animaps-react"
+            className="px-3 py-2 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white border-2 border-indigo-400 backdrop-blur-md flex items-center gap-2 shadow-[0_0_20px_rgba(99,102,241,0.5)] hover:scale-105 active:scale-95 transition-all font-mono font-black text-xs"
+          >
+            <Sparkles className="w-4 h-4 text-white" />
+            <span className="hidden sm:inline">Ruta AniMaps</span>
+          </button>
+
+          {/* Botón: Fijar Ubicación GPS Actual */}
+          <button
+            type="button"
+            onClick={handlePinCurrentLocation}
+            title="Fijar mi ubicación GPS actual aquí"
+            className="px-3 py-2 rounded-2xl bg-amber-400 hover:bg-amber-300 text-black border-2 border-white backdrop-blur-md flex items-center gap-2 shadow-[0_0_20px_rgba(245,158,11,0.5)] hover:scale-105 active:scale-95 transition-all font-mono font-black text-xs"
+          >
+            <MapPin className="w-4 h-4 fill-current text-black" />
+            <span className="hidden sm:inline">Fijar mi Ubicación</span>
+          </button>
+
+          {/* Botón: Centrar Mapa en GPS */}
+          <button
+            type="button"
+            onClick={handleRecenter}
+            title="Centrar en mi ubicación GPS"
+            className="w-11 h-11 ml-auto rounded-2xl bg-neutral-900/90 hover:bg-neutral-800 border border-neutral-700/80 backdrop-blur-md flex items-center justify-center text-white shadow-2xl hover:scale-105 active:scale-95 transition-all"
+          >
+            <Crosshair className={`w-5 h-5 text-blue-400 ${isCentering ? 'animate-spin' : ''}`} />
+          </button>
         </div>
-      </div>
-
-      {/* 2. BOTONES FLOTANTES LATERALES (Centrar y Fijar Ubicación Rápida) */}
-      <div className="absolute top-16 right-3 z-[400] pointer-events-auto flex flex-col gap-2">
-        {/* Botón: Fijar Ubicación GPS Actual */}
-        <button
-          type="button"
-          onClick={handlePinCurrentLocation}
-          title="Fijar mi ubicación GPS actual aquí"
-          className="px-3 py-2 rounded-2xl bg-amber-400 hover:bg-amber-300 text-black border-2 border-white backdrop-blur-md flex items-center gap-2 shadow-[0_0_20px_rgba(245,158,11,0.5)] hover:scale-105 active:scale-95 transition-all font-mono font-black text-xs"
-        >
-          <MapPin className="w-4 h-4 fill-current text-black" />
-          <span className="hidden sm:inline">Fijar mi Ubicación</span>
-        </button>
-
-        {/* Botón: Centrar Mapa en GPS */}
-        <button
-          type="button"
-          onClick={handleRecenter}
-          title="Centrar en mi ubicación GPS"
-          className="w-11 h-11 ml-auto rounded-2xl bg-neutral-900/90 hover:bg-neutral-800 border border-neutral-700/80 backdrop-blur-md flex items-center justify-center text-white shadow-2xl hover:scale-105 active:scale-95 transition-all"
-        >
-          <Crosshair className={`w-5 h-5 text-blue-400 ${isCentering ? 'animate-spin' : ''}`} />
-        </button>
-      </div>
 
       {/* 3. CARD FLOTANTE DE UBICACIÓN FIJADA ACTIVA (Aparece cuando el usuario fijó un punto) */}
       {pinnedSpot && (
@@ -696,6 +751,15 @@ export const DiDiParkingMap = ({
                 <span>Ocupar Aquí</span>
               </button>
             )}
+
+            <button
+              type="button"
+              onClick={() => setViewMode('animaps')}
+              className="p-2 rounded-xl bg-indigo-950/90 hover:bg-indigo-900 text-indigo-300 hover:text-white border border-indigo-700/60 transition shadow-sm"
+              title="Ver recorrido animado 3D hacia mi auto con animaps-react"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+            </button>
 
             <a
               href={`https://www.google.com/maps?q=${pinnedSpot.lat},${pinnedSpot.lng}`}
@@ -821,17 +885,29 @@ export const DiDiParkingMap = ({
                 </div>
               </div>
 
-              {/* Botón de Acción Principal Tipo DiDi */}
-              {!activeSession && onStartSession && (
+              {/* Botones de Acción Principal Tipo DiDi */}
+              <div className="flex flex-wrap items-center gap-2 shrink-0">
                 <button
                   type="button"
-                  onClick={() => onStartSession(currentZone)}
-                  className="px-6 py-3.5 rounded-2xl bg-white hover:bg-neutral-200 text-black font-mono font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(255,255,255,0.35)] transition transform active:scale-95 shrink-0"
+                  onClick={() => setViewMode('animaps')}
+                  className="px-4 py-3.5 rounded-2xl bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-600/60 text-indigo-200 font-mono font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition transform active:scale-95"
+                  title="Simular recorrido cinemático con animaps-react"
                 >
-                  <Car className="w-4 h-4 text-black" />
-                  <span>Ocupar Cajón ({currentZone.cajon || '#A-14'})</span>
+                  <Sparkles className="w-4 h-4 text-indigo-400 animate-pulse" />
+                  <span>Ruta AniMaps</span>
                 </button>
-              )}
+
+                {!activeSession && onStartSession && (
+                  <button
+                    type="button"
+                    onClick={() => onStartSession(currentZone)}
+                    className="px-6 py-3.5 rounded-2xl bg-white hover:bg-neutral-200 text-black font-mono font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(255,255,255,0.35)] transition transform active:scale-95"
+                  >
+                    <Car className="w-4 h-4 text-black" />
+                    <span>Ocupar Cajón ({currentZone.cajon || '#A-14'})</span>
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         ) : (
@@ -930,6 +1006,8 @@ export const DiDiParkingMap = ({
             )}
           </div>
         )}
+
+      </div>
 
       </div>
 

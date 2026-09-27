@@ -124,13 +124,13 @@ const MainContent = ({ onReplayLoading }) => {
       iconBg: 'bg-blue-950/80 border border-blue-500/40 text-blue-400',
       borderClassName: 'border-neutral-800/80 hover:border-blue-500/50',
       glowGradient: 'from-blue-500/15 via-transparent to-transparent',
-      footerText: activeSession ? 'Debitando segundo a segundo' : 'Fija tu auto y guarda registro',
+      footerText: activeSession ? 'Debitando segundo a segundo' : 'Mapa DiDi + Rutas AniMaps 3D',
       activeStatus: activeSession !== null,
       onClick: () => {
         setActiveTab('dashboard');
         sileo.info({
-          title: 'Mapa Satelital DiDi',
-          description: 'Fija tu ubicación con un toque o arrastrando el pin y guárdala en tu registro.',
+          title: 'Mapa DiDi & AniMaps 3D',
+          description: 'Explora cajones, fija tu auto o simula el recorrido 3D con animaps-react.',
         });
       },
     },
@@ -272,14 +272,14 @@ const MainContent = ({ onReplayLoading }) => {
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-bold text-white font-mono flex items-center gap-1.5">
                     <MapPin className="w-3.5 h-3.5 text-indigo-400" />
-                    Mapa Satelital DiDi
+                    Mapa DiDi & AniMaps 3D
                   </span>
                   <span className="text-[10px] font-mono text-indigo-400 px-2 py-0.5 rounded-full bg-indigo-950/60 border border-indigo-700/50">
                     EN VIVO
                   </span>
                 </div>
                 <p className="text-[11px] text-neutral-400 font-mono">
-                  Ubica cajones disponibles cerca de tu posición GPS y calcula tarifas.
+                  Ubica cajones disponibles, fija tu auto o simula tu recorrido animado en 3D.
                 </p>
               </div>
             </div>
