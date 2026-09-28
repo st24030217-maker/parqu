@@ -707,14 +707,13 @@ export default function App() {
   return (
     <ParkingProvider>
       <Toaster position="top-right" theme="light" options={{ fill: '#000000' }} />
-      <AnimatePresence mode="wait">
-        {isLoading ? (
+      <ErrorBoundary fallbackText="Centro de Operaciones Parqu">
+        <MainContent />
+      </ErrorBoundary>
+      <AnimatePresence>
+        {isLoading && (
           <ErrorBoundary key="loading-screen" fallbackText="Iniciando Parqu...">
             <LoadingScreen onComplete={handleStart} />
-          </ErrorBoundary>
-        ) : (
-          <ErrorBoundary key="main-app" fallbackText="Centro de Operaciones Parqu">
-            <MainContent />
           </ErrorBoundary>
         )}
       </AnimatePresence>
