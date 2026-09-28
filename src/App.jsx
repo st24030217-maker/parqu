@@ -15,8 +15,6 @@ import { HeroParallax } from './components/ui/hero-parallax';
 import { WobbleCard } from './components/ui/wobble-card';
 import { InterfaceCraftsCards } from './components/ui/interface-crafts-cards';
 import { Tabs } from './components/ui/tabs';
-import { MultiStepLoader } from './components/ui/multi-step-loader';
-import { LoadingScreen } from './components/LoadingScreen';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { CurrencyDollarIcon } from './components/icons/currency-dollar-icon';
 import { AnimeTelemetryHud } from './components/ui/anime-telemetry-hud';
@@ -38,16 +36,7 @@ import {
   MapPin
 } from 'lucide-react';
 
-const PARQU_LOADING_STATES = [
-  { text: "Conectando con Satélites GPS Metropolitanos..." },
-  { text: "Sincronizando Sensores de Cajones y Disponibilidad..." },
-  { text: "Validando Credencial Digital y Monedero Parqu..." },
-  { text: "Activando Encriptación AES-256 de SSS.Solutions..." },
-  { text: "Sincronizando Protocolo de Autocobro Cero Multas..." },
-  { text: "Red Satelital Parqu Conectada y Lista" },
-];
-
-const MainContent = ({ onReplayLoading }) => {
+const MainContent = () => {
   const { 
     activeSession, 
     vehicle = {}, 
@@ -61,7 +50,6 @@ const MainContent = ({ onReplayLoading }) => {
   const [activeTab, setActiveTab] = useState('dashboard'); // 'dashboard', 'autopay', 'vehicle', 'history'
   const [showQRQuickModal, setShowQRQuickModal] = useState(false);
   const [showRechargeQuickModal, setShowRechargeQuickModal] = useState(false);
-  const [showMultiStepLoader, setShowMultiStepLoader] = useState(false);
   const [rechargeAmt, setRechargeAmt] = useState(150);
   const systemRef = useRef(null);
 
@@ -184,9 +172,13 @@ const MainContent = ({ onReplayLoading }) => {
       iconBg: 'bg-white/10 backdrop-blur-sm border border-white/10 text-[#D4D6E6]',
       borderClassName: 'border-white/10 hover:border-white/25',
       glowGradient: 'from-[#0033FF]/30 via-transparent to-transparent',
-      footerText: 'Verificar Red en 6 Pasos',
       activeStatus: true,
-      onClick: () => setShowMultiStepLoader(true),
+      onClick: () => {
+        sileo.success({
+          title: 'Telemetría de Red Activa',
+          description: 'Sensores satelitales y protocolo de parquímetros sincronizados al 100%.',
+        });
+      },
     },
   ];
 
@@ -498,12 +490,17 @@ const MainContent = ({ onReplayLoading }) => {
             <div className="flex flex-wrap items-center gap-3">
               <button
                 type="button"
-                onClick={() => setShowMultiStepLoader(true)}
+                onClick={() => {
+                  sileo.success({
+                    title: 'Diagnóstico Completado',
+                    description: 'Telemetría metropolitana y sensores de parquímetro activos al 100%.',
+                  });
+                }}
                 className="px-4 py-2.5 rounded-2xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-mono font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_0_20px_rgba(0,51,255,0.4)] transition-all transform active:scale-95 cursor-pointer"
-                title="Ejecutar diagnóstico y telemetría de red con animación Multi-Step Loader"
+                title="Ejecutar diagnóstico y telemetría de red"
               >
                 <Sparkles className="w-4 h-4 fill-current text-white" />
-                <span>Diagnóstico Multi-Step</span>
+                <span>Diagnóstico de Red</span>
               </button>
 
               <div className="flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white/8 backdrop-blur-sm border border-white/10 shrink-0">
@@ -627,21 +624,7 @@ const MainContent = ({ onReplayLoading }) => {
             </div>
           )}
 
-          {/* Componente Aceternity MultiStepLoader (@aceternity/multi-step-loader) */}
-          <MultiStepLoader
-            loading={showMultiStepLoader}
-            loadingStates={PARQU_LOADING_STATES}
-            duration={1500}
-            loop={false}
-            onClose={() => setShowMultiStepLoader(false)}
-            onComplete={() => {
-              setShowMultiStepLoader(false);
-              sileo.success({
-                title: 'Diagnóstico Completado',
-                description: 'Telemetría metropolitana y cajones en vivo operando al 100%.',
-              });
-            }}
-          />
+
 
           {/* COMPONENTE ACETERNITY UI TABS (Control centralizado de funciones con animación spring) */}
           <Tabs 
@@ -708,53 +691,12 @@ const MainContent = ({ onReplayLoading }) => {
 };
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isBootstrapping, setIsBootstrapping] = useState(false);
-
-  const handleStart = () => {
-    setIsBootstrapping(true);
-  };
-
-  const handleBootComplete = () => {
-    setIsBootstrapping(false);
-    setIsLoading(false);
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    setTimeout(() => {
-      sileo.success({
-        title: '¡Bienvenido a Parqu!',
-        description: 'Pase digital y red inteligente de parquímetros sincronizados.',
-      });
-    }, 250);
-  };
-
-  const handleReplay = () => {
-    setIsLoading(true);
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  };
-
   return (
     <ParkingProvider>
       <Toaster position="top-right" theme="light" options={{ fill: '#000000' }} />
-      {/* Animación Multi-Step Loader de arranque al ingresar */}
-      <MultiStepLoader
-        loading={isBootstrapping}
-        loadingStates={PARQU_LOADING_STATES}
-        duration={1100}
-        loop={false}
-        onClose={handleBootComplete}
-        onComplete={handleBootComplete}
-      />
-      <AnimatePresence mode="wait">
-        {isLoading ? (
-          <ErrorBoundary key="loading-screen" fallbackText="Iniciando Parqu...">
-            <LoadingScreen onComplete={handleStart} />
-          </ErrorBoundary>
-        ) : (
-          <ErrorBoundary key="main-app" fallbackText="Centro de Operaciones Parqu">
-            <MainContent onReplayLoading={handleReplay} />
-          </ErrorBoundary>
-        )}
-      </AnimatePresence>
+      <ErrorBoundary fallbackText="Centro de Operaciones Parqu">
+        <MainContent />
+      </ErrorBoundary>
     </ParkingProvider>
   );
 }

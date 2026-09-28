@@ -17,9 +17,9 @@ export const Header = ({ onReplayLoading, onNavigateToPanel }) => {
         
         {/* Logotipo Oficial PARK - 100% Transparente sin cajas de fondo */}
         <div 
-          onClick={onReplayLoading}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           className="flex items-center gap-3.5 cursor-pointer group"
-          title="Ver pantalla de carga inicial"
+          title="Parqu Digital"
         >
           <div className="relative flex items-center justify-center p-1 group-hover:scale-105 transition-transform duration-300">
             <div className="absolute -inset-2 bg-[#0033FF]/30 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
