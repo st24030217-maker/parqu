@@ -75,32 +75,32 @@ export const AutoPaymentConfig = () => {
 
   return (
     <WobbleCard
-      containerClassName="w-full bg-gradient-to-br from-[#1B3A2F]/15 via-[#1B3A2F]/8 to-transparent border-white/10 hover:border-white/20 backdrop-blur-xl backdrop-saturate-150 transition-colors shadow-2xl"
+      containerClassName="w-full bg-gradient-to-br from-[#01033E]/70 via-[#01033E]/40 to-transparent border-white/10 hover:border-[#807DFE]/30 backdrop-blur-xl backdrop-saturate-150 transition-colors shadow-2xl"
       className="p-6 sm:p-8 flex flex-col justify-between"
     >
       <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-white/10 mb-6 gap-3">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <span className="px-3 py-1 rounded-full bg-[#1B3A2F] border border-[#2A5A49] text-[10px] font-mono font-bold uppercase tracking-widest text-[#F5F1E8]">
+            <span className="px-3 py-1 rounded-full bg-[#0033FF]/20 border border-[#807DFE]/40 text-[10px] font-mono font-bold uppercase tracking-widest text-[#D4D6E6]">
               TECNOLOGÍA SSS.SOLUTIONS
             </span>
-            <span className="text-[#dfd4bf]/60 text-xs font-mono">•</span>
-            <span className="text-[11px] font-mono text-[#dfd4bf]">DÉBITO AUTOMATIZADO</span>
+            <span className="text-[#D4D6E6]/60 text-xs font-mono">•</span>
+            <span className="text-[11px] font-mono text-[#D4D6E6]">DÉBITO AUTOMATIZADO</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-[#F5F1E8] tracking-tight flex items-center gap-2.5">
+          <h2 className="text-2xl sm:text-3xl font-black text-[#D4D6E6] tracking-tight flex items-center gap-2.5">
             <Zap className="w-6 h-6 text-amber-400" />
             Configuración de Autocobro Continuo
           </h2>
-          <p className="text-xs sm:text-sm text-[#dfd4bf] mt-1 font-mono max-w-2xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#D4D6E6] mt-1 font-mono max-w-2xl leading-relaxed">
             Elimina multas y filas domiciliando el cobro directo de tus estancias de parquímetro.
           </p>
         </div>
 
         <div className="flex items-center gap-2 font-mono">
-          <span className="text-xs text-[#dfd4bf]">Estado:</span>
+          <span className="text-xs text-[#D4D6E6]">Estado:</span>
           <span className={`px-3.5 py-1.5 rounded-full text-xs font-bold border font-mono flex items-center gap-1.5 ${
             formData.enabled 
-              ? 'bg-white/10 backdrop-blur-sm border border-white/10 text-[#F5F1E8] shadow-[0_0_15px_rgba(27,58,47,0.4)]' 
+              ? 'bg-white/10 backdrop-blur-sm border border-white/10 text-[#D4D6E6] shadow-[0_0_15px_rgba(0,51,255,0.4)]' 
               : 'bg-rose-950/40 text-rose-400 border-rose-800/50'
           }`}>
             <span className={`w-2 h-2 rounded-full ${formData.enabled ? 'bg-emerald-400 animate-pulse' : 'bg-rose-400'}`} />
@@ -147,14 +147,14 @@ export const AutoPaymentConfig = () => {
 
         {/* Modalidad de Autocobro */}
         <div>
-          <label className="text-xs uppercase tracking-wider font-bold text-[#dfd4bf] block mb-2.5 font-mono">
+          <label className="text-xs uppercase tracking-wider font-bold text-[#D4D6E6] block mb-2.5 font-mono">
             Fuente de Pago para Autocobro
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <label className={`p-4 rounded-2xl border cursor-pointer transition flex items-start gap-3 ${
               formData.fundingSource === 'CARD'
-                ? 'bg-[#1B3A2F]/25 backdrop-blur-sm border-[#F5F1E8]/50 text-[#F5F1E8] shadow-[0_0_15px_rgba(245,241,232,0.15)]'
-                : 'bg-white/5 border-white/10 text-[#dfd4bf]/80 hover:bg-white/8'
+                ? 'bg-[#0033FF]/20 backdrop-blur-sm border-[#807DFE]/60 text-[#D4D6E6] shadow-[0_0_15px_rgba(0,51,255,0.2)]'
+                : 'bg-white/5 border-white/10 text-[#D4D6E6]/80 hover:bg-white/8'
             }`}>
               <input
                 type="radio"
@@ -162,14 +162,14 @@ export const AutoPaymentConfig = () => {
                 value="CARD"
                 checked={formData.fundingSource === 'CARD'}
                 onChange={handleChange}
-                className="mt-1 text-[#1B3A2F] focus:ring-[#F5F1E8]"
+                className="mt-1 text-[#0033FF] focus:ring-[#807DFE]"
               />
               <div>
-                <span className="text-sm font-bold block flex items-center gap-1.5 text-[#F5F1E8] font-mono">
-                  <CreditCard className="w-4 h-4 text-[#F5F1E8]" />
+                <span className="text-sm font-bold block flex items-center gap-1.5 text-[#D4D6E6] font-mono">
+                  <CreditCard className="w-4 h-4 text-[#D4D6E6]" />
                   Tarjeta de Débito / Crédito
                 </span>
-                <span className="text-xs text-[#dfd4bf] block mt-0.5 font-mono">
+                <span className="text-xs text-[#D4D6E6] block mt-0.5 font-mono">
                   Cargo directo a cuenta bancaria con recibo fiscal instantáneo.
                 </span>
               </div>
@@ -177,8 +177,8 @@ export const AutoPaymentConfig = () => {
 
             <label className={`p-4 rounded-2xl border cursor-pointer transition flex items-start gap-3 ${
               formData.fundingSource === 'WALLET_BALANCE'
-                ? 'bg-[#1B3A2F]/25 backdrop-blur-sm border-[#F5F1E8]/50 text-[#F5F1E8] shadow-[0_0_15px_rgba(245,241,232,0.15)]'
-                : 'bg-white/5 border-white/10 text-[#dfd4bf]/80 hover:bg-white/8'
+                ? 'bg-[#0033FF]/20 backdrop-blur-sm border-[#807DFE]/60 text-[#D4D6E6] shadow-[0_0_15px_rgba(0,51,255,0.2)]'
+                : 'bg-white/5 border-white/10 text-[#D4D6E6]/80 hover:bg-white/8'
             }`}>
               <input
                 type="radio"
@@ -186,14 +186,14 @@ export const AutoPaymentConfig = () => {
                 value="WALLET_BALANCE"
                 checked={formData.fundingSource === 'WALLET_BALANCE'}
                 onChange={handleChange}
-                className="mt-1 text-[#1B3A2F] focus:ring-[#F5F1E8]"
+                className="mt-1 text-[#0033FF] focus:ring-[#807DFE]"
               />
               <div>
-                <span className="text-sm font-bold block flex items-center gap-1.5 text-[#F5F1E8] font-mono">
-                  <Wallet className="w-4 h-4 text-[#F5F1E8]" />
+                <span className="text-sm font-bold block flex items-center gap-1.5 text-[#D4D6E6] font-mono">
+                  <Wallet className="w-4 h-4 text-[#D4D6E6]" />
                   Saldo Prepago de Tarjeta Digital
                 </span>
-                <span className="text-xs text-[#dfd4bf] block mt-0.5 font-mono">
+                <span className="text-xs text-[#D4D6E6] block mt-0.5 font-mono">
                   Se descuenta del saldo acumulado en tu monedero virtual.
                 </span>
               </div>
@@ -205,18 +205,18 @@ export const AutoPaymentConfig = () => {
         {formData.fundingSource === 'CARD' && (
           <div className="p-5 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 space-y-4 animate-in fade-in">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-[#F5F1E8] uppercase tracking-wider flex items-center gap-1.5 font-mono">
-                <Lock className="w-3.5 h-3.5 text-[#F5F1E8]" />
+              <span className="text-xs font-bold text-[#D4D6E6] uppercase tracking-wider flex items-center gap-1.5 font-mono">
+                <Lock className="w-3.5 h-3.5 text-[#D4D6E6]" />
                 Datos de la Tarjeta para Domiciliación
               </span>
-              <span className="text-[10px] text-[#dfd4bf] font-mono flex items-center gap-1">
+              <span className="text-[10px] text-[#D4D6E6] font-mono flex items-center gap-1">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> Encriptación SSL 256-bit
               </span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-medium text-[#dfd4bf] mb-1 font-mono">
+                <label className="block text-xs font-medium text-[#D4D6E6] mb-1 font-mono">
                   Nombre del Titular en la Tarjeta
                 </label>
                 <input
@@ -226,12 +226,12 @@ export const AutoPaymentConfig = () => {
                   value={formData.cardHolder}
                   onChange={handleChange}
                   placeholder="NOMBRE TAL COMO APARECE"
-                  className="w-full uppercase px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition font-mono text-sm"
+                  className="w-full uppercase px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#D4D6E6] placeholder-neutral-600 focus:outline-none focus:border-[#D4D6E6]/70 transition font-mono text-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#dfd4bf] mb-1 font-mono">
+                <label className="block text-xs font-medium text-[#D4D6E6] mb-1 font-mono">
                   Número de Tarjeta (16 dígitos)
                 </label>
                 <input
@@ -241,12 +241,12 @@ export const AutoPaymentConfig = () => {
                   value={formData.cardNumber}
                   onChange={handleChange}
                   placeholder="4152 •••• •••• 9921"
-                  className="w-full font-mono px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm"
+                  className="w-full font-mono px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#D4D6E6] placeholder-neutral-600 focus:outline-none focus:border-[#D4D6E6]/70 transition text-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#dfd4bf] mb-1 font-mono">
+                <label className="block text-xs font-medium text-[#D4D6E6] mb-1 font-mono">
                   Banco Emisor / Identificador
                 </label>
                 <input
@@ -255,13 +255,13 @@ export const AutoPaymentConfig = () => {
                   value={formData.bank}
                   onChange={handleChange}
                   placeholder="Ej. BBVA, Santander, Banorte, Nu"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition font-mono text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#D4D6E6] placeholder-neutral-600 focus:outline-none focus:border-[#D4D6E6]/70 transition font-mono text-sm"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-xs font-medium text-[#dfd4bf] mb-1 font-mono">
+                  <label className="block text-xs font-medium text-[#D4D6E6] mb-1 font-mono">
                     Vencimiento (MM/AA)
                   </label>
                   <input
@@ -271,11 +271,11 @@ export const AutoPaymentConfig = () => {
                     value={formData.expiry}
                     onChange={handleChange}
                     placeholder="12/28"
-                    className="w-full font-mono text-center px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm"
+                    className="w-full font-mono text-center px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#D4D6E6] focus:outline-none focus:border-[#D4D6E6]/70 transition text-sm"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-[#dfd4bf] mb-1 font-mono">
+                  <label className="block text-xs font-medium text-[#D4D6E6] mb-1 font-mono">
                     CVV Dinámico
                   </label>
                   <input
@@ -285,7 +285,7 @@ export const AutoPaymentConfig = () => {
                     value={formData.cvv}
                     onChange={handleChange}
                     placeholder="•••"
-                    className="w-full font-mono text-center px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm"
+                    className="w-full font-mono text-center px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#D4D6E6] focus:outline-none focus:border-[#D4D6E6]/70 transition text-sm"
                   />
                 </div>
               </div>
@@ -296,12 +296,12 @@ export const AutoPaymentConfig = () => {
         {/* Reglas de Seguridad y Límites de Autocobro */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-medium text-[#dfd4bf] mb-1 font-mono">
+            <label className="block text-xs font-medium text-[#D4D6E6] mb-1 font-mono">
               Tope Máximo de Autocobro por Sesión (MXN)
             </label>
             <div className="relative">
               <span className="absolute left-3 top-2.5 text-neutral-500 pointer-events-none flex items-center justify-center">
-                <CurrencyDollarIcon size={16} strokeWidth={2} className="text-[#F5F1E8]" />
+                <CurrencyDollarIcon size={16} strokeWidth={2} className="text-[#D4D6E6]" />
               </span>
               <input
                 type="number"
@@ -310,33 +310,33 @@ export const AutoPaymentConfig = () => {
                 max="800"
                 value={formData.maxLimitPerSession}
                 onChange={handleChange}
-                className="w-full pl-9 pr-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] font-mono focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm"
+                className="w-full pl-9 pr-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#D4D6E6] font-mono focus:outline-none focus:border-[#D4D6E6]/70 transition text-sm"
               />
             </div>
-            <p className="text-[11px] text-[#dfd4bf] mt-1 font-mono">
+            <p className="text-[11px] text-[#D4D6E6] mt-1 font-mono">
               Límite de seguridad contra cobros excesivos si olvidas retirar el vehículo.
             </p>
           </div>
 
           <div className="space-y-3 pt-2 font-mono">
-            <label className="flex items-center gap-2.5 cursor-pointer text-xs text-[#dfd4bf]">
+            <label className="flex items-center gap-2.5 cursor-pointer text-xs text-[#D4D6E6]">
               <input
                 type="checkbox"
                 name="smsNotification"
                 checked={formData.smsNotification}
                 onChange={handleChange}
-                className="rounded border-white/20 bg-white/5 text-[#1B3A2F] focus:ring-[#F5F1E8]"
+                className="rounded border-white/20 bg-white/5 text-[#0033FF] focus:ring-[#807DFE]"
               />
               <span>Enviar comprobante instantáneo vía SMS / Push</span>
             </label>
 
-            <label className="flex items-center gap-2.5 cursor-pointer text-xs text-[#dfd4bf]">
+            <label className="flex items-center gap-2.5 cursor-pointer text-xs text-[#D4D6E6]">
               <input
                 type="checkbox"
                 name="autoRenew"
                 checked={formData.autoRenew}
                 onChange={handleChange}
-                className="rounded border-white/20 bg-white/5 text-[#1B3A2F] focus:ring-[#F5F1E8]"
+                className="rounded border-white/20 bg-white/5 text-[#0033FF] focus:ring-[#807DFE]"
               />
               <span>Autorrenovación automática si el vehículo permanece en cajón</span>
             </label>
@@ -351,10 +351,10 @@ export const AutoPaymentConfig = () => {
             name="acceptedTerms"
             checked={formData.acceptedTerms}
             onChange={handleChange}
-            className="mt-1 rounded border-white/20 bg-white/5 text-[#1B3A2F] focus:ring-[#F5F1E8]"
+            className="mt-1 rounded border-white/20 bg-white/5 text-[#0033FF] focus:ring-[#807DFE]"
           />
-          <label htmlFor="acceptedTerms" className="text-xs text-[#dfd4bf] leading-relaxed cursor-pointer font-mono">
-            <span className="font-bold text-[#F5F1E8] block mb-0.5">
+          <label htmlFor="acceptedTerms" className="text-xs text-[#D4D6E6] leading-relaxed cursor-pointer font-mono">
+            <span className="font-bold text-[#D4D6E6] block mb-0.5">
               Autorización expresa de débito para la placa {vehicle.plates}:
             </span>
             Autorizo al sistema de Parquímetros Digitales a debitar de forma automática el costo correspondiente 
@@ -366,9 +366,9 @@ export const AutoPaymentConfig = () => {
         <div className="flex justify-end pt-2">
           <button
             type="submit"
-            className="px-6 py-3.5 rounded-2xl bg-[#F5F1E8] hover:bg-white text-[#1B3A2F] font-bold font-mono text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_0_20px_rgba(245,241,232,0.25)] transition transform active:scale-95"
+            className="px-6 py-3.5 rounded-2xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-bold font-mono text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_0_20px_rgba(0,51,255,0.6)] transition transform active:scale-95"
           >
-            <FileCheck2 className="w-4 h-4 text-[#1B3A2F]" />
+            <FileCheck2 className="w-4 h-4 text-white" />
             Guardar Formato y Activar Autocobro
           </button>
         </div>

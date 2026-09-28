@@ -402,20 +402,20 @@ export const DiDiParkingMap = ({
               isActive
                 ? 'bg-amber-400 text-black border-amber-300 shadow-[0_0_20px_rgba(245,158,11,0.5)] animate-pulse'
                 : isSelected
-                ? 'bg-[#F5F1E8] text-[#1B3A2F] border-[#1B3A2F] shadow-[0_0_25px_rgba(245,241,232,0.4)]'
-                : 'bg-[#0c1b16]/95 text-[#F5F1E8] border-[#1B3A2F] hover:border-[#2a5447]'
+                ? 'bg-[#0033FF] text-white border-[#807DFE] shadow-[0_0_25px_rgba(0,51,255,0.6)]'
+                : 'bg-[#01033E]/95 text-[#D4D6E6] border-white/20 hover:border-[#807DFE]/60'
             }">
               <span>${zone.cajon}</span>
               <span class="opacity-60">•</span>
-              <span class="${isSelected ? 'text-[#1B3A2F] font-black' : 'text-[#F5F1E8] font-bold'}">$${zone.ratePerHour}</span>
+              <span class="${isSelected ? 'text-white font-black' : 'text-[#D4D6E6] font-bold'}">$${zone.ratePerHour}</span>
             </div>
 
             <div class="w-3 h-3 rotate-45 -mt-1.5 border-r border-b ${
               isActive
                 ? 'bg-amber-400 border-amber-300'
                 : isSelected
-                ? 'bg-[#F5F1E8] border-[#1B3A2F]'
-                : 'bg-[#0c1b16] border-[#1B3A2F]'
+                ? 'bg-[#0033FF] border-[#807DFE]'
+                : 'bg-[#01033E] border-white/20'
             }"></div>
 
             <div class="w-4 h-1 rounded-full bg-black/60 blur-[1px] mt-0.5"></div>
@@ -622,14 +622,14 @@ export const DiDiParkingMap = ({
           </div>
 
           {/* Selector de Modo de Mapa: DiDi (Leaflet) / AniMaps (3D) */}
-          <div className="flex items-center gap-1 bg-[#0c1b16]/95 backdrop-blur-md p-1 rounded-full border border-[#1B3A2F] shadow-xl pointer-events-auto text-xs font-mono">
+          <div className="flex items-center gap-1 bg-[#01033E]/95 backdrop-blur-md p-1 rounded-full border border-white/10 shadow-xl pointer-events-auto text-xs font-mono">
             <button
               type="button"
               onClick={() => setViewMode('map')}
               className={`px-3 py-1 rounded-full font-bold transition flex items-center gap-1.5 ${
                 viewMode === 'map'
-                  ? 'bg-[#F5F1E8] text-[#1B3A2F] shadow'
-                  : 'text-[#dfd4bf]/80 hover:text-[#F5F1E8]'
+                  ? 'bg-[#0033FF] text-white shadow'
+                  : 'text-[#D4D6E6]/70 hover:text-white'
               }`}
             >
               <MapPin className="w-3.5 h-3.5" />
@@ -640,12 +640,12 @@ export const DiDiParkingMap = ({
               onClick={() => setViewMode('animaps')}
               className={`px-3 py-1 rounded-full font-bold transition flex items-center gap-1.5 ${
                 viewMode === 'animaps'
-                  ? 'bg-[#1B3A2F] text-[#F5F1E8] border border-[#2a5447] shadow-[0_0_15px_rgba(27,58,47,0.7)]'
-                  : 'text-[#F5F1E8] hover:text-[#dfd4bf]'
+                  ? 'bg-[#0033FF] text-white border border-[#807DFE]/50 shadow-[0_0_15px_rgba(0,51,255,0.4)]'
+                  : 'text-[#D4D6E6] hover:text-white'
               }`}
               title="Abrir simulador cinemático de ruta con animaps-react"
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#F5F1E8] animate-pulse" />
+              <Sparkles className="w-3.5 h-3.5 text-[#807DFE] animate-pulse" />
               <span>Ruta AniMaps 3D</span>
             </button>
           </div>
@@ -658,9 +658,9 @@ export const DiDiParkingMap = ({
             type="button"
             onClick={() => setViewMode('animaps')}
             title="Ver simulación cinemática del trayecto con animaps-react"
-            className="px-3 py-2 rounded-2xl bg-[#1B3A2F] hover:bg-[#255243] text-[#F5F1E8] border-2 border-[#2a5447] backdrop-blur-md flex items-center gap-2 shadow-[0_0_20px_rgba(27,58,47,0.7)] hover:scale-105 active:scale-95 transition-all font-mono font-black text-xs"
+            className="px-3 py-2 rounded-2xl bg-[#0033FF] hover:bg-[#2250ff] text-white border-2 border-[#807DFE]/50 backdrop-blur-md flex items-center gap-2 shadow-[0_0_20px_rgba(0,51,255,0.4)] hover:scale-105 active:scale-95 transition-all font-mono font-black text-xs"
           >
-            <Sparkles className="w-4 h-4 text-[#F5F1E8]" />
+            <Sparkles className="w-4 h-4 text-white" />
             <span className="hidden sm:inline">Ruta AniMaps</span>
           </button>
 
@@ -890,10 +890,10 @@ export const DiDiParkingMap = ({
                 <button
                   type="button"
                   onClick={() => setViewMode('animaps')}
-                  className="px-4 py-3.5 rounded-2xl bg-[#1B3A2F] hover:bg-[#255243] border border-[#2a5447] text-[#F5F1E8] font-mono font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition transform active:scale-95"
+                  className="px-4 py-3.5 rounded-2xl bg-white/10 hover:bg-white/15 border border-[#807DFE]/40 text-white font-mono font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition transform active:scale-95"
                   title="Simular recorrido cinemático con animaps-react"
                 >
-                  <Sparkles className="w-4 h-4 text-[#F5F1E8] animate-pulse" />
+                  <Sparkles className="w-4 h-4 text-[#807DFE] animate-pulse" />
                   <span>Ruta AniMaps</span>
                 </button>
 
@@ -901,9 +901,9 @@ export const DiDiParkingMap = ({
                   <button
                     type="button"
                     onClick={() => onStartSession(currentZone)}
-                    className="px-6 py-3.5 rounded-2xl bg-[#F5F1E8] hover:bg-[#ede6d8] text-[#1B3A2F] font-mono font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(27,58,47,0.7)] transition transform active:scale-95"
+                    className="px-6 py-3.5 rounded-2xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-mono font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(0,51,255,0.5)] transition transform active:scale-95"
                   >
-                    <Car className="w-4 h-4 text-[#1B3A2F]" />
+                    <Car className="w-4 h-4 text-white" />
                     <span>Ocupar Cajón ({currentZone.cajon || '#A-14'})</span>
                   </button>
                 )}

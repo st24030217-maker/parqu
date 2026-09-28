@@ -31,30 +31,30 @@ export const TransactionHistory = () => {
 
   return (
     <WobbleCard
-      containerClassName="w-full bg-gradient-to-br from-[#1B3A2F]/15 via-[#1B3A2F]/8 to-transparent border-white/10 hover:border-white/20 backdrop-blur-xl backdrop-saturate-150 transition-colors shadow-2xl"
+      containerClassName="w-full bg-gradient-to-br from-[#01033E]/70 via-[#01033E]/40 to-transparent border-white/10 hover:border-[#807DFE]/30 backdrop-blur-xl backdrop-saturate-150 transition-colors shadow-2xl"
       className="p-6 sm:p-8 flex flex-col justify-between"
     >
       <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-white/10 mb-6 gap-3">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <span className="px-3 py-1 rounded-full bg-[#1B3A2F] border border-[#2A5A49] text-[10px] font-mono font-bold uppercase tracking-widest text-[#F5F1E8]">
+            <span className="px-3 py-1 rounded-full bg-[#0033FF]/20 border border-[#807DFE]/40 text-[10px] font-mono font-bold uppercase tracking-widest text-[#D4D6E6]">
               BITÁCORA OFICIAL CFDI & REGISTRO GPS
             </span>
-            <span className="text-[#dfd4bf]/60 text-xs font-mono">•</span>
-            <span className="text-[11px] font-mono text-[#dfd4bf]">TECNOLOGÍA SSS.SOLUTIONS</span>
+            <span className="text-[#D4D6E6]/60 text-xs font-mono">•</span>
+            <span className="text-[11px] font-mono text-[#D4D6E6]">TECNOLOGÍA SSS.SOLUTIONS</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-[#F5F1E8] tracking-tight flex items-center gap-2.5">
-            <History className="w-6 h-6 text-[#F5F1E8]" />
+          <h2 className="text-2xl sm:text-3xl font-black text-[#D4D6E6] tracking-tight flex items-center gap-2.5">
+            <History className="w-6 h-6 text-[#D4D6E6]" />
             Historial de Autocobros & Ubicaciones Fijadas
           </h2>
-          <p className="text-xs sm:text-sm text-[#dfd4bf] mt-1 font-mono max-w-2xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#D4D6E6] mt-1 font-mono max-w-2xl leading-relaxed">
             Registro inmutable de cargos de parquímetro y bitácora satelital de cajones donde has fijado tu vehículo.
           </p>
         </div>
 
         <div className="flex items-center gap-3 font-mono">
           <div className="text-right">
-            <span className="text-[10px] uppercase tracking-wider text-[#dfd4bf] block">Total Acumulado</span>
+            <span className="text-[10px] uppercase tracking-wider text-[#D4D6E6] block">Total Acumulado</span>
             <span className="text-lg font-black text-emerald-400 flex items-center justify-end gap-1">
               <CurrencyDollarIcon size={16} className="text-emerald-400" />
               <AnimeCounter
@@ -66,7 +66,7 @@ export const TransactionHistory = () => {
               />
             </span>
           </div>
-          <span className="text-xs font-mono text-[#F5F1E8] bg-white/8 backdrop-blur-sm border border-white/10 px-3.5 py-1.5 rounded-full">
+          <span className="text-xs font-mono text-[#D4D6E6] bg-white/8 backdrop-blur-sm border border-white/10 px-3.5 py-1.5 rounded-full">
             {transactions.length} Cobros • {pinnedLocations.length} Ubicaciones
           </span>
         </div>
@@ -78,8 +78,8 @@ export const TransactionHistory = () => {
           onClick={() => setActiveSubTab('payments')}
           className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 ${
             activeSubTab === 'payments'
-              ? 'bg-[#F5F1E8] text-[#1B3A2F] shadow-md'
-              : 'bg-white/5 text-[#dfd4bf] hover:text-[#F5F1E8] border border-white/10 hover:bg-white/8'
+              ? 'bg-[#0033FF] text-white shadow-[0_0_15px_rgba(0,51,255,0.4)]'
+              : 'bg-white/5 text-[#D4D6E6]/70 hover:text-white border border-white/10 hover:bg-white/8'
           }`}
         >
           <Receipt className="w-3.5 h-3.5" />
@@ -90,8 +90,8 @@ export const TransactionHistory = () => {
           onClick={() => setActiveSubTab('locations')}
           className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 ${
             activeSubTab === 'locations'
-              ? 'bg-[#F5F1E8] text-[#1B3A2F] shadow-md'
-              : 'bg-white/5 text-[#dfd4bf] hover:text-[#F5F1E8] border border-white/10 hover:bg-white/8'
+              ? 'bg-[#0033FF] text-white shadow-[0_0_15px_rgba(0,51,255,0.4)]'
+              : 'bg-white/5 text-[#D4D6E6]/70 hover:text-white border border-white/10 hover:bg-white/8'
           }`}
         >
           <MapPin className="w-3.5 h-3.5" />
@@ -152,7 +152,7 @@ export const TransactionHistory = () => {
                     <td className="py-3.5 px-4 text-center">
                       <button
                         onClick={() => setSelectedTicket(txn)}
-                        className="px-3.5 py-1.5 rounded-xl bg-white/8 backdrop-blur-sm hover:bg-[#F5F1E8] hover:text-[#1B3A2F] text-[#dfd4bf] border border-white/10 transition text-[11px] font-mono font-semibold inline-flex items-center gap-1.5 shadow-sm"
+                        className="px-3.5 py-1.5 rounded-xl bg-white/8 backdrop-blur-sm hover:bg-[#0033FF] hover:text-white text-[#D4D6E6] border border-white/10 transition text-[11px] font-mono font-semibold inline-flex items-center gap-1.5 shadow-sm"
                       >
                         <Receipt className="w-3.5 h-3.5" />
                         Ver Comprobante
@@ -256,91 +256,91 @@ export const TransactionHistory = () => {
       {/* Modal de Ticket / Comprobante Digital */}
       {selectedTicket && (
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-[#1B3A2F]/25 backdrop-blur-2xl border border-white/15 rounded-3xl max-w-sm w-full p-6 sm:p-7 shadow-2xl relative animate-in fade-in zoom-in-95">
+          <div className="bg-[#01033E]/90 backdrop-blur-2xl border border-[#807DFE]/30 rounded-3xl max-w-sm w-full p-6 sm:p-7 shadow-[0_0_50px_rgba(0,51,255,0.3)] relative animate-in fade-in zoom-in-95">
             {/* Header del Ticket */}
             <div className="text-center pb-4 border-b border-dashed border-white/10">
-              <div className="w-10 h-10 rounded-2xl bg-[#F5F1E8] text-[#1B3A2F] flex items-center justify-center mx-auto mb-2 shadow-[0_0_15px_rgba(245,241,232,0.2)]">
+              <div className="w-10 h-10 rounded-2xl bg-[#0033FF] text-white flex items-center justify-center mx-auto mb-2 shadow-[0_0_15px_rgba(0,51,255,0.5)]">
                 <CheckCircle2 className="w-6 h-6" />
               </div>
-              <span className="text-[10px] uppercase tracking-widest text-[#dfd4bf] font-mono font-bold block">
+              <span className="text-[10px] uppercase tracking-widest text-[#807DFE] font-mono font-bold block">
                 COMPROBANTE OFICIAL DE AUTOCOBRO
               </span>
-              <h3 className="text-base font-black text-[#F5F1E8] mt-1 font-mono">Parqu Digital Metropolitano</h3>
-              <p className="text-xs font-mono text-[#dfd4bf]">Folio: {selectedTicket.folio}</p>
+              <h3 className="text-base font-black text-white mt-1 font-mono">Parqu Digital Metropolitano</h3>
+              <p className="text-xs font-mono text-[#D4D6E6]/80">Folio: {selectedTicket.folio}</p>
             </div>
 
             {/* Datos del Ticket */}
             <div className="py-4 space-y-2 text-xs font-mono border-b border-dashed border-white/10">
               <div className="flex justify-between">
-                <span className="text-[#dfd4bf]">Fecha y Hora:</span>
-                <span className="text-[#F5F1E8] text-[11px]">{formatDate(selectedTicket.date)}</span>
+                <span className="text-[#D4D6E6]/70">Fecha y Hora:</span>
+                <span className="text-white text-[11px]">{formatDate(selectedTicket.date)}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#dfd4bf]">Titular:</span>
-                <span className="text-[#F5F1E8] uppercase truncate max-w-[170px]">{owner.fullName}</span>
+                <span className="text-[#D4D6E6]/70">Titular:</span>
+                <span className="text-white uppercase truncate max-w-[170px]">{owner.fullName}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#dfd4bf]">Placas Registradas:</span>
-                <span className="text-[#F5F1E8] font-bold">{formatPlate(selectedTicket.plate || vehicle.plates)}</span>
+                <span className="text-[#D4D6E6]/70">Placas Registradas:</span>
+                <span className="text-white font-bold">{formatPlate(selectedTicket.plate || vehicle.plates)}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#dfd4bf]">Vehículo:</span>
-                <span className="text-[#F5F1E8]">{vehicle.brand} {vehicle.model}</span>
+                <span className="text-[#D4D6E6]/70">Vehículo:</span>
+                <span className="text-white">{vehicle.brand} {vehicle.model}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#dfd4bf]">Ubicación:</span>
-                <span className="text-[#F5F1E8] text-[11px] truncate max-w-[170px]">{selectedTicket.zone}</span>
+                <span className="text-[#D4D6E6]/70">Ubicación:</span>
+                <span className="text-white text-[11px] truncate max-w-[170px]">{selectedTicket.zone}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#dfd4bf]">Tiempo Ocupado:</span>
-                <span className="text-[#F5F1E8] font-bold">{selectedTicket.durationMinutes} minutos</span>
+                <span className="text-[#D4D6E6]/70">Tiempo Ocupado:</span>
+                <span className="text-white font-bold">{selectedTicket.durationMinutes} minutos</span>
               </div>
               <div className="flex justify-between pt-2 border-t border-white/10">
-                <span className="text-[#dfd4bf]">Método de Cargo:</span>
-                <span className="text-[#dfd4bf] text-[10px] truncate max-w-[170px]">{selectedTicket.method}</span>
+                <span className="text-[#D4D6E6]/70">Método de Cargo:</span>
+                <span className="text-[#D4D6E6] text-[10px] truncate max-w-[170px]">{selectedTicket.method}</span>
               </div>
               <div className="flex justify-between items-center pt-2 text-base font-bold">
-                <span className="text-[#F5F1E8]">Total Cobrado:</span>
+                <span className="text-white">Total Cobrado:</span>
                 <span className="text-emerald-400 text-lg">{formatCurrency(selectedTicket.amount)}</span>
               </div>
             </div>
 
             {/* Footer con Código QR */}
             <div className="pt-4 flex flex-col items-center justify-center space-y-3">
-              <div className="p-2 bg-[#F5F1E8] rounded-xl shadow-inner">
+              <div className="p-2 bg-white rounded-xl shadow-inner">
                 <svg className="w-16 h-16" viewBox="0 0 100 100">
-                  <rect x="5" y="5" width="26" height="26" fill="#1B3A2F" />
-                  <rect x="9" y="9" width="18" height="18" fill="#F5F1E8" />
-                  <rect x="13" y="13" width="10" height="10" fill="#1B3A2F" />
-                  <rect x="69" y="5" width="26" height="26" fill="#1B3A2F" />
-                  <rect x="73" y="9" width="18" height="18" fill="#F5F1E8" />
-                  <rect x="77" y="13" width="10" height="10" fill="#1B3A2F" />
-                  <rect x="5" y="69" width="26" height="26" fill="#1B3A2F" />
-                  <rect x="9" y="73" width="18" height="18" fill="#F5F1E8" />
-                  <rect x="13" y="77" width="10" height="10" fill="#1B3A2F" />
-                  <rect x="36" y="10" width="8" height="8" fill="#1B3A2F" />
-                  <rect x="48" y="10" width="6" height="6" fill="#1B3A2F" />
-                  <rect x="36" y="24" width="6" height="6" fill="#1B3A2F" />
-                  <rect x="46" y="20" width="10" height="10" fill="#1B3A2F" />
-                  <rect x="10" y="38" width="6" height="6" fill="#1B3A2F" />
-                  <rect x="20" y="44" width="8" height="8" fill="#1B3A2F" />
-                  <rect x="35" y="40" width="30" height="20" fill="#1B3A2F" />
-                  <rect x="40" y="45" width="20" height="10" fill="#F5F1E8" />
-                  <rect x="70" y="40" width="8" height="8" fill="#1B3A2F" />
-                  <rect x="82" y="48" width="6" height="6" fill="#1B3A2F" />
-                  <rect x="38" y="70" width="8" height="8" fill="#1B3A2F" />
-                  <rect x="50" y="76" width="12" height="12" fill="#1B3A2F" />
-                  <rect x="68" y="70" width="6" height="6" fill="#1B3A2F" />
-                  <rect x="78" y="80" width="10" height="10" fill="#1B3A2F" />
+                  <rect x="5" y="5" width="26" height="26" fill="#01033E" />
+                  <rect x="9" y="9" width="18" height="18" fill="#ffffff" />
+                  <rect x="13" y="13" width="10" height="10" fill="#01033E" />
+                  <rect x="69" y="5" width="26" height="26" fill="#01033E" />
+                  <rect x="73" y="9" width="18" height="18" fill="#ffffff" />
+                  <rect x="77" y="13" width="10" height="10" fill="#01033E" />
+                  <rect x="5" y="69" width="26" height="26" fill="#01033E" />
+                  <rect x="9" y="73" width="18" height="18" fill="#ffffff" />
+                  <rect x="13" y="77" width="10" height="10" fill="#01033E" />
+                  <rect x="36" y="10" width="8" height="8" fill="#01033E" />
+                  <rect x="48" y="10" width="6" height="6" fill="#01033E" />
+                  <rect x="36" y="24" width="6" height="6" fill="#01033E" />
+                  <rect x="46" y="20" width="10" height="10" fill="#01033E" />
+                  <rect x="10" y="38" width="6" height="6" fill="#01033E" />
+                  <rect x="20" y="44" width="8" height="8" fill="#01033E" />
+                  <rect x="35" y="40" width="30" height="20" fill="#01033E" />
+                  <rect x="40" y="45" width="20" height="10" fill="#ffffff" />
+                  <rect x="70" y="40" width="8" height="8" fill="#01033E" />
+                  <rect x="82" y="48" width="6" height="6" fill="#01033E" />
+                  <rect x="38" y="70" width="8" height="8" fill="#01033E" />
+                  <rect x="50" y="76" width="12" height="12" fill="#01033E" />
+                  <rect x="68" y="70" width="6" height="6" fill="#01033E" />
+                  <rect x="78" y="80" width="10" height="10" fill="#01033E" />
                 </svg>
               </div>
-              <span className="text-[10px] text-[#dfd4bf] font-mono tracking-wider text-center">
+              <span className="text-[10px] text-[#D4D6E6]/80 font-mono tracking-wider text-center">
                 Sello Digital CFDI • Tecnología SSS.Solutions
               </span>
 
               <button
                 onClick={() => setSelectedTicket(null)}
-                className="w-full py-2.5 rounded-xl bg-[#F5F1E8] text-[#1B3A2F] font-bold font-mono text-xs hover:bg-white transition shadow-md"
+                className="w-full py-2.5 rounded-xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-bold font-mono text-xs transition shadow-[0_0_15px_rgba(0,51,255,0.4)]"
               >
                 Cerrar Comprobante
               </button>
