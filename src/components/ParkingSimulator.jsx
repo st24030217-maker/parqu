@@ -62,24 +62,24 @@ export const ParkingMeter = () => {
 
   return (
     <WobbleCard
-      containerClassName="w-full bg-gradient-to-br from-indigo-950/70 via-neutral-950 to-black border-indigo-900/40 hover:border-indigo-500/60 transition-colors shadow-2xl"
+      containerClassName="w-full bg-gradient-to-br from-[#1B3A2F]/50 via-[#0c1b16] to-black border-[#1B3A2F]/60 hover:border-[#1B3A2F] transition-colors shadow-2xl"
       className="p-6 sm:p-8 flex flex-col justify-between"
     >
       {/* Encabezado Wobble Card */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-neutral-800/80 mb-6 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-[#1B3A2F]/60 mb-6 gap-3">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <span className="px-3 py-1 rounded-full bg-indigo-900/60 border border-indigo-700/50 text-[10px] font-mono font-bold uppercase tracking-widest text-indigo-200">
+            <span className="px-3 py-1 rounded-full bg-[#1B3A2F] border border-[#2a5447] text-[10px] font-mono font-bold uppercase tracking-widest text-[#F5F1E8]">
               TECNOLOGÍA SSS.SOLUTIONS
             </span>
-            <span className="text-neutral-500 text-xs font-mono">•</span>
-            <span className="text-[11px] font-mono text-neutral-400">TELEMETRÍA EN VIVO</span>
+            <span className="text-[#dfd4bf]/60 text-xs font-mono">•</span>
+            <span className="text-[11px] font-mono text-[#dfd4bf]">TELEMETRÍA EN VIVO</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-2.5">
-            <Clock className="w-6 h-6 text-indigo-400" />
+          <h2 className="text-2xl sm:text-3xl font-black text-[#F5F1E8] tracking-tight flex items-center gap-2.5">
+            <Clock className="w-6 h-6 text-[#F5F1E8]" />
             Parquímetro Metropolitano en Vivo
           </h2>
-          <p className="text-xs sm:text-sm text-neutral-300 mt-1 font-mono max-w-2xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#dfd4bf] mt-1 font-mono max-w-2xl leading-relaxed">
             Control y cobro automático segundo a segundo al ocupar y liberar un cajón municipal.
           </p>
         </div>
@@ -212,7 +212,7 @@ export const ParkingMeter = () => {
 
             <button
               onClick={handleStop}
-              className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white hover:bg-neutral-200 text-black font-bold font-mono text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] transition transform active:scale-95"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-[#F5F1E8] hover:bg-[#ede6d8] text-[#1B3A2F] font-bold font-mono text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(27,58,47,0.5)] transition transform active:scale-95"
             >
               <Square className="w-4 h-4 fill-current text-rose-600" />
               Liberar Cajón & Liquidar Autocobro
@@ -232,14 +232,14 @@ export const ParkingMeter = () => {
           </div>
 
           {/* Resumen del Vehículo y Autocobro antes de iniciar */}
-          <div className="p-5 rounded-2xl bg-neutral-900/70 border border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="p-5 rounded-2xl bg-[#0c1b16]/90 border border-[#1B3A2F]/70 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-neutral-800 border border-neutral-700 text-white flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-[#1B3A2F] border border-[#2a5447] text-[#F5F1E8] flex items-center justify-center">
                 <ShieldCheck className="w-5 h-5 text-emerald-400" />
               </div>
               <div className="text-left font-mono">
-                <span className="text-xs text-neutral-400 block">Vehículo listo para autocobro:</span>
-                <span className="text-sm font-bold text-white">
+                <span className="text-xs text-[#dfd4bf]/80 block">Vehículo listo para autocobro:</span>
+                <span className="text-sm font-bold text-[#F5F1E8]">
                   {vehicle.brand} {vehicle.model} ({formatPlate(vehicle.plates)}) • {owner.fullName}
                 </span>
               </div>
@@ -247,9 +247,9 @@ export const ParkingMeter = () => {
 
             <button
               onClick={handleStart}
-              className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white hover:bg-neutral-200 text-black font-bold font-mono text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] transition transform active:scale-95"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-[#F5F1E8] hover:bg-[#ede6d8] text-[#1B3A2F] font-bold font-mono text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(27,58,47,0.6)] transition transform active:scale-95"
             >
-              <Play className="w-4 h-4 fill-current text-indigo-600" />
+              <Play className="w-4 h-4 fill-current text-[#1B3A2F]" />
               Ocupar Cajón & Iniciar Parquímetro
             </button>
           </div>

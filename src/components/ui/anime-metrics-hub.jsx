@@ -96,13 +96,13 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
           onClick={() => onNavigateTab && onNavigateTab('dashboard')}
           onMouseEnter={() => setHoveredCard(1)}
           onMouseLeave={() => setHoveredCard(null)}
-          className="metric-hub-card group relative p-5 rounded-2xl bg-neutral-950/90 border border-neutral-800/90 hover:border-indigo-500/60 transition-all cursor-pointer shadow-lg hover:shadow-indigo-500/20 flex flex-col justify-between overflow-hidden"
+          className="metric-hub-card group relative p-5 rounded-2xl bg-[#0c1b16]/90 border border-[#1B3A2F]/80 hover:border-[#F5F1E8]/70 transition-all cursor-pointer shadow-lg hover:shadow-[#1B3A2F]/30 flex flex-col justify-between overflow-hidden"
         >
           {/* Aceternity Corner Cross Accents */}
-          <AceternityCornerIcon className="absolute -top-1.5 -left-1.5 text-neutral-600 group-hover:text-indigo-400 transition-colors z-20" />
-          <AceternityCornerIcon className="absolute -bottom-1.5 -left-1.5 text-neutral-600 group-hover:text-indigo-400 transition-colors z-20" />
-          <AceternityCornerIcon className="absolute -top-1.5 -right-1.5 text-neutral-600 group-hover:text-indigo-400 transition-colors z-20" />
-          <AceternityCornerIcon className="absolute -bottom-1.5 -right-1.5 text-neutral-600 group-hover:text-indigo-400 transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -top-1.5 -left-1.5 text-neutral-600 group-hover:text-[#F5F1E8] transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -bottom-1.5 -left-1.5 text-neutral-600 group-hover:text-[#F5F1E8] transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -top-1.5 -right-1.5 text-neutral-600 group-hover:text-[#F5F1E8] transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -bottom-1.5 -right-1.5 text-neutral-600 group-hover:text-[#F5F1E8] transition-colors z-20" />
 
           {/* Aceternity Canvas Reveal Effect */}
           <AnimatePresence>
@@ -118,8 +118,8 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
                   animationSpeed={3.0}
                   containerClassName="bg-black/60"
                   colors={[
-                    [99, 102, 241],
-                    [16, 185, 129],
+                    [27, 58, 47],
+                    [245, 241, 232],
                   ]}
                   dotSize={2}
                 />
@@ -130,19 +130,19 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
 
           <div className="relative z-10">
             <div className="flex items-center justify-between mb-3">
-              <span className="p-2 rounded-xl bg-indigo-950/60 border border-indigo-700/50 text-indigo-400 shadow-sm">
+              <span className="p-2 rounded-xl bg-[#1B3A2F]/80 border border-[#2A5A49] text-[#F5F1E8] shadow-sm">
                 <Clock className="w-4 h-4" />
               </span>
               <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${
                 activeSession 
                   ? 'bg-amber-950/70 text-amber-300 border-amber-600/60 animate-pulse' 
-                  : 'bg-emerald-950/70 text-emerald-300 border-emerald-700/50'
+                  : 'bg-[#1B3A2F] text-[#F5F1E8] border-[#2A5A49]'
               }`}>
                 {activeSession ? 'OCUPADO' : 'LIBRE'}
               </span>
             </div>
 
-            <div className="text-[11px] text-neutral-400 font-bold uppercase tracking-wider">
+            <div className="text-[11px] text-[#dfd4bf] font-bold uppercase tracking-wider">
               Parquímetro Metropolitano
             </div>
 
@@ -152,7 +152,7 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
                   <div className="text-xl font-black text-amber-300">
                     {formatTimeFromSeconds(activeSession.secondsElapsed)}
                   </div>
-                  <div className="text-xs text-neutral-400">
+                  <div className="text-xs text-[#dfd4bf]">
                     <AnimeCounter 
                       value={activeSession.currentCost} 
                       prefix="$" 
@@ -163,14 +163,14 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
                   </div>
                 </div>
               ) : (
-                <div className="text-xl font-black text-white">
+                <div className="text-xl font-black text-[#F5F1E8]">
                   Listo para Ocupar
                 </div>
               )}
             </div>
           </div>
 
-          <div className="relative z-10 pt-3 mt-3 border-t border-neutral-800/70 flex items-center justify-between text-[11px] text-neutral-400 group-hover:text-indigo-300 transition">
+          <div className="relative z-10 pt-3 mt-3 border-t border-[#1B3A2F]/70 flex items-center justify-between text-[11px] text-[#dfd4bf] group-hover:text-[#F5F1E8] transition">
             <span className="truncate max-w-[140px]">
               {activeSession ? activeSession.zoneName : '4 Zonas Disponibles'}
             </span>
@@ -183,13 +183,13 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
           onClick={() => onOpenRecharge && onOpenRecharge()}
           onMouseEnter={() => setHoveredCard(2)}
           onMouseLeave={() => setHoveredCard(null)}
-          className="metric-hub-card group relative p-5 rounded-2xl bg-neutral-950/90 border border-neutral-800/90 hover:border-emerald-500/60 transition-all cursor-pointer shadow-lg hover:shadow-emerald-500/20 flex flex-col justify-between overflow-hidden"
+          className="metric-hub-card group relative p-5 rounded-2xl bg-[#0c1b16]/90 border border-[#1B3A2F]/80 hover:border-[#F5F1E8]/70 transition-all cursor-pointer shadow-lg hover:shadow-[#1B3A2F]/30 flex flex-col justify-between overflow-hidden"
         >
           {/* Aceternity Corner Cross Accents */}
-          <AceternityCornerIcon className="absolute -top-1.5 -left-1.5 text-neutral-600 group-hover:text-emerald-400 transition-colors z-20" />
-          <AceternityCornerIcon className="absolute -bottom-1.5 -left-1.5 text-neutral-600 group-hover:text-emerald-400 transition-colors z-20" />
-          <AceternityCornerIcon className="absolute -top-1.5 -right-1.5 text-neutral-600 group-hover:text-emerald-400 transition-colors z-20" />
-          <AceternityCornerIcon className="absolute -bottom-1.5 -right-1.5 text-neutral-600 group-hover:text-emerald-400 transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -top-1.5 -left-1.5 text-neutral-600 group-hover:text-[#F5F1E8] transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -bottom-1.5 -left-1.5 text-neutral-600 group-hover:text-[#F5F1E8] transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -top-1.5 -right-1.5 text-neutral-600 group-hover:text-[#F5F1E8] transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -bottom-1.5 -right-1.5 text-neutral-600 group-hover:text-[#F5F1E8] transition-colors z-20" />
 
           {/* Aceternity Canvas Reveal Effect */}
           <AnimatePresence>
@@ -205,8 +205,8 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
                   animationSpeed={3.5}
                   containerClassName="bg-black/60"
                   colors={[
-                    [16, 185, 129],
-                    [52, 211, 153],
+                    [27, 58, 47],
+                    [245, 241, 232],
                   ]}
                   dotSize={2}
                 />
@@ -217,19 +217,19 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
 
           <div className="relative z-10">
             <div className="flex items-center justify-between mb-3">
-              <span className="p-2 rounded-xl bg-emerald-950/60 border border-emerald-700/50 text-emerald-400 shadow-sm">
+              <span className="p-2 rounded-xl bg-[#1B3A2F]/80 border border-[#2A5A49] text-[#F5F1E8] shadow-sm">
                 <CurrencyDollarIcon size={16} strokeWidth={2.2} />
               </span>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-950/60 text-emerald-300 border border-emerald-700/50">
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#1B3A2F] text-[#F5F1E8] border border-[#2A5A49]">
                 + RECARGAR
               </span>
             </div>
 
-            <div className="text-[11px] text-neutral-400 font-bold uppercase tracking-wider">
+            <div className="text-[11px] text-[#dfd4bf] font-bold uppercase tracking-wider">
               Saldo Monedero Parqu
             </div>
 
-            <div className="mt-1 text-xl font-black text-white flex items-baseline gap-1">
+            <div className="mt-1 text-xl font-black text-[#F5F1E8] flex items-baseline gap-1">
               <AnimeCounter 
                 value={card?.balance ?? 0} 
                 prefix="$" 
@@ -237,11 +237,11 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
                 duration={500}
                 className="text-xl font-black text-emerald-400"
               />
-              <span className="text-[10px] text-neutral-500">MXN</span>
+              <span className="text-[10px] text-[#dfd4bf]">MXN</span>
             </div>
           </div>
 
-          <div className="relative z-10 pt-3 mt-3 border-t border-neutral-800/70 flex items-center justify-between text-[11px] text-neutral-400 group-hover:text-emerald-300 transition">
+          <div className="relative z-10 pt-3 mt-3 border-t border-[#1B3A2F]/70 flex items-center justify-between text-[11px] text-[#dfd4bf] group-hover:text-[#F5F1E8] transition">
             <span>Pase Contactless Activo</span>
             <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
           </div>
@@ -252,13 +252,13 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
           onClick={() => onNavigateTab && onNavigateTab('vehicle')}
           onMouseEnter={() => setHoveredCard(3)}
           onMouseLeave={() => setHoveredCard(null)}
-          className="metric-hub-card group relative p-5 rounded-2xl bg-neutral-950/90 border border-neutral-800/90 hover:border-cyan-500/60 transition-all cursor-pointer shadow-lg hover:shadow-cyan-500/20 flex flex-col justify-between overflow-hidden"
+          className="metric-hub-card group relative p-5 rounded-2xl bg-[#0c1b16]/90 border border-[#1B3A2F]/80 hover:border-[#F5F1E8]/70 transition-all cursor-pointer shadow-lg hover:shadow-[#1B3A2F]/30 flex flex-col justify-between overflow-hidden"
         >
           {/* Aceternity Corner Cross Accents */}
-          <AceternityCornerIcon className="absolute -top-1.5 -left-1.5 text-neutral-600 group-hover:text-cyan-400 transition-colors z-20" />
-          <AceternityCornerIcon className="absolute -bottom-1.5 -left-1.5 text-neutral-600 group-hover:text-cyan-400 transition-colors z-20" />
-          <AceternityCornerIcon className="absolute -top-1.5 -right-1.5 text-neutral-600 group-hover:text-cyan-400 transition-colors z-20" />
-          <AceternityCornerIcon className="absolute -bottom-1.5 -right-1.5 text-neutral-600 group-hover:text-cyan-400 transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -top-1.5 -left-1.5 text-neutral-600 group-hover:text-[#F5F1E8] transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -bottom-1.5 -left-1.5 text-neutral-600 group-hover:text-[#F5F1E8] transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -top-1.5 -right-1.5 text-neutral-600 group-hover:text-[#F5F1E8] transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -bottom-1.5 -right-1.5 text-neutral-600 group-hover:text-[#F5F1E8] transition-colors z-20" />
 
           {/* Aceternity Canvas Reveal Effect */}
           <AnimatePresence>
@@ -274,8 +274,8 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
                   animationSpeed={3.0}
                   containerClassName="bg-black/60"
                   colors={[
-                    [6, 182, 212],
-                    [59, 130, 246],
+                    [27, 58, 47],
+                    [245, 241, 232],
                   ]}
                   dotSize={2}
                 />
@@ -286,24 +286,24 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
 
           <div className="relative z-10">
             <div className="flex items-center justify-between mb-3">
-              <span className="p-2 rounded-xl bg-cyan-950/60 border border-cyan-700/50 text-cyan-400 shadow-sm">
+              <span className="p-2 rounded-xl bg-[#1B3A2F]/80 border border-[#2A5A49] text-[#F5F1E8] shadow-sm">
                 <Car className="w-4 h-4" />
               </span>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-950/60 text-cyan-300 border border-cyan-700/50">
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#1B3A2F] text-[#F5F1E8] border border-[#2A5A49]">
                 VINCULADO
               </span>
             </div>
 
-            <div className="text-[11px] text-neutral-400 font-bold uppercase tracking-wider">
+            <div className="text-[11px] text-[#dfd4bf] font-bold uppercase tracking-wider">
               Vehículo en Padrón
             </div>
 
-            <div className="mt-1 text-xl font-black text-white tracking-wide">
+            <div className="mt-1 text-xl font-black text-[#F5F1E8] tracking-wide">
               {formatPlate(vehicle.plates)}
             </div>
           </div>
 
-          <div className="relative z-10 pt-3 mt-3 border-t border-neutral-800/70 flex items-center justify-between text-[11px] text-neutral-400 group-hover:text-cyan-300 transition">
+          <div className="relative z-10 pt-3 mt-3 border-t border-[#1B3A2F]/70 flex items-center justify-between text-[11px] text-[#dfd4bf] group-hover:text-[#F5F1E8] transition">
             <span className="truncate max-w-[140px]">{vehicle.brand} {vehicle.model}</span>
             <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
           </div>
@@ -314,13 +314,13 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
           onClick={() => onNavigateTab && onNavigateTab('history')}
           onMouseEnter={() => setHoveredCard(4)}
           onMouseLeave={() => setHoveredCard(null)}
-          className="metric-hub-card group relative p-5 rounded-2xl bg-neutral-950/90 border border-neutral-800/90 hover:border-amber-500/60 transition-all cursor-pointer shadow-lg hover:shadow-amber-500/20 flex flex-col justify-between overflow-hidden"
+          className="metric-hub-card group relative p-5 rounded-2xl bg-[#0c1b16]/90 border border-[#1B3A2F]/80 hover:border-[#F5F1E8]/70 transition-all cursor-pointer shadow-lg hover:shadow-[#1B3A2F]/30 flex flex-col justify-between overflow-hidden"
         >
           {/* Aceternity Corner Cross Accents */}
-          <AceternityCornerIcon className="absolute -top-1.5 -left-1.5 text-neutral-600 group-hover:text-amber-400 transition-colors z-20" />
-          <AceternityCornerIcon className="absolute -bottom-1.5 -left-1.5 text-neutral-600 group-hover:text-amber-400 transition-colors z-20" />
-          <AceternityCornerIcon className="absolute -top-1.5 -right-1.5 text-neutral-600 group-hover:text-amber-400 transition-colors z-20" />
-          <AceternityCornerIcon className="absolute -bottom-1.5 -right-1.5 text-neutral-600 group-hover:text-amber-400 transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -top-1.5 -left-1.5 text-neutral-600 group-hover:text-[#F5F1E8] transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -bottom-1.5 -left-1.5 text-neutral-600 group-hover:text-[#F5F1E8] transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -top-1.5 -right-1.5 text-neutral-600 group-hover:text-[#F5F1E8] transition-colors z-20" />
+          <AceternityCornerIcon className="absolute -bottom-1.5 -right-1.5 text-neutral-600 group-hover:text-[#F5F1E8] transition-colors z-20" />
 
           {/* Aceternity Canvas Reveal Effect */}
           <AnimatePresence>
@@ -336,8 +336,8 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
                   animationSpeed={3.0}
                   containerClassName="bg-black/60"
                   colors={[
-                    [245, 158, 11],
-                    [217, 119, 6],
+                    [27, 58, 47],
+                    [245, 241, 232],
                   ]}
                   dotSize={2}
                 />
@@ -348,25 +348,25 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
 
           <div className="relative z-10">
             <div className="flex items-center justify-between mb-3">
-              <span className="p-2 rounded-xl bg-amber-950/60 border border-amber-700/50 text-amber-400 shadow-sm">
+              <span className="p-2 rounded-xl bg-[#1B3A2F]/80 border border-[#2A5A49] text-[#F5F1E8] shadow-sm">
                 <MapPin className="w-4 h-4" />
               </span>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-950/60 text-amber-300 border border-amber-700/50">
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#1B3A2F] text-[#F5F1E8] border border-[#2A5A49]">
                 GPS ACTIVO
               </span>
             </div>
 
-            <div className="text-[11px] text-neutral-400 font-bold uppercase tracking-wider">
+            <div className="text-[11px] text-[#dfd4bf] font-bold uppercase tracking-wider">
               Ubicaciones Fijadas
             </div>
 
-            <div className="mt-1 text-xl font-black text-white flex items-baseline gap-1.5">
+            <div className="mt-1 text-xl font-black text-[#F5F1E8] flex items-baseline gap-1.5">
               <span>{pinnedLocations.length}</span>
-              <span className="text-xs text-neutral-400 font-normal">en bitácora</span>
+              <span className="text-xs text-[#dfd4bf] font-normal">en bitácora</span>
             </div>
           </div>
 
-          <div className="relative z-10 pt-3 mt-3 border-t border-neutral-800/70 flex items-center justify-between text-[11px] text-neutral-400 group-hover:text-amber-300 transition">
+          <div className="relative z-10 pt-3 mt-3 border-t border-[#1B3A2F]/70 flex items-center justify-between text-[11px] text-[#dfd4bf] group-hover:text-[#F5F1E8] transition">
             <span>Autocobro: {autoPay?.enabled ? 'Activo' : 'Pausado'}</span>
             <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
           </div>
