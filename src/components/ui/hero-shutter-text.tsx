@@ -2,7 +2,6 @@
 import { cn } from "@/lib/utils";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { RefreshCw } from "lucide-react";
 
 interface HeroTextProps {
   text?: string;
@@ -36,7 +35,11 @@ export default function HeroText({
       />
 
       {/* Main Text Container */}
-      <div className="relative z-10 w-full px-4 flex flex-col items-center">
+      <div 
+        onClick={() => setCount((c) => c + 1)}
+        title="Clic para reanimar texto"
+        className="relative z-10 w-full px-4 flex flex-col items-center cursor-pointer select-none"
+      >
         <AnimatePresence mode="wait">
           <motion.div
             key={count}
@@ -52,7 +55,7 @@ export default function HeroText({
                   initial={{ opacity: 0, filter: "blur(10px)" }}
                   animate={{ opacity: 1, filter: "blur(0px)" }}
                   transition={{ delay: i * 0.04 + 0.3, duration: 0.8 }}
-                  className={cn(sizeClass, "leading-none font-black text-white tracking-tighter")}
+                  className={cn(sizeClass, "leading-none font-black text-white tracking-tighter drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]")}
                 >
                   {char === " " ? "\u00A0" : char}
                 </motion.span>
@@ -68,7 +71,7 @@ export default function HeroText({
                   }}
                   className={cn(
                     sizeClass,
-                    "absolute inset-0 leading-none font-black text-[#0033FF] dark:text-[#807DFE] z-10 pointer-events-none"
+                    "absolute inset-0 leading-none font-black text-[#0033FF] z-10 pointer-events-none drop-shadow-[0_0_25px_rgba(0,51,255,0.7)]"
                   )}
                   style={{ clipPath: "polygon(0 0, 100% 0, 100% 35%, 0 35%)" }}
                 >
@@ -106,7 +109,7 @@ export default function HeroText({
                   }}
                   className={cn(
                     sizeClass,
-                    "absolute inset-0 leading-none font-black text-[#0033FF] dark:text-[#807DFE] z-10 pointer-events-none"
+                    "absolute inset-0 leading-none font-black text-[#807DFE] z-10 pointer-events-none drop-shadow-[0_0_25px_rgba(128,125,254,0.7)]"
                   )}
                   style={{
                     clipPath: "polygon(0 65%, 100% 65%, 100% 100%, 0 100%)",
@@ -119,27 +122,6 @@ export default function HeroText({
           </motion.div>
         </AnimatePresence>
       </div>
-
-      {/* Floating UI Controls */}
-      <div className="mt-6 flex flex-col items-center gap-2 z-20">
-        <motion.button
-          whileHover={{ scale: 1.1, rotate: 180 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={() => setCount((c) => c + 1)}
-          className="p-3 bg-[#01033E] hover:bg-[#0033FF] border border-[#807DFE]/40 text-white rounded-full shadow-2xl transition-colors duration-300"
-          title="Re-shutter text animation"
-        >
-          <RefreshCw size={18} />
-        </motion.button>
-
-        <p className="text-[10px] uppercase tracking-[0.4em] font-mono font-bold text-[#D4D6E6]/60">
-          Click to re-shutter
-        </p>
-      </div>
-
-      {/* Corner Accents */}
-      <div className="absolute top-4 left-4 border-l border-t border-white/20 w-8 h-8 pointer-events-none" />
-      <div className="absolute bottom-4 right-4 border-r border-b border-white/20 w-8 h-8 pointer-events-none" />
     </div>
   );
 }
