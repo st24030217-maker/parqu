@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { motion } from 'framer-motion';
 import { RadialGlowButton } from './ui/radial-glow-button';
 import { FlipFadeText } from './ui/flip-fade-text';
 import { ArrowRight, ShieldCheck, Radio } from 'lucide-react';
 
-// Definición de las 5 columnas verticales inspiradas en Charlie Osborne (charlieosborne.co)
+// Columnas arquitectónicas con tipografía Azeret Mono inspiradas en Charlie Osborne
 const COLUMNS = [
   { id: '01', code: 'PARQU', tag: 'AUTOPAGO DIGITAL', mobileVisible: true },
   { id: '02', code: 'CDMX', tag: 'ZONA METROPOLITANA', mobileVisible: false },
@@ -56,7 +55,6 @@ export const LoadingScreen = ({ onComplete }) => {
       if (nextProgress >= 100) {
         clearInterval(interval);
         setIsReady(true);
-        // IMPORTANTE: NO se auto-cierra; espera a que el usuario presione "Empecemos"
       }
     }, 25);
 
@@ -72,7 +70,7 @@ export const LoadingScreen = ({ onComplete }) => {
     };
   }, []);
 
-  // Mensaje de telemetría dinámico según el progreso
+  // Mensaje de telemetría dinámico en Azeret Mono
   const getTelemetryStatus = () => {
     if (!isReady && progress < 30) return 'INICIALIZANDO SISTEMA METROPOLITANO';
     if (!isReady && progress < 60) return 'CONECTANDO RED SATELITAL & SENSORES IoT';
@@ -81,7 +79,7 @@ export const LoadingScreen = ({ onComplete }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden select-none pointer-events-auto bg-transparent">
+    <div className="fixed inset-0 z-50 overflow-hidden select-none pointer-events-auto bg-transparent font-azeret">
       {/* 
         ══════════════════════════════════════════════════════════════
         PERSIANAS VERTICALES CHARLIE OSBORNE (SUBEN AL DARLE A EMPECEMOS)
@@ -105,14 +103,14 @@ export const LoadingScreen = ({ onComplete }) => {
             {/* Gradiente sutil y luz ambiental en cada columna */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#0033FF]/15 via-transparent to-[#807DFE]/10 pointer-events-none" />
 
-            {/* Cabecera superior de la columna */}
-            <div className="relative z-10 flex items-center justify-between font-mono text-[9px] sm:text-[11px] text-[#D4D6E6]/60 uppercase tracking-widest">
+            {/* Cabecera superior de la columna en Azeret Mono */}
+            <div className="relative z-10 flex items-center justify-between font-azeret text-[9px] sm:text-[11px] text-[#D4D6E6]/60 uppercase tracking-widest">
               <span className="font-bold text-white/80">{col.id}</span>
               <span className="truncate ml-1">{col.code}</span>
             </div>
 
-            {/* Pie inferior de la columna */}
-            <div className="relative z-10 flex items-center justify-between font-mono text-[8px] sm:text-[10px] text-[#D4D6E6]/40 uppercase tracking-wider">
+            {/* Pie inferior de la columna en Azeret Mono */}
+            <div className="relative z-10 flex items-center justify-between font-azeret text-[8px] sm:text-[10px] text-[#D4D6E6]/40 uppercase tracking-wider">
               <span className="truncate">{col.tag}</span>
               <span className="w-1.5 h-1.5 rounded-full bg-[#0033FF]/60" />
             </div>
@@ -122,7 +120,7 @@ export const LoadingScreen = ({ onComplete }) => {
 
       {/* 
         ══════════════════════════════════════════════════════════════
-        CONTENIDO HERO EDITORIAL (SE DESVANECE AL ACTIVAR LA ANIMACIÓN)
+        CONTENIDO HERO EDITORIAL EN AZERET MONO
         ══════════════════════════════════════════════════════════════
       */}
       <div
@@ -135,18 +133,18 @@ export const LoadingScreen = ({ onComplete }) => {
         className="absolute inset-0 z-10 h-full w-full flex flex-col justify-between px-4 sm:px-8 md:px-12 py-5 sm:py-8 md:py-10 text-[#D4D6E6]"
       >
         {/* BARRA SUPERIOR: Telemetría y estado de red satelital */}
-        <header className="w-full flex items-center justify-between border-b border-white/[0.08] pb-3 sm:pb-4">
+        <header className="w-full flex items-center justify-between border-b border-white/[0.08] pb-3 sm:pb-4 font-azeret">
           <div className="flex items-center gap-2.5">
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#807DFE] opacity-75" />
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#0033FF]" />
             </span>
-            <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-white uppercase">
+            <span className="font-azeret text-xs sm:text-sm font-bold tracking-widest text-white uppercase">
               PARQU • SISTEMA OPERATIVO
             </span>
           </div>
 
-          <div className="hidden md:flex items-center gap-6 font-mono text-xs text-[#D4D6E6]/60">
+          <div className="hidden md:flex items-center gap-6 font-azeret text-xs text-[#D4D6E6]/60">
             <span className="flex items-center gap-1.5">
               <Radio className="w-3.5 h-3.5 text-[#807DFE]" />
               NODO CDMX: ACTIVO
@@ -157,13 +155,13 @@ export const LoadingScreen = ({ onComplete }) => {
             </span>
           </div>
 
-          <div className="font-mono text-xs sm:text-sm font-bold text-[#807DFE] tracking-wider">
+          <div className="font-azeret text-xs sm:text-sm font-bold text-[#807DFE] tracking-wider">
             @2026 OFFICIAL
           </div>
         </header>
 
-        {/* CENTRO: Tipografía Gigante Charlie Osborne, Logotipo Parqu y Botón Empecemos */}
-        <main className="my-auto flex flex-col items-center justify-center text-center max-w-4xl mx-auto w-full py-4">
+        {/* CENTRO: Tipografía Gigante Charlie Osborne en Azeret Mono, Logotipo y Botón */}
+        <main className="my-auto flex flex-col items-center justify-center text-center max-w-4xl mx-auto w-full py-4 font-azeret">
           
           {/* Logotipo Parqu con Aura Luminosa */}
           <div className="relative flex items-center justify-center mb-3 sm:mb-5">
@@ -176,19 +174,19 @@ export const LoadingScreen = ({ onComplete }) => {
             />
           </div>
 
-          {/* TÍTULO HERO GIGANTE EDITORIAL (Inspiración Charlie Osborne) */}
+          {/* TÍTULO HERO GIGANTE EDITORIAL EN AZERET MONO */}
           <div className="overflow-hidden w-full">
-            <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-white tracking-tighter uppercase leading-none drop-shadow-[0_0_50px_rgba(0,51,255,0.4)]">
+            <h1 className="font-azeret text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-white tracking-tighter uppercase leading-none drop-shadow-[0_0_50px_rgba(0,51,255,0.4)]">
               PARQU
             </h1>
           </div>
 
-          {/* Subtítulo Editorial con acento en cursiva y refinamiento suizo */}
-          <p className="mt-2.5 sm:mt-3 text-sm sm:text-base md:text-lg text-[#D4D6E6]/85 font-medium max-w-2xl px-2">
-            Sistema Inteligente de <span className="font-serif italic text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">Parquímetros</span> y Autocobro Digital
+          {/* Subtítulo Editorial con acento estético en Azeret Mono */}
+          <p className="mt-2.5 sm:mt-3 text-sm sm:text-base md:text-lg text-[#D4D6E6]/85 font-medium max-w-2xl px-2 font-azeret tracking-wide">
+            Sistema Inteligente de <span className="italic font-bold text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">Parquímetros</span> y Autocobro Digital
           </p>
 
-          {/* Rótulos Dinámicos Flip-Fade Text */}
+          {/* Rótulos Dinámicos Flip-Fade Text en Azeret Mono */}
           <div className="w-full flex items-center justify-center mt-2.5 sm:mt-4 h-9">
             <FlipFadeText
               words={[
@@ -201,29 +199,29 @@ export const LoadingScreen = ({ onComplete }) => {
               interval={2500}
               letterDuration={0.45}
               staggerDelay={0.05}
-              textClassName="text-xs sm:text-sm md:text-base font-mono font-bold tracking-widest text-[#807DFE] uppercase"
+              textClassName="text-xs sm:text-sm md:text-base font-azeret font-bold tracking-widest text-[#807DFE] uppercase"
             />
           </div>
 
-          {/* BOTÓN PRINCIPAL "EMPECEMOS": AL CLICKEAR SE DISPARA LA ANIMACIÓN DE PERSIANAS */}
-          <div className="mt-6 sm:mt-8 flex flex-col items-center justify-center gap-2.5 z-30">
+          {/* BOTÓN PRINCIPAL "EMPECEMOS" CON AZERET MONO */}
+          <div className="mt-6 sm:mt-8 flex flex-col items-center justify-center gap-2.5 z-30 font-azeret">
             <RadialGlowButton
               onClick={handleTriggerExit}
-              className="text-sm sm:text-base font-bold shadow-2xl px-8 py-3.5 sm:px-12 sm:py-4 cursor-pointer hover:scale-105 active:scale-95 transition-all duration-300"
+              className="font-azeret text-sm sm:text-base font-bold shadow-2xl px-8 py-3.5 sm:px-12 sm:py-4 cursor-pointer hover:scale-105 active:scale-95 transition-all duration-300"
             >
               <span>Empecemos</span>
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-white inline transition-transform duration-300 group-hover:translate-x-1.5" />
             </RadialGlowButton>
 
-            <span className="text-[10px] sm:text-xs text-[#D4D6E6]/40 font-mono tracking-wider">
-              Haz clic en <span className="text-white font-semibold">Empecemos</span> o presiona <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white border border-white/10 text-[10px]">Espacio</kbd>
+            <span className="text-[10px] sm:text-xs text-[#D4D6E6]/40 font-azeret tracking-wider">
+              Haz clic en <span className="text-white font-semibold">Empecemos</span> o presiona <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white border border-white/10 text-[10px] font-azeret">Espacio</kbd>
             </span>
           </div>
 
         </main>
 
-        {/* PIE DE PÁGINA: Telemetría, Contador 00-100% y Logo SSS.Solutions */}
-        <footer className="w-full border-t border-white/[0.08] pt-3 sm:pt-5 flex flex-col gap-3">
+        {/* PIE DE PÁGINA: Telemetría, Contador 00-100% y Logo SSS.Solutions en Azeret Mono */}
+        <footer className="w-full border-t border-white/[0.08] pt-3 sm:pt-5 flex flex-col gap-3 font-azeret">
           
           {/* Barra de Progreso Hairline Luminosa */}
           <div className="w-full relative h-[2px] bg-white/[0.08] overflow-hidden rounded-full">
@@ -238,29 +236,29 @@ export const LoadingScreen = ({ onComplete }) => {
             
             {/* Ticker de Telemetría Dinámico */}
             <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-              <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.25em] text-[#D4D6E6]/50">
+              <span className="text-[9px] sm:text-[10px] font-azeret uppercase tracking-[0.25em] text-[#D4D6E6]/50">
                 ESTADO DE SINCRONIZACIÓN
               </span>
-              <span className="font-mono text-xs sm:text-sm font-bold text-white tracking-wider mt-0.5">
+              <span className="font-azeret text-xs sm:text-sm font-bold text-white tracking-wider mt-0.5">
                 {getTelemetryStatus()}
               </span>
             </div>
 
-            {/* Contador Monospace Numérico Charlie Osborne (000% a 100%) */}
-            <div className="flex items-baseline gap-1 font-mono">
-              <span className="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tighter tabular-nums drop-shadow-[0_0_20px_rgba(0,51,255,0.6)]">
+            {/* Contador Numérico en Azeret Mono (000% a 100%) */}
+            <div className="flex items-baseline gap-1 font-azeret">
+              <span className="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tighter tabular-nums drop-shadow-[0_0_20px_rgba(0,51,255,0.6)] font-azeret">
                 {String(progress).padStart(3, '0')}
               </span>
-              <span className="text-lg sm:text-xl font-bold text-[#807DFE]">%</span>
+              <span className="text-lg sm:text-xl font-bold text-[#807DFE] font-azeret">%</span>
             </div>
 
             {/* Powered by SSS.Solutions con Logotipo Transparente */}
             <div className="flex items-center gap-3">
               <div className="flex flex-col items-end hidden sm:flex">
-                <span className="text-[9px] uppercase tracking-[0.2em] text-[#D4D6E6]/50 font-mono">
+                <span className="text-[9px] uppercase tracking-[0.2em] text-[#D4D6E6]/50 font-azeret">
                   TECNOLOGÍA POR
                 </span>
-                <span className="text-xs font-mono font-bold text-white tracking-wider">
+                <span className="text-xs font-azeret font-bold text-white tracking-wider">
                   SSS.Solutions
                 </span>
               </div>
