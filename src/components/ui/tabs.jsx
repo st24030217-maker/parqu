@@ -42,7 +42,7 @@ export const Tabs = ({
       {/* Barra de pestañas Aceternity con perspectiva 3D y layoutId spring */}
       <div
         className={cn(
-          "flex flex-wrap items-center gap-2 p-1.5 rounded-2xl bg-[#0c1b16]/90 border border-[#1B3A2F]/80 backdrop-blur-md [perspective:1000px] relative max-w-full overflow-x-auto shadow-xl",
+          "flex overflow-x-auto sm:flex-wrap items-center gap-1.5 sm:gap-2 p-1.5 rounded-2xl bg-[#01033E]/60 border border-white/10 backdrop-blur-xl [perspective:1000px] relative max-w-full shadow-xl scrollbar-none",
           containerClassName
         )}
       >
@@ -58,10 +58,10 @@ export const Tabs = ({
               type="button"
               onClick={() => handleSelectTab(tab)}
               className={cn(
-                "relative flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-mono font-bold transition-colors select-none cursor-pointer z-10",
+                "relative flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-mono font-bold transition-colors select-none cursor-pointer z-10 shrink-0 whitespace-nowrap",
                 isActive
-                  ? "text-[#1B3A2F]"
-                  : "text-[#dfd4bf]/80 hover:text-[#F5F1E8] hover:bg-[#1B3A2F]/30",
+                  ? "text-white"
+                  : "text-[#D4D6E6]/70 hover:text-white hover:bg-white/5",
                 tabClassName
               )}
             >
@@ -70,22 +70,22 @@ export const Tabs = ({
                   layoutId="activeAceternityTabPill"
                   transition={{ type: "spring", bounce: 0.22, duration: 0.45 }}
                   className={cn(
-                    "absolute inset-0 bg-[#F5F1E8] rounded-xl shadow-[0_0_25px_rgba(245,241,232,0.4)]",
+                    "absolute inset-0 bg-[#0033FF] rounded-xl shadow-[0_0_20px_rgba(0,51,255,0.5)] border border-[#807DFE]/50",
                     activeTabClassName
                   )}
                 />
               )}
 
-              <span className="relative z-10 flex items-center gap-2">
-                {Icon && <Icon className="w-4 h-4 flex-shrink-0" />}
+              <span className="relative z-10 flex items-center gap-1.5 sm:gap-2">
+                {Icon && <Icon className="w-3.5 sm:w-4 h-3.5 sm:h-4 flex-shrink-0" />}
                 <span>{tabTitle}</span>
                 {tab.badge && (
                   <span
                     className={cn(
                       "text-[9px] px-2 py-0.5 rounded-full font-mono transition-colors font-bold",
                       isActive
-                        ? "bg-[#1B3A2F] text-[#F5F1E8]"
-                        : "bg-[#1B3A2F]/60 text-[#dfd4bf] border border-[#2a5447]"
+                        ? "bg-white/20 text-white border border-white/30"
+                        : "bg-white/5 text-[#D4D6E6] border border-white/10"
                     )}
                   >
                     {tab.badge}

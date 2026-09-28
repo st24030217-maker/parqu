@@ -601,32 +601,32 @@ export const DiDiParkingMap = ({
       <div className={`relative w-full flex flex-col ${viewMode === 'animaps' ? 'hidden' : ''}`}>
 
         {/* 1. BARRA SUPERIOR FLOTANTE DEL MAPA (Estatus GPS y Telemetría tipo DiDi) */}
-        <div className="absolute top-3 left-3 right-3 z-[400] flex flex-wrap items-center justify-between gap-2 pointer-events-none">
+        <div className="absolute top-2 sm:top-3 left-2 sm:left-3 right-2 sm:right-3 z-[400] flex flex-wrap items-center justify-between gap-1.5 sm:gap-2 pointer-events-none">
           
           {/* Badge GPS y Cajones */}
-          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-950/90 backdrop-blur-md border border-neutral-700/80 shadow-xl text-xs font-mono pointer-events-auto">
+          <div className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-neutral-950/90 backdrop-blur-md border border-neutral-700/80 shadow-xl text-xs font-mono pointer-events-auto">
             <span className={`w-2 h-2 rounded-full ${
               gpsStatus === 'locked' ? 'bg-emerald-400 animate-pulse' : 'bg-blue-400'
             }`} />
-            <span className="text-white font-bold text-[11px] uppercase tracking-wider">
+            <span className="text-white font-bold text-[10px] sm:text-[11px] uppercase tracking-wider">
               {gpsStatus === 'locked' ? 'GPS SATELITAL EN VIVO' : 'MAPA METROPOLITANO'}
             </span>
             <span className="text-neutral-500">•</span>
             <span className="text-neutral-300 text-[10px]">
               {zonesWithCoords.length} Cajones
             </span>
-            <span className="text-neutral-500">•</span>
-            <span className="text-amber-300 font-bold text-[10px]">
+            <span className="text-neutral-500 hidden xs:inline">•</span>
+            <span className="text-amber-300 font-bold text-[10px] hidden xs:inline">
               {pinnedLocations.length} Fijadas
             </span>
           </div>
 
           {/* Selector de Modo de Mapa: DiDi (Leaflet) / AniMaps (3D) */}
-          <div className="flex items-center gap-1 bg-[#01033E]/95 backdrop-blur-md p-1 rounded-full border border-white/10 shadow-xl pointer-events-auto text-xs font-mono">
+          <div className="flex items-center gap-1 bg-[#01033E]/95 backdrop-blur-md p-0.5 sm:p-1 rounded-full border border-white/10 shadow-xl pointer-events-auto text-xs font-mono">
             <button
               type="button"
               onClick={() => setViewMode('map')}
-              className={`px-3 py-1 rounded-full font-bold transition flex items-center gap-1.5 ${
+              className={`px-2.5 sm:px-3 py-1 rounded-full font-bold transition flex items-center gap-1 text-[11px] sm:text-xs ${
                 viewMode === 'map'
                   ? 'bg-[#0033FF] text-white shadow'
                   : 'text-[#D4D6E6]/70 hover:text-white'
@@ -638,7 +638,7 @@ export const DiDiParkingMap = ({
             <button
               type="button"
               onClick={() => setViewMode('animaps')}
-              className={`px-3 py-1 rounded-full font-bold transition flex items-center gap-1.5 ${
+              className={`px-2.5 sm:px-3 py-1 rounded-full font-bold transition flex items-center gap-1 text-[11px] sm:text-xs ${
                 viewMode === 'animaps'
                   ? 'bg-[#0033FF] text-white border border-[#807DFE]/50 shadow-[0_0_15px_rgba(0,51,255,0.4)]'
                   : 'text-[#D4D6E6] hover:text-white'
@@ -652,7 +652,7 @@ export const DiDiParkingMap = ({
         </div>
 
         {/* 2. BOTONES FLOTANTES LATERALES (Centrar, Fijar Ubicación y Acceso Rápido a AniMaps) */}
-        <div className="absolute top-16 right-3 z-[400] pointer-events-auto flex flex-col gap-2">
+        <div className="absolute top-24 sm:top-16 right-2 sm:right-3 z-[400] pointer-events-auto flex flex-col gap-2">
           {/* Botón: Ver Ruta Animada con AniMaps */}
           <button
             type="button"

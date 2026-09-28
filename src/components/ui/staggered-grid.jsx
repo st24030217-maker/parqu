@@ -75,15 +75,15 @@ export function StaggeredGrid({
         </div>
 
         {/* Badge Superior */}
-        <div className="relative z-10 mb-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#01033E]/70 backdrop-blur-md border border-[#807DFE]/40 text-xs font-mono text-[#D4D6E6] shadow-[0_0_20px_rgba(0,51,255,0.25)]">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="tracking-[0.2em] uppercase font-bold text-[10px] sm:text-[11px]">SISTEMA INTELIGENTE DE PARQUÍMETROS</span>
-          <span className="text-[#807DFE]">•</span>
-          <span className="text-[10px] font-bold text-[#807DFE]">2026 OFFICIAL</span>
+        <div className="relative z-10 mb-4 inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-[#01033E]/70 backdrop-blur-md border border-[#807DFE]/40 text-xs font-mono text-[#D4D6E6] shadow-[0_0_20px_rgba(0,51,255,0.25)]">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+          <span className="tracking-[0.1em] sm:tracking-[0.2em] uppercase font-bold text-[9px] sm:text-[11px]">SISTEMA INTELIGENTE DE PARQUÍMETROS</span>
+          <span className="text-[#807DFE] hidden xs:inline">•</span>
+          <span className="text-[9px] sm:text-[10px] font-bold text-[#807DFE] hidden xs:inline">2026 OFFICIAL</span>
         </div>
 
         {/* Hero Text Shutter */}
-        <div className="relative z-10 max-w-5xl mx-auto">
+        <div className="relative z-10 max-w-5xl mx-auto w-full">
           <HeroText
             text={centerText}
             className="bg-transparent"
@@ -91,28 +91,27 @@ export function StaggeredGrid({
         </div>
 
         {/* Subtítulo Hero */}
-        <p className="relative z-10 mt-4 text-xs sm:text-sm md:text-base text-[#D4D6E6] font-mono max-w-2xl mx-auto leading-relaxed px-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+        <p className="relative z-10 mt-3 sm:mt-4 text-xs sm:text-sm md:text-base text-[#D4D6E6] font-mono max-w-2xl mx-auto leading-relaxed px-3 sm:px-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
           La plataforma metropolitana que elimina las filas, las monedas y las multas. Autocobro continuo segundo a segundo con tecnología de <strong className="text-white">SSS.Solutions</strong>.
         </p>
 
-
         {/* Barra de Estadísticas Clave */}
-        <div className="relative z-10 mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-4xl w-full mx-auto px-4">
-          <div className="p-3 rounded-2xl bg-[#01033E]/60 backdrop-blur-md border border-white/10 text-center">
-            <div className="text-lg sm:text-xl font-black text-white font-mono">$0.25</div>
-            <div className="text-[10px] text-[#D4D6E6] font-mono uppercase tracking-wider">MXN por Minuto</div>
+        <div className="relative z-10 mt-8 sm:mt-10 grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 max-w-4xl w-full mx-auto px-2 sm:px-4">
+          <div className="p-2.5 sm:p-3 rounded-2xl bg-[#01033E]/60 backdrop-blur-md border border-white/10 text-center">
+            <div className="text-base sm:text-xl font-black text-white font-mono">$0.25</div>
+            <div className="text-[9px] sm:text-[10px] text-[#D4D6E6] font-mono uppercase tracking-wider">MXN por Minuto</div>
           </div>
-          <div className="p-3 rounded-2xl bg-[#01033E]/60 backdrop-blur-md border border-white/10 text-center">
-            <div className="text-lg sm:text-xl font-black text-emerald-400 font-mono">0 Multas</div>
-            <div className="text-[10px] text-[#D4D6E6] font-mono uppercase tracking-wider">Garantía Activa</div>
+          <div className="p-2.5 sm:p-3 rounded-2xl bg-[#01033E]/60 backdrop-blur-md border border-white/10 text-center">
+            <div className="text-base sm:text-xl font-black text-emerald-400 font-mono">0 Multas</div>
+            <div className="text-[9px] sm:text-[10px] text-[#D4D6E6] font-mono uppercase tracking-wider">Garantía Activa</div>
           </div>
-          <div className="p-3 rounded-2xl bg-[#01033E]/60 backdrop-blur-md border border-white/10 text-center">
-            <div className="text-lg sm:text-xl font-black text-[#807DFE] font-mono">AES-256</div>
-            <div className="text-[10px] text-[#D4D6E6] font-mono uppercase tracking-wider">Cifrado Bancario</div>
+          <div className="p-2.5 sm:p-3 rounded-2xl bg-[#01033E]/60 backdrop-blur-md border border-white/10 text-center">
+            <div className="text-base sm:text-xl font-black text-[#807DFE] font-mono">AES-256</div>
+            <div className="text-[9px] sm:text-[10px] text-[#D4D6E6] font-mono uppercase tracking-wider">Cifrado Bancario</div>
           </div>
-          <div className="p-3 rounded-2xl bg-[#01033E]/60 backdrop-blur-md border border-white/10 text-center">
-            <div className="text-lg sm:text-xl font-black text-[#0033FF] font-mono">100% Digital</div>
-            <div className="text-[10px] text-[#D4D6E6] font-mono uppercase tracking-wider">Cero Monedas</div>
+          <div className="p-2.5 sm:p-3 rounded-2xl bg-[#01033E]/60 backdrop-blur-md border border-white/10 text-center">
+            <div className="text-base sm:text-xl font-black text-[#0033FF] font-mono">100% Digital</div>
+            <div className="text-[9px] sm:text-[10px] text-[#D4D6E6] font-mono uppercase tracking-wider">Cero Monedas</div>
           </div>
         </div>
 

@@ -66,13 +66,13 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
     <div id="panel-control-metropolitano" className="w-full space-y-3 font-mono scroll-mt-28">
       {/* Subtítulo organizador */}
       <div className="flex items-center justify-between px-1">
-        <div className="flex items-center gap-2 text-xs text-neutral-400">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="font-bold text-white uppercase tracking-wider text-[11px]">
+        <div className="flex items-center gap-1.5 sm:gap-2 text-xs text-neutral-400">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+          <span className="font-bold text-white uppercase tracking-wider text-[10px] sm:text-[11px]">
             PANEL DE CONTROL METROPOLITANO
           </span>
-          <span className="text-neutral-600">•</span>
-          <span className="text-neutral-500 text-[10px]">MÉTRICAS & CANVAS REVEAL EFFECT</span>
+          <span className="text-neutral-600 hidden sm:inline">•</span>
+          <span className="text-neutral-500 text-[10px] hidden sm:inline">MÉTRICAS & CANVAS REVEAL EFFECT</span>
         </div>
 
         {/* Telemetría mini-bars */}
