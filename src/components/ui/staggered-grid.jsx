@@ -245,27 +245,6 @@ export function StaggeredGrid({
           La plataforma metropolitana que elimina las filas, las monedas y las multas. Autocobro continuo segundo a segundo con tecnología de <strong className="text-white">SSS.Solutions</strong>.
         </p>
 
-        {/* Botones de Acción Hero */}
-        <div className="relative z-20 mt-8 flex flex-wrap items-center justify-center gap-3">
-          <button
-            type="button"
-            onClick={handleScrollToPanel}
-            className="group px-6 py-3 rounded-2xl bg-[#0033FF] hover:bg-[#2250ff] text-white border border-[#807DFE]/50 font-mono text-xs font-bold transition-all duration-300 flex items-center gap-2.5 shadow-[0_0_30px_rgba(0,51,255,0.6)] cursor-pointer transform hover:scale-105 active:scale-95"
-          >
-            <Activity className="w-4 h-4 text-white animate-pulse" />
-            <span>Acceder al Panel de Control</span>
-            <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
-          </button>
-
-          <button
-            type="button"
-            onClick={handleScrollToFeatures}
-            className="px-6 py-3 rounded-2xl bg-[#01033E]/70 hover:bg-white/10 text-[#D4D6E6] hover:text-white border border-white/15 font-mono text-xs font-bold transition-all duration-300 flex items-center gap-2 backdrop-blur-md cursor-pointer transform hover:scale-105 active:scale-95"
-          >
-            <Layers className="w-4 h-4 text-[#807DFE]" />
-            <span>Explorar Funciones</span>
-          </button>
-        </div>
 
         {/* Barra de Estadísticas Clave */}
         <div className="relative z-10 mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-4xl w-full mx-auto px-4">
