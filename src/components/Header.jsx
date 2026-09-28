@@ -3,7 +3,7 @@ import { ShieldCheck, Clock, Zap, Sparkles, Activity } from 'lucide-react';
 import { PlugConnectedIcon } from './icons';
 import { useParking } from '../context/ParkingContext';
 
-export const Header = ({ onReplayLoading, onNavigateToPanel }) => {
+export const Header = ({ onNavigateToPanel }) => {
   const { activeSession, vehicle } = useParking();
   const [currentTime, setCurrentTime] = useState(new Date());
 

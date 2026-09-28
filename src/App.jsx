@@ -427,7 +427,6 @@ const MainContent = () => {
     >
       <div className="relative z-10 flex flex-col min-h-screen">
         <Header 
-          onReplayLoading={onReplayLoading} 
           onNavigateToPanel={() => {
             const el = document.getElementById('panel-control-metropolitano');
             if (el) el.scrollIntoView({ behavior: 'smooth' });
