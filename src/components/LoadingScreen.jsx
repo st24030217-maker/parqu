@@ -28,9 +28,9 @@ export const LoadingScreen = ({ onComplete }) => {
         filter: 'blur(10px)', 
         transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } 
       }}
-      className="fixed inset-0 z-50 flex flex-col bg-black text-white overflow-hidden select-none"
+      className="fixed inset-0 z-50 flex flex-col bg-[#01033E] text-[#D4D6E6] overflow-hidden select-none"
     >
-      {/* Fondo interactivo Aceternity Webcam Pixel Grid Monocromático Blanco y Negro */}
+      {/* Fondo interactivo Webcam Pixel Grid */}
       <WebcamPixelGrid
         pixelSize={18}
         gap={3}
@@ -51,12 +51,12 @@ export const LoadingScreen = ({ onComplete }) => {
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               className="relative flex items-center justify-center"
             >
-              <div className="absolute -inset-6 bg-white/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -inset-6 bg-[#0033FF]/30 rounded-full blur-3xl pointer-events-none" />
               <img
                 src="/parqu-logo-white.png"
                 alt="Parqu Logo"
                 style={{ maxHeight: '144px' }}
-                className="h-28 sm:h-32 md:h-36 w-auto object-contain relative z-10 drop-shadow-[0_0_40px_rgba(255,255,255,0.45)]"
+                className="h-28 sm:h-32 md:h-36 w-auto object-contain relative z-10 drop-shadow-[0_0_40px_rgba(128,125,254,0.45)]"
               />
             </motion.div>
 
@@ -74,7 +74,7 @@ export const LoadingScreen = ({ onComplete }) => {
                 interval={2600}
                 letterDuration={0.55}
                 staggerDelay={0.07}
-                textClassName="text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight drop-shadow-[0_0_35px_rgba(255,255,255,0.35)]"
+                textClassName="text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight drop-shadow-[0_0_35px_rgba(0,51,255,0.45)]"
               />
             </div>
 
@@ -98,7 +98,7 @@ export const LoadingScreen = ({ onComplete }) => {
 
           {/* Footer: Powered by SSS.Solutions con Logotipo Transparente */}
           <footer className="w-full max-w-md flex flex-col items-center justify-center gap-2 pt-4">
-            <span className="text-[11px] uppercase tracking-[0.25em] text-neutral-400 font-mono">
+            <span className="text-[11px] uppercase tracking-[0.25em] text-[#D4D6E6]/60 font-mono">
               Powered by
             </span>
 
@@ -109,7 +109,7 @@ export const LoadingScreen = ({ onComplete }) => {
               </TextAnimation>
             </div>
 
-            {/* Logotipo Oficial de SSS.Solutions (Totalmente transparente sin fondos) */}
+            {/* Logotipo Oficial de SSS.Solutions */}
             <div className="flex items-center justify-center py-1">
               <img
                 src="/sss-solutions-logo.png"
@@ -119,7 +119,7 @@ export const LoadingScreen = ({ onComplete }) => {
               />
             </div>
 
-            <span className="text-[10px] text-neutral-400 font-mono tracking-wider text-center">
+            <span className="text-[10px] text-[#D4D6E6]/50 font-mono tracking-wider text-center">
               Tecnología de Autocobro & Movilidad Urbana • Encriptación 256-bit
             </span>
           </footer>
