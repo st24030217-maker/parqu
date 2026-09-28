@@ -48,7 +48,7 @@ export const TransactionHistory = () => {
             Historial de Autocobros & Ubicaciones Fijadas
           </h2>
           <p className="text-xs sm:text-sm text-[#D4D6E6] mt-1 font-mono max-w-2xl leading-relaxed">
-            Registro inmutable de cargos de parquímetro y bitácora satelital de cajones donde has fijado tu vehículo.
+            Registro inmutable de cargos de parquímetro y bitácora satelital de ubicaciones donde has fijado tu vehículo.
           </p>
         </div>
 
@@ -106,7 +106,7 @@ export const TransactionHistory = () => {
             <Receipt className="w-12 h-12 text-neutral-600 mx-auto mb-3" />
             <h4 className="text-sm font-semibold text-neutral-300 font-mono">No hay cobros registrados aún</h4>
             <p className="text-xs text-neutral-500 max-w-sm mx-auto mt-1 font-mono">
-              Los cargos se generarán de manera automática cada vez que ocupes y liberes un cajón de parquímetro.
+              Los cargos se generarán de manera automática cada vez que utilices un parquímetro y liberes tu estacionamiento.
             </p>
           </div>
         ) : (
@@ -171,7 +171,7 @@ export const TransactionHistory = () => {
             <MapPin className="w-12 h-12 text-neutral-600 mx-auto" />
             <h4 className="text-sm font-semibold text-neutral-300">No hay ubicaciones registradas en la bitácora</h4>
             <p className="text-xs text-neutral-500 max-w-sm mx-auto">
-              Fija tu ubicación en el mapa satelital DiDi para guardar un registro de dónde dejaste estacionado tu vehículo.
+              Fija tu ubicación en el mapa satelital para guardar un registro de dónde dejaste estacionado tu vehículo.
             </p>
           </div>
         ) : (

@@ -106,20 +106,20 @@ const MainContent = () => {
     {
       id: 'parking-map',
       icon: MapPin,
-      title: activeSession ? 'Cajón Ocupado' : 'Mapa DiDi & Ubicación',
+      title: activeSession ? 'Estacionamiento Activo' : 'Mapa & Ubicación',
       subtitle: activeSession ? activeSession.zoneName : 'Fijar Ubicación & Registro',
       badge: activeSession ? 'EN VIVO' : 'GPS & BITÁCORA',
       badgeClassName: activeSession ? 'bg-amber-950/60 text-amber-300 border-amber-700/50 animate-pulse font-mono' : 'bg-white/10 backdrop-blur-sm text-[#D4D6E6] border border-white/10 font-mono',
       iconBg: 'bg-white/10 backdrop-blur-sm border border-white/10 text-[#D4D6E6]',
       borderClassName: 'border-white/10 hover:border-white/25',
       glowGradient: 'from-[#0033FF]/30 via-transparent to-transparent',
-      footerText: activeSession ? 'Debitando segundo a segundo' : 'Mapa DiDi + Rutas AniMaps 3D',
+      footerText: activeSession ? 'Debitando segundo a segundo' : 'Mapa Satelital + Rutas 3D',
       activeStatus: activeSession !== null,
       onClick: () => {
         setActiveTab('dashboard');
         sileo.info({
-          title: 'Mapa DiDi & AniMaps 3D',
-          description: 'Explora cajones, fija tu auto o simula el recorrido 3D con animaps-react.',
+          title: 'Mapa & Rutas 3D',
+          description: 'Fija tu ubicación en el mapa, asigna el número de espacio y activa el autocobro.',
         });
       },
     },
@@ -208,7 +208,7 @@ const MainContent = () => {
                   Apartado de Funciones Rápidas
                 </h3>
                 <p className="text-xs text-[#D4D6E6] mt-1 font-mono">
-                  Ejecuta recargas, abre la credencial QR para tránsitos, explora cajones en el mapa DiDi o administra el autocobro en 1 toque.
+                  Ejecuta recargas, abre la credencial QR para tránsitos, fija tu ubicación en el mapa o administra el autocobro en 1 toque.
                 </p>
               </div>
 
@@ -265,14 +265,14 @@ const MainContent = () => {
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-bold text-[#D4D6E6] font-mono flex items-center gap-1.5">
                     <MapPin className="w-3.5 h-3.5 text-[#D4D6E6]" />
-                    Mapa DiDi & AniMaps 3D
+                    Mapa & Rutas 3D
                   </span>
                   <span className="text-[10px] font-mono text-[#D4D6E6] px-2 py-0.5 rounded-full bg-white/10 border border-white/10">
                     EN VIVO
                   </span>
                 </div>
                 <p className="text-[11px] text-[#D4D6E6] font-mono">
-                  Ubica cajones disponibles, fija tu auto o simula tu recorrido animado en 3D.
+                  Fija tu ubicación en el mapa, asigna tu número de espacio o simula tu recorrido animado en 3D.
                 </p>
               </div>
             </div>
@@ -441,7 +441,7 @@ const MainContent = () => {
             className="bg-black/95 border-b border-neutral-800 px-4 py-2.5 text-center text-xs font-mono font-semibold text-white flex items-center justify-center gap-2 cursor-pointer hover:bg-neutral-950 transition backdrop-blur-md sticky top-20 z-30 shadow-2xl"
           >
             <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-            <span>Vehículo {vehicle.plates} actualmente en parquímetro. Clic para ver contador o liberar cajón.</span>
+            <span>Vehículo {vehicle.plates} actualmente en parquímetro. Clic para ver contador o liberar estacionamiento.</span>
             <ChevronRight className="w-3.5 h-3.5 text-neutral-400" />
           </div>
         )}

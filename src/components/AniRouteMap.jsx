@@ -36,8 +36,8 @@ export const AniRouteMap = ({
     const dest = pinnedSpot || selectedZone || {
       lat: originCoords.lat + 0.0035,
       lng: originCoords.lng + 0.0030,
-      name: 'Cajón Municipal Centro Histórico',
-      cajon: '#A-14',
+      name: 'Espacio Registrado Centro',
+      spotNumber: '1042',
     };
 
     if (routePreset === 'urban-tour') {
@@ -61,8 +61,8 @@ export const AniRouteMap = ({
           lng: originCoords.lng + 0.0015,
         },
         {
-          city: dest.shortName || dest.name || 'Cajón Asignado',
-          country: dest.cajon || 'Destino Parqu',
+          city: dest.shortName || dest.name || 'Espacio Registrado',
+          country: dest.spotCode || 'Destino Parqu',
           lat: dest.lat || (originCoords.lat + 0.0035),
           lng: dest.lng || (originCoords.lng + 0.0030),
         },
@@ -84,15 +84,15 @@ export const AniRouteMap = ({
           lng: originCoords.lng,
         },
         {
-          city: dest.shortName || dest.name || 'Cajón Asignado',
-          country: dest.cajon || 'Destino Parqu',
+          city: dest.shortName || dest.name || 'Espacio Registrado',
+          country: dest.spotCode || 'Destino Parqu',
           lat: dest.lat || (originCoords.lat + 0.0035),
           lng: dest.lng || (originCoords.lng + 0.0030),
         },
       ];
     }
 
-    // Ruta directa por defecto (origen -> punto intermedio vial -> cajón destino)
+    // Ruta directa por defecto (origen -> punto intermedio vial -> destino)
     const midLat = (originCoords.lat + (dest.lat || originCoords.lat)) / 2 + 0.0008;
     const midLng = (originCoords.lng + (dest.lng || originCoords.lng)) / 2 - 0.0006;
 
@@ -110,16 +110,16 @@ export const AniRouteMap = ({
         lng: midLng,
       },
       {
-        city: dest.shortName || dest.name || 'Cajón Parqu',
-        country: dest.cajon || 'Destino',
+        city: dest.shortName || dest.name || 'Espacio Parqu',
+        country: dest.spotCode || 'Destino',
         lat: dest.lat || (originCoords.lat + 0.0035),
         lng: dest.lng || (originCoords.lng + 0.0030),
       },
     ];
   }, [userLocation, selectedZone, pinnedSpot, vehicle, routePreset]);
 
-  const targetSpotName = pinnedSpot?.name || selectedZone?.name || 'Cajón Municipal';
-  const targetCajon = pinnedSpot ? '#PIN' : (selectedZone?.cajon || '#A-14');
+  const targetSpotName = pinnedSpot?.name || selectedZone?.name || 'Espacio Registrado';
+  const targetSpotCode = pinnedSpot ? (pinnedSpot.spotNumber ? `#${pinnedSpot.spotNumber}` : '#PIN') : (selectedZone?.spotNumber ? `#${selectedZone.spotNumber}` : '#1042');
 
   return (
     <div className={`relative w-full rounded-3xl overflow-hidden border border-white/10 bg-[#01033E]/70 backdrop-blur-xl shadow-2xl flex flex-col font-mono text-[#D4D6E6] ${className}`}>
@@ -140,7 +140,7 @@ export const AniRouteMap = ({
 
           <h3 className="text-lg sm:text-xl font-black text-white flex items-center gap-2 tracking-tight">
             <Compass className="w-5 h-5 text-[#807DFE]" />
-            Recorrido Animado hacia {targetCajon}
+            Recorrido Animado hacia {targetSpotName}
           </h3>
           <p className="text-xs text-[#D4D6E6]">
             Destino: <span className="text-white font-bold">{targetSpotName}</span>
@@ -194,7 +194,7 @@ export const AniRouteMap = ({
               className="px-4 py-2 rounded-2xl bg-[#0033FF] hover:bg-[#2250ff] text-white text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-[0_0_20px_rgba(0,51,255,0.4)] transition active:scale-95"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Mapa DiDi</span>
+              <span>Volver al Mapa</span>
             </button>
           )}
         </div>
@@ -238,7 +238,7 @@ export const AniRouteMap = ({
         >
           {/* Componente AniMaps con key basada en el preset para refrescar la ruta limpia */}
           <AniMaps
-            key={`animaps-${routePreset}-${targetCajon}`}
+            key={`animaps-${routePreset}-${targetSpotCode}`}
             className="w-full h-full"
             style={{ width: '100%', height: '100%' }}
             initialStops={initialStops}
@@ -262,7 +262,7 @@ export const AniRouteMap = ({
             onClick={onBackToLeaflet}
             className="text-indigo-400 hover:text-indigo-300 font-bold flex items-center gap-1 underline transition"
           >
-            <span>Seleccionar otro cajón en Mapa DiDi</span>
+            <span>Fijar otro punto en el Mapa</span>
             <ChevronRight className="w-3.5 h-3.5" />
           </button>
         )}

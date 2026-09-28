@@ -128,7 +128,7 @@ export const AutoPaymentConfig = () => {
                 Habilitar Débito / Autocobro Inteligente
               </label>
               <p className="text-xs text-neutral-400 mt-0.5 font-mono">
-                Al terminar tu tiempo de estacionamiento o liberar el cajón, el importe se cobrará automáticamente.
+                Al terminar tu tiempo o retirarte del estacionamiento, el importe se cobrará automáticamente.
               </p>
             </div>
           </div>
@@ -338,7 +338,7 @@ export const AutoPaymentConfig = () => {
                 onChange={handleChange}
                 className="rounded border-white/20 bg-white/5 text-[#0033FF] focus:ring-[#807DFE]"
               />
-              <span>Autorrenovación automática si el vehículo permanece en cajón</span>
+              <span>Autorrenovación automática si el vehículo permanece estacionado</span>
             </label>
           </div>
         </div>
@@ -358,7 +358,7 @@ export const AutoPaymentConfig = () => {
               Autorización expresa de débito para la placa {vehicle.plates}:
             </span>
             Autorizo al sistema de Parquímetros Digitales a debitar de forma automática el costo correspondiente 
-            por tiempo de ocupación en cajones autorizados a nombre del titular <strong>{owner.fullName}</strong>.
+            por tiempo de ocupación en parquímetros autorizados a nombre del titular <strong>{owner.fullName}</strong>.
           </label>
         </div>
 

@@ -15,15 +15,10 @@ import { CurrencyDollarIcon } from './icons/currency-dollar-icon';
 import { useParking } from '../context/ParkingContext';
 import { formatCurrency, formatTimeFromSeconds, formatPlate } from '../utils/formatters';
 import { WobbleCard } from './ui/wobble-card';
-import { DiDiParkingMap } from './DiDiParkingMap';
+import { ParkingMap } from './ParkingMap';
 import { AnimeCounter } from './ui/anime-counter';
 
-const PARKING_ZONES = [
-  { id: 'Z1', name: 'Zona Centro Histórico (Cajón #A-14)', ratePerHour: 18.00 },
-  { id: 'Z2', name: 'Zona Financiera & Bancaria (Cajón #B-08)', ratePerHour: 24.00 },
-  { id: 'Z3', name: 'Distrito Gastronómico & Gourmet (Cajón #C-21)', ratePerHour: 20.00 },
-  { id: 'Z4', name: 'Zona Hospitalaria & Médica (Cajón #H-02)', ratePerHour: 14.00 },
-];
+const DEFAULT_SPOT = { id: 'SPOT_1042', name: 'Espacio #1042', spotNumber: '1042', ratePerHour: 18.00 };
 
 export const ParkingMeter = () => {
   const { 
@@ -35,7 +30,7 @@ export const ParkingMeter = () => {
     autoPay,
   } = useParking();
 
-  const [selectedZone, setSelectedZone] = useState(PARKING_ZONES[0]);
+  const [selectedZone, setSelectedZone] = useState(DEFAULT_SPOT);
   const [justChargedNotice, setJustChargedNotice] = useState(null);
 
   const handleStart = (zoneParam = null) => {
@@ -45,7 +40,7 @@ export const ParkingMeter = () => {
     setJustChargedNotice(null);
     sileo.info({
       title: 'Parquímetro Activado',
-      description: `Cajón ocupado en ${targetZone.name}. Autocobro activo para ${vehicle.plates}.`,
+      description: `Estacionamiento registrado en ${targetZone.name}. Autocobro activo para ${vehicle.plates}.`,
     });
   };
 
@@ -80,7 +75,7 @@ export const ParkingMeter = () => {
             Parquímetro Metropolitano en Vivo
           </h2>
           <p className="text-xs sm:text-sm text-[#D4D6E6] mt-1 font-mono max-w-2xl leading-relaxed">
-            Control y cobro automático segundo a segundo al ocupar y liberar un cajón municipal.
+            Control y cobro automático segundo a segundo en parquímetros metropolitanos.
           </p>
         </div>
 
@@ -88,7 +83,7 @@ export const ParkingMeter = () => {
           {activeSession ? (
             <span className="flex items-center gap-2 text-xs font-bold text-amber-300 bg-amber-500/10 border border-amber-500/40 px-4 py-1.5 rounded-full animate-pulse shadow-[0_0_15px_rgba(245,158,11,0.2)]">
               <span className="w-2 h-2 rounded-full bg-amber-400"></span>
-              Sesión Activa en Cajón
+              Estacionamiento Activo
             </span>
           ) : (
             <span className="text-xs font-medium text-neutral-300 bg-white/8 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/10 flex items-center gap-1.5">
@@ -175,7 +170,7 @@ export const ParkingMeter = () => {
               {/* Detalles de la Detección y Vehículo */}
               <div className="space-y-2 text-xs font-mono">
                 <div className="flex justify-between py-1 border-b border-white/10">
-                  <span className="text-[#D4D6E6]">Zona / Cajón:</span>
+                  <span className="text-[#D4D6E6]">Ubicación / Espacio:</span>
                   <span className="font-semibold text-[#D4D6E6] truncate max-w-[160px]">{activeSession.zoneName}</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-white/10">
@@ -203,7 +198,7 @@ export const ParkingMeter = () => {
                 <Car className="w-5 h-5 text-[#D4D6E6]" />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-white font-mono">¿Listo para salir del cajón?</h4>
+                <h4 className="text-sm font-bold text-white font-mono">¿Listo para salir?</h4>
                 <p className="text-xs text-neutral-400 mt-0.5 font-mono">
                   El sistema detectará la salida y liquidará el monto sin filas ni demoras.
                 </p>
@@ -215,7 +210,7 @@ export const ParkingMeter = () => {
               className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-bold font-mono text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,51,255,0.6)] transition transform active:scale-95"
             >
               <Square className="w-4 h-4 fill-current text-rose-500" />
-              Liberar Cajón & Liquidar Autocobro
+              Liberar Estacionamiento & Liquidar Autocobro
             </button>
           </div>
         </div>
@@ -223,10 +218,11 @@ export const ParkingMeter = () => {
         /* Cuando NO está estacionado */
         <div className="space-y-6">
           <div>
-            <DiDiParkingMap
+            <ParkingMap
               selectedZone={selectedZone}
               onSelectZone={setSelectedZone}
               onStartSession={handleStart}
+              onStopSession={handleStop}
               activeSession={activeSession}
             />
           </div>
@@ -246,11 +242,11 @@ export const ParkingMeter = () => {
             </div>
 
             <button
-              onClick={handleStart}
+              onClick={() => handleStart(selectedZone)}
               className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-bold font-mono text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(0,51,255,0.6)] transition transform active:scale-95"
             >
               <Play className="w-4 h-4 fill-current text-white" />
-              Ocupar Cajón & Iniciar Parquímetro
+              Registrar Estacionamiento
             </button>
           </div>
         </div>

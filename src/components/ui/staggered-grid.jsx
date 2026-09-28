@@ -41,8 +41,8 @@ export function StaggeredGrid({
     {
       id: 'bento-3',
       title: 'Parquímetro en Tiempo Real',
-      subtitle: '03. CONTROL DE CAJONES',
-      desc: 'Ubica cajones disponibles en el mapa municipal, activa el cronómetro dinámico y monitorea el consumo segundo a segundo en vivo.',
+      subtitle: '03. CONTROL DE ESTACIONAMIENTO',
+      desc: 'Fija tu ubicación en el mapa satelital, ingresa tu número de parquímetro y monitorea el consumo segundo a segundo en vivo.',
       icon: <MapPin className="w-6 h-6 text-emerald-400" />,
       tag: 'PARQUÍMETRO',
       actionTab: 'dashboard'

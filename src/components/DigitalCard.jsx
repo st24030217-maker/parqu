@@ -86,7 +86,7 @@ export const DigitalCard = () => {
         <div className="flex items-center gap-2">
           <span className={`w-2 h-2 rounded-full ${isParked ? 'bg-amber-400 animate-ping' : 'bg-emerald-400'}`} />
           <span className="text-[#D4D6E6] font-medium">
-            {isParked ? 'Cajón Activo' : 'Saldo:'}{' '}
+            {isParked ? 'Estacionamiento Activo' : 'Saldo:'}{' '}
             <AnimeCounter value={card.balance} prefix="$" decimals={2} suffix=" MXN" className="text-white font-bold" />
           </span>
         </div>
