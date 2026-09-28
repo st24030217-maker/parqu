@@ -16,21 +16,22 @@ const COLUMNS = [
 export const LoadingScreen = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
+  const [isReady, setIsReady] = useState(false);
   const hasExitedRef = useRef(false);
 
-  // Gatillo de salida con revelado vertical en persianas escalonadas
+  // Ejecuta la animación de revelado vertical escalonado cuando el usuario hace clic en "Empecemos"
   const handleTriggerExit = useCallback(() => {
     if (hasExitedRef.current) return;
     hasExitedRef.current = true;
     setIsExiting(true);
 
-    // Duración total: retraso de la última columna (4 * 0.08s = 0.32s) + duración (0.85s) = ~1.17s
+    // Esperar a que la última persiana termine de subir (0.32s de retraso + 0.85s de subida = ~1.17s)
     setTimeout(() => {
       if (onComplete) onComplete();
     }, 1150);
   }, [onComplete]);
 
-  // Atajo de teclado: Enter o Barra espaciadora para acceder de inmediato
+  // Atajo de teclado: Enter o Barra espaciadora para iniciar la animación y acceder
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -42,10 +43,10 @@ export const LoadingScreen = ({ onComplete }) => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleTriggerExit]);
 
-  // Contador cinemático de progresión (00% a 100%)
+  // Contador de preparación inicial (0% a 100%) - Espera la interacción del usuario sin auto-cierre
   useEffect(() => {
     const startTime = Date.now();
-    const duration = 2400; // 2.4 segundos para una experiencia fluida y cinematográfica
+    const duration = 1800; // 1.8 segundos para calibración rápida
 
     const interval = setInterval(() => {
       const elapsed = Date.now() - startTime;
@@ -54,15 +55,13 @@ export const LoadingScreen = ({ onComplete }) => {
 
       if (nextProgress >= 100) {
         clearInterval(interval);
-        // Pausa estética de 320ms con el sistema al 100% antes del revelado automático
-        setTimeout(() => {
-          handleTriggerExit();
-        }, 320);
+        setIsReady(true);
+        // IMPORTANTE: NO se auto-cierra; espera a que el usuario presione "Empecemos"
       }
-    }, 30);
+    }, 25);
 
     return () => clearInterval(interval);
-  }, [handleTriggerExit]);
+  }, []);
 
   // Bloqueo de scroll en el body mientras se visualiza la pantalla de carga
   useEffect(() => {
@@ -73,32 +72,31 @@ export const LoadingScreen = ({ onComplete }) => {
     };
   }, []);
 
-  // Mensaje de telemetría dinámico según el porcentaje de carga
+  // Mensaje de telemetría dinámico según el progreso
   const getTelemetryStatus = () => {
-    if (progress < 25) return 'INICIALIZANDO SISTEMA METROPOLITANO';
-    if (progress < 50) return 'CONECTANDO RED SATELITAL & SENSORES IoT';
-    if (progress < 75) return 'SINCRONIZANDO PADRÓN VEHICULAR CDMX';
-    if (progress < 99) return 'ENCRIPTANDO PASARELA DE AUTOCOBRO (AES-256)';
-    return 'SISTEMA LISTO • ACCESO AUTORIZADO';
+    if (!isReady && progress < 30) return 'INICIALIZANDO SISTEMA METROPOLITANO';
+    if (!isReady && progress < 60) return 'CONECTANDO RED SATELITAL & SENSORES IoT';
+    if (!isReady && progress < 99) return 'SINCRONIZANDO PADRÓN VEHICULAR CDMX';
+    return 'SISTEMA LISTO • PRESIONA EMPECEMOS';
   };
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden select-none pointer-events-auto bg-transparent">
       {/* 
         ══════════════════════════════════════════════════════════════
-        PERSPECTIVA CHARLIE OSBORNE: 5 PERSIANAS VERTICALES ESCALONADAS
+        PERSIANAS VERTICALES CHARLIE OSBORNE (SUBEN AL DARLE A EMPECEMOS)
         ══════════════════════════════════════════════════════════════
       */}
       <div className="absolute inset-0 grid grid-cols-3 sm:grid-cols-5 pointer-events-none z-0">
         {COLUMNS.map((col, idx) => (
-          <motion.div
+          <div
             key={col.id}
-            initial={{ y: '0%' }}
-            animate={{ y: isExiting ? '-100%' : '0%' }}
-            transition={{
-              duration: 0.85,
-              delay: isExiting ? idx * 0.08 : 0,
-              ease: [0.76, 0, 0.24, 1], // Curva cúbica bezier ultra-fluida estilo Charlie Osborne
+            style={{
+              transform: isExiting ? 'translateY(-100%)' : 'translateY(0%)',
+              transition: isExiting
+                ? `transform 0.85s cubic-bezier(0.76, 0, 0.24, 1) ${idx * 0.08}s`
+                : 'none',
+              willChange: 'transform',
             }}
             className={`relative h-full w-full bg-[#01033E] border-r border-white/[0.08] last:border-r-0 flex flex-col justify-between p-3 sm:p-5 md:p-6 ${
               !col.mobileVisible ? 'hidden sm:flex' : 'flex'
@@ -118,26 +116,23 @@ export const LoadingScreen = ({ onComplete }) => {
               <span className="truncate">{col.tag}</span>
               <span className="w-1.5 h-1.5 rounded-full bg-[#0033FF]/60" />
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
 
       {/* 
         ══════════════════════════════════════════════════════════════
-        CONTENIDO HERO EDITORIAL Y TELEMETRÍA (FADE & SLIDE AL SALIR)
+        CONTENIDO HERO EDITORIAL (SE DESVANECE AL ACTIVAR LA ANIMACIÓN)
         ══════════════════════════════════════════════════════════════
       */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{
+      <div
+        style={{
           opacity: isExiting ? 0 : 1,
-          y: isExiting ? -35 : 0,
+          transform: isExiting ? 'translateY(-30px)' : 'translateY(0)',
+          transition: 'opacity 0.35s ease, transform 0.35s ease',
+          pointerEvents: isExiting ? 'none' : 'auto',
         }}
-        transition={{
-          duration: isExiting ? 0.35 : 0.5,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-        className="absolute inset-0 z-10 h-full w-full flex flex-col justify-between px-4 sm:px-8 md:px-12 py-5 sm:py-8 md:py-10 text-[#D4D6E6] pointer-events-auto"
+        className="absolute inset-0 z-10 h-full w-full flex flex-col justify-between px-4 sm:px-8 md:px-12 py-5 sm:py-8 md:py-10 text-[#D4D6E6]"
       >
         {/* BARRA SUPERIOR: Telemetría y estado de red satelital */}
         <header className="w-full flex items-center justify-between border-b border-white/[0.08] pb-3 sm:pb-4">
@@ -167,16 +162,11 @@ export const LoadingScreen = ({ onComplete }) => {
           </div>
         </header>
 
-        {/* CENTRO: Tipografía Gigante Charlie Osborne, Logotipo Parqu y Taglines */}
+        {/* CENTRO: Tipografía Gigante Charlie Osborne, Logotipo Parqu y Botón Empecemos */}
         <main className="my-auto flex flex-col items-center justify-center text-center max-w-4xl mx-auto w-full py-4">
           
           {/* Logotipo Parqu con Aura Luminosa */}
-          <motion.div
-            initial={{ scale: 0.85, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="relative flex items-center justify-center mb-3 sm:mb-5"
-          >
+          <div className="relative flex items-center justify-center mb-3 sm:mb-5">
             <div className="absolute -inset-8 bg-gradient-to-r from-[#0033FF]/40 via-[#807DFE]/30 to-[#0033FF]/40 rounded-full blur-3xl pointer-events-none" />
             <img
               src="/parqu-logo-white.png"
@@ -184,7 +174,7 @@ export const LoadingScreen = ({ onComplete }) => {
               style={{ maxHeight: '100px' }}
               className="h-14 sm:h-20 md:h-24 w-auto object-contain relative z-10 drop-shadow-[0_0_35px_rgba(128,125,254,0.5)]"
             />
-          </motion.div>
+          </div>
 
           {/* TÍTULO HERO GIGANTE EDITORIAL (Inspiración Charlie Osborne) */}
           <div className="overflow-hidden w-full">
@@ -215,25 +205,20 @@ export const LoadingScreen = ({ onComplete }) => {
             />
           </div>
 
-          {/* BOTÓN INTERACTIVO "EMPECEMOS" CON RADIAL GLOW */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="mt-6 sm:mt-8 flex flex-col items-center justify-center gap-2.5 z-20"
-          >
+          {/* BOTÓN PRINCIPAL "EMPECEMOS": AL CLICKEAR SE DISPARA LA ANIMACIÓN DE PERSIANAS */}
+          <div className="mt-6 sm:mt-8 flex flex-col items-center justify-center gap-2.5 z-30">
             <RadialGlowButton
               onClick={handleTriggerExit}
-              className="text-sm sm:text-base font-bold shadow-2xl px-8 py-3 sm:px-10 sm:py-3.5 cursor-pointer"
+              className="text-sm sm:text-base font-bold shadow-2xl px-8 py-3.5 sm:px-12 sm:py-4 cursor-pointer hover:scale-105 active:scale-95 transition-all duration-300"
             >
-              <span>{progress >= 100 ? 'Entrar al Sistema' : 'Empecemos'}</span>
+              <span>Empecemos</span>
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-white inline transition-transform duration-300 group-hover:translate-x-1.5" />
             </RadialGlowButton>
 
             <span className="text-[10px] sm:text-xs text-[#D4D6E6]/40 font-mono tracking-wider">
-              Presiona <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white border border-white/10 text-[10px]">Espacio</kbd> o <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white border border-white/10 text-[10px]">Enter</kbd> para acceder
+              Haz clic en <span className="text-white font-semibold">Empecemos</span> o presiona <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white border border-white/10 text-[10px]">Espacio</kbd>
             </span>
-          </motion.div>
+          </div>
 
         </main>
 
@@ -242,10 +227,9 @@ export const LoadingScreen = ({ onComplete }) => {
           
           {/* Barra de Progreso Hairline Luminosa */}
           <div className="w-full relative h-[2px] bg-white/[0.08] overflow-hidden rounded-full">
-            <motion.div
-              className="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-[#0033FF] via-[#807DFE] to-white shadow-[0_0_12px_rgba(128,125,254,0.8)]"
+            <div
+              className="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-[#0033FF] via-[#807DFE] to-white shadow-[0_0_12px_rgba(128,125,254,0.8)] transition-all duration-150 ease-out"
               style={{ width: `${progress}%` }}
-              transition={{ ease: 'linear' }}
             />
           </div>
 
@@ -291,7 +275,7 @@ export const LoadingScreen = ({ onComplete }) => {
           </div>
         </footer>
 
-      </motion.div>
+      </div>
     </div>
   );
 };
