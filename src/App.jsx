@@ -16,7 +16,7 @@ import { WobbleCard } from './components/ui/wobble-card';
 import { InterfaceCraftsCards } from './components/ui/interface-crafts-cards';
 import { Tabs } from './components/ui/tabs';
 import { ErrorBoundary } from './components/ErrorBoundary';
-import { CurrencyDollarIcon } from './components/icons/currency-dollar-icon';
+import { CurrencyDollarIcon, PlugConnectedIcon } from './components/icons';
 import { AnimeTelemetryHud } from './components/ui/anime-telemetry-hud';
 import { AnimeMetricsHub } from './components/ui/anime-metrics-hub';
 import { AnimeStaggerGroup } from './components/ui/anime-stagger-group';
@@ -124,7 +124,7 @@ const MainContent = () => {
     },
     {
       id: 'autopay',
-      icon: Zap,
+      icon: PlugConnectedIcon,
       title: 'Modo Autocobro',
       subtitle: 'Débito continuo sin filas',
       badge: autoPay?.enabled ? 'ACTIVO' : 'PAUSADO',
@@ -504,10 +504,10 @@ const MainContent = () => {
               </button>
 
               <div className="flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white/8 backdrop-blur-sm border border-white/10 shrink-0">
-                <Activity className="w-4 h-4 text-emerald-400 animate-pulse" />
+                <PlugConnectedIcon size={18} className="text-emerald-400" />
                 <div className="text-left font-mono">
                   <div className="text-[10px] text-[#D4D6E6] uppercase tracking-widest font-bold">Telemetría Online</div>
-                  <div className="text-xs font-bold text-[#D4D6E6]">Red Municipal Activa</div>
+                  <div className="text-xs font-bold text-[#D4D6E6]">Red Municipal Conectada</div>
                 </div>
               </div>
             </div>

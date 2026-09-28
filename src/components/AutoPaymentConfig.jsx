@@ -12,7 +12,7 @@ import {
   FileCheck2,
   Sparkles
 } from 'lucide-react';
-import { CurrencyDollarIcon } from './icons/currency-dollar-icon';
+import { CurrencyDollarIcon, PlugConnectedIcon } from './icons';
 import { useParking } from '../context/ParkingContext';
 import { WobbleCard } from './ui/wobble-card';
 
@@ -103,8 +103,8 @@ export const AutoPaymentConfig = () => {
               ? 'bg-white/10 backdrop-blur-sm border border-white/10 text-[#D4D6E6] shadow-[0_0_15px_rgba(0,51,255,0.4)]' 
               : 'bg-rose-950/40 text-rose-400 border-rose-800/50'
           }`}>
-            <span className={`w-2 h-2 rounded-full ${formData.enabled ? 'bg-emerald-400 animate-pulse' : 'bg-rose-400'}`} />
-            {formData.enabled ? 'AUTOCOBRO ACTIVO' : 'PAUSADO'}
+            <PlugConnectedIcon size={14} className={formData.enabled ? 'text-emerald-400' : 'text-rose-400'} />
+            {formData.enabled ? 'AUTOCOBRO CONECTADO' : 'PAUSADO'}
           </span>
         </div>
       </div>
@@ -120,8 +120,8 @@ export const AutoPaymentConfig = () => {
         {/* Toggle General de Autocobro */}
         <div className="p-5 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-between">
           <div className="flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-amber-400">
-              <Zap className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-emerald-400">
+              <PlugConnectedIcon size={20} className="text-emerald-400" />
             </div>
             <div>
               <label htmlFor="enabled" className="text-sm font-bold text-white cursor-pointer font-mono">

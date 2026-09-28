@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ShieldCheck, Clock, Zap, Sparkles, Activity } from 'lucide-react';
+import { PlugConnectedIcon } from './icons';
 import { useParking } from '../context/ParkingContext';
 
 export const Header = ({ onReplayLoading, onNavigateToPanel }) => {
@@ -62,8 +63,8 @@ export const Header = ({ onReplayLoading, onNavigateToPanel }) => {
             </div>
           ) : (
             <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/8 backdrop-blur-sm border border-white/10 text-[#D4D6E6] text-xs font-medium">
-              <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-              <span className="font-mono text-xs text-[#D4D6E6]">Autocobro Activo</span>
+              <PlugConnectedIcon size={14} className="text-emerald-400" />
+              <span className="font-mono text-xs text-[#D4D6E6]">Autocobro Conectado</span>
             </div>
           )}
 

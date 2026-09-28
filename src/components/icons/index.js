@@ -1,2 +1,3 @@
 export { CurrencyDollarIcon } from './currency-dollar-icon';
-export default { CurrencyDollarIcon };
+export { PlugConnectedIcon } from './plug-connected-icon';
+export default { CurrencyDollarIcon, PlugConnectedIcon };
