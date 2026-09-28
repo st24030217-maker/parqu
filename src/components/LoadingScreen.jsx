@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { RadialGlowButton } from './ui/radial-glow-button';
 import { FlipFadeText } from './ui/flip-fade-text';
-import { TextAnimation } from './ui/staggerText';
-import { ArrowRight, Sparkles, ShieldCheck, Radio } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Radio } from 'lucide-react';
 
 // Definición de las 5 columnas verticales inspiradas en Charlie Osborne (charlieosborne.co)
 const COLUMNS = [
@@ -55,7 +54,7 @@ export const LoadingScreen = ({ onComplete }) => {
 
       if (nextProgress >= 100) {
         clearInterval(interval);
-        // Pequeña pausa estética de 320ms con el sistema al 100% antes del revelado automático
+        // Pausa estética de 320ms con el sistema al 100% antes del revelado automático
         setTimeout(() => {
           handleTriggerExit();
         }, 320);
@@ -84,7 +83,7 @@ export const LoadingScreen = ({ onComplete }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden select-none pointer-events-auto bg-black">
+    <div className="fixed inset-0 z-50 overflow-hidden select-none pointer-events-auto bg-transparent">
       {/* 
         ══════════════════════════════════════════════════════════════
         PERSPECTIVA CHARLIE OSBORNE: 5 PERSIANAS VERTICALES ESCALONADAS
@@ -135,13 +134,13 @@ export const LoadingScreen = ({ onComplete }) => {
           y: isExiting ? -35 : 0,
         }}
         transition={{
-          duration: isExiting ? 0.35 : 0.6,
+          duration: isExiting ? 0.35 : 0.5,
           ease: [0.22, 1, 0.36, 1],
         }}
-        className="relative z-10 h-full w-full flex flex-col justify-between px-4 sm:px-8 md:px-12 py-6 sm:py-8 md:py-10 text-[#D4D6E6] pointer-events-auto"
+        className="absolute inset-0 z-10 h-full w-full flex flex-col justify-between px-4 sm:px-8 md:px-12 py-5 sm:py-8 md:py-10 text-[#D4D6E6] pointer-events-auto"
       >
         {/* BARRA SUPERIOR: Telemetría y estado de red satelital */}
-        <header className="w-full flex items-center justify-between border-b border-white/[0.08] pb-4">
+        <header className="w-full flex items-center justify-between border-b border-white/[0.08] pb-3 sm:pb-4">
           <div className="flex items-center gap-2.5">
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#807DFE] opacity-75" />
@@ -169,21 +168,21 @@ export const LoadingScreen = ({ onComplete }) => {
         </header>
 
         {/* CENTRO: Tipografía Gigante Charlie Osborne, Logotipo Parqu y Taglines */}
-        <main className="my-auto flex flex-col items-center justify-center text-center max-w-4xl mx-auto w-full py-6">
+        <main className="my-auto flex flex-col items-center justify-center text-center max-w-4xl mx-auto w-full py-4">
           
           {/* Logotipo Parqu con Aura Luminosa */}
           <motion.div
             initial={{ scale: 0.85, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative flex items-center justify-center mb-4 sm:mb-6"
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="relative flex items-center justify-center mb-3 sm:mb-5"
           >
             <div className="absolute -inset-8 bg-gradient-to-r from-[#0033FF]/40 via-[#807DFE]/30 to-[#0033FF]/40 rounded-full blur-3xl pointer-events-none" />
             <img
               src="/parqu-logo-white.png"
               alt="Parqu Logo"
-              style={{ maxHeight: '110px' }}
-              className="h-16 sm:h-24 md:h-28 w-auto object-contain relative z-10 drop-shadow-[0_0_35px_rgba(128,125,254,0.5)]"
+              style={{ maxHeight: '100px' }}
+              className="h-14 sm:h-20 md:h-24 w-auto object-contain relative z-10 drop-shadow-[0_0_35px_rgba(128,125,254,0.5)]"
             />
           </motion.div>
 
@@ -195,12 +194,12 @@ export const LoadingScreen = ({ onComplete }) => {
           </div>
 
           {/* Subtítulo Editorial con acento en cursiva y refinamiento suizo */}
-          <p className="mt-3 sm:mt-4 text-sm sm:text-lg md:text-xl text-[#D4D6E6]/85 font-medium max-w-2xl px-2">
+          <p className="mt-2.5 sm:mt-3 text-sm sm:text-base md:text-lg text-[#D4D6E6]/85 font-medium max-w-2xl px-2">
             Sistema Inteligente de <span className="font-serif italic text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">Parquímetros</span> y Autocobro Digital
           </p>
 
           {/* Rótulos Dinámicos Flip-Fade Text */}
-          <div className="w-full flex items-center justify-center mt-3 sm:mt-5 h-10">
+          <div className="w-full flex items-center justify-center mt-2.5 sm:mt-4 h-9">
             <FlipFadeText
               words={[
                 "AUTOCOBRO SATELITAL",
@@ -220,26 +219,26 @@ export const LoadingScreen = ({ onComplete }) => {
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.25, duration: 0.6 }}
-            className="mt-8 flex flex-col items-center justify-center gap-3"
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="mt-6 sm:mt-8 flex flex-col items-center justify-center gap-2.5 z-20"
           >
             <RadialGlowButton
               onClick={handleTriggerExit}
-              className="text-sm sm:text-base font-bold shadow-2xl px-8 py-3.5 sm:px-12 sm:py-4"
+              className="text-sm sm:text-base font-bold shadow-2xl px-8 py-3 sm:px-10 sm:py-3.5 cursor-pointer"
             >
               <span>{progress >= 100 ? 'Entrar al Sistema' : 'Empecemos'}</span>
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-white inline transition-transform duration-300 group-hover:translate-x-1.5" />
             </RadialGlowButton>
 
-            <span className="text-[11px] sm:text-xs text-[#D4D6E6]/40 font-mono tracking-wider">
-              Presiona <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white border border-white/10">Espacio</kbd> o <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white border border-white/10">Enter</kbd> para acceder
+            <span className="text-[10px] sm:text-xs text-[#D4D6E6]/40 font-mono tracking-wider">
+              Presiona <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white border border-white/10 text-[10px]">Espacio</kbd> o <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white border border-white/10 text-[10px]">Enter</kbd> para acceder
             </span>
           </motion.div>
 
         </main>
 
         {/* PIE DE PÁGINA: Telemetría, Contador 00-100% y Logo SSS.Solutions */}
-        <footer className="w-full border-t border-white/[0.08] pt-4 sm:pt-6 flex flex-col gap-4">
+        <footer className="w-full border-t border-white/[0.08] pt-3 sm:pt-5 flex flex-col gap-3">
           
           {/* Barra de Progreso Hairline Luminosa */}
           <div className="w-full relative h-[2px] bg-white/[0.08] overflow-hidden rounded-full">
@@ -251,11 +250,11 @@ export const LoadingScreen = ({ onComplete }) => {
           </div>
 
           {/* Fila inferior con Contador Gigante y Créditos */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
             
             {/* Ticker de Telemetría Dinámico */}
             <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-[#D4D6E6]/50">
+              <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.25em] text-[#D4D6E6]/50">
                 ESTADO DE SINCRONIZACIÓN
               </span>
               <span className="font-mono text-xs sm:text-sm font-bold text-white tracking-wider mt-0.5">
@@ -265,10 +264,10 @@ export const LoadingScreen = ({ onComplete }) => {
 
             {/* Contador Monospace Numérico Charlie Osborne (000% a 100%) */}
             <div className="flex items-baseline gap-1 font-mono">
-              <span className="text-4xl sm:text-6xl font-black text-white tracking-tighter tabular-nums drop-shadow-[0_0_20px_rgba(0,51,255,0.6)]">
+              <span className="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tighter tabular-nums drop-shadow-[0_0_20px_rgba(0,51,255,0.6)]">
                 {String(progress).padStart(3, '0')}
               </span>
-              <span className="text-xl sm:text-2xl font-bold text-[#807DFE]">%</span>
+              <span className="text-lg sm:text-xl font-bold text-[#807DFE]">%</span>
             </div>
 
             {/* Powered by SSS.Solutions con Logotipo Transparente */}
@@ -284,8 +283,8 @@ export const LoadingScreen = ({ onComplete }) => {
               <img
                 src="/sss-solutions-logo.png"
                 alt="SSS.Solutions Logo"
-                style={{ maxHeight: '32px' }}
-                className="h-7 sm:h-8 w-auto object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
+                style={{ maxHeight: '28px' }}
+                className="h-6 sm:h-7 w-auto object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
               />
             </div>
 
