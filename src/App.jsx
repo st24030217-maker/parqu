@@ -92,9 +92,9 @@ const MainContent = ({ onReplayLoading }) => {
       title: 'Recargar Saldo',
       subtitle: 'Añadir saldo express',
       badge: `$${Number(card?.balance ?? 0).toFixed(2)}`,
-      badgeClassName: 'bg-[#1B3A2F] text-[#F5F1E8] border-[#2a5447] font-mono',
-      iconBg: 'bg-[#1B3A2F] border border-[#2a5447] text-[#F5F1E8]',
-      borderClassName: 'border-[#1B3A2F]/60 hover:border-[#F5F1E8]/50',
+      badgeClassName: 'bg-white/10 backdrop-blur-sm text-[#F5F1E8] border border-white/10 font-mono',
+      iconBg: 'bg-white/10 backdrop-blur-sm border border-white/10 text-[#F5F1E8]',
+      borderClassName: 'border-white/10 hover:border-white/25',
       glowGradient: 'from-[#1B3A2F]/30 via-transparent to-transparent',
       footerText: 'Monedero Parqu Activo',
       activeStatus: true,
@@ -106,9 +106,9 @@ const MainContent = ({ onReplayLoading }) => {
       title: 'Credencial QR',
       subtitle: 'Inspección de tránsito',
       badge: 'AES-256',
-      badgeClassName: 'bg-[#1B3A2F] text-[#F5F1E8] border-[#2a5447] font-mono',
-      iconBg: 'bg-[#1B3A2F] border border-[#2a5447] text-[#F5F1E8]',
-      borderClassName: 'border-[#1B3A2F]/60 hover:border-[#F5F1E8]/50',
+      badgeClassName: 'bg-white/10 backdrop-blur-sm text-[#F5F1E8] border border-white/10 font-mono',
+      iconBg: 'bg-white/10 backdrop-blur-sm border border-white/10 text-[#F5F1E8]',
+      borderClassName: 'border-white/10 hover:border-white/25',
       glowGradient: 'from-[#1B3A2F]/30 via-transparent to-transparent',
       footerText: 'Pase Contactless Oficial',
       activeStatus: true,
@@ -120,9 +120,9 @@ const MainContent = ({ onReplayLoading }) => {
       title: activeSession ? 'Cajón Ocupado' : 'Mapa DiDi & Ubicación',
       subtitle: activeSession ? activeSession.zoneName : 'Fijar Ubicación & Registro',
       badge: activeSession ? 'EN VIVO' : 'GPS & BITÁCORA',
-      badgeClassName: activeSession ? 'bg-amber-950/60 text-amber-300 border-amber-700/50 animate-pulse font-mono' : 'bg-[#1B3A2F] text-[#F5F1E8] border-[#2a5447] font-mono',
-      iconBg: 'bg-[#1B3A2F] border border-[#2a5447] text-[#F5F1E8]',
-      borderClassName: 'border-[#1B3A2F]/60 hover:border-[#F5F1E8]/50',
+      badgeClassName: activeSession ? 'bg-amber-950/60 text-amber-300 border-amber-700/50 animate-pulse font-mono' : 'bg-white/10 backdrop-blur-sm text-[#F5F1E8] border border-white/10 font-mono',
+      iconBg: 'bg-white/10 backdrop-blur-sm border border-white/10 text-[#F5F1E8]',
+      borderClassName: 'border-white/10 hover:border-white/25',
       glowGradient: 'from-[#1B3A2F]/30 via-transparent to-transparent',
       footerText: activeSession ? 'Debitando segundo a segundo' : 'Mapa DiDi + Rutas AniMaps 3D',
       activeStatus: activeSession !== null,
@@ -140,9 +140,9 @@ const MainContent = ({ onReplayLoading }) => {
       title: 'Modo Autocobro',
       subtitle: 'Débito continuo sin filas',
       badge: autoPay?.enabled ? 'ACTIVO' : 'PAUSADO',
-      badgeClassName: autoPay?.enabled ? 'bg-[#1B3A2F] text-[#F5F1E8] border-[#2a5447] font-mono' : 'bg-rose-950/60 text-rose-300 border-rose-700/50 font-mono',
-      iconBg: 'bg-[#1B3A2F] border border-[#2a5447] text-[#F5F1E8]',
-      borderClassName: 'border-[#1B3A2F]/60 hover:border-[#F5F1E8]/50',
+      badgeClassName: autoPay?.enabled ? 'bg-white/10 backdrop-blur-sm text-[#F5F1E8] border border-white/10 font-mono' : 'bg-rose-950/60 text-rose-300 border-rose-700/50 font-mono',
+      iconBg: 'bg-white/10 backdrop-blur-sm border border-white/10 text-[#F5F1E8]',
+      borderClassName: 'border-white/10 hover:border-white/25',
       glowGradient: 'from-[#1B3A2F]/30 via-transparent to-transparent',
       footerText: autoPay?.fundingSource === 'CARD' ? 'Débito Bancario' : 'Saldo Virtual',
       activeStatus: Boolean(autoPay?.enabled),
@@ -160,9 +160,9 @@ const MainContent = ({ onReplayLoading }) => {
       title: vehicle?.plates || 'XYZ-7842',
       subtitle: `${vehicle?.brand || 'Volkswagen'} ${vehicle?.model || 'Jetta'}`,
       badge: 'PADRÓN',
-      badgeClassName: 'bg-[#1B3A2F] text-[#F5F1E8] border-[#2a5447] font-mono',
-      iconBg: 'bg-[#1B3A2F] border border-[#2a5447] text-[#F5F1E8]',
-      borderClassName: 'border-[#1B3A2F]/60 hover:border-[#F5F1E8]/50',
+      badgeClassName: 'bg-white/10 backdrop-blur-sm text-[#F5F1E8] border border-white/10 font-mono',
+      iconBg: 'bg-white/10 backdrop-blur-sm border border-white/10 text-[#F5F1E8]',
+      borderClassName: 'border-white/10 hover:border-white/25',
       glowGradient: 'from-[#1B3A2F]/30 via-transparent to-transparent',
       footerText: owner?.fullName || 'Sebastián Salinas',
       activeStatus: true,
@@ -181,8 +181,8 @@ const MainContent = ({ onReplayLoading }) => {
       subtitle: 'Multi-Step Loader',
       badge: 'ANIMACIÓN',
       badgeClassName: 'bg-[#F5F1E8] text-[#1B3A2F] border-[#dfd4bf] font-mono',
-      iconBg: 'bg-[#1B3A2F] border border-[#2a5447] text-[#F5F1E8]',
-      borderClassName: 'border-[#1B3A2F]/60 hover:border-[#F5F1E8]/50',
+      iconBg: 'bg-white/10 backdrop-blur-sm border border-white/10 text-[#F5F1E8]',
+      borderClassName: 'border-white/10 hover:border-white/25',
       glowGradient: 'from-[#1B3A2F]/30 via-transparent to-transparent',
       footerText: 'Verificar Red en 6 Pasos',
       activeStatus: true,
@@ -199,8 +199,8 @@ const MainContent = ({ onReplayLoading }) => {
       badge: 'CRAFTS',
       content: (
         <AnimeStaggerGroup triggerKey={activeTab} className="space-y-6">
-          <div className="anime-stagger-card p-6 sm:p-8 rounded-3xl bg-[#0c1b16]/90 border border-[#1B3A2F]/80 backdrop-blur-xl shadow-2xl space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#1B3A2F]/60 pb-4">
+          <div className="anime-stagger-card p-6 sm:p-8 rounded-3xl bg-[#1B3A2F]/12 backdrop-blur-xl backdrop-saturate-150 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.25)] space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
               <div>
                 <div className="flex items-center gap-2 mb-1 text-xs font-mono text-[#dfd4bf]">
                   <span className="w-2 h-2 rounded-full bg-[#F5F1E8] animate-pulse" />
@@ -219,7 +219,7 @@ const MainContent = ({ onReplayLoading }) => {
                 </p>
               </div>
 
-              <span className="text-[11px] font-bold text-[#F5F1E8] bg-[#1B3A2F] border border-[#2a5447] px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm font-mono w-fit">
+              <span className="text-[11px] font-bold text-[#F5F1E8] bg-white/10 backdrop-blur-sm border border-white/10 px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm font-mono w-fit">
                 <Sparkles className="w-3.5 h-3.5 text-amber-300" />
                 6 Accesos Configurados
               </span>
@@ -228,17 +228,17 @@ const MainContent = ({ onReplayLoading }) => {
             <InterfaceCraftsCards items={quickActionsItems} />
 
             {/* Accesos de 1 clic a montos rápidos de recarga y acciones instantáneas */}
-            <div className="pt-4 border-t border-[#1B3A2F]/60 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="pt-4 border-t border-white/10 grid grid-cols-1 md:grid-cols-3 gap-4">
               <div 
                 onClick={() => setShowRechargeQuickModal(true)}
-                className="p-4 rounded-2xl bg-[#070d0b]/80 border border-[#1B3A2F]/80 hover:border-[#F5F1E8]/60 cursor-pointer transition group shadow-md"
+                className="p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 hover:bg-white/8 cursor-pointer transition group shadow-md"
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-bold text-[#F5F1E8] font-mono flex items-center gap-1.5">
                     <CurrencyDollarIcon size={14} className="text-[#F5F1E8]" />
                     Recarga Inmediata
                   </span>
-                  <span className="text-[10px] font-mono text-[#F5F1E8] px-2 py-0.5 rounded-full bg-[#1B3A2F] border border-[#2a5447]">
+                  <span className="text-[10px] font-mono text-[#F5F1E8] px-2 py-0.5 rounded-full bg-white/10 border border-white/10">
                     EXPRESS
                   </span>
                 </div>
@@ -249,14 +249,14 @@ const MainContent = ({ onReplayLoading }) => {
 
               <div 
                 onClick={() => setShowQRQuickModal(true)}
-                className="p-4 rounded-2xl bg-[#070d0b]/80 border border-[#1B3A2F]/80 hover:border-[#F5F1E8]/60 cursor-pointer transition group shadow-md"
+                className="p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 hover:bg-white/8 cursor-pointer transition group shadow-md"
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-bold text-[#F5F1E8] font-mono flex items-center gap-1.5">
                     <QrCode className="w-3.5 h-3.5 text-[#F5F1E8]" />
                     Credencial QR Oficial
                   </span>
-                  <span className="text-[10px] font-mono text-[#F5F1E8] px-2 py-0.5 rounded-full bg-[#1B3A2F] border border-[#2a5447]">
+                  <span className="text-[10px] font-mono text-[#F5F1E8] px-2 py-0.5 rounded-full bg-white/10 border border-white/10">
                     AES-256
                   </span>
                 </div>
@@ -267,14 +267,14 @@ const MainContent = ({ onReplayLoading }) => {
 
               <div 
                 onClick={() => handleSelectFeature('dashboard')}
-                className="p-4 rounded-2xl bg-[#070d0b]/80 border border-[#1B3A2F]/80 hover:border-[#F5F1E8]/60 cursor-pointer transition group shadow-md"
+                className="p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 hover:bg-white/8 cursor-pointer transition group shadow-md"
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-bold text-[#F5F1E8] font-mono flex items-center gap-1.5">
                     <MapPin className="w-3.5 h-3.5 text-[#F5F1E8]" />
                     Mapa DiDi & AniMaps 3D
                   </span>
-                  <span className="text-[10px] font-mono text-[#F5F1E8] px-2 py-0.5 rounded-full bg-[#1B3A2F] border border-[#2a5447]">
+                  <span className="text-[10px] font-mono text-[#F5F1E8] px-2 py-0.5 rounded-full bg-white/10 border border-white/10">
                     EN VIVO
                   </span>
                 </div>
@@ -315,12 +315,12 @@ const MainContent = ({ onReplayLoading }) => {
             {/* Panel de Ayuda y Estatus Rápido (Col 8 a 12) */}
             <div className="anime-stagger-card lg:col-span-5 h-full">
               <WobbleCard
-                containerClassName="w-full h-full bg-gradient-to-br from-[#1B3A2F]/50 via-[#0c1b16] to-black border-[#1B3A2F]/60 hover:border-[#1B3A2F] transition-colors shadow-2xl"
+                containerClassName="w-full h-full bg-gradient-to-br from-[#1B3A2F]/15 via-[#1B3A2F]/8 to-transparent border-white/10 hover:border-white/20 backdrop-blur-xl backdrop-saturate-150 transition-colors shadow-2xl"
                 className="p-6 sm:p-7 flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <span className="px-3 py-1 rounded-full bg-[#1B3A2F] border border-[#2a5447] text-[10px] font-mono font-bold uppercase tracking-widest text-[#F5F1E8]">
+                    <span className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 text-[10px] font-mono font-bold uppercase tracking-widest text-[#F5F1E8]">
                       GARANTÍA CERO MULTAS
                     </span>
                     <span className="text-[11px] font-mono text-emerald-400 flex items-center gap-1">
@@ -337,7 +337,7 @@ const MainContent = ({ onReplayLoading }) => {
                   </p>
 
                   <div className="space-y-3 mt-4 text-xs font-mono">
-                    <div className="flex items-start gap-3 p-3 rounded-xl bg-[#070d0b]/80 border border-[#1B3A2F]/80">
+                    <div className="flex items-start gap-3 p-3 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
                       <Zap className="w-4 h-4 text-amber-300 flex-shrink-0 mt-0.5" />
                       <div>
                         <span className="font-bold text-[#F5F1E8] block">Sin multas por expiración</span>
@@ -345,7 +345,7 @@ const MainContent = ({ onReplayLoading }) => {
                       </div>
                     </div>
 
-                    <div className="flex items-start gap-3 p-3 rounded-xl bg-[#070d0b]/80 border border-[#1B3A2F]/80">
+                    <div className="flex items-start gap-3 p-3 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
                       <Smartphone className="w-4 h-4 text-[#F5F1E8] flex-shrink-0 mt-0.5" />
                       <div>
                         <span className="font-bold text-[#F5F1E8] block">Credencial Oficial de Tránsito</span>
@@ -355,7 +355,7 @@ const MainContent = ({ onReplayLoading }) => {
                   </div>
                 </div>
 
-                <div className="pt-4 mt-4 border-t border-[#1B3A2F]/60">
+                <div className="pt-4 mt-4 border-t border-white/10">
                   <button
                     onClick={() => setActiveTab('autopay')}
                     className="w-full py-2.5 rounded-xl bg-[#F5F1E8] hover:bg-[#ede6d8] text-[#1B3A2F] font-mono font-bold text-xs transition flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(27,58,47,0.7)]"
@@ -479,7 +479,7 @@ const MainContent = ({ onReplayLoading }) => {
           />
 
           {/* 2. ENCABEZADO DEL CENTRO DE OPERACIONES */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-[#0c1b16]/90 border border-[#1B3A2F]/80 backdrop-blur-xl shadow-2xl flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div className="p-6 sm:p-8 rounded-3xl bg-[#1B3A2F]/12 backdrop-blur-xl backdrop-saturate-150 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.25)] flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div>
               <div className="flex items-center gap-2 mb-1.5 text-xs font-mono text-[#dfd4bf]">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -506,7 +506,7 @@ const MainContent = ({ onReplayLoading }) => {
                 <span>Diagnóstico Multi-Step</span>
               </button>
 
-              <div className="flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-[#070d0b] border border-[#1B3A2F] shrink-0">
+              <div className="flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white/8 backdrop-blur-sm border border-white/10 shrink-0">
                 <Activity className="w-4 h-4 text-emerald-400 animate-pulse" />
                 <div className="text-left font-mono">
                   <div className="text-[10px] text-[#dfd4bf] uppercase tracking-widest font-bold">Telemetría Online</div>
@@ -521,9 +521,9 @@ const MainContent = ({ onReplayLoading }) => {
 
           {/* Modal Rápido de Recarga de Saldo */}
           {showRechargeQuickModal && (
-            <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
-              <div className="bg-[#0c1b16] border border-[#1B3A2F] rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
-                <div className="w-12 h-12 rounded-2xl bg-[#1B3A2F]/80 border border-[#2A5A49] text-[#F5F1E8] flex items-center justify-center mx-auto mb-3 shadow-[0_0_20px_rgba(27,58,47,0.4)]">
+            <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xl flex items-center justify-center p-4">
+              <div className="bg-[#1B3A2F]/25 backdrop-blur-2xl border border-white/15 rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+                <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/15 text-[#F5F1E8] flex items-center justify-center mx-auto mb-3 shadow-[0_0_20px_rgba(27,58,47,0.4)]">
                   <CurrencyDollarIcon size={24} strokeWidth={2} />
                 </div>
                 <h3 className="text-lg font-bold text-[#F5F1E8] mb-1 font-mono">Recarga Rápida de Saldo</h3>
@@ -543,7 +543,7 @@ const MainContent = ({ onReplayLoading }) => {
                           className={`py-2 rounded-xl text-xs font-mono font-bold border transition flex items-center justify-center gap-1 ${
                             rechargeAmt === amt
                               ? 'bg-[#F5F1E8] text-[#1B3A2F] border-[#dfd4bf] shadow-[0_0_15px_rgba(245,241,232,0.4)]'
-                              : 'bg-[#0c1b16] text-[#dfd4bf] border-[#1B3A2F]/80 hover:border-[#1B3A2F]'
+                              : 'bg-white/5 text-[#dfd4bf] border-white/10 hover:border-white/20 hover:bg-white/8'
                           }`}
                         >
                           <CurrencyDollarIcon size={12} strokeWidth={2.2} />
@@ -557,7 +557,7 @@ const MainContent = ({ onReplayLoading }) => {
                     <button
                       type="button"
                       onClick={() => setShowRechargeQuickModal(false)}
-                      className="flex-1 py-2.5 rounded-xl border border-[#1B3A2F]/70 text-[#dfd4bf] text-xs font-mono hover:bg-[#0c1b16] transition"
+                      className="flex-1 py-2.5 rounded-xl border border-white/15 text-[#dfd4bf] text-xs font-mono hover:bg-white/5 transition"
                     >
                       Cancelar
                     </button>
@@ -576,8 +576,8 @@ const MainContent = ({ onReplayLoading }) => {
 
           {/* Modal Rápido de Código QR */}
           {showQRQuickModal && (
-            <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
-              <div className="bg-[#0c1b16] border border-[#1B3A2F] rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+            <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xl flex items-center justify-center p-4">
+              <div className="bg-[#1B3A2F]/25 backdrop-blur-2xl border border-white/15 rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
                 <h3 className="text-lg font-bold text-[#F5F1E8] mb-1 font-mono">Credencial QR de Inspección</h3>
                 <p className="text-xs text-[#dfd4bf] mb-6">
                   Lectura directa para agentes de tránsito vial
@@ -612,7 +612,7 @@ const MainContent = ({ onReplayLoading }) => {
                   </svg>
                 </div>
 
-                <div className="bg-[#070d0b] border border-[#1B3A2F]/80 rounded-xl p-2.5 mb-6 text-xs font-mono text-[#dfd4bf] flex items-center justify-between">
+                <div className="bg-white/5 border border-white/10 rounded-xl p-2.5 mb-6 text-xs font-mono text-[#dfd4bf] flex items-center justify-between">
                   <span>Placas: <strong className="text-[#F5F1E8]">{vehicle.plates}</strong></span>
                   <span className="text-[#F5F1E8]">● Validado</span>
                 </div>
@@ -653,7 +653,7 @@ const MainContent = ({ onReplayLoading }) => {
         </main>
 
         {/* 3. SECCIÓN BANNER: La Nueva Era del Parquímetro Digital */}
-        <section className="w-full border-t border-neutral-900 overflow-hidden">
+        <section className="w-full border-t border-white/10 overflow-hidden">
           <HeroParallax 
             headerTitle="La Nueva Era del Parquímetro Digital"
             headerSubtitle="SISTEMA METROPOLITANO PARQU"
@@ -662,7 +662,7 @@ const MainContent = ({ onReplayLoading }) => {
         </section>
 
         {/* Footer con Logos 100% Transparentes y Powered by SSS.Solutions */}
-        <footer className="border-t border-[#1B3A2F]/80 bg-[#070d0b] py-8 text-center text-xs text-[#dfd4bf] mt-12">
+        <footer className="border-t border-white/10 bg-[#1B3A2F]/10 backdrop-blur-xl py-8 text-center text-xs text-[#dfd4bf] mt-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
             
             {/* Identidad Parqu - Logo Transparente sin cajas de fondo */}
@@ -680,7 +680,7 @@ const MainContent = ({ onReplayLoading }) => {
             </div>
 
             {/* Powered by SSS.Solutions - Logo Transparente sin cajas de fondo */}
-            <div className="flex flex-col sm:flex-row items-center gap-3 py-2 px-5 rounded-full bg-[#0c1b16] border border-[#1B3A2F]">
+            <div className="flex flex-col sm:flex-row items-center gap-3 py-2 px-5 rounded-full bg-white/5 border border-white/10">
               <span className="text-[11px] uppercase tracking-[0.2em] font-mono text-[#dfd4bf]">
                 Powered by
               </span>

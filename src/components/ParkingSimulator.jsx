@@ -62,11 +62,11 @@ export const ParkingMeter = () => {
 
   return (
     <WobbleCard
-      containerClassName="w-full bg-gradient-to-br from-[#1B3A2F]/50 via-[#0c1b16] to-black border-[#1B3A2F]/60 hover:border-[#1B3A2F] transition-colors shadow-2xl"
+      containerClassName="w-full bg-gradient-to-br from-[#1B3A2F]/15 via-[#1B3A2F]/8 to-transparent border-white/10 hover:border-[#F5F1E8]/20 transition-colors shadow-2xl backdrop-blur-xl backdrop-saturate-150"
       className="p-6 sm:p-8 flex flex-col justify-between"
     >
       {/* Encabezado Wobble Card */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-[#1B3A2F]/60 mb-6 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-white/10 mb-6 gap-3">
         <div>
           <div className="flex items-center gap-2 mb-2">
             <span className="px-3 py-1 rounded-full bg-[#1B3A2F] border border-[#2a5447] text-[10px] font-mono font-bold uppercase tracking-widest text-[#F5F1E8]">
@@ -91,7 +91,7 @@ export const ParkingMeter = () => {
               Sesión Activa en Cajón
             </span>
           ) : (
-            <span className="text-xs font-medium text-neutral-300 bg-neutral-900/90 px-4 py-1.5 rounded-full border border-neutral-800 flex items-center gap-1.5">
+            <span className="text-xs font-medium text-neutral-300 bg-white/8 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/10 flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
               Listo para Estacionar
             </span>
@@ -135,26 +135,26 @@ export const ParkingMeter = () => {
       {/* Cuando está ESTACIONADO */}
       {activeSession ? (
         <div className="space-y-6">
-          <div className="bg-black/90 border border-neutral-700/80 rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-2xl">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="bg-[#1B3A2F]/15 backdrop-blur-xl border border-white/15 rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-2xl">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#1B3A2F]/20 rounded-full blur-3xl pointer-events-none" />
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
               {/* Cronómetro en Vivo */}
               <div className="text-center md:text-left">
-                <span className="text-xs uppercase tracking-wider font-semibold text-neutral-400 block mb-1 font-mono">
+                <span className="text-xs uppercase tracking-wider font-semibold text-[#dfd4bf] block mb-1 font-mono">
                   Tiempo Transcurrido
                 </span>
-                <div className="font-mono text-4xl sm:text-5xl font-black text-white tracking-wider drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                <div className="font-mono text-4xl sm:text-5xl font-black text-[#F5F1E8] tracking-wider drop-shadow-[0_0_20px_rgba(245,241,232,0.2)]">
                   {formatTimeFromSeconds(activeSession.secondsElapsed)}
                 </div>
-                <span className="text-xs text-neutral-400 mt-1 block font-mono">
+                <span className="text-xs text-[#dfd4bf]/70 mt-1 block font-mono">
                   Inicio: {new Date(activeSession.startTime).toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' })}
                 </span>
               </div>
 
               {/* Monto Acumulado en Vivo */}
-              <div className="text-center md:text-left border-y md:border-y-0 md:border-x border-neutral-800 py-4 md:py-0 md:px-6">
-                <span className="text-xs uppercase tracking-wider font-semibold text-neutral-400 block mb-1 font-mono">
+              <div className="text-center md:text-left border-y md:border-y-0 md:border-x border-white/10 py-4 md:py-0 md:px-6">
+                <span className="text-xs uppercase tracking-wider font-semibold text-[#dfd4bf] block mb-1 font-mono">
                   Monto a Cobrar (Autocobro)
                 </span>
                 <div className="font-mono text-4xl sm:text-5xl font-black text-emerald-400 drop-shadow-[0_0_25px_rgba(52,211,153,0.3)]">
@@ -166,7 +166,7 @@ export const ParkingMeter = () => {
                     className="font-mono text-4xl sm:text-5xl font-black text-emerald-400"
                   />
                 </div>
-                <div className="text-xs text-neutral-400 mt-1 flex items-center justify-center md:justify-start gap-1.5 font-mono">
+                <div className="text-xs text-[#dfd4bf] mt-1 flex items-center justify-center md:justify-start gap-1.5 font-mono">
                   <CurrencyDollarIcon size={14} className="text-amber-400 inline shrink-0" />
                   <span>Tarifa: {formatCurrency(activeSession.ratePerHour)}/hr</span>
                 </div>
@@ -174,33 +174,33 @@ export const ParkingMeter = () => {
 
               {/* Detalles de la Detección y Vehículo */}
               <div className="space-y-2 text-xs font-mono">
-                <div className="flex justify-between py-1 border-b border-neutral-800">
-                  <span className="text-neutral-400">Zona / Cajón:</span>
-                  <span className="font-semibold text-white truncate max-w-[160px]">{activeSession.zoneName}</span>
+                <div className="flex justify-between py-1 border-b border-white/10">
+                  <span className="text-[#dfd4bf]">Zona / Cajón:</span>
+                  <span className="font-semibold text-[#F5F1E8] truncate max-w-[160px]">{activeSession.zoneName}</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-neutral-800">
-                  <span className="text-neutral-400">Placas del Coche:</span>
-                  <span className="font-bold text-white">{formatPlate(vehicle.plates)}</span>
+                <div className="flex justify-between py-1 border-b border-white/10">
+                  <span className="text-[#dfd4bf]">Placas del Coche:</span>
+                  <span className="font-bold text-[#F5F1E8]">{formatPlate(vehicle.plates)}</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-neutral-800">
-                  <span className="text-neutral-400">Método de Cargo:</span>
-                  <span className="font-semibold text-neutral-200">
+                <div className="flex justify-between py-1 border-b border-white/10">
+                  <span className="text-[#dfd4bf]">Método de Cargo:</span>
+                  <span className="font-semibold text-[#F5F1E8]">
                     {autoPay.fundingSource === 'CARD' ? 'Débito Bancario' : 'Saldo Tarjeta'}
                   </span>
                 </div>
                 <div className="flex justify-between py-1">
-                  <span className="text-neutral-400">Tope de Seguridad:</span>
-                  <span className="text-neutral-300">{formatCurrency(activeSession.maxLimit)}</span>
+                  <span className="text-[#dfd4bf]">Tope de Seguridad:</span>
+                  <span className="text-[#F5F1E8]">{formatCurrency(activeSession.maxLimit)}</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Botón de Salir y Ejecutar Autocobro */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-neutral-900/80 border border-neutral-800">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
             <div className="flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-neutral-800 border border-neutral-700 text-white flex items-center justify-center">
-                <Car className="w-5 h-5 text-indigo-400" />
+              <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-white flex items-center justify-center">
+                <Car className="w-5 h-5 text-[#F5F1E8]" />
               </div>
               <div>
                 <h4 className="text-sm font-bold text-white font-mono">¿Listo para salir del cajón?</h4>
@@ -232,9 +232,9 @@ export const ParkingMeter = () => {
           </div>
 
           {/* Resumen del Vehículo y Autocobro antes de iniciar */}
-          <div className="p-5 rounded-2xl bg-[#0c1b16]/90 border border-[#1B3A2F]/70 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="p-5 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-[#1B3A2F] border border-[#2a5447] text-[#F5F1E8] flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-[#F5F1E8] flex items-center justify-center">
                 <ShieldCheck className="w-5 h-5 text-emerald-400" />
               </div>
               <div className="text-left font-mono">

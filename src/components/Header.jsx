@@ -12,7 +12,7 @@ export const Header = ({ onReplayLoading, onNavigateToPanel }) => {
   }, []);
 
   return (
-    <header className="border-b border-[#1B3A2F]/60 bg-[#070d0b]/90 backdrop-blur-xl sticky top-0 z-40 transition-colors">
+    <header className="border-b border-white/10 bg-[#1B3A2F]/12 backdrop-blur-2xl backdrop-saturate-150 sticky top-0 z-40 transition-colors shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         
         {/* Logotipo Oficial PARK - 100% Transparente sin cajas de fondo */}
@@ -47,7 +47,7 @@ export const Header = ({ onReplayLoading, onNavigateToPanel }) => {
 
         {/* Estatus Central, Hora y Powered By en Header */}
         <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0c1b16] border border-[#1B3A2F]/80 text-xs font-mono text-[#F5F1E8]">
+          <div className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/8 backdrop-blur-sm border border-white/10 text-xs font-mono text-[#F5F1E8]">
             <Clock className="w-3.5 h-3.5 text-[#dfd4bf]" />
             <span>
               {currentTime.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
@@ -61,7 +61,7 @@ export const Header = ({ onReplayLoading, onNavigateToPanel }) => {
               <span className="font-mono">En Parquímetro: {vehicle.plates}</span>
             </div>
           ) : (
-            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0c1b16] border border-[#1B3A2F] text-[#F5F1E8] text-xs font-medium">
+            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/8 backdrop-blur-sm border border-white/10 text-[#F5F1E8] text-xs font-medium">
               <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
               <span className="font-mono text-xs text-[#F5F1E8]">Autocobro Activo</span>
             </div>

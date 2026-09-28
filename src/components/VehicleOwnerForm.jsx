@@ -35,10 +35,10 @@ export const VehicleOwnerForm = () => {
 
   return (
     <WobbleCard
-      containerClassName="w-full bg-gradient-to-br from-[#1B3A2F]/50 via-[#0c1b16] to-[#070d0b] border-[#1B3A2F]/60 hover:border-[#1B3A2F] transition-colors shadow-2xl"
+      containerClassName="w-full bg-gradient-to-br from-[#1B3A2F]/15 via-[#1B3A2F]/8 to-transparent border-white/10 hover:border-white/20 backdrop-blur-xl backdrop-saturate-150 transition-colors shadow-2xl"
       className="p-6 sm:p-8 flex flex-col justify-between"
     >
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-[#1B3A2F]/60 mb-6 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-white/10 mb-6 gap-3">
         <div>
           <div className="flex items-center gap-2 mb-2">
             <span className="px-3 py-1 rounded-full bg-[#1B3A2F] border border-[#2A5A49] text-[10px] font-mono font-bold uppercase tracking-widest text-[#F5F1E8]">
@@ -57,7 +57,7 @@ export const VehicleOwnerForm = () => {
         </div>
 
         {savedNotification && (
-          <span className="flex items-center gap-1.5 text-xs font-mono font-semibold px-3.5 py-1.5 rounded-full bg-[#070d0b] text-[#F5F1E8] border border-[#1B3A2F] animate-in fade-in self-start sm:self-auto shadow-xl">
+          <span className="flex items-center gap-1.5 text-xs font-mono font-semibold px-3.5 py-1.5 rounded-full bg-white/8 backdrop-blur-sm text-[#F5F1E8] border border-white/10 animate-in fade-in self-start sm:self-auto shadow-xl">
             <Check className="w-3.5 h-3.5 text-emerald-400" />
             ¡Actualizado en la Tarjeta!
           </span>
@@ -84,7 +84,7 @@ export const VehicleOwnerForm = () => {
                 value={vehFormData.plates}
                 onChange={handleVehicleChange}
                 placeholder="Ej. XYZ-7842"
-                className="w-full uppercase font-mono px-3.5 py-2.5 rounded-xl bg-[#070d0b] border border-[#1B3A2F] text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm"
+                className="w-full uppercase font-mono px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm"
               />
             </div>
 
@@ -99,7 +99,7 @@ export const VehicleOwnerForm = () => {
                 value={vehFormData.brand}
                 onChange={handleVehicleChange}
                 placeholder="Ej. Volkswagen"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#070d0b] border border-[#1B3A2F] text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm font-mono"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm font-mono"
               />
             </div>
 
@@ -114,7 +114,7 @@ export const VehicleOwnerForm = () => {
                 value={vehFormData.model}
                 onChange={handleVehicleChange}
                 placeholder="Ej. Golf GTI"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#070d0b] border border-[#1B3A2F] text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm font-mono"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm font-mono"
               />
             </div>
 
@@ -128,7 +128,7 @@ export const VehicleOwnerForm = () => {
                 value={vehFormData.color}
                 onChange={handleVehicleChange}
                 placeholder="Ej. Blanco Puro"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#070d0b] border border-[#1B3A2F] text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm font-mono"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm font-mono"
               />
             </div>
 
@@ -142,7 +142,7 @@ export const VehicleOwnerForm = () => {
                 value={vehFormData.year}
                 onChange={handleVehicleChange}
                 placeholder="Ej. 2024"
-                className="w-full font-mono px-3.5 py-2.5 rounded-xl bg-[#070d0b] border border-[#1B3A2F] text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm"
+                className="w-full font-mono px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm"
               />
             </div>
 
@@ -156,14 +156,14 @@ export const VehicleOwnerForm = () => {
                 value={vehFormData.state}
                 onChange={handleVehicleChange}
                 placeholder="Ej. Jalisco / CDMX"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#070d0b] border border-[#1B3A2F] text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm font-mono"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm font-mono"
               />
             </div>
           </div>
         </div>
 
         {/* Sección del Titular */}
-        <div className="pt-4 border-t border-[#1B3A2F]/60">
+        <div className="pt-4 border-t border-white/10">
           <h3 className="text-xs uppercase tracking-wider font-bold text-[#F5F1E8] mb-3.5 flex items-center gap-2 font-mono">
             <span className="w-1.5 h-1.5 rounded-full bg-[#F5F1E8]"></span>
             2. Datos del Titular de la Tarjeta
@@ -181,7 +181,7 @@ export const VehicleOwnerForm = () => {
                 value={ownerFormData.fullName}
                 onChange={handleOwnerChange}
                 placeholder="Ej. Sebastián Salinas"
-                className="w-full uppercase px-3.5 py-2.5 rounded-xl bg-[#070d0b] border border-[#1B3A2F] text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm font-mono"
+                className="w-full uppercase px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm font-mono"
               />
             </div>
 
@@ -195,7 +195,7 @@ export const VehicleOwnerForm = () => {
                 value={ownerFormData.rfc}
                 onChange={handleOwnerChange}
                 placeholder="Ej. SASS940212AB1"
-                className="w-full uppercase font-mono px-3.5 py-2.5 rounded-xl bg-[#070d0b] border border-[#1B3A2F] text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm"
+                className="w-full uppercase font-mono px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm"
               />
             </div>
 
@@ -209,7 +209,7 @@ export const VehicleOwnerForm = () => {
                 value={ownerFormData.email}
                 onChange={handleOwnerChange}
                 placeholder="correo@ejemplo.com"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#070d0b] border border-[#1B3A2F] text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm font-mono"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm font-mono"
               />
             </div>
 
@@ -223,7 +223,7 @@ export const VehicleOwnerForm = () => {
                 value={ownerFormData.phone}
                 onChange={handleOwnerChange}
                 placeholder="Ej. 33 1234 5678"
-                className="w-full font-mono px-3.5 py-2.5 rounded-xl bg-[#070d0b] border border-[#1B3A2F] text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm"
+                className="w-full font-mono px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm"
               />
             </div>
           </div>

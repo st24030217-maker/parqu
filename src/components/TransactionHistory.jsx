@@ -31,10 +31,10 @@ export const TransactionHistory = () => {
 
   return (
     <WobbleCard
-      containerClassName="w-full bg-gradient-to-br from-[#1B3A2F]/50 via-[#0c1b16] to-[#070d0b] border-[#1B3A2F]/60 hover:border-[#1B3A2F] transition-colors shadow-2xl"
+      containerClassName="w-full bg-gradient-to-br from-[#1B3A2F]/15 via-[#1B3A2F]/8 to-transparent border-white/10 hover:border-white/20 backdrop-blur-xl backdrop-saturate-150 transition-colors shadow-2xl"
       className="p-6 sm:p-8 flex flex-col justify-between"
     >
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-[#1B3A2F]/60 mb-6 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-white/10 mb-6 gap-3">
         <div>
           <div className="flex items-center gap-2 mb-2">
             <span className="px-3 py-1 rounded-full bg-[#1B3A2F] border border-[#2A5A49] text-[10px] font-mono font-bold uppercase tracking-widest text-[#F5F1E8]">
@@ -66,7 +66,7 @@ export const TransactionHistory = () => {
               />
             </span>
           </div>
-          <span className="text-xs font-mono text-[#F5F1E8] bg-[#0c1b16] border border-[#1B3A2F] px-3.5 py-1.5 rounded-full">
+          <span className="text-xs font-mono text-[#F5F1E8] bg-white/8 backdrop-blur-sm border border-white/10 px-3.5 py-1.5 rounded-full">
             {transactions.length} Cobros • {pinnedLocations.length} Ubicaciones
           </span>
         </div>
@@ -79,7 +79,7 @@ export const TransactionHistory = () => {
           className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 ${
             activeSubTab === 'payments'
               ? 'bg-[#F5F1E8] text-[#1B3A2F] shadow-md'
-              : 'bg-[#070d0b] text-[#dfd4bf] hover:text-[#F5F1E8] border border-[#1B3A2F]'
+              : 'bg-white/5 text-[#dfd4bf] hover:text-[#F5F1E8] border border-white/10 hover:bg-white/8'
           }`}
         >
           <Receipt className="w-3.5 h-3.5" />
@@ -91,7 +91,7 @@ export const TransactionHistory = () => {
           className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 ${
             activeSubTab === 'locations'
               ? 'bg-[#F5F1E8] text-[#1B3A2F] shadow-md'
-              : 'bg-[#070d0b] text-[#dfd4bf] hover:text-[#F5F1E8] border border-[#1B3A2F]'
+              : 'bg-white/5 text-[#dfd4bf] hover:text-[#F5F1E8] border border-white/10 hover:bg-white/8'
           }`}
         >
           <MapPin className="w-3.5 h-3.5" />
@@ -102,7 +102,7 @@ export const TransactionHistory = () => {
       {/* CONTENIDO SEGÚN LA SUB-PESTAÑA SELECCIONADA */}
       {activeSubTab === 'payments' ? (
         transactions.length === 0 ? (
-          <div className="text-center py-12 border border-dashed border-neutral-800 rounded-3xl bg-neutral-950/50">
+          <div className="text-center py-12 border border-dashed border-white/10 rounded-3xl bg-white/5 backdrop-blur-sm">
             <Receipt className="w-12 h-12 text-neutral-600 mx-auto mb-3" />
             <h4 className="text-sm font-semibold text-neutral-300 font-mono">No hay cobros registrados aún</h4>
             <p className="text-xs text-neutral-500 max-w-sm mx-auto mt-1 font-mono">
@@ -110,10 +110,10 @@ export const TransactionHistory = () => {
             </p>
           </div>
         ) : (
-          <div className="overflow-x-auto rounded-2xl border border-neutral-800/80 bg-neutral-950/60 backdrop-blur-md">
+          <div className="overflow-x-auto rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md">
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-neutral-800 text-neutral-400 uppercase font-mono font-semibold bg-neutral-900/50">
+                <tr className="border-b border-white/10 text-neutral-400 uppercase font-mono font-semibold bg-white/5">
                   <th className="py-3.5 px-4">Folio / Fecha</th>
                   <th className="py-3.5 px-4">Zona / Ubicación</th>
                   <th className="py-3.5 px-4">Duración</th>
@@ -122,7 +122,7 @@ export const TransactionHistory = () => {
                   <th className="py-3.5 px-4 text-center">Ticket</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-neutral-800/60 font-mono">
+              <tbody className="divide-y divide-white/8 font-mono">
                 {transactions.map((txn) => (
                   <tr key={txn.id} className="hover:bg-neutral-900/50 transition">
                     <td className="py-3.5 px-4">
@@ -152,7 +152,7 @@ export const TransactionHistory = () => {
                     <td className="py-3.5 px-4 text-center">
                       <button
                         onClick={() => setSelectedTicket(txn)}
-                        className="px-3.5 py-1.5 rounded-xl bg-[#0c1b16] hover:bg-[#F5F1E8] hover:text-[#1B3A2F] text-[#dfd4bf] border border-[#1B3A2F] transition text-[11px] font-mono font-semibold inline-flex items-center gap-1.5 shadow-sm"
+                        className="px-3.5 py-1.5 rounded-xl bg-white/8 backdrop-blur-sm hover:bg-[#F5F1E8] hover:text-[#1B3A2F] text-[#dfd4bf] border border-white/10 transition text-[11px] font-mono font-semibold inline-flex items-center gap-1.5 shadow-sm"
                       >
                         <Receipt className="w-3.5 h-3.5" />
                         Ver Comprobante
@@ -167,7 +167,7 @@ export const TransactionHistory = () => {
       ) : (
         /* BITÁCORA DE UBICACIONES GPS FIJADAS */
         pinnedLocations.length === 0 ? (
-          <div className="text-center py-12 border border-dashed border-neutral-800 rounded-3xl bg-neutral-950/50 space-y-2 font-mono">
+          <div className="text-center py-12 border border-dashed border-white/10 rounded-3xl bg-white/5 backdrop-blur-sm space-y-2 font-mono">
             <MapPin className="w-12 h-12 text-neutral-600 mx-auto" />
             <h4 className="text-sm font-semibold text-neutral-300">No hay ubicaciones registradas en la bitácora</h4>
             <p className="text-xs text-neutral-500 max-w-sm mx-auto">
@@ -181,14 +181,14 @@ export const TransactionHistory = () => {
               return (
                 <div
                   key={item.id}
-                  className="p-5 rounded-3xl bg-neutral-950/80 border border-neutral-800/90 hover:border-amber-500/50 transition-all flex flex-col justify-between space-y-4 shadow-xl"
+                  className="p-5 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-amber-400/30 transition-all flex flex-col justify-between space-y-4 shadow-xl"
                 >
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
                         isItemActive
                           ? 'bg-emerald-950 text-emerald-300 border border-emerald-600/50 animate-pulse'
-                          : 'bg-neutral-900 text-neutral-400 border border-neutral-800'
+                          : 'bg-white/8 text-neutral-400 border border-neutral-800'
                       }`}>
                         {isItemActive ? '● AUTO ESTACIONADO AQUÍ' : 'HISTÓRICO'}
                       </span>
@@ -212,14 +212,14 @@ export const TransactionHistory = () => {
                         <span className="text-white font-bold">{formatPlate(item.plates || vehicle.plates)}</span>
                       </div>
                       {item.notes && (
-                        <div className="text-[11px] text-neutral-500 italic pt-1 border-t border-neutral-900">
+                        <div className="text-[11px] text-neutral-500 italic pt-1 border-t border-white/8">
                           {item.notes}
                         </div>
                       )}
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between pt-3 border-t border-neutral-900">
+                  <div className="flex items-center justify-between pt-3 border-t border-white/8">
                     <a
                       href={`https://www.google.com/maps?q=${item.lat},${item.lng}`}
                       target="_blank"
@@ -256,9 +256,9 @@ export const TransactionHistory = () => {
       {/* Modal de Ticket / Comprobante Digital */}
       {selectedTicket && (
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-[#0c1b16] border border-[#1B3A2F] rounded-3xl max-w-sm w-full p-6 sm:p-7 shadow-2xl relative animate-in fade-in zoom-in-95">
+          <div className="bg-[#1B3A2F]/25 backdrop-blur-2xl border border-white/15 rounded-3xl max-w-sm w-full p-6 sm:p-7 shadow-2xl relative animate-in fade-in zoom-in-95">
             {/* Header del Ticket */}
-            <div className="text-center pb-4 border-b border-dashed border-[#1B3A2F]/80">
+            <div className="text-center pb-4 border-b border-dashed border-white/10">
               <div className="w-10 h-10 rounded-2xl bg-[#F5F1E8] text-[#1B3A2F] flex items-center justify-center mx-auto mb-2 shadow-[0_0_15px_rgba(245,241,232,0.2)]">
                 <CheckCircle2 className="w-6 h-6" />
               </div>
@@ -270,7 +270,7 @@ export const TransactionHistory = () => {
             </div>
 
             {/* Datos del Ticket */}
-            <div className="py-4 space-y-2 text-xs font-mono border-b border-dashed border-[#1B3A2F]/80">
+            <div className="py-4 space-y-2 text-xs font-mono border-b border-dashed border-white/10">
               <div className="flex justify-between">
                 <span className="text-[#dfd4bf]">Fecha y Hora:</span>
                 <span className="text-[#F5F1E8] text-[11px]">{formatDate(selectedTicket.date)}</span>
@@ -295,7 +295,7 @@ export const TransactionHistory = () => {
                 <span className="text-[#dfd4bf]">Tiempo Ocupado:</span>
                 <span className="text-[#F5F1E8] font-bold">{selectedTicket.durationMinutes} minutos</span>
               </div>
-              <div className="flex justify-between pt-2 border-t border-[#1B3A2F]/80">
+              <div className="flex justify-between pt-2 border-t border-white/10">
                 <span className="text-[#dfd4bf]">Método de Cargo:</span>
                 <span className="text-[#dfd4bf] text-[10px] truncate max-w-[170px]">{selectedTicket.method}</span>
               </div>

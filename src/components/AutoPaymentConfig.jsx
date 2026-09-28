@@ -75,10 +75,10 @@ export const AutoPaymentConfig = () => {
 
   return (
     <WobbleCard
-      containerClassName="w-full bg-gradient-to-br from-[#1B3A2F]/50 via-[#0c1b16] to-[#070d0b] border-[#1B3A2F]/60 hover:border-[#1B3A2F] transition-colors shadow-2xl"
+      containerClassName="w-full bg-gradient-to-br from-[#1B3A2F]/15 via-[#1B3A2F]/8 to-transparent border-white/10 hover:border-white/20 backdrop-blur-xl backdrop-saturate-150 transition-colors shadow-2xl"
       className="p-6 sm:p-8 flex flex-col justify-between"
     >
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-[#1B3A2F]/60 mb-6 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-white/10 mb-6 gap-3">
         <div>
           <div className="flex items-center gap-2 mb-2">
             <span className="px-3 py-1 rounded-full bg-[#1B3A2F] border border-[#2A5A49] text-[10px] font-mono font-bold uppercase tracking-widest text-[#F5F1E8]">
@@ -100,7 +100,7 @@ export const AutoPaymentConfig = () => {
           <span className="text-xs text-[#dfd4bf]">Estado:</span>
           <span className={`px-3.5 py-1.5 rounded-full text-xs font-bold border font-mono flex items-center gap-1.5 ${
             formData.enabled 
-              ? 'bg-[#1B3A2F] text-[#F5F1E8] border-[#2A5A49] shadow-[0_0_15px_rgba(27,58,47,0.4)]' 
+              ? 'bg-white/10 backdrop-blur-sm border border-white/10 text-[#F5F1E8] shadow-[0_0_15px_rgba(27,58,47,0.4)]' 
               : 'bg-rose-950/40 text-rose-400 border-rose-800/50'
           }`}>
             <span className={`w-2 h-2 rounded-full ${formData.enabled ? 'bg-emerald-400 animate-pulse' : 'bg-rose-400'}`} />
@@ -118,9 +118,9 @@ export const AutoPaymentConfig = () => {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Toggle General de Autocobro */}
-        <div className="p-5 rounded-2xl bg-neutral-900/70 border border-neutral-800 flex items-center justify-between">
+        <div className="p-5 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-between">
           <div className="flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-neutral-800 border border-neutral-700 flex items-center justify-center text-amber-400">
+            <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-amber-400">
               <Zap className="w-5 h-5" />
             </div>
             <div>
@@ -153,8 +153,8 @@ export const AutoPaymentConfig = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <label className={`p-4 rounded-2xl border cursor-pointer transition flex items-start gap-3 ${
               formData.fundingSource === 'CARD'
-                ? 'bg-[#1B3A2F]/60 border-[#F5F1E8] text-[#F5F1E8] shadow-[0_0_15px_rgba(245,241,232,0.15)]'
-                : 'bg-[#070d0b]/80 border-[#1B3A2F]/60 text-[#dfd4bf]/80 hover:bg-[#0c1b16]'
+                ? 'bg-[#1B3A2F]/25 backdrop-blur-sm border-[#F5F1E8]/50 text-[#F5F1E8] shadow-[0_0_15px_rgba(245,241,232,0.15)]'
+                : 'bg-white/5 border-white/10 text-[#dfd4bf]/80 hover:bg-white/8'
             }`}>
               <input
                 type="radio"
@@ -177,8 +177,8 @@ export const AutoPaymentConfig = () => {
 
             <label className={`p-4 rounded-2xl border cursor-pointer transition flex items-start gap-3 ${
               formData.fundingSource === 'WALLET_BALANCE'
-                ? 'bg-[#1B3A2F]/60 border-[#F5F1E8] text-[#F5F1E8] shadow-[0_0_15px_rgba(245,241,232,0.15)]'
-                : 'bg-[#070d0b]/80 border-[#1B3A2F]/60 text-[#dfd4bf]/80 hover:bg-[#0c1b16]'
+                ? 'bg-[#1B3A2F]/25 backdrop-blur-sm border-[#F5F1E8]/50 text-[#F5F1E8] shadow-[0_0_15px_rgba(245,241,232,0.15)]'
+                : 'bg-white/5 border-white/10 text-[#dfd4bf]/80 hover:bg-white/8'
             }`}>
               <input
                 type="radio"
@@ -203,7 +203,7 @@ export const AutoPaymentConfig = () => {
 
         {/* Datos Bancarios (si aplica tarjeta) */}
         {formData.fundingSource === 'CARD' && (
-          <div className="p-5 rounded-2xl bg-[#0c1b16]/90 border border-[#1B3A2F]/70 space-y-4 animate-in fade-in">
+          <div className="p-5 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 space-y-4 animate-in fade-in">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-[#F5F1E8] uppercase tracking-wider flex items-center gap-1.5 font-mono">
                 <Lock className="w-3.5 h-3.5 text-[#F5F1E8]" />
@@ -226,7 +226,7 @@ export const AutoPaymentConfig = () => {
                   value={formData.cardHolder}
                   onChange={handleChange}
                   placeholder="NOMBRE TAL COMO APARECE"
-                  className="w-full uppercase px-3.5 py-2.5 rounded-xl bg-[#070d0b] border border-[#1B3A2F] text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition font-mono text-sm"
+                  className="w-full uppercase px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition font-mono text-sm"
                 />
               </div>
 
@@ -241,7 +241,7 @@ export const AutoPaymentConfig = () => {
                   value={formData.cardNumber}
                   onChange={handleChange}
                   placeholder="4152 •••• •••• 9921"
-                  className="w-full font-mono px-3.5 py-2.5 rounded-xl bg-[#070d0b] border border-[#1B3A2F] text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm"
+                  className="w-full font-mono px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm"
                 />
               </div>
 
@@ -255,7 +255,7 @@ export const AutoPaymentConfig = () => {
                   value={formData.bank}
                   onChange={handleChange}
                   placeholder="Ej. BBVA, Santander, Banorte, Nu"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#070d0b] border border-[#1B3A2F] text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition font-mono text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] placeholder-neutral-600 focus:outline-none focus:border-[#F5F1E8]/70 transition font-mono text-sm"
                 />
               </div>
 
@@ -271,7 +271,7 @@ export const AutoPaymentConfig = () => {
                     value={formData.expiry}
                     onChange={handleChange}
                     placeholder="12/28"
-                    className="w-full font-mono text-center px-3.5 py-2.5 rounded-xl bg-[#070d0b] border border-[#1B3A2F] text-[#F5F1E8] focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm"
+                    className="w-full font-mono text-center px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm"
                   />
                 </div>
                 <div>
@@ -285,7 +285,7 @@ export const AutoPaymentConfig = () => {
                     value={formData.cvv}
                     onChange={handleChange}
                     placeholder="•••"
-                    className="w-full font-mono text-center px-3.5 py-2.5 rounded-xl bg-[#070d0b] border border-[#1B3A2F] text-[#F5F1E8] focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm"
+                    className="w-full font-mono text-center px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm"
                   />
                 </div>
               </div>
@@ -310,7 +310,7 @@ export const AutoPaymentConfig = () => {
                 max="800"
                 value={formData.maxLimitPerSession}
                 onChange={handleChange}
-                className="w-full pl-9 pr-3.5 py-2.5 rounded-xl bg-[#070d0b] border border-[#1B3A2F] text-[#F5F1E8] font-mono focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm"
+                className="w-full pl-9 pr-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] font-mono focus:outline-none focus:border-[#F5F1E8]/70 transition text-sm"
               />
             </div>
             <p className="text-[11px] text-[#dfd4bf] mt-1 font-mono">
@@ -325,7 +325,7 @@ export const AutoPaymentConfig = () => {
                 name="smsNotification"
                 checked={formData.smsNotification}
                 onChange={handleChange}
-                className="rounded border-[#1B3A2F] bg-[#070d0b] text-[#1B3A2F] focus:ring-[#F5F1E8]"
+                className="rounded border-white/20 bg-white/5 text-[#1B3A2F] focus:ring-[#F5F1E8]"
               />
               <span>Enviar comprobante instantáneo vía SMS / Push</span>
             </label>
@@ -336,7 +336,7 @@ export const AutoPaymentConfig = () => {
                 name="autoRenew"
                 checked={formData.autoRenew}
                 onChange={handleChange}
-                className="rounded border-[#1B3A2F] bg-[#070d0b] text-[#1B3A2F] focus:ring-[#F5F1E8]"
+                className="rounded border-white/20 bg-white/5 text-[#1B3A2F] focus:ring-[#F5F1E8]"
               />
               <span>Autorrenovación automática si el vehículo permanece en cajón</span>
             </label>
@@ -344,14 +344,14 @@ export const AutoPaymentConfig = () => {
         </div>
 
         {/* Autorización Legal / Términos de Autocobro */}
-        <div className="p-4 rounded-2xl bg-[#070d0b]/80 border border-[#1B3A2F]/70 flex items-start gap-3">
+        <div className="p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 flex items-start gap-3">
           <input
             type="checkbox"
             id="acceptedTerms"
             name="acceptedTerms"
             checked={formData.acceptedTerms}
             onChange={handleChange}
-            className="mt-1 rounded border-[#1B3A2F] bg-[#070d0b] text-[#1B3A2F] focus:ring-[#F5F1E8]"
+            className="mt-1 rounded border-white/20 bg-white/5 text-[#1B3A2F] focus:ring-[#F5F1E8]"
           />
           <label htmlFor="acceptedTerms" className="text-xs text-[#dfd4bf] leading-relaxed cursor-pointer font-mono">
             <span className="font-bold text-[#F5F1E8] block mb-0.5">

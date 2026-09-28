@@ -43,7 +43,7 @@ export const DigitalCard = () => {
 
   // Portada frontal con efecto 3D y el logo oficial de SSS.Solutions en paleta #1B3A2F y #F5F1E8
   const FrontCover = (
-    <CardBody className="relative w-full h-full min-h-[270px] md:min-h-[295px] rounded-3xl bg-gradient-to-br from-[#0c1b16] via-[#08120e] to-[#1B3A2F]/50 border border-[#1B3A2F]/80 p-6 md:p-8 flex flex-col justify-between overflow-hidden shadow-2xl">
+    <CardBody className="relative w-full h-full min-h-[270px] md:min-h-[295px] rounded-3xl bg-gradient-to-br from-[#1B3A2F]/25 via-[#08120e]/60 to-[#1B3A2F]/40 backdrop-blur-2xl backdrop-saturate-150 border border-white/15 p-6 md:p-8 flex flex-col justify-between overflow-hidden shadow-2xl">
       {/* Resplandor holográfico y textura de grano */}
       <div className="absolute -top-20 -left-20 w-64 h-64 bg-[#F5F1E8]/[0.07] rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-[#1B3A2F]/[0.35] rounded-full blur-3xl pointer-events-none" />
@@ -82,7 +82,7 @@ export const DigitalCard = () => {
       </CardItem>
 
       {/* Fila Inferior: Indicador minimalista en 3D para pasar el cursor */}
-      <CardItem translateZ="35" className="w-full flex items-center justify-between z-10 pt-3 border-t border-[#1B3A2F]/80 text-[11px] font-mono text-[#dfd4bf]">
+      <CardItem translateZ="35" className="w-full flex items-center justify-between z-10 pt-3 border-t border-white/10 text-[11px] font-mono text-[#dfd4bf]">
         <div className="flex items-center gap-2">
           <span className={`w-2 h-2 rounded-full ${isParked ? 'bg-amber-400 animate-ping' : 'bg-emerald-400'}`} />
           <span className="text-[#dfd4bf] font-medium">
@@ -115,7 +115,7 @@ export const DigitalCard = () => {
           {/* Componente Aceternity Direction Aware Hover */}
           <DirectionAwareHover frontContent={FrontCover}>
             {/* Tarjeta Física Virtual Obsidian con efectos 3D de profundidad */}
-            <CardBody className="relative card-hologram w-full h-full min-h-[270px] md:min-h-[295px] rounded-3xl border border-[#1B3A2F]/90 p-6 md:p-8 text-[#F5F1E8] shadow-2xl flex flex-col justify-between">
+            <CardBody className="relative card-hologram w-full h-full min-h-[270px] md:min-h-[295px] rounded-3xl border border-white/15 backdrop-blur-2xl p-6 md:p-8 text-[#F5F1E8] shadow-2xl flex flex-col justify-between">
               
               {/* Fila Superior: Marca, Contactless y Estatus */}
               <CardItem translateZ="45" className="w-full flex items-center justify-between z-10">
@@ -142,7 +142,7 @@ export const DigitalCard = () => {
                   <div className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold tracking-wider uppercase border flex items-center gap-1.5 ${
                     isParked
                       ? 'bg-amber-500/15 text-amber-300 border-amber-400/30'
-                      : 'bg-[#1B3A2F]/80 text-[#F5F1E8] border-[#2A5A49]'
+                      : 'bg-white/10 backdrop-blur-sm text-[#F5F1E8] border border-white/10'
                   }`}>
                     <span className={`w-1.5 h-1.5 rounded-full ${isParked ? 'bg-amber-400 animate-ping' : 'bg-emerald-400'}`}></span>
                     {isParked ? 'EN ESTACIONAMIENTO' : 'TARJETA ACTIVA'}
@@ -168,7 +168,7 @@ export const DigitalCard = () => {
                     <span className="text-[10px] text-[#dfd4bf] uppercase tracking-widest block font-medium font-mono">
                       Placas del Vehículo
                     </span>
-                    <div className="bg-black/90 px-3.5 py-1 rounded-lg border border-[#1B3A2F] shadow-inner inline-block">
+                    <div className="bg-white/8 backdrop-blur-sm px-3.5 py-1 rounded-lg border border-white/10 shadow-inner inline-block">
                       <span className="font-mono text-xl sm:text-2xl font-black text-[#F5F1E8] license-plate-badge tracking-wider">
                         {formatPlate(vehicle.plates)}
                       </span>
@@ -191,7 +191,7 @@ export const DigitalCard = () => {
               </CardItem>
 
               {/* Fila Inferior: Titular, Autocobro y Botón QR Flotante 3D */}
-              <CardItem translateZ="60" className="w-full flex items-end justify-between z-10 pt-3 border-t border-[#1B3A2F]/80 flex-wrap gap-3">
+              <CardItem translateZ="60" className="w-full flex items-end justify-between z-10 pt-3 border-t border-white/10 flex-wrap gap-3">
                 <div>
                   <span className="text-[10px] text-[#dfd4bf] uppercase tracking-wider block font-semibold font-mono">
                     Titular / Propietario
@@ -291,8 +291,8 @@ export const DigitalCard = () => {
 
       {/* Modal QR Oficial de Inspección */}
       {showQRModal && (
-        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-[#0c1b16] border border-[#1B3A2F] rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xl flex items-center justify-center p-4">
+          <div className="bg-[#1B3A2F]/25 backdrop-blur-2xl border border-white/15 rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
             <h3 className="text-lg font-bold text-[#F5F1E8] mb-1 font-mono">Credencial QR de Inspección</h3>
             <p className="text-xs text-[#dfd4bf] mb-6">
               Escaneable por agentes de tránsito y lectores automáticos de parquímetro
@@ -340,7 +340,7 @@ export const DigitalCard = () => {
               </svg>
             </div>
 
-            <div className="bg-[#070d0b] rounded-2xl p-3 text-left font-mono text-xs space-y-1 mb-6 border border-[#1B3A2F]/80">
+            <div className="bg-white/5 rounded-2xl p-3 text-left font-mono text-xs space-y-1 mb-6 border border-white/10">
               <div className="flex justify-between">
                 <span className="text-[#dfd4bf]">Placas:</span>
                 <span className="font-bold text-[#F5F1E8]">{vehicle.plates}</span>
@@ -371,9 +371,9 @@ export const DigitalCard = () => {
 
       {/* Modal de Recarga de Saldo */}
       {showRechargeModal && (
-        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-[#0c1b16] border border-[#1B3A2F] rounded-3xl max-w-sm w-full p-6 shadow-2xl relative">
-            <div className="w-12 h-12 rounded-2xl bg-[#1B3A2F]/80 border border-[#2A5A49] text-[#F5F1E8] flex items-center justify-center mx-auto mb-3 shadow-[0_0_20px_rgba(27,58,47,0.4)]">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xl flex items-center justify-center p-4">
+          <div className="bg-[#1B3A2F]/25 backdrop-blur-2xl border border-white/15 rounded-3xl max-w-sm w-full p-6 shadow-2xl relative">
+            <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/15 text-[#F5F1E8] flex items-center justify-center mx-auto mb-3 shadow-[0_0_20px_rgba(27,58,47,0.4)]">
               <CurrencyDollarIcon size={24} strokeWidth={2} />
             </div>
             <h3 className="text-lg font-bold text-[#F5F1E8] mb-1 font-mono text-center">Recargar Saldo de Parquímetro</h3>
@@ -395,7 +395,7 @@ export const DigitalCard = () => {
                       className={`py-2 rounded-xl font-bold font-mono text-sm border transition flex items-center justify-center gap-1 ${
                         rechargeAmount === amt
                           ? 'bg-[#F5F1E8] text-[#1B3A2F] border-[#F5F1E8] shadow-[0_0_15px_rgba(245,241,232,0.25)]'
-                          : 'bg-[#070d0b] border-[#1B3A2F]/70 text-[#dfd4bf] hover:bg-[#1B3A2F]/40'
+                          : 'bg-white/5 border-white/10 text-[#dfd4bf] hover:bg-white/10'
                       }`}
                     >
                       <CurrencyDollarIcon size={13} strokeWidth={2.2} />
@@ -409,7 +409,7 @@ export const DigitalCard = () => {
                   max="1000"
                   value={rechargeAmount}
                   onChange={(e) => setRechargeAmount(Number(e.target.value))}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#070d0b] border border-[#1B3A2F] text-[#F5F1E8] font-mono focus:outline-none focus:border-[#F5F1E8]/70"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-[#F5F1E8] font-mono focus:outline-none focus:border-[#F5F1E8]/70"
                 />
               </div>
 
@@ -417,7 +417,7 @@ export const DigitalCard = () => {
                 <button
                   type="button"
                   onClick={() => setShowRechargeModal(false)}
-                  className="flex-1 py-2.5 bg-[#070d0b] hover:bg-[#1B3A2F]/40 text-[#dfd4bf] font-mono text-xs font-semibold rounded-xl border border-[#1B3A2F] transition"
+                  className="flex-1 py-2.5 bg-white/5 hover:bg-white/10 text-[#dfd4bf] font-mono text-xs font-semibold rounded-xl border border-white/10 transition"
                 >
                   Cancelar
                 </button>
