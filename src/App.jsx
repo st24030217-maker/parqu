@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'motion/react';
 import { Toaster, sileo } from 'sileo';
 import 'sileo/styles.css';
 import { ParkingProvider, useParking } from './context/ParkingContext';

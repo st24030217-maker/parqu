@@ -1,6 +1,6 @@
 import { forwardRef, useImperativeHandle, useCallback } from "react";
 import type { AnimatedIconHandle, AnimatedIconProps } from "./types";
-import { motion, useAnimate } from "framer-motion";
+import { motion, useAnimate } from "motion/react";
 
 export const PlugConnectedIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   (
