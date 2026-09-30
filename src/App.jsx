@@ -462,13 +462,13 @@ const MainContent = () => {
           </ErrorBoundary>
         </div>
 
-        {/* 2. SECCIÓN DEL SISTEMA INTERACTIVO CON FONDO WITHBOBBIN */}
-        <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-4">
-          <BobbinBackground variant="gold" opacity={0.35} showYellowFade={true} className="p-3 sm:p-6 lg:p-8 shadow-2xl">
+        {/* 2. SECCIÓN DEL SISTEMA INTERACTIVO CON FONDO FULL-WIDTH WITHBOBBIN */}
+        <section className="w-full relative border-y border-white/10">
+          <BobbinBackground showYellowFade={true} className="py-8 sm:py-14">
             <main 
               ref={systemRef} 
               id="interactive-system"
-              className="flex-1 w-full space-y-8 scroll-mt-24"
+              className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 space-y-10 scroll-mt-24"
             >
           
           {/* 1. PANEL DE CONTROL METROPOLITANO (ACCESO INMEDIATO Y CENTRAL) */}
@@ -664,7 +664,7 @@ const MainContent = () => {
 
             </main>
           </BobbinBackground>
-        </div>
+        </section>
 
         {/* 3. SECCIÓN BANNER: La Nueva Era del Parquímetro Digital */}
         <section className="w-full border-t border-white/10 overflow-hidden">
