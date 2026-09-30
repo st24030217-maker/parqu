@@ -25,7 +25,7 @@ export const Header = ({ onNavigateToPanel }) => {
           <div className="relative flex items-center justify-center p-0.5 sm:p-1 group-hover:scale-105 transition-transform duration-300">
             <div className="absolute -inset-1.5 bg-[#0033FF]/30 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
             <img 
-              src="/parqu-logo-white.png" 
+              src="./parqu-logo-white.png" 
               alt="Parqu" 
               style={{ maxHeight: '40px' }}
               className="h-8 sm:h-10 w-auto object-contain relative z-10 drop-shadow-[0_0_15px_rgba(212,214,230,0.35)]"

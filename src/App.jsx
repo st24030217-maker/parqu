@@ -651,7 +651,7 @@ const MainContent = () => {
             {/* Identidad Parqu - Logo Transparente sin cajas de fondo */}
             <div className="flex items-center gap-3">
               <img 
-                src="/parqu-logo-white.png" 
+                src="./parqu-logo-white.png" 
                 alt="Parqu" 
                 style={{ maxHeight: '32px' }}
                 className="h-8 w-auto object-contain drop-shadow-[0_0_10px_rgba(245,241,232,0.2)]"

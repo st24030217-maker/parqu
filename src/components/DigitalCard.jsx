@@ -53,7 +53,7 @@ export const DigitalCard = () => {
       <CardItem translateZ="40" className="w-full flex items-center justify-between z-10">
         <div className="flex items-center gap-2.5">
           <img 
-            src="/parqu-logo-white.png" 
+            src="./parqu-logo-white.png" 
             alt="Parqu" 
             className="h-6 w-auto object-contain opacity-80"
           />
@@ -122,7 +122,7 @@ export const DigitalCard = () => {
                 <div className="flex items-center gap-3">
                   <div className="flex items-center justify-center">
                     <img 
-                      src="/parqu-logo-white.png" 
+                      src="./parqu-logo-white.png" 
                       alt="Parqu" 
                       className="h-9 w-auto object-contain drop-shadow-[0_0_12px_rgba(0,51,255,0.4)]"
                     />

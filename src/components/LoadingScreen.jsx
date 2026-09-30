@@ -95,7 +95,7 @@ export const LoadingScreen = ({ onComplete }) => {
           <div className="relative flex items-center justify-center">
             <div className="absolute -inset-8 bg-gradient-to-r from-[#0033FF]/30 via-[#807DFE]/20 to-[#0033FF]/30 rounded-full blur-3xl pointer-events-none" />
             <img
-              src="/parqu-logo-white.png"
+              src="./parqu-logo-white.png"
               alt="Parqu Logo"
               style={{ maxHeight: '130px' }}
               className="h-24 sm:h-28 md:h-32 w-auto object-contain relative z-10 drop-shadow-[0_0_35px_rgba(128,125,254,0.45)]"
