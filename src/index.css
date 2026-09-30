@@ -244,3 +244,31 @@ body {
   transition: inherit;
 }
 
+/* ═══ WITHBOBBIN BACKGROUND DESIGN SYSTEM ═══ */
+:root {
+  --color-spark-yellow: #fbf27e;
+  --color-spark-yellow-deep: #f0e367;
+  --color-spark-cream: #f7f4f0;
+  --color-spark-cream-dark: #e8e4de;
+  --color-spark-charcoal: #2a241d;
+  --color-spark-black: #1d1914;
+}
+
+.yellow-fade {
+  position: relative;
+}
+
+.yellow-fade::after {
+  content: "";
+  background: radial-gradient(147.57% 102.54% at 50% 100%, #fbf27e 26.92%, rgba(251, 242, 126, 0) 100%);
+  width: 100%;
+  height: 400px;
+  max-height: 40%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+

@@ -21,6 +21,7 @@ import { CurrencyDollarIcon, PlugConnectedIcon } from './components/icons';
 import { AnimeMetricsHub } from './components/ui/anime-metrics-hub';
 import { AnimeStaggerGroup } from './components/ui/anime-stagger-group';
 import { OrbitalWheelMenu } from './components/ui/orbital-wheel-menu';
+import { BobbinBackground } from './components/ui/bobbin-background';
 import { 
   CreditCard, 
   Car, 
@@ -461,12 +462,14 @@ const MainContent = () => {
           </ErrorBoundary>
         </div>
 
-        {/* 2. SECCIÓN DEL SISTEMA INTERACTIVO (TARJETA, PARQUÍMETRO, CONFIGURACIÓN, HISTORIAL) */}
-        <main 
-          ref={systemRef} 
-          id="interactive-system"
-          className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 scroll-mt-24"
-        >
+        {/* 2. SECCIÓN DEL SISTEMA INTERACTIVO CON FONDO WITHBOBBIN */}
+        <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-4">
+          <BobbinBackground variant="gold" opacity={0.35} showYellowFade={true} className="p-3 sm:p-6 lg:p-8 shadow-2xl">
+            <main 
+              ref={systemRef} 
+              id="interactive-system"
+              className="flex-1 w-full space-y-8 scroll-mt-24"
+            >
           
           {/* 1. PANEL DE CONTROL METROPOLITANO (ACCESO INMEDIATO Y CENTRAL) */}
           <AnimeMetricsHub 
@@ -659,7 +662,9 @@ const MainContent = () => {
             onTabChange={setActiveTab} 
           />
 
-        </main>
+            </main>
+          </BobbinBackground>
+        </div>
 
         {/* 3. SECCIÓN BANNER: La Nueva Era del Parquímetro Digital */}
         <section className="w-full border-t border-white/10 overflow-hidden">
