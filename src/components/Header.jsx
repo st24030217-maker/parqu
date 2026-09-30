@@ -84,12 +84,15 @@ export const Header = ({ onNavigateToPanel, onNavigateToOrbital }) => {
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className="flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/10 text-xs font-sans font-bold transition active:scale-95 cursor-pointer shadow-sm"
+            style={{ '--primary': '#807DFE' }}
+            className="fx-67 flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/10 text-xs font-sans font-bold transition active:scale-95 cursor-pointer shadow-sm"
             title="Ir al Selector Orbital 3D"
           >
-            <Compass className="w-3.5 h-3.5 text-[#807DFE] shrink-0" />
-            <span className="hidden sm:inline">Selector 3D</span>
-            <span className="sm:hidden text-[11px]">3D</span>
+            <span className="btn-label flex items-center gap-1 sm:gap-1.5">
+              <Compass className="w-3.5 h-3.5 text-[#807DFE] shrink-0" />
+              <span className="hidden sm:inline">Selector 3D</span>
+              <span className="sm:hidden text-[11px]">3D</span>
+            </span>
           </button>
 
           {/* Botón Acceso Rápido al Panel de Control Metropolitano */}
@@ -103,12 +106,15 @@ export const Header = ({ onNavigateToPanel, onNavigateToOrbital }) => {
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className="flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-[#0033FF] text-white hover:bg-[#2250ff] text-xs font-sans font-bold transition active:scale-95 cursor-pointer shadow-[0_0_20px_rgba(0,51,255,0.6)]"
+            style={{ '--primary': '#0033FF' }}
+            className="fx-67 flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-[#0033FF]/30 text-white hover:bg-[#0033FF]/50 border border-[#0033FF]/60 text-xs font-sans font-bold transition active:scale-95 cursor-pointer shadow-[0_0_20px_rgba(0,51,255,0.4)]"
             title="Ir directo al Panel de Control Metropolitano"
           >
-            <Activity className="w-3.5 h-3.5 text-white shrink-0" />
-            <span className="hidden sm:inline">Panel</span>
-            <span className="sm:hidden text-[11px]">Panel</span>
+            <span className="btn-label flex items-center gap-1 sm:gap-1.5">
+              <Activity className="w-3.5 h-3.5 text-white shrink-0" />
+              <span className="hidden sm:inline">Panel</span>
+              <span className="sm:hidden text-[11px]">Panel</span>
+            </span>
           </button>
         </div>
 
