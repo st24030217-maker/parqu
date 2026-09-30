@@ -758,45 +758,6 @@ export const OrbitalWheelMenu = ({
 
       </div>
 
-      {/* ═══ 3. SELECTOR DE 7 OPCIONES (MÓVIL: HORIZONTAL SWIPEABLE / PC: GRID 7 COLS) ═══ */}
-      <div className="pt-2">
-        <div className="overflow-x-auto scrollbar-none flex sm:grid sm:grid-cols-4 lg:grid-cols-7 gap-1.5 pb-2 -mx-1 px-1">
-          {ORBIT_ITEMS.map((item, idx) => {
-            const isSelected = selectedIndex === idx;
-            const Icon = item.icon;
-
-            return (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => rotateToIndex(idx)}
-                style={{
-                  '--primary': item.color,
-                }}
-                className={`fx-67 shrink-0 py-2 px-3 sm:px-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
-                  isSelected ? 'is-active text-white font-bold' : 'text-[#D4D6E6]/70 hover:text-white'
-                }`}
-              >
-                <span className="btn-label flex items-center gap-1.5 w-full whitespace-nowrap">
-                  <div
-                    className="w-5 h-5 rounded-md flex items-center justify-center shrink-0"
-                    style={{
-                      color: item.color,
-                      backgroundColor: `${item.color}20`,
-                    }}
-                  >
-                    <Icon className="w-3 h-3" />
-                  </div>
-                  <span className="font-sans text-[11px] font-bold">
-                    {item.shortLabel}
-                  </span>
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
     </div>
   );
 };
