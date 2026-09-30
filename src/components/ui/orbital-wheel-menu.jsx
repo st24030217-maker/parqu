@@ -385,79 +385,15 @@ export const OrbitalWheelMenu = ({
         style={{ backgroundColor: currentItem.color }}
       />
 
-      {/* ═══ 1. ENCABEZADO MINIMALISTA TOTALMENTE TRANSPARENTE ═══ */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-3">
-        <div className="flex items-center gap-2">
-          <span
-            className="w-2.5 h-2.5 rounded-full animate-pulse"
-            style={{ backgroundColor: currentItem.color }}
-          />
-          <h3 className="font-sans font-black text-lg sm:text-xl text-white tracking-tight flex items-center gap-2">
-            <span>Acciones Rápidas</span>
-            <span
-              className="font-mono text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full"
-              style={{
-                color: currentItem.color,
-                backgroundColor: `${currentItem.color}15`,
-              }}
-            >
-              SEMICÍRCULO VERTICAL 3D
-            </span>
-          </h3>
-        </div>
-
-        {/* Accesos rápidos superiores (Sin bordes, 100% transparentes) */}
-        <div className="flex items-center gap-1.5 text-xs">
-          <button
-            type="button"
-            onClick={() => handleInstantRecharge(100)}
-            style={{ '--primary': '#F59E0B' }}
-            className="fx-67 px-3 py-1.5 rounded-xl text-white font-mono text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
-          >
-            <span className="btn-label flex items-center gap-1.5">
-              <CurrencyDollarIcon size={13} className="text-amber-400" />
-              <span>+$100</span>
-            </span>
-          </button>
-
-          <button
-            type="button"
-            onClick={onOpenQR}
-            style={{ '--primary': '#38BDF8' }}
-            className="fx-67 px-3 py-1.5 rounded-xl text-white font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
-          >
-            <span className="btn-label flex items-center gap-1.5">
-              <QrCode className="w-3.5 h-3.5 text-sky-400" />
-              <span>QR</span>
-            </span>
-          </button>
-
-          <button
-            type="button"
-            onClick={handleToggleAutoPay}
-            style={{ '--primary': autoPay?.enabled ? '#10B981' : '#F43F5E' }}
-            className="fx-67 px-3 py-1.5 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 transition cursor-pointer"
-          >
-            <span className="btn-label flex items-center gap-1.5">
-              <Zap className="w-3.5 h-3.5" />
-              <span className={autoPay?.enabled ? 'text-emerald-400' : 'text-rose-400'}>
-                {autoPay?.enabled ? 'Autocobro ON' : 'Autocobro OFF'}
-              </span>
-            </span>
-          </button>
-
-          <button
-            type="button"
-            onClick={handlePinCurrentLocation}
-            style={{ '--primary': '#FB923C' }}
-            className="fx-67 px-3 py-1.5 rounded-xl text-white font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
-          >
-            <span className="btn-label flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5 text-orange-400" />
-              <span>Fijar GPS</span>
-            </span>
-          </button>
-        </div>
+      {/* ═══ 1. TÍTULO LIMPIO: SOLO ACCIONES RÁPIDAS ═══ */}
+      <div className="flex items-center gap-2 pb-2">
+        <span
+          className="w-2.5 h-2.5 rounded-full animate-pulse"
+          style={{ backgroundColor: currentItem.color }}
+        />
+        <h3 className="font-sans font-black text-xl text-white tracking-tight">
+          Acciones Rápidas
+        </h3>
       </div>
 
       {/* ═══ 2. ESCENARIO VERTICAL: CONTENIDO DENTRO DEL SEMICÍRCULO + RULETA SCROLLABLE ═══ */}
@@ -798,23 +734,7 @@ export const OrbitalWheelMenu = ({
             </button>
           </div>
 
-          {/* Línea láser ápex que conecta el semicírculo con el contenido interior */}
-          <div
-            className="absolute z-30 pointer-events-none flex items-center gap-1.5"
-            style={{
-              left: '18px',
-              top: `${centerY}px`,
-              transform: 'translateY(-50%)',
-            }}
-          >
-            <div
-              className="h-10 w-1 rounded-full transition-colors duration-300"
-              style={{
-                backgroundColor: currentItem.color,
-                boxShadow: `0 0 16px ${currentItem.color}`,
-              }}
-            />
-          </div>
+
 
           {/* SVG del Semicírculo Vertical (Arco Flotante, Sin Contornos) */}
           <svg

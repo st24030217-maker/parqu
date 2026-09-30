@@ -645,20 +645,8 @@ const MainContent = () => {
 
 
 
-          {/* 4. SELECTOR ORBITAL METROPOLITANO (RULETA CIRCULAR 3D + COMMAND SPOTLIGHT) */}
-          <div id="selector-orbital-metropolitano" className="space-y-3 scroll-mt-28">
-            <div className="flex items-center justify-between px-1">
-              <div className="flex items-center gap-2 text-xs font-mono text-[#D4D6E6]">
-                <Compass className="w-4 h-4 text-[#807DFE]" />
-                <span className="font-bold text-white uppercase tracking-wider text-[10px] sm:text-[11px] font-sans">
-                  SELECTOR ORBITAL METROPOLITANO 3D
-                </span>
-                <span className="text-[#D4D6E6]/60 hidden sm:inline">•</span>
-                <span className="text-[#D4D6E6] text-[10px] hidden sm:inline font-sans">
-                  RULETA CURVA + SPOTLIGHT EN VIVO
-                </span>
-              </div>
-            </div>
+          {/* 4. SELECTOR ORBITAL METROPOLITANO */}
+          <div id="selector-orbital-metropolitano" className="scroll-mt-28">
 
             <OrbitalWheelMenu
               activeTab={activeTab}
