@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import HeroText from './hero-shutter-text';
+import CloudSky from './cloud-sky';
 import { 
   CreditCard, 
   Zap, 
@@ -51,8 +52,27 @@ export function StaggeredGrid({
   return (
     <div ref={containerRef} className={`relative w-full overflow-hidden text-white ${className}`}>
       
-      {/* ═══ 1. HERO SECTION CON HERO SHUTTER TEXT & HALO HORIZON BACKGROUND ═══ */}
-      <section className="relative z-10 min-h-[480px] sm:min-h-[540px] flex flex-col items-center justify-center text-center px-4 pt-12 pb-14 overflow-hidden">
+      {/* ═══ 1. HERO SECTION CON ORIGINKIT CLOUD-SKY Y HERO SHUTTER TEXT ═══ */}
+      <section className="relative z-10 min-h-[500px] sm:min-h-[560px] flex flex-col items-center justify-center text-center px-4 pt-12 pb-14 overflow-hidden">
+        
+        {/* Fondo Animado WebGL Cloud-Sky de OriginKit */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-auto">
+          <CloudSky 
+            background="#01033E"
+            baseColor="#0033FF"
+            accentColor="#D4D6E6"
+            density={85}
+            speed={45}
+            size={125}
+            clouds={{ softness: 85, shadow: 80, cirrus: 40 }}
+            sun={{ x: 78, y: 90, glow: "rgba(128, 125, 254, 0.85)" }}
+            pointer={{ parallax: 130, wind: 100, damping: 25 }}
+            className="w-full h-full"
+          />
+          {/* Capas sutiles de sombreado y transición glassmorphism para contraste perfecto */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#01033E]/20 via-transparent to-[#01033E]/95 pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#01033E] to-transparent pointer-events-none" />
+        </div>
 
         {/* Badge Superior */}
         <div className="relative z-10 mb-4 inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-[#01033E]/70 backdrop-blur-md border border-[#807DFE]/40 text-xs font-mono text-[#D4D6E6] shadow-[0_0_20px_rgba(0,51,255,0.25)]">

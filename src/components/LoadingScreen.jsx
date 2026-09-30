@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { RadialGlowButton } from './ui/radial-glow-button';
+import { HaloHorizon } from './ui/halo-horizon';
 import { ArrowRight } from 'lucide-react';
 
 export const LoadingScreen = ({ onComplete }) => {
@@ -43,7 +44,7 @@ export const LoadingScreen = ({ onComplete }) => {
     <div className="fixed inset-0 z-50 overflow-hidden select-none pointer-events-auto bg-transparent font-sans">
       {/* 
         ══════════════════════════════════════════════════════════════
-        FONDO TOTALMENTE LISO: 5 PERSIANAS UNIFORMES SIN LÍNEAS NI BORDES
+        FONDO HALOHORIZON BLANCO Y AZUL: 5 PERSIANAS UNIFORMES
         (Al hacer clic en "Empecemos", se deslizan hacia arriba en cascada)
         ══════════════════════════════════════════════════════════════
       */}
@@ -58,8 +59,19 @@ export const LoadingScreen = ({ onComplete }) => {
                 : 'none',
               willChange: 'transform',
             }}
-            className="relative h-full w-full bg-[#01033E]"
-          />
+            className="relative h-full w-full overflow-hidden bg-[#01033E]"
+          >
+            {/* Slice continuo de HaloHorizon por columna */}
+            <div
+              className="absolute top-0 h-full pointer-events-none"
+              style={{
+                width: '500%',
+                left: `-${idx * 100}%`,
+              }}
+            >
+              <HaloHorizon variant="top" className="h-full w-full pointer-events-none" />
+            </div>
+          </div>
         ))}
       </div>
 

@@ -10,7 +10,7 @@ import { AutoPaymentConfig } from './components/AutoPaymentConfig';
 import { ParkingMeter } from './components/ParkingMeter';
 import { TransactionHistory } from './components/TransactionHistory';
 import { StaggeredGrid } from './components/ui/staggered-grid';
-import { HaloHorizon } from './components/ui/halo-horizon';
+import { BackgroundGradientAnimation } from './components/ui/background-gradient-animation';
 import { HeroParallax } from './components/ui/hero-parallax';
 import { WobbleCard } from './components/ui/wobble-card';
 import { InterfaceCraftsCards } from './components/ui/interface-crafts-cards';
@@ -414,8 +414,16 @@ const MainContent = () => {
   ];
 
   return (
-    <HaloHorizon
-      variant="top"
+    <BackgroundGradientAnimation
+      gradientBackgroundStart="rgb(1, 3, 62)"
+      gradientBackgroundEnd="rgb(0, 1, 20)"
+      firstColor="0, 51, 255"
+      secondColor="128, 125, 254"
+      thirdColor="212, 214, 230"
+      fourthColor="1, 3, 62"
+      fifthColor="47, 49, 231"
+      pointerColor="128, 125, 254"
+      size="75%"
       className="min-h-screen flex flex-col text-[#D4D6E6] selection:bg-[#0033FF] selection:text-[#D4D6E6]"
     >
       <div className="relative z-10 flex flex-col min-h-screen">
@@ -678,7 +686,7 @@ const MainContent = () => {
           </div>
         </footer>
       </div>
-    </HaloHorizon>
+    </BackgroundGradientAnimation>
   );
 };
 

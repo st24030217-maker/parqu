@@ -14,16 +14,16 @@ const haloCss = `
 .hh-stage {
   position: relative;
   width: 100%;
-  min-height: 100vh;
-  overflow-x: hidden;
+  height: 100%;
+  overflow: hidden;
   background: radial-gradient(130% 90% at 50% 0%, #030d45 0%, #01062c 40%, #01033E 75%, #000216 100%);
   font-family: 'Satoshi', system-ui, sans-serif;
   isolation: isolate;
 }
 
-/* Contenedor animado fijo para los 4 arcos de luz */
+/* Contenedor animado para los 4 arcos de luz */
 .hh-glow {
-  position: fixed;
+  position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
@@ -182,7 +182,7 @@ export function HaloHorizon({
 
       {/* Trama sutil de puntos para acabado obsidian */}
       <div
-        className="fixed inset-0 pointer-events-none bg-[radial-gradient(#ffffff0a_1.2px,transparent_1.2px)] [background-size:24px_24px] z-0 opacity-40"
+        className="absolute inset-0 pointer-events-none bg-[radial-gradient(#ffffff0a_1.2px,transparent_1.2px)] [background-size:24px_24px] z-0 opacity-40"
         aria-hidden="true"
       />
 
