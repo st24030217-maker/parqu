@@ -199,39 +199,43 @@ body {
   isolation: isolate;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent;
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .fx-67::before {
   content: "";
   position: absolute;
   z-index: 1;
-  inset: auto 0 0 0;
-  height: 40%;
-  background: color-mix(in srgb, var(--primary) 80%, transparent);
+  inset: 0 !important;
+  height: 100% !important;
+  width: 100% !important;
+  background: color-mix(in srgb, var(--primary) 35%, transparent);
   transform: scaleX(0);
   transform-origin: left;
   border-radius: inherit;
   pointer-events: none;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), height 0.4s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.4s ease, opacity 0.4s ease;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s ease, opacity 0.3s ease;
 }
 
 .fx-67:hover::before {
   transform: scaleX(1);
-  height: 80%;
+  background: color-mix(in srgb, var(--primary) 45%, transparent);
 }
 
 .fx-67:active::before {
   transform: scaleX(1);
-  height: 95%;
-  background: color-mix(in srgb, var(--primary) 90%, transparent);
+  background: color-mix(in srgb, var(--primary) 60%, transparent);
 }
 
 .fx-67.is-active::before,
 .fx-67[data-active="true"]::before {
   transform: scaleX(1);
-  height: 72%;
-  background: color-mix(in srgb, var(--primary) 65%, transparent);
+  height: 100% !important;
+  background: color-mix(in srgb, var(--primary) 45%, transparent);
 }
 
 .fx-67 > * {
