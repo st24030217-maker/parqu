@@ -10,12 +10,10 @@ import {
   MapPin,
   Car,
   History,
-  Activity,
   ChevronUp,
   ChevronDown,
   ChevronRight,
   Copy,
-  Radio,
   Check,
 } from 'lucide-react';
 import { CurrencyDollarIcon } from '../icons/currency-dollar-icon';
@@ -103,19 +101,9 @@ export const ORBIT_ITEMS = [
     glowColor: 'rgba(236, 72, 153, 0.45)',
     actionTarget: 'history',
   },
-  {
-    id: 'telemetry',
-    label: 'Telemetría de Red',
-    shortLabel: 'Telemetría',
-    category: 'ESTADO',
-    icon: Activity,
-    color: '#A78BFA',
-    glowColor: 'rgba(167, 139, 250, 0.45)',
-    actionTarget: 'telemetry',
-  },
 ];
 
-function shortestAngularDiff(targetIndex, currentOffset, count = 8) {
+function shortestAngularDiff(targetIndex, currentOffset, count = 7) {
   let diff = (targetIndex - currentOffset) % count;
   if (diff > count / 2) diff -= count;
   if (diff < -count / 2) diff += count;
@@ -166,11 +154,9 @@ export const OrbitalWheelMenu = ({
   const dragStartOffsetRef = useRef(0);
   const wheelTimeoutRef = useRef(null);
 
-  const [isTestingPing, setIsTestingPing] = useState(false);
-  const [pingLatency, setPingLatency] = useState(14);
   const [copied, setCopied] = useState(false);
 
-  // Bucle de animación fluida con lerp y spring physics
+  // Bucle de animación fluida con lerp y amortiguación
   const startAnimationLoop = useCallback(() => {
     if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
 
@@ -179,7 +165,7 @@ export const OrbitalWheelMenu = ({
         const delta = targetOffsetRef.current - current;
         if (Math.abs(delta) < 0.005) {
           const nearest = Math.round(targetOffsetRef.current);
-          const normalized = ((nearest % 8) + 8) % 8;
+          const normalized = ((nearest % 7) + 7) % 7;
           setSelectedIndex(normalized);
           return targetOffsetRef.current;
         }
@@ -190,13 +176,13 @@ export const OrbitalWheelMenu = ({
     animFrameRef.current = requestAnimationFrame(step);
   }, []);
 
-  // Rotar hacia un índice con la trayectoria angular más corta
+  // Rotar hacia un índice con la trayectoria angular más corta (módulo 7)
   const rotateToIndex = useCallback(
     (targetIdx) => {
-      const currentNorm = ((Math.round(targetOffsetRef.current) % 8) + 8) % 8;
+      const currentNorm = ((Math.round(targetOffsetRef.current) % 7) + 7) % 7;
       let diff = targetIdx - currentNorm;
-      if (diff > 4) diff -= 8;
-      if (diff < -4) diff += 8;
+      if (diff > 3.5) diff -= 7;
+      if (diff < -3.5) diff += 7;
 
       targetOffsetRef.current = Math.round(targetOffsetRef.current) + diff;
       setSelectedIndex(targetIdx);
@@ -228,7 +214,7 @@ export const OrbitalWheelMenu = ({
       wheelTimeoutRef.current = setTimeout(() => {
         const nearest = Math.round(targetOffsetRef.current);
         targetOffsetRef.current = nearest;
-        const normalized = ((nearest % 8) + 8) % 8;
+        const normalized = ((nearest % 7) + 7) % 7;
         setSelectedIndex(normalized);
       }, 130);
 
@@ -264,7 +250,7 @@ export const OrbitalWheelMenu = ({
       setIsDragging(false);
       const nearest = Math.round(targetOffsetRef.current);
       targetOffsetRef.current = nearest;
-      const normalized = ((nearest % 8) + 8) % 8;
+      const normalized = ((nearest % 7) + 7) % 7;
       setSelectedIndex(normalized);
       startAnimationLoop();
     },
@@ -356,19 +342,6 @@ export const OrbitalWheelMenu = ({
     });
   }, [vehicle, updateVehicle]);
 
-  const handleRunPingTest = useCallback(() => {
-    setIsTestingPing(true);
-    setTimeout(() => {
-      const lat = Math.floor(Math.random() * 8) + 11;
-      setPingLatency(lat);
-      setIsTestingPing(false);
-      sileo.success({
-        title: 'Telemetría Óptima',
-        description: `Enlace de red activo: ${lat}ms de latencia satelital.`,
-      });
-    }, 600);
-  }, []);
-
   const handleCopyPlates = useCallback(() => {
     const plates = vehicle?.plates || 'XYZ-7842';
     if (navigator.clipboard) {
@@ -379,12 +352,12 @@ export const OrbitalWheelMenu = ({
     }
   }, [vehicle]);
 
-  // Geometría reactiva y segura para evitar desbordes en teléfono
+  // Geometría reactiva para 7 ítems sin desbordes
   const dialHeight = isMobile ? 320 : 400;
   const centerY = dialHeight / 2;
   const orbitRadius = isMobile ? 115 : 160;
   const centerX = isMobile ? 185 : 240;
-  const angleStepRad = isMobile ? 0.48 : 0.42;
+  const angleStepRad = isMobile ? 0.52 : 0.46;
 
   return (
     <div className={`w-full bg-transparent border-0 shadow-none font-sans relative select-none ${className}`}>
@@ -416,7 +389,7 @@ export const OrbitalWheelMenu = ({
             className="flex flex-col items-center lg:items-start max-w-lg w-full animate-in fade-in zoom-in-95 duration-250"
           >
             
-            {/* Categoría e índice flotante */}
+            {/* Categoría e índice flotante (7 módulos) */}
             <div
               className="flex items-center gap-2 mb-2 font-mono text-[10px] sm:text-[11px] font-bold tracking-widest uppercase"
               style={{ color: currentItem.color }}
@@ -427,7 +400,7 @@ export const OrbitalWheelMenu = ({
               />
               <span>{currentItem.category}</span>
               <span className="text-white/30">•</span>
-              <span className="text-white/60">0{selectedIndex + 1} / 08</span>
+              <span className="text-white/60">0{selectedIndex + 1} / 07</span>
             </div>
 
             {/* Icono central de gran tamaño con aura flotante */}
@@ -516,13 +489,6 @@ export const OrbitalWheelMenu = ({
               {currentItem.id === 'history' && (
                 <span>
                   {transactions?.length || 0} recibos auditados • Folio: {transactions?.[0]?.folio || 'PQM-88A2'}
-                </span>
-              )}
-
-              {/* 8. Telemetría */}
-              {currentItem.id === 'telemetry' && (
-                <span className="text-emerald-400 font-semibold">
-                  Latencia: {pingLatency}ms • Satélites Conectados
                 </span>
               )}
             </div>
@@ -672,22 +638,6 @@ export const OrbitalWheelMenu = ({
                 </button>
               )}
 
-              {/* Acción Telemetría */}
-              {currentItem.id === 'telemetry' && (
-                <button
-                  type="button"
-                  onClick={handleRunPingTest}
-                  disabled={isTestingPing}
-                  style={{ '--primary': '#A78BFA' }}
-                  className="fx-67 px-4 py-2 rounded-xl text-purple-300 font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer disabled:opacity-50"
-                >
-                  <span className="btn-label flex items-center gap-1.5">
-                    <Radio className={`w-3.5 h-3.5 ${isTestingPing ? 'animate-spin' : ''}`} />
-                    <span>{isTestingPing ? 'Midiendo...' : 'Ejecutar Test Ping'}</span>
-                  </span>
-                </button>
-              )}
-
               {/* Enlace al módulo completo */}
               <button
                 type="button"
@@ -745,19 +695,19 @@ export const OrbitalWheelMenu = ({
             </button>
           </div>
 
-          {/* Elementos orbitando verticalmente (Completamente limpios, sin líneas de contorno) */}
+          {/* Elementos orbitando verticalmente (7 módulos, sin líneas duras) */}
           <div className="w-full h-full relative pointer-events-none">
             {ORBIT_ITEMS.map((item, index) => {
-              const diff = shortestAngularDiff(index, orbitOffset, 8);
+              const diff = shortestAngularDiff(index, orbitOffset, 7);
               const absDiff = Math.abs(diff);
 
-              if (absDiff > 2.7) return null;
+              if (absDiff > 2.5) return null;
 
               const angle = Math.PI - diff * angleStepRad;
               const iconX = centerX + orbitRadius * Math.cos(angle);
               const iconY = centerY + orbitRadius * Math.sin(angle);
 
-              const opacity = Math.max(0, 1 - Math.pow(absDiff / 2.7, 1.5));
+              const opacity = Math.max(0, 1 - Math.pow(absDiff / 2.5, 1.5));
               const scale = Math.max(0.72, 1 - absDiff * 0.08);
               const isSelected = absDiff < 0.45;
               const Icon = item.icon;
@@ -808,9 +758,9 @@ export const OrbitalWheelMenu = ({
 
       </div>
 
-      {/* ═══ 3. SELECTOR DE 8 OPCIONES (EN MÓVIL: CARRUSEL HORIZONTAL DESLIZABLE / EN PC: GRID 8 COLS) ═══ */}
+      {/* ═══ 3. SELECTOR DE 7 OPCIONES (MÓVIL: HORIZONTAL SWIPEABLE / PC: GRID 7 COLS) ═══ */}
       <div className="pt-2">
-        <div className="overflow-x-auto scrollbar-none flex sm:grid sm:grid-cols-4 lg:grid-cols-8 gap-1.5 pb-2 -mx-1 px-1">
+        <div className="overflow-x-auto scrollbar-none flex sm:grid sm:grid-cols-4 lg:grid-cols-7 gap-1.5 pb-2 -mx-1 px-1">
           {ORBIT_ITEMS.map((item, idx) => {
             const isSelected = selectedIndex === idx;
             const Icon = item.icon;

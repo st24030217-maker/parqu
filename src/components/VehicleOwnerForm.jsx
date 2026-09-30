@@ -52,7 +52,7 @@ export const VehicleOwnerForm = () => {
             Registro de Vehículo & Titular
           </h2>
           <p className="text-xs sm:text-sm text-[#D4D6E6] mt-1 font-sans max-w-2xl leading-relaxed">
-            Vinculación de matrículas y padrón vehicular con telemetría de <span className="text-[#D4D6E6] font-bold">SSS.Solutions</span>.
+            Vinculación de matrículas y padrón vehicular con tecnología de <span className="text-[#D4D6E6] font-bold">SSS.Solutions</span>.
           </p>
         </div>
 

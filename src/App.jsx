@@ -18,7 +18,6 @@ import { Tabs } from './components/ui/tabs';
 import { LoadingScreen } from './components/LoadingScreen';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { CurrencyDollarIcon, PlugConnectedIcon } from './components/icons';
-import { AnimeTelemetryHud } from './components/ui/anime-telemetry-hud';
 import { AnimeMetricsHub } from './components/ui/anime-metrics-hub';
 import { AnimeStaggerGroup } from './components/ui/anime-stagger-group';
 import { OrbitalWheelMenu } from './components/ui/orbital-wheel-menu';
@@ -178,8 +177,8 @@ const MainContent = () => {
       activeStatus: true,
       onClick: () => {
         sileo.success({
-          title: 'Telemetría de Red Activa',
-          description: 'Sensores satelitales y protocolo de parquímetros sincronizados al 100%.',
+          title: 'Diagnóstico de Red Activo',
+          description: 'Sensores de enlace y protocolo de parquímetros sincronizados al 100%.',
         });
       },
     },
@@ -325,7 +324,7 @@ const MainContent = () => {
                   </div>
 
                   <h3 className="text-xl sm:text-2xl font-black text-[#D4D6E6] tracking-tight leading-tight font-sans">
-                    Protección & Telemetría Satelital
+                    Protección & Monitoreo Satelital
                   </h3>
                   <p className="mt-2 text-xs text-[#D4D6E6] font-sans leading-relaxed">
                     El sistema debita segundo a segundo exacto con tarifa regulada de <strong className="text-[#D4D6E6] font-mono">$0.25 MXN/min</strong> con encriptación oficial de <strong className="text-[#D4D6E6]">SSS.Solutions</strong>.
@@ -489,7 +488,7 @@ const MainContent = () => {
                 <span>Centro de Operaciones Parqu</span>
               </h2>
               <p className="text-xs sm:text-sm text-[#D4D6E6] mt-1 font-sans">
-                Control centralizado de tarjeta virtual, parquímetros municipales y telemetría de autocobro.
+                Control centralizado de tarjeta virtual, parquímetros municipales y sistema de autocobro.
               </p>
             </div>
 
@@ -512,11 +511,11 @@ const MainContent = () => {
                 onClick={() => {
                   sileo.success({
                     title: 'Diagnóstico Completado',
-                    description: 'Telemetría metropolitana y sensores de parquímetro activos al 100%.',
+                    description: 'Enlace metropolitano y sensores de parquímetro activos al 100%.',
                   });
                 }}
                 className="px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-white/15 text-white font-sans font-bold text-xs uppercase tracking-wider flex items-center gap-2 border border-white/15 transition-all transform active:scale-95 cursor-pointer"
-                title="Ejecutar diagnóstico y telemetría de red"
+                title="Ejecutar diagnóstico de red"
               >
                 <Sparkles className="w-4 h-4 fill-current text-amber-300" />
                 <span>Diagnóstico de Red</span>
@@ -525,15 +524,12 @@ const MainContent = () => {
               <div className="flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white/8 backdrop-blur-sm border border-white/10 shrink-0">
                 <PlugConnectedIcon size={18} className="text-emerald-400" />
                 <div className="text-left font-sans">
-                  <div className="text-[10px] text-[#D4D6E6] uppercase tracking-widest font-bold font-mono">Telemetría Online</div>
+                  <div className="text-[10px] text-[#D4D6E6] uppercase tracking-widest font-bold font-mono">Sistema Online</div>
                   <div className="text-xs font-bold text-[#D4D6E6]">Red Municipal Conectada</div>
                 </div>
               </div>
             </div>
           </div>
-
-          {/* 3. HUD DE RADAR SATELITAL Y FRECUENCIA ANIME.JS */}
-          <AnimeTelemetryHud />
 
           {/* Modal Rápido de Recarga de Saldo */}
           {showRechargeQuickModal && (

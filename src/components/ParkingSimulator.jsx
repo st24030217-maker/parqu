@@ -68,7 +68,7 @@ export const ParkingMeter = () => {
               TECNOLOGÍA SSS.SOLUTIONS
             </span>
             <span className="text-[#D4D6E6]/60 text-xs font-mono">•</span>
-            <span className="text-[11px] font-mono text-[#D4D6E6]">TELEMETRÍA EN VIVO</span>
+            <span className="text-[11px] font-mono text-[#D4D6E6]">SESIÓN EN VIVO</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-black text-[#D4D6E6] tracking-tight flex items-center gap-2.5">
             <Clock className="w-6 h-6 text-[#807DFE]" />
