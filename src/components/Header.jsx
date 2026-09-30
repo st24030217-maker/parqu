@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ShieldCheck, Clock, Zap, Sparkles, Activity } from 'lucide-react';
+import { ShieldCheck, Clock, Zap, Sparkles, Activity, Compass } from 'lucide-react';
 import { PlugConnectedIcon } from './icons';
 import { useParking } from '../context/ParkingContext';
 
-export const Header = ({ onNavigateToPanel }) => {
+export const Header = ({ onNavigateToPanel, onNavigateToOrbital }) => {
   const { activeSession, vehicle } = useParking();
   const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -73,6 +73,25 @@ export const Header = ({ onNavigateToPanel }) => {
             </div>
           )}
 
+          {/* Botón Acceso Rápido al Selector Orbital 3D */}
+          <button
+            type="button"
+            onClick={() => {
+              if (onNavigateToOrbital) {
+                onNavigateToOrbital();
+              } else {
+                const el = document.getElementById('selector-orbital-metropolitano');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+            className="flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/10 text-xs font-sans font-bold transition active:scale-95 cursor-pointer shadow-sm"
+            title="Ir al Selector Orbital 3D"
+          >
+            <Compass className="w-3.5 h-3.5 text-[#807DFE] shrink-0" />
+            <span className="hidden sm:inline">Selector 3D</span>
+            <span className="sm:hidden text-[11px]">3D</span>
+          </button>
+
           {/* Botón Acceso Rápido al Panel de Control Metropolitano */}
           <button
             type="button"
@@ -88,7 +107,7 @@ export const Header = ({ onNavigateToPanel }) => {
             title="Ir directo al Panel de Control Metropolitano"
           >
             <Activity className="w-3.5 h-3.5 text-white shrink-0" />
-            <span className="hidden sm:inline">Panel de Control</span>
+            <span className="hidden sm:inline">Panel</span>
             <span className="sm:hidden text-[11px]">Panel</span>
           </button>
         </div>

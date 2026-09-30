@@ -21,6 +21,7 @@ import { CurrencyDollarIcon, PlugConnectedIcon } from './components/icons';
 import { AnimeTelemetryHud } from './components/ui/anime-telemetry-hud';
 import { AnimeMetricsHub } from './components/ui/anime-metrics-hub';
 import { AnimeStaggerGroup } from './components/ui/anime-stagger-group';
+import { OrbitalWheelMenu } from './components/ui/orbital-wheel-menu';
 import { 
   CreditCard, 
   Car, 
@@ -34,7 +35,8 @@ import {
   Sliders,
   QrCode,
   Activity,
-  MapPin
+  MapPin,
+  Compass
 } from 'lucide-react';
 
 const MainContent = () => {
@@ -432,6 +434,10 @@ const MainContent = () => {
             const el = document.getElementById('panel-control-metropolitano');
             if (el) el.scrollIntoView({ behavior: 'smooth' });
           }}
+          onNavigateToOrbital={() => {
+            const el = document.getElementById('selector-orbital-metropolitano');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }}
         />
 
         {/* Banner de Sesión Activa si está en otra pestaña */}
@@ -491,15 +497,28 @@ const MainContent = () => {
               <button
                 type="button"
                 onClick={() => {
+                  const el = document.getElementById('selector-orbital-metropolitano');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-[#0033FF] to-[#807DFE] hover:from-[#2250ff] hover:to-[#928ffe] text-white font-sans font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_0_20px_rgba(0,51,255,0.4)] transition-all transform active:scale-95 cursor-pointer"
+                title="Ir al Selector Orbital 3D"
+              >
+                <Compass className="w-4 h-4 text-white" />
+                <span>Selector Orbital 3D</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
                   sileo.success({
                     title: 'Diagnóstico Completado',
                     description: 'Telemetría metropolitana y sensores de parquímetro activos al 100%.',
                   });
                 }}
-                className="px-4 py-2.5 rounded-2xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-sans font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_0_20px_rgba(0,51,255,0.4)] transition-all transform active:scale-95 cursor-pointer"
+                className="px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-white/15 text-white font-sans font-bold text-xs uppercase tracking-wider flex items-center gap-2 border border-white/15 transition-all transform active:scale-95 cursor-pointer"
                 title="Ejecutar diagnóstico y telemetría de red"
               >
-                <Sparkles className="w-4 h-4 fill-current text-white" />
+                <Sparkles className="w-4 h-4 fill-current text-amber-300" />
                 <span>Diagnóstico de Red</span>
               </button>
 
@@ -625,6 +644,29 @@ const MainContent = () => {
           )}
 
 
+
+          {/* 4. SELECTOR ORBITAL METROPOLITANO (RULETA CIRCULAR 3D + COMMAND SPOTLIGHT) */}
+          <div id="selector-orbital-metropolitano" className="space-y-3 scroll-mt-28">
+            <div className="flex items-center justify-between px-1">
+              <div className="flex items-center gap-2 text-xs font-mono text-[#D4D6E6]">
+                <Compass className="w-4 h-4 text-[#807DFE]" />
+                <span className="font-bold text-white uppercase tracking-wider text-[10px] sm:text-[11px] font-sans">
+                  SELECTOR ORBITAL METROPOLITANO 3D
+                </span>
+                <span className="text-[#D4D6E6]/60 hidden sm:inline">•</span>
+                <span className="text-[#D4D6E6] text-[10px] hidden sm:inline font-sans">
+                  RULETA CURVA + SPOTLIGHT EN VIVO
+                </span>
+              </div>
+            </div>
+
+            <OrbitalWheelMenu
+              activeTab={activeTab}
+              onSelectTab={handleSelectFeature}
+              onOpenRecharge={() => setShowRechargeQuickModal(true)}
+              onOpenQR={() => setShowQRQuickModal(true)}
+            />
+          </div>
 
           {/* COMPONENTE ACETERNITY UI TABS (Control centralizado de funciones con animación spring) */}
           <Tabs 
