@@ -149,7 +149,18 @@ export const OrbitalWheelMenu = ({
   const targetOffsetRef = useRef(0);
   const animFrameRef = useRef(null);
 
-  // Estados de arrastre y scroll
+  // Detección reactiva de móvil para calibrar geometría
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Estados de arrastre y scroll táctil / rueda
   const [isDragging, setIsDragging] = useState(false);
   const dragStartYRef = useRef(0);
   const dragStartOffsetRef = useRef(0);
@@ -159,7 +170,7 @@ export const OrbitalWheelMenu = ({
   const [pingLatency, setPingLatency] = useState(14);
   const [copied, setCopied] = useState(false);
 
-  // Bucle de animación fluida tipo lerp con amortiguación
+  // Bucle de animación fluida con lerp y spring physics
   const startAnimationLoop = useCallback(() => {
     if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
 
@@ -173,13 +184,13 @@ export const OrbitalWheelMenu = ({
           return targetOffsetRef.current;
         }
         animFrameRef.current = requestAnimationFrame(step);
-        return current + delta * 0.2; // Amortiguación fluida
+        return current + delta * 0.22;
       });
     };
     animFrameRef.current = requestAnimationFrame(step);
   }, []);
 
-  // Rotar hacia un índice específico con el camino angular más corto
+  // Rotar hacia un índice con la trayectoria angular más corta
   const rotateToIndex = useCallback(
     (targetIdx) => {
       const currentNorm = ((Math.round(targetOffsetRef.current) % 8) + 8) % 8;
@@ -205,7 +216,7 @@ export const OrbitalWheelMenu = ({
     }
   }, [activeTab]);
 
-  // Manejo de SCROLL mediante rueda del ratón (Mouse Wheel / Trackpad)
+  // Manejo de scroll con rueda del ratón y trackpad
   const handleWheel = useCallback(
     (e) => {
       e.preventDefault();
@@ -214,20 +225,19 @@ export const OrbitalWheelMenu = ({
 
       if (wheelTimeoutRef.current) clearTimeout(wheelTimeoutRef.current);
 
-      // Al cesar el scroll, acoplar al elemento más cercano
       wheelTimeoutRef.current = setTimeout(() => {
         const nearest = Math.round(targetOffsetRef.current);
         targetOffsetRef.current = nearest;
         const normalized = ((nearest % 8) + 8) % 8;
         setSelectedIndex(normalized);
-      }, 140);
+      }, 130);
 
       startAnimationLoop();
     },
     [startAnimationLoop]
   );
 
-  // Manejo de Arrastre Vertical (Drag / Touch Swipe)
+  // Manejo de arrastre táctil (touch swipe) y ratón (drag)
   const handlePointerDown = useCallback((e) => {
     setIsDragging(true);
     dragStartYRef.current = e.clientY;
@@ -241,11 +251,11 @@ export const OrbitalWheelMenu = ({
     (e) => {
       if (!isDragging) return;
       const dy = e.clientY - dragStartYRef.current;
-      const stepSize = 65; // Píxeles por paso vertical
+      const stepSize = isMobile ? 55 : 70;
       targetOffsetRef.current = dragStartOffsetRef.current - dy / stepSize;
       startAnimationLoop();
     },
-    [isDragging, startAnimationLoop]
+    [isDragging, isMobile, startAnimationLoop]
   );
 
   const handlePointerUp = useCallback(
@@ -369,46 +379,46 @@ export const OrbitalWheelMenu = ({
     }
   }, [vehicle]);
 
-  // Geometría del Semicírculo Vertical
-  const dialHeight = 420;
-  const centerY = dialHeight / 2; // 210
-  const orbitRadius = 190;
-  const centerX = 260;
-  const angleStepRad = 0.44;
+  // Geometría reactiva y segura para evitar desbordes en teléfono
+  const dialHeight = isMobile ? 320 : 400;
+  const centerY = dialHeight / 2;
+  const orbitRadius = isMobile ? 115 : 160;
+  const centerX = isMobile ? 185 : 240;
+  const angleStepRad = isMobile ? 0.48 : 0.42;
 
   return (
     <div className={`w-full bg-transparent border-0 shadow-none font-sans relative select-none ${className}`}>
       
-      {/* Resplandor suave de fondo 100% transparente sin bordes */}
+      {/* Resplandor ambiental de fondo (Sin bordes, 100% transparente) */}
       <div
-        className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[360px] rounded-full blur-[130px] pointer-events-none transition-colors duration-700 opacity-25"
+        className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[540px] h-[300px] sm:h-[380px] rounded-full blur-[110px] pointer-events-none transition-colors duration-700 opacity-20"
         style={{ backgroundColor: currentItem.color }}
       />
 
-      {/* ═══ 1. TÍTULO LIMPIO: SOLO ACCIONES RÁPIDAS ═══ */}
+      {/* ═══ 1. ENCABEZADO MINIMALISTA: SOLO ACCIONES RÁPIDAS ═══ */}
       <div className="flex items-center gap-2 pb-2">
         <span
           className="w-2.5 h-2.5 rounded-full animate-pulse"
           style={{ backgroundColor: currentItem.color }}
         />
-        <h3 className="font-sans font-black text-xl text-white tracking-tight">
+        <h3 className="font-sans font-black text-xl sm:text-2xl text-white tracking-tight">
           Acciones Rápidas
         </h3>
       </div>
 
-      {/* ═══ 2. ESCENARIO VERTICAL: CONTENIDO DENTRO DEL SEMICÍRCULO + RULETA SCROLLABLE ═══ */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center min-h-[420px] relative py-2">
+      {/* ═══ 2. ESCENARIO VERTICAL: CONTENIDO DENTRO DEL SEMICÍRCULO + RULETA (ADAPTADO A MÓVIL Y ESCRITORIO) ═══ */}
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-6 min-h-[340px] lg:min-h-[420px] relative py-2">
         
-        {/* ═══ PANEL IZQUIERDO: APARECE DENTRO DEL SEMICÍRCULO (100% TRANSPARENTE, SIN CONTORNOS) ═══ */}
-        <div className="lg:col-span-7 flex flex-col justify-center items-center lg:items-start text-center lg:text-left px-2 sm:px-6 z-20">
+        {/* ═══ DETALLES DE LA OPCIÓN SELECCIONADA (PROYECTADA DENTRO DEL SEMICÍRCULO) ═══ */}
+        <div className="w-full lg:w-3/5 flex flex-col justify-center items-center lg:items-start text-center lg:text-left px-2 sm:px-4 z-20">
           <div
             key={currentItem.id}
             className="flex flex-col items-center lg:items-start max-w-lg w-full animate-in fade-in zoom-in-95 duration-250"
           >
             
-            {/* Categoría y conteo */}
+            {/* Categoría e índice flotante */}
             <div
-              className="flex items-center gap-2 mb-2 font-mono text-[11px] font-bold tracking-widest uppercase"
+              className="flex items-center gap-2 mb-2 font-mono text-[10px] sm:text-[11px] font-bold tracking-widest uppercase"
               style={{ color: currentItem.color }}
             >
               <span
@@ -422,28 +432,28 @@ export const OrbitalWheelMenu = ({
 
             {/* Icono central de gran tamaño con aura flotante */}
             <div
-              className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center mb-3 transition-all duration-500"
+              className="w-14 h-14 sm:w-18 sm:h-18 rounded-2xl flex items-center justify-center mb-2.5 transition-all duration-500"
               style={{
                 backgroundColor: `${currentItem.color}15`,
                 color: currentItem.color,
-                boxShadow: `0 0 35px ${currentItem.glowColor}`,
+                boxShadow: `0 0 32px ${currentItem.glowColor}`,
               }}
             >
-              <CurrentIcon className="w-8 h-8 sm:w-10 sm:h-10 drop-shadow-md" />
+              <CurrentIcon className="w-7 h-7 sm:w-9 sm:h-9 drop-shadow-md" />
             </div>
 
             {/* Título de la opción seleccionada */}
-            <h4 className="font-sans font-black text-2xl sm:text-3xl text-white tracking-tight drop-shadow-md mb-2">
+            <h4 className="font-sans font-black text-xl sm:text-3xl text-white tracking-tight drop-shadow-md mb-2">
               {currentItem.label}
             </h4>
 
-            {/* Datos específicos dentro del semicírculo */}
-            <div className="min-h-[42px] flex items-center text-xs sm:text-sm font-mono text-[#D4D6E6]/80 mb-4">
+            {/* Datos en vivo específicos del módulo */}
+            <div className="min-h-[38px] flex items-center text-xs sm:text-sm font-mono text-[#D4D6E6]/80 mb-3.5">
               {/* 1. Parquímetro */}
               {currentItem.id === 'dashboard' && (
                 activeSession ? (
-                  <div className="flex items-center gap-2.5">
-                    <span className="font-mono font-black text-amber-300 text-base">
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono font-black text-amber-300 text-sm sm:text-base">
                       {formatTimeFromSeconds(activeSession.secondsElapsed)}
                     </span>
                     <span className="text-white/40">•</span>
@@ -453,7 +463,7 @@ export const OrbitalWheelMenu = ({
                   </div>
                 ) : (
                   <span className="text-emerald-400 font-sans font-semibold">
-                    Listo para Estacionar • Tarifa regulada $0.25/min
+                    Listo para Estacionar • Tarifa $0.25/min
                   </span>
                 )
               )}
@@ -461,8 +471,8 @@ export const OrbitalWheelMenu = ({
               {/* 2. Recarga */}
               {currentItem.id === 'recharge' && (
                 <div className="flex items-center gap-2">
-                  <span>Saldo disponible en tarjeta:</span>
-                  <span className="text-amber-400 font-black text-base">
+                  <span>Saldo en tarjeta:</span>
+                  <span className="text-amber-400 font-black text-sm sm:text-base">
                     ${Number(card?.balance ?? 0).toFixed(2)} MXN
                   </span>
                 </div>
@@ -481,7 +491,7 @@ export const OrbitalWheelMenu = ({
 
               {/* 4. Pase QR */}
               {currentItem.id === 'qr-credential' && (
-                <div className="flex items-center gap-2.5">
+                <div className="flex items-center gap-2">
                   <span className="text-white font-bold tracking-wider">{formatPlate(vehicle?.plates)}</span>
                   <span className="text-white/40">•</span>
                   <span className="text-sky-400 font-semibold">Validado Oficial AES-256</span>
@@ -512,13 +522,13 @@ export const OrbitalWheelMenu = ({
               {/* 8. Telemetría */}
               {currentItem.id === 'telemetry' && (
                 <span className="text-emerald-400 font-semibold">
-                  Latencia de enlace: {pingLatency}ms • Satélites Conectados
+                  Latencia: {pingLatency}ms • Satélites Conectados
                 </span>
               )}
             </div>
 
-            {/* ═══ BOTONES DE ACCIÓN DENTRO DEL SEMICÍRCULO (SIN CONTORNOS, LLENADO 100%) ═══ */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5">
+            {/* ═══ BOTONES DE ACCIÓN (SIN CONTORNOS, LLENADO 100%) ═══ */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
               
               {/* Acción Parquímetro */}
               {currentItem.id === 'dashboard' && (
@@ -527,10 +537,10 @@ export const OrbitalWheelMenu = ({
                     type="button"
                     onClick={handleStopParking}
                     style={{ '--primary': '#F43F5E' }}
-                    className="fx-67 px-4 py-2.5 rounded-xl text-rose-300 font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
+                    className="fx-67 px-4 py-2 rounded-xl text-rose-300 font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer"
                   >
                     <span className="btn-label flex items-center gap-1.5">
-                      <Square className="w-4 h-4 fill-current" />
+                      <Square className="w-3.5 h-3.5 fill-current" />
                       <span>Finalizar Parquímetro</span>
                     </span>
                   </button>
@@ -539,10 +549,10 @@ export const OrbitalWheelMenu = ({
                     type="button"
                     onClick={handleStartParking}
                     style={{ '--primary': '#10B981' }}
-                    className="fx-67 px-4 py-2.5 rounded-xl text-emerald-300 font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
+                    className="fx-67 px-4 py-2 rounded-xl text-emerald-300 font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer"
                   >
                     <span className="btn-label flex items-center gap-1.5">
-                      <Play className="w-4 h-4 fill-current" />
+                      <Play className="w-3.5 h-3.5 fill-current" />
                       <span>Iniciar Parquímetro</span>
                     </span>
                   </button>
@@ -551,14 +561,14 @@ export const OrbitalWheelMenu = ({
 
               {/* Acción Recarga */}
               {currentItem.id === 'recharge' && (
-                <div className="flex flex-wrap items-center gap-1.5">
+                <div className="flex flex-wrap items-center justify-center gap-1.5">
                   {[50, 100, 200, 500].map((amt) => (
                     <button
                       key={amt}
                       type="button"
                       onClick={() => handleInstantRecharge(amt)}
                       style={{ '--primary': '#F59E0B' }}
-                      className="fx-67 px-3 py-1.5 rounded-lg text-amber-300 font-mono text-xs font-bold transition cursor-pointer"
+                      className="fx-67 px-2.5 sm:px-3 py-1.5 rounded-lg text-amber-300 font-mono text-xs font-bold transition cursor-pointer"
                     >
                       <span className="btn-label">+${amt}</span>
                     </button>
@@ -567,7 +577,7 @@ export const OrbitalWheelMenu = ({
                     type="button"
                     onClick={onOpenRecharge}
                     style={{ '--primary': '#F59E0B' }}
-                    className="fx-67 px-3.5 py-1.5 rounded-lg text-white font-sans text-xs font-bold transition cursor-pointer ml-1"
+                    className="fx-67 px-3 py-1.5 rounded-lg text-white font-sans text-xs font-bold transition cursor-pointer"
                   >
                     <span className="btn-label">Otro Monto</span>
                   </button>
@@ -580,10 +590,10 @@ export const OrbitalWheelMenu = ({
                   type="button"
                   onClick={handleToggleAutoPay}
                   style={{ '--primary': autoPay?.enabled ? '#F43F5E' : '#10B981' }}
-                  className="fx-67 px-4 py-2.5 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 transition cursor-pointer"
+                  className="fx-67 px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-bold flex items-center gap-1.5 transition cursor-pointer"
                 >
                   <span className="btn-label flex items-center gap-1.5">
-                    <Zap className="w-4 h-4" />
+                    <Zap className="w-3.5 h-3.5" />
                     <span className={autoPay?.enabled ? 'text-rose-300' : 'text-emerald-300'}>
                       {autoPay?.enabled ? 'Pausar Autocobro' : 'Activar Autocobro'}
                     </span>
@@ -598,10 +608,10 @@ export const OrbitalWheelMenu = ({
                     type="button"
                     onClick={handleCopyPlates}
                     style={{ '--primary': '#807DFE' }}
-                    className="fx-67 px-3.5 py-2.5 rounded-xl text-white font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
+                    className="fx-67 px-3.5 py-2 rounded-xl text-white font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer"
                   >
                     <span className="btn-label flex items-center gap-1.5">
-                      {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                      {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                       <span>{copied ? 'Copiado' : 'Copiar Placas'}</span>
                     </span>
                   </button>
@@ -610,10 +620,10 @@ export const OrbitalWheelMenu = ({
                     type="button"
                     onClick={onOpenQR}
                     style={{ '--primary': '#38BDF8' }}
-                    className="fx-67 px-4 py-2.5 rounded-xl text-sky-300 font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
+                    className="fx-67 px-4 py-2 rounded-xl text-sky-300 font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer"
                   >
                     <span className="btn-label flex items-center gap-1.5">
-                      <QrCode className="w-4 h-4" />
+                      <QrCode className="w-3.5 h-3.5" />
                       <span>Abrir Pase QR</span>
                     </span>
                   </button>
@@ -626,10 +636,10 @@ export const OrbitalWheelMenu = ({
                   type="button"
                   onClick={handlePinCurrentLocation}
                   style={{ '--primary': '#FB923C' }}
-                  className="fx-67 px-4 py-2.5 rounded-xl text-orange-300 font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
+                  className="fx-67 px-4 py-2 rounded-xl text-orange-300 font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer"
                 >
                   <span className="btn-label flex items-center gap-1.5">
-                    <MapPin className="w-4 h-4" />
+                    <MapPin className="w-3.5 h-3.5" />
                     <span>Fijar Aquí mi Lugar</span>
                   </span>
                 </button>
@@ -641,10 +651,10 @@ export const OrbitalWheelMenu = ({
                   type="button"
                   onClick={handleToggleVehicle}
                   style={{ '--primary': '#F43F5E' }}
-                  className="fx-67 px-4 py-2.5 rounded-xl text-rose-300 font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
+                  className="fx-67 px-4 py-2 rounded-xl text-rose-300 font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer"
                 >
                   <span className="btn-label flex items-center gap-1.5">
-                    <RefreshCw className="w-4 h-4" />
+                    <RefreshCw className="w-3.5 h-3.5" />
                     <span>Alternar Vehículo</span>
                   </span>
                 </button>
@@ -656,7 +666,7 @@ export const OrbitalWheelMenu = ({
                   type="button"
                   onClick={() => onSelectTab('history')}
                   style={{ '--primary': '#EC4899' }}
-                  className="fx-67 px-4 py-2.5 rounded-xl text-pink-300 font-sans text-xs font-bold transition cursor-pointer"
+                  className="fx-67 px-4 py-2 rounded-xl text-pink-300 font-sans text-xs sm:text-sm font-bold transition cursor-pointer"
                 >
                   <span className="btn-label">Ver Historial Completo</span>
                 </button>
@@ -669,11 +679,11 @@ export const OrbitalWheelMenu = ({
                   onClick={handleRunPingTest}
                   disabled={isTestingPing}
                   style={{ '--primary': '#A78BFA' }}
-                  className="fx-67 px-4 py-2.5 rounded-xl text-purple-300 font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer disabled:opacity-50"
+                  className="fx-67 px-4 py-2 rounded-xl text-purple-300 font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer disabled:opacity-50"
                 >
                   <span className="btn-label flex items-center gap-1.5">
-                    <Radio className={`w-4 h-4 ${isTestingPing ? 'animate-spin' : ''}`} />
-                    <span>{isTestingPing ? 'Midiendo Latencia...' : 'Ejecutar Test Ping'}</span>
+                    <Radio className={`w-3.5 h-3.5 ${isTestingPing ? 'animate-spin' : ''}`} />
+                    <span>{isTestingPing ? 'Midiendo...' : 'Ejecutar Test Ping'}</span>
                   </span>
                 </button>
               )}
@@ -683,7 +693,7 @@ export const OrbitalWheelMenu = ({
                 type="button"
                 onClick={() => onSelectTab(currentItem.actionTarget)}
                 style={{ '--primary': currentItem.color }}
-                className="fx-67 px-3.5 py-2.5 rounded-xl text-xs font-sans text-white/70 hover:text-white flex items-center gap-1.5 transition cursor-pointer"
+                className="fx-67 px-3 py-2 rounded-xl text-xs font-sans text-white/70 hover:text-white flex items-center gap-1 transition cursor-pointer"
                 title="Abrir módulo completo"
               >
                 <span className="btn-label flex items-center gap-1">
@@ -697,19 +707,20 @@ export const OrbitalWheelMenu = ({
           </div>
         </div>
 
-        {/* ═══ PANEL DERECHO: RULETA EN SEMICÍRCULO VERTICAL CON SCROLL & DRAG ═══ */}
+        {/* ═══ RULETA VERTICAL EN SEMICÍRCULO FLOTANTE (100% LIMPIA, SIN LÍNEAS NI BORDES) ═══ */}
         <div
           onWheel={handleWheel}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerUp}
-          className="lg:col-span-5 h-[390px] sm:h-[430px] relative flex items-center justify-center cursor-grab active:cursor-grabbing touch-none overflow-hidden"
-          title="Gira la rueda del ratón o arrastra para rotar el semicírculo vertical"
+          style={{ height: `${dialHeight}px` }}
+          className="w-full lg:w-2/5 relative flex items-center justify-center cursor-grab active:cursor-grabbing touch-none select-none overflow-hidden"
+          title="Scroll con la rueda o arrastra para rotar el semicírculo vertical"
         >
           
           {/* Botones de navegación vertical sutiles */}
-          <div className="absolute right-2 top-2 z-40 flex flex-col gap-1">
+          <div className="absolute right-1 sm:right-3 top-1 sm:top-2 z-40 flex flex-col gap-1">
             <button
               type="button"
               onClick={handlePrev}
@@ -734,48 +745,20 @@ export const OrbitalWheelMenu = ({
             </button>
           </div>
 
-
-
-          {/* SVG del Semicírculo Vertical (Arco Flotante, Sin Contornos) */}
-          <svg
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            viewBox="0 0 340 420"
-            fill="none"
-          >
-            {/* Arco guía vertical sutil */}
-            <path
-              d="M 194 40 A 180 180 0 0 0 194 380"
-              stroke="rgba(255, 255, 255, 0.12)"
-              strokeWidth="1.5"
-              strokeDasharray="4 8"
-            />
-
-            {/* Resplandor del semicírculo con el color de la opción activa */}
-            <path
-              d="M 194 40 A 180 180 0 0 0 194 380"
-              stroke={currentItem.color}
-              strokeWidth="2.5"
-              strokeOpacity="0.45"
-              style={{
-                filter: `drop-shadow(0 0 12px ${currentItem.color})`,
-              }}
-            />
-          </svg>
-
-          {/* Elementos orbitando a lo largo del semicírculo vertical */}
+          {/* Elementos orbitando verticalmente (Completamente limpios, sin líneas de contorno) */}
           <div className="w-full h-full relative pointer-events-none">
             {ORBIT_ITEMS.map((item, index) => {
               const diff = shortestAngularDiff(index, orbitOffset, 8);
               const absDiff = Math.abs(diff);
 
-              if (absDiff > 2.8) return null;
+              if (absDiff > 2.7) return null;
 
               const angle = Math.PI - diff * angleStepRad;
               const iconX = centerX + orbitRadius * Math.cos(angle);
               const iconY = centerY + orbitRadius * Math.sin(angle);
 
-              const opacity = Math.max(0, 1 - Math.pow(absDiff / 2.8, 1.6));
-              const scale = Math.max(0.75, 1 - absDiff * 0.08);
+              const opacity = Math.max(0, 1 - Math.pow(absDiff / 2.7, 1.5));
+              const scale = Math.max(0.72, 1 - absDiff * 0.08);
               const isSelected = absDiff < 0.45;
               const Icon = item.icon;
 
@@ -793,22 +776,22 @@ export const OrbitalWheelMenu = ({
                   }}
                   className="pointer-events-auto flex items-center gap-2 cursor-pointer transition-transform duration-150 group"
                 >
-                  {/* Icono del nodo vertical */}
+                  {/* Icono del nodo vertical sin líneas duras */}
                   <div
-                    className="w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all duration-300"
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all duration-300"
                     style={{
                       backgroundColor: isSelected ? `${item.color}35` : `${item.color}15`,
                       color: isSelected ? '#FFFFFF' : item.color,
                       boxShadow: isSelected ? `0 0 20px ${item.glowColor}` : undefined,
                     }}
                   >
-                    <Icon className="w-5 h-5 transition-transform group-hover:scale-110" />
+                    <Icon className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:scale-110" />
                   </div>
 
                   {/* Etiqueta limpia del nodo activo */}
                   {isSelected && (
                     <div
-                      className="px-3 py-1 rounded-full text-xs font-sans font-bold whitespace-nowrap shadow-lg text-white"
+                      className="px-2.5 sm:px-3 py-1 rounded-full text-xs font-sans font-bold whitespace-nowrap shadow-lg text-white"
                       style={{
                         backgroundColor: `${item.color}35`,
                       }}
@@ -825,9 +808,9 @@ export const OrbitalWheelMenu = ({
 
       </div>
 
-      {/* ═══ 3. SELECTOR INFERIOR DE 8 OPCIONES (100% TRANSPARENTE, SIN CONTORNOS, SE LLENA AL 100%) ═══ */}
-      <div className="pt-3">
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-1">
+      {/* ═══ 3. SELECTOR DE 8 OPCIONES (EN MÓVIL: CARRUSEL HORIZONTAL DESLIZABLE / EN PC: GRID 8 COLS) ═══ */}
+      <div className="pt-2">
+        <div className="overflow-x-auto scrollbar-none flex sm:grid sm:grid-cols-4 lg:grid-cols-8 gap-1.5 pb-2 -mx-1 px-1">
           {ORBIT_ITEMS.map((item, idx) => {
             const isSelected = selectedIndex === idx;
             const Icon = item.icon;
@@ -840,11 +823,11 @@ export const OrbitalWheelMenu = ({
                 style={{
                   '--primary': item.color,
                 }}
-                className={`fx-67 py-2 px-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
-                  isSelected ? 'is-active text-white' : 'text-[#D4D6E6]/70 hover:text-white'
+                className={`fx-67 shrink-0 py-2 px-3 sm:px-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
+                  isSelected ? 'is-active text-white font-bold' : 'text-[#D4D6E6]/70 hover:text-white'
                 }`}
               >
-                <span className="btn-label flex items-center gap-1.5 w-full">
+                <span className="btn-label flex items-center gap-1.5 w-full whitespace-nowrap">
                   <div
                     className="w-5 h-5 rounded-md flex items-center justify-center shrink-0"
                     style={{
@@ -854,7 +837,7 @@ export const OrbitalWheelMenu = ({
                   >
                     <Icon className="w-3 h-3" />
                   </div>
-                  <span className="font-sans text-[11px] font-bold truncate">
+                  <span className="font-sans text-[11px] font-bold">
                     {item.shortLabel}
                   </span>
                 </span>
