@@ -10,7 +10,7 @@ import { AutoPaymentConfig } from './components/AutoPaymentConfig';
 import { ParkingMeter } from './components/ParkingMeter';
 import { TransactionHistory } from './components/TransactionHistory';
 import { StaggeredGrid } from './components/ui/staggered-grid';
-import { BackgroundGradientAnimation } from './components/ui/background-gradient-animation';
+import { HaloHorizon } from './components/ui/halo-horizon';
 import { HeroParallax } from './components/ui/hero-parallax';
 import { WobbleCard } from './components/ui/wobble-card';
 import { InterfaceCraftsCards } from './components/ui/interface-crafts-cards';
@@ -203,31 +203,31 @@ const MainContent = () => {
                   <span className="text-[#D4D6E6]/60">•</span>
                   <span className="text-[#D4D6E6] text-[11px]">PANEL DE ACCESO INMEDIATO</span>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-black text-[#D4D6E6] tracking-tight flex items-center gap-2.5 font-mono">
+                <h3 className="text-xl sm:text-2xl font-black text-[#D4D6E6] tracking-tight flex items-center gap-2.5 font-sans">
                   <Zap className="w-5 h-5 text-[#D4D6E6]" />
                   Apartado de Funciones Rápidas
                 </h3>
-                <p className="text-xs text-[#D4D6E6] mt-1 font-mono">
+                <p className="text-xs text-[#D4D6E6] mt-1 font-sans">
                   Ejecuta recargas, abre la credencial QR para tránsitos, fija tu ubicación en el mapa o administra el autocobro en 1 toque.
                 </p>
               </div>
 
-              <span className="text-[11px] font-bold text-[#D4D6E6] bg-white/10 backdrop-blur-sm border border-white/10 px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm font-mono w-fit">
+              <span className="text-[11px] font-bold text-[#D4D6E6] bg-white/10 backdrop-blur-sm border border-white/10 px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm font-sans w-fit">
                 <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                6 Accesos Configurados
+                <span className="font-mono">6</span> Accesos Configurados
               </span>
             </div>
 
             <InterfaceCraftsCards items={quickActionsItems} />
 
             {/* Accesos de 1 clic a montos rápidos de recarga y acciones instantáneas */}
-            <div className="pt-4 border-t border-white/10 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="pt-4 border-t border-white/10 grid grid-cols-1 md:grid-cols-3 gap-4 font-sans">
               <div 
                 onClick={() => setShowRechargeQuickModal(true)}
                 className="p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 hover:bg-white/8 cursor-pointer transition group shadow-md"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-bold text-[#D4D6E6] font-mono flex items-center gap-1.5">
+                  <span className="text-xs font-bold text-[#D4D6E6] font-sans flex items-center gap-1.5">
                     <CurrencyDollarIcon size={14} className="text-[#D4D6E6]" />
                     Recarga Inmediata
                   </span>
@@ -235,8 +235,8 @@ const MainContent = () => {
                     EXPRESS
                   </span>
                 </div>
-                <p className="text-[11px] text-[#D4D6E6] font-mono">
-                  Añade $100, $200 o $500 a tu tarjeta Parqu sin comisiones.
+                <p className="text-[11px] text-[#D4D6E6] font-sans">
+                  Añade <span className="font-mono">$100</span>, <span className="font-mono">$200</span> o <span className="font-mono">$500</span> a tu tarjeta Parqu sin comisiones.
                 </p>
               </div>
 
@@ -245,7 +245,7 @@ const MainContent = () => {
                 className="p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 hover:bg-white/8 cursor-pointer transition group shadow-md"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-bold text-[#D4D6E6] font-mono flex items-center gap-1.5">
+                  <span className="text-xs font-bold text-[#D4D6E6] font-sans flex items-center gap-1.5">
                     <QrCode className="w-3.5 h-3.5 text-[#D4D6E6]" />
                     Credencial QR Oficial
                   </span>
@@ -253,7 +253,7 @@ const MainContent = () => {
                     AES-256
                   </span>
                 </div>
-                <p className="text-[11px] text-[#D4D6E6] font-mono">
+                <p className="text-[11px] text-[#D4D6E6] font-sans">
                   Muestra tu pase contactless al oficial vial para verificar estancia.
                 </p>
               </div>
@@ -263,7 +263,7 @@ const MainContent = () => {
                 className="p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 hover:bg-white/8 cursor-pointer transition group shadow-md"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-bold text-[#D4D6E6] font-mono flex items-center gap-1.5">
+                  <span className="text-xs font-bold text-[#D4D6E6] font-sans flex items-center gap-1.5">
                     <MapPin className="w-3.5 h-3.5 text-[#D4D6E6]" />
                     Mapa & Rutas 3D
                   </span>
@@ -271,7 +271,7 @@ const MainContent = () => {
                     EN VIVO
                   </span>
                 </div>
-                <p className="text-[11px] text-[#D4D6E6] font-mono">
+                <p className="text-[11px] text-[#D4D6E6] font-sans">
                   Fija tu ubicación en el mapa, asigna tu número de espacio o simula tu recorrido animado en 3D.
                 </p>
               </div>
@@ -293,11 +293,11 @@ const MainContent = () => {
             {/* Tarjeta Digital (Col 1 a 7) */}
             <div className="anime-stagger-card lg:col-span-7 space-y-4">
               <div className="flex items-center justify-between">
-                <h3 className="text-xs uppercase tracking-wider font-bold text-neutral-400 font-mono flex items-center gap-2">
+                <h3 className="text-xs uppercase tracking-wider font-bold text-neutral-400 font-sans flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-white" />
                   Tu Tarjeta Digital de Parquímetro
                 </h3>
-                <span className="text-[11px] text-neutral-500 font-mono">
+                <span className="text-[11px] text-neutral-500 font-sans">
                   Actualización en tiempo real
                 </span>
               </div>
@@ -322,14 +322,14 @@ const MainContent = () => {
                     </span>
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl font-black text-[#D4D6E6] tracking-tight leading-tight">
+                  <h3 className="text-xl sm:text-2xl font-black text-[#D4D6E6] tracking-tight leading-tight font-sans">
                     Protección & Telemetría Satelital
                   </h3>
-                  <p className="mt-2 text-xs text-[#D4D6E6] font-mono leading-relaxed">
-                    El sistema debita segundo a segundo exacto con tarifa regulada de <strong className="text-[#D4D6E6]">$0.25 MXN/min</strong> con encriptación oficial de <strong className="text-[#D4D6E6]">SSS.Solutions</strong>.
+                  <p className="mt-2 text-xs text-[#D4D6E6] font-sans leading-relaxed">
+                    El sistema debita segundo a segundo exacto con tarifa regulada de <strong className="text-[#D4D6E6] font-mono">$0.25 MXN/min</strong> con encriptación oficial de <strong className="text-[#D4D6E6]">SSS.Solutions</strong>.
                   </p>
 
-                  <div className="space-y-3 mt-4 text-xs font-mono">
+                  <div className="space-y-3 mt-4 text-xs font-sans">
                     <div className="flex items-start gap-3 p-3 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
                       <Zap className="w-4 h-4 text-amber-300 flex-shrink-0 mt-0.5" />
                       <div>
@@ -351,7 +351,7 @@ const MainContent = () => {
                 <div className="pt-4 mt-4 border-t border-white/10">
                   <button
                     onClick={() => setActiveTab('autopay')}
-                    className="w-full py-2.5 rounded-xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-mono font-bold text-xs transition flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,51,255,0.6)]"
+                    className="w-full py-2.5 rounded-xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-sans font-bold text-xs transition flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,51,255,0.6)]"
                   >
                     <Zap className="w-4 h-4 text-white" />
                     Configurar Reglas del Autocobro
@@ -414,16 +414,8 @@ const MainContent = () => {
   ];
 
   return (
-    <BackgroundGradientAnimation
-      gradientBackgroundStart="rgb(1, 3, 62)"
-      gradientBackgroundEnd="rgb(0, 1, 20)"
-      firstColor="0, 51, 255"
-      secondColor="128, 125, 254"
-      thirdColor="212, 214, 230"
-      fourthColor="1, 3, 62"
-      fifthColor="47, 49, 231"
-      pointerColor="128, 125, 254"
-      size="75%"
+    <HaloHorizon
+      variant="top"
       className="min-h-screen flex flex-col text-[#D4D6E6] selection:bg-[#0033FF] selection:text-[#D4D6E6]"
     >
       <div className="relative z-10 flex flex-col min-h-screen">
@@ -438,10 +430,10 @@ const MainContent = () => {
         {activeSession && activeTab !== 'dashboard' && (
           <div 
             onClick={() => handleSelectFeature('dashboard')}
-            className="bg-black/95 border-b border-neutral-800 px-4 py-2.5 text-center text-xs font-mono font-semibold text-white flex items-center justify-center gap-2 cursor-pointer hover:bg-neutral-950 transition backdrop-blur-md sticky top-20 z-30 shadow-2xl"
+            className="bg-black/95 border-b border-neutral-800 px-4 py-2.5 text-center text-xs font-sans font-semibold text-white flex items-center justify-center gap-2 cursor-pointer hover:bg-neutral-950 transition backdrop-blur-md sticky top-20 z-30 shadow-2xl"
           >
             <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-            <span>Vehículo {vehicle.plates} actualmente en parquímetro. Clic para ver contador o liberar estacionamiento.</span>
+            <span>Vehículo <span className="font-mono">{vehicle.plates}</span> actualmente en parquímetro. Clic para ver contador o liberar estacionamiento.</span>
             <ChevronRight className="w-3.5 h-3.5 text-neutral-400" />
           </div>
         )}
@@ -479,15 +471,15 @@ const MainContent = () => {
                 <span className="text-[#D4D6E6]/60">•</span>
                 <span className="text-[#D4D6E6]">0 Filas • 0 Monedas</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-[#D4D6E6] tracking-tight flex items-center gap-3">
+              <h2 className="text-2xl sm:text-3xl font-black text-[#D4D6E6] tracking-tight flex items-center gap-3 font-sans">
                 <span>Centro de Operaciones Parqu</span>
               </h2>
-              <p className="text-xs sm:text-sm text-[#D4D6E6] mt-1 font-mono">
+              <p className="text-xs sm:text-sm text-[#D4D6E6] mt-1 font-sans">
                 Control centralizado de tarjeta virtual, parquímetros municipales y telemetría de autocobro.
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3 font-sans">
               <button
                 type="button"
                 onClick={() => {
@@ -496,7 +488,7 @@ const MainContent = () => {
                     description: 'Telemetría metropolitana y sensores de parquímetro activos al 100%.',
                   });
                 }}
-                className="px-4 py-2.5 rounded-2xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-mono font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_0_20px_rgba(0,51,255,0.4)] transition-all transform active:scale-95 cursor-pointer"
+                className="px-4 py-2.5 rounded-2xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-sans font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_0_20px_rgba(0,51,255,0.4)] transition-all transform active:scale-95 cursor-pointer"
                 title="Ejecutar diagnóstico y telemetría de red"
               >
                 <Sparkles className="w-4 h-4 fill-current text-white" />
@@ -505,8 +497,8 @@ const MainContent = () => {
 
               <div className="flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white/8 backdrop-blur-sm border border-white/10 shrink-0">
                 <PlugConnectedIcon size={18} className="text-emerald-400" />
-                <div className="text-left font-mono">
-                  <div className="text-[10px] text-[#D4D6E6] uppercase tracking-widest font-bold">Telemetría Online</div>
+                <div className="text-left font-sans">
+                  <div className="text-[10px] text-[#D4D6E6] uppercase tracking-widest font-bold font-mono">Telemetría Online</div>
                   <div className="text-xs font-bold text-[#D4D6E6]">Red Municipal Conectada</div>
                 </div>
               </div>
@@ -523,47 +515,47 @@ const MainContent = () => {
                 <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/15 text-[#D4D6E6] flex items-center justify-center mx-auto mb-3 shadow-[0_0_20px_rgba(0,51,255,0.4)]">
                   <CurrencyDollarIcon size={24} strokeWidth={2} />
                 </div>
-                <h3 className="text-lg font-bold text-[#D4D6E6] mb-1 font-mono">Recarga Rápida de Saldo</h3>
-                <p className="text-xs text-[#D4D6E6] mb-6 font-mono">
+                <h3 className="text-lg font-bold text-[#D4D6E6] mb-1 font-sans">Recarga Rápida de Saldo</h3>
+                <p className="text-xs text-[#D4D6E6] mb-6 font-sans">
                   Saldo disponible: <span className="text-emerald-400 font-bold font-mono">${Number(card?.balance ?? 0).toFixed(2)} MXN</span>
                 </p>
 
-                <form onSubmit={handleQuickRechargeSubmit} className="space-y-4 text-left font-mono">
+                <form onSubmit={handleQuickRechargeSubmit} className="space-y-4 text-left font-sans">
                   <div>
-                    <label className="text-xs text-neutral-400 font-mono block mb-2">Selecciona un monto:</label>
+                    <label className="text-xs text-neutral-400 font-sans block mb-2">Selecciona un monto:</label>
                     <div className="grid grid-cols-3 gap-2">
                       {[100, 200, 500].map((amt) => (
                         <button
                           key={amt}
                           type="button"
                           onClick={() => setRechargeAmt(amt)}
-                          className={`py-2 rounded-xl text-xs font-mono font-bold border transition flex items-center justify-center gap-1 ${
+                          className={`py-2 rounded-xl text-xs font-sans font-bold border transition flex items-center justify-center gap-1 ${
                             rechargeAmt === amt
                               ? 'bg-[#0033FF] text-white border-[#807DFE] shadow-[0_0_15px_rgba(0,51,255,0.4)]'
                               : 'bg-white/5 text-[#D4D6E6] border-white/10 hover:border-white/20 hover:bg-white/8'
                           }`}
                         >
                           <CurrencyDollarIcon size={12} strokeWidth={2.2} />
-                          <span>{amt}</span>
+                          <span className="font-mono">{amt}</span>
                         </button>
                       ))}
                     </div>
                   </div>
 
-                  <div className="flex gap-2 pt-2">
+                  <div className="flex gap-2 pt-2 font-sans">
                     <button
                       type="button"
                       onClick={() => setShowRechargeQuickModal(false)}
-                      className="flex-1 py-2.5 rounded-xl border border-white/15 text-[#D4D6E6] text-xs font-mono hover:bg-white/5 transition"
+                      className="flex-1 py-2.5 rounded-xl border border-white/15 text-[#D4D6E6] text-xs font-sans hover:bg-white/5 transition"
                     >
                       Cancelar
                     </button>
                     <button
                       type="submit"
-                      className="flex-1 py-2.5 rounded-xl bg-[#0033FF] text-white text-xs font-mono font-bold hover:bg-[#2250ff] transition shadow-[0_0_20px_rgba(0,51,255,0.7)] flex items-center justify-center gap-1.5"
+                      className="flex-1 py-2.5 rounded-xl bg-[#0033FF] text-white text-xs font-sans font-bold hover:bg-[#2250ff] transition shadow-[0_0_20px_rgba(0,51,255,0.7)] flex items-center justify-center gap-1.5"
                     >
                       <CurrencyDollarIcon size={14} strokeWidth={2.2} />
-                      <span>Recargar ${rechargeAmt}</span>
+                      <span>Recargar <span className="font-mono">${rechargeAmt}</span></span>
                     </button>
                   </div>
                 </form>
@@ -575,8 +567,8 @@ const MainContent = () => {
           {showQRQuickModal && (
             <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xl flex items-center justify-center p-4">
               <div className="bg-[#01033E]/50 backdrop-blur-2xl border border-white/15 rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
-                <h3 className="text-lg font-bold text-[#D4D6E6] mb-1 font-mono">Credencial QR de Inspección</h3>
-                <p className="text-xs text-[#D4D6E6] mb-6">
+                <h3 className="text-lg font-bold text-[#D4D6E6] mb-1 font-sans">Credencial QR de Inspección</h3>
+                <p className="text-xs text-[#D4D6E6] mb-6 font-sans">
                   Lectura directa para agentes de tránsito vial
                 </p>
 
@@ -609,14 +601,14 @@ const MainContent = () => {
                   </svg>
                 </div>
 
-                <div className="bg-white/5 border border-white/10 rounded-xl p-2.5 mb-6 text-xs font-mono text-[#D4D6E6] flex items-center justify-between">
-                  <span>Placas: <strong className="text-[#D4D6E6]">{vehicle.plates}</strong></span>
+                <div className="bg-white/5 border border-white/10 rounded-xl p-2.5 mb-6 text-xs font-sans text-[#D4D6E6] flex items-center justify-between">
+                  <span>Placas: <strong className="text-[#D4D6E6] font-mono">{vehicle.plates}</strong></span>
                   <span className="text-[#D4D6E6]">● Validado</span>
                 </div>
 
                 <button
                   onClick={() => setShowQRQuickModal(false)}
-                  className="w-full py-2.5 rounded-xl bg-[#0033FF] text-white text-xs font-mono font-bold hover:bg-[#2250ff] transition shadow-[0_0_20px_rgba(0,51,255,0.7)]"
+                  className="w-full py-2.5 rounded-xl bg-[#0033FF] text-white text-xs font-sans font-bold hover:bg-[#2250ff] transition shadow-[0_0_20px_rgba(0,51,255,0.7)]"
                 >
                   Cerrar Credencial
                 </button>
@@ -656,14 +648,14 @@ const MainContent = () => {
                 style={{ maxHeight: '32px' }}
                 className="h-8 w-auto object-contain drop-shadow-[0_0_10px_rgba(245,241,232,0.2)]"
               />
-              <div className="text-left">
-                <span className="font-bold text-[#D4D6E6] tracking-wide block font-mono">Parqu Digital</span>
-                <span className="text-[11px] text-[#D4D6E6]/70 font-mono">Parquímetro inteligente con autocobro</span>
+              <div className="text-left font-sans">
+                <span className="font-bold text-[#D4D6E6] tracking-wide block">Parqu Digital</span>
+                <span className="text-[11px] text-[#D4D6E6]/70">Parquímetro inteligente con autocobro</span>
               </div>
             </div>
 
             {/* Powered by SSS.Solutions - Logo Transparente sin cajas de fondo */}
-            <div className="flex flex-col sm:flex-row items-center gap-3 py-2 px-5 rounded-full bg-white/5 border border-white/10">
+            <div className="flex flex-col sm:flex-row items-center gap-3 py-2 px-5 rounded-full bg-white/5 border border-white/10 font-sans">
               <span className="text-[11px] uppercase tracking-[0.2em] font-mono text-[#D4D6E6]">
                 Powered by
               </span>
@@ -678,7 +670,7 @@ const MainContent = () => {
             </div>
 
             {/* Seguridad y Derechos */}
-            <div className="text-center md:text-right font-mono text-[11px] text-[#D4D6E6]/70">
+            <div className="text-center md:text-right font-sans text-[11px] text-[#D4D6E6]/70">
               <span>© {new Date().getFullYear()} Todos los derechos reservados.</span>
               <span className="block text-[#D4D6E6]/50">Tecnología SSS.Solutions • Encriptación 256-bit</span>
             </div>
@@ -686,7 +678,7 @@ const MainContent = () => {
           </div>
         </footer>
       </div>
-    </BackgroundGradientAnimation>
+    </HaloHorizon>
   );
 };
 

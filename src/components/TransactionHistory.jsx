@@ -47,22 +47,22 @@ export const TransactionHistory = () => {
             <History className="w-6 h-6 text-[#D4D6E6]" />
             Historial de Autocobros & Ubicaciones Fijadas
           </h2>
-          <p className="text-xs sm:text-sm text-[#D4D6E6] mt-1 font-mono max-w-2xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#D4D6E6] mt-1 font-sans max-w-2xl leading-relaxed">
             Registro inmutable de cargos de parquímetro y bitácora satelital de ubicaciones donde has fijado tu vehículo.
           </p>
         </div>
 
-        <div className="flex items-center gap-3 font-mono">
-          <div className="text-right">
+        <div className="flex items-center gap-3">
+          <div className="text-right font-sans">
             <span className="text-[10px] uppercase tracking-wider text-[#D4D6E6] block">Total Acumulado</span>
-            <span className="text-lg font-black text-emerald-400 flex items-center justify-end gap-1">
+            <span className="text-lg font-black text-emerald-400 flex items-center justify-end gap-1 font-mono">
               <CurrencyDollarIcon size={16} className="text-emerald-400" />
               <AnimeCounter
                 value={totalSpent}
                 prefix="$"
                 decimals={2}
                 duration={700}
-                className="text-lg font-black text-emerald-400"
+                className="text-lg font-black text-emerald-400 font-mono"
               />
             </span>
           </div>
@@ -76,44 +76,44 @@ export const TransactionHistory = () => {
       <div className="flex items-center gap-2 mb-6">
         <button
           onClick={() => setActiveSubTab('payments')}
-          className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 ${
+          className={`px-4 py-2 rounded-xl text-xs font-sans font-bold transition flex items-center gap-2 ${
             activeSubTab === 'payments'
               ? 'bg-[#0033FF] text-white shadow-[0_0_15px_rgba(0,51,255,0.4)]'
               : 'bg-white/5 text-[#D4D6E6]/70 hover:text-white border border-white/10 hover:bg-white/8'
           }`}
         >
           <Receipt className="w-3.5 h-3.5" />
-          <span>Comprobantes de Pago ({transactions.length})</span>
+          <span>Comprobantes de Pago (<span className="font-mono">{transactions.length}</span>)</span>
         </button>
 
         <button
           onClick={() => setActiveSubTab('locations')}
-          className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 ${
+          className={`px-4 py-2 rounded-xl text-xs font-sans font-bold transition flex items-center gap-2 ${
             activeSubTab === 'locations'
               ? 'bg-[#0033FF] text-white shadow-[0_0_15px_rgba(0,51,255,0.4)]'
               : 'bg-white/5 text-[#D4D6E6]/70 hover:text-white border border-white/10 hover:bg-white/8'
           }`}
         >
           <MapPin className="w-3.5 h-3.5" />
-          <span>📍 Registro de Ubicaciones GPS ({pinnedLocations.length})</span>
+          <span>📍 Registro de Ubicaciones GPS (<span className="font-mono">{pinnedLocations.length}</span>)</span>
         </button>
       </div>
 
       {/* CONTENIDO SEGÚN LA SUB-PESTAÑA SELECCIONADA */}
       {activeSubTab === 'payments' ? (
         transactions.length === 0 ? (
-          <div className="text-center py-12 border border-dashed border-white/10 rounded-3xl bg-white/5 backdrop-blur-sm">
+          <div className="text-center py-12 border border-dashed border-white/10 rounded-3xl bg-white/5 backdrop-blur-sm font-sans">
             <Receipt className="w-12 h-12 text-neutral-600 mx-auto mb-3" />
-            <h4 className="text-sm font-semibold text-neutral-300 font-mono">No hay cobros registrados aún</h4>
-            <p className="text-xs text-neutral-500 max-w-sm mx-auto mt-1 font-mono">
+            <h4 className="text-sm font-semibold text-neutral-300 font-sans">No hay cobros registrados aún</h4>
+            <p className="text-xs text-neutral-500 max-w-sm mx-auto mt-1 font-sans">
               Los cargos se generarán de manera automática cada vez que utilices un parquímetro y liberes tu estacionamiento.
             </p>
           </div>
         ) : (
           <div className="overflow-x-auto rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md">
-            <table className="w-full text-left text-xs">
+            <table className="w-full text-left text-xs font-sans">
               <thead>
-                <tr className="border-b border-white/10 text-neutral-400 uppercase font-mono font-semibold bg-white/5">
+                <tr className="border-b border-white/10 text-neutral-400 uppercase font-sans font-semibold bg-white/5">
                   <th className="py-3.5 px-4">Folio / Fecha</th>
                   <th className="py-3.5 px-4">Zona / Ubicación</th>
                   <th className="py-3.5 px-4">Duración</th>
@@ -129,7 +129,7 @@ export const TransactionHistory = () => {
                       <span className="font-bold text-white block">{txn.folio}</span>
                       <span className="text-[11px] text-neutral-400 font-mono">{formatDate(txn.date)}</span>
                     </td>
-                    <td className="py-3.5 px-4 font-mono font-medium text-neutral-200">
+                    <td className="py-3.5 px-4 font-sans font-medium text-neutral-200">
                       {txn.zone}
                     </td>
                     <td className="py-3.5 px-4 text-neutral-300">
@@ -138,8 +138,8 @@ export const TransactionHistory = () => {
                         <span>{txn.durationMinutes} min</span>
                       </div>
                     </td>
-                    <td className="py-3.5 px-4 font-mono">
-                      <span className="text-[11px] text-neutral-300 bg-neutral-900 px-2.5 py-1 rounded-lg border border-neutral-800">
+                    <td className="py-3.5 px-4 font-sans">
+                      <span className="text-[11px] text-neutral-300 bg-neutral-900 px-2.5 py-1 rounded-lg border border-neutral-800 font-sans">
                         {txn.method}
                       </span>
                     </td>
@@ -152,7 +152,7 @@ export const TransactionHistory = () => {
                     <td className="py-3.5 px-4 text-center">
                       <button
                         onClick={() => setSelectedTicket(txn)}
-                        className="px-3.5 py-1.5 rounded-xl bg-white/8 backdrop-blur-sm hover:bg-[#0033FF] hover:text-white text-[#D4D6E6] border border-white/10 transition text-[11px] font-mono font-semibold inline-flex items-center gap-1.5 shadow-sm"
+                        className="px-3.5 py-1.5 rounded-xl bg-white/8 backdrop-blur-sm hover:bg-[#0033FF] hover:text-white text-[#D4D6E6] border border-white/10 transition text-[11px] font-sans font-semibold inline-flex items-center gap-1.5 shadow-sm"
                       >
                         <Receipt className="w-3.5 h-3.5" />
                         Ver Comprobante
@@ -167,7 +167,7 @@ export const TransactionHistory = () => {
       ) : (
         /* BITÁCORA DE UBICACIONES GPS FIJADAS */
         pinnedLocations.length === 0 ? (
-          <div className="text-center py-12 border border-dashed border-white/10 rounded-3xl bg-white/5 backdrop-blur-sm space-y-2 font-mono">
+          <div className="text-center py-12 border border-dashed border-white/10 rounded-3xl bg-white/5 backdrop-blur-sm space-y-2 font-sans">
             <MapPin className="w-12 h-12 text-neutral-600 mx-auto" />
             <h4 className="text-sm font-semibold text-neutral-300">No hay ubicaciones registradas en la bitácora</h4>
             <p className="text-xs text-neutral-500 max-w-sm mx-auto">
@@ -175,7 +175,7 @@ export const TransactionHistory = () => {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-sans">
             {pinnedLocations.map((item) => {
               const isItemActive = item.status === 'ACTIVA';
               return (
@@ -265,15 +265,15 @@ export const TransactionHistory = () => {
               <span className="text-[10px] uppercase tracking-widest text-[#807DFE] font-mono font-bold block">
                 COMPROBANTE OFICIAL DE AUTOCOBRO
               </span>
-              <h3 className="text-base font-black text-white mt-1 font-mono">Parqu Digital Metropolitano</h3>
-              <p className="text-xs font-mono text-[#D4D6E6]/80">Folio: {selectedTicket.folio}</p>
+              <h3 className="text-base font-black text-white mt-1 font-sans">Parqu Digital Metropolitano</h3>
+              <p className="text-xs font-sans text-[#D4D6E6]/80">Folio: <span className="font-mono">{selectedTicket.folio}</span></p>
             </div>
 
             {/* Datos del Ticket */}
-            <div className="py-4 space-y-2 text-xs font-mono border-b border-dashed border-white/10">
+            <div className="py-4 space-y-2 text-xs font-sans border-b border-dashed border-white/10">
               <div className="flex justify-between">
                 <span className="text-[#D4D6E6]/70">Fecha y Hora:</span>
-                <span className="text-white text-[11px]">{formatDate(selectedTicket.date)}</span>
+                <span className="text-white text-[11px] font-mono">{formatDate(selectedTicket.date)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-[#D4D6E6]/70">Titular:</span>
@@ -281,7 +281,7 @@ export const TransactionHistory = () => {
               </div>
               <div className="flex justify-between">
                 <span className="text-[#D4D6E6]/70">Placas Registradas:</span>
-                <span className="text-white font-bold">{formatPlate(selectedTicket.plate || vehicle.plates)}</span>
+                <span className="text-white font-bold font-mono">{formatPlate(selectedTicket.plate || vehicle.plates)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-[#D4D6E6]/70">Vehículo:</span>
@@ -293,7 +293,7 @@ export const TransactionHistory = () => {
               </div>
               <div className="flex justify-between">
                 <span className="text-[#D4D6E6]/70">Tiempo Ocupado:</span>
-                <span className="text-white font-bold">{selectedTicket.durationMinutes} minutos</span>
+                <span className="text-white font-bold font-mono">{selectedTicket.durationMinutes} minutos</span>
               </div>
               <div className="flex justify-between pt-2 border-t border-white/10">
                 <span className="text-[#D4D6E6]/70">Método de Cargo:</span>
@@ -301,7 +301,7 @@ export const TransactionHistory = () => {
               </div>
               <div className="flex justify-between items-center pt-2 text-base font-bold">
                 <span className="text-white">Total Cobrado:</span>
-                <span className="text-emerald-400 text-lg">{formatCurrency(selectedTicket.amount)}</span>
+                <span className="text-emerald-400 text-lg font-mono">{formatCurrency(selectedTicket.amount)}</span>
               </div>
             </div>
 
@@ -340,7 +340,7 @@ export const TransactionHistory = () => {
 
               <button
                 onClick={() => setSelectedTicket(null)}
-                className="w-full py-2.5 rounded-xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-bold font-mono text-xs transition shadow-[0_0_15px_rgba(0,51,255,0.4)]"
+                className="w-full py-2.5 rounded-xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-bold font-sans text-xs transition shadow-[0_0_15px_rgba(0,51,255,0.4)]"
               >
                 Cerrar Comprobante
               </button>

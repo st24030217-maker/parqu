@@ -58,7 +58,7 @@ export const HeroParallax = ({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="max-w-2xl text-sm sm:text-base md:text-lg text-neutral-300 font-mono leading-relaxed drop-shadow-[0_2px_15px_rgba(0,0,0,0.8)]"
+            className="max-w-2xl text-sm sm:text-base md:text-lg text-neutral-300 font-sans leading-relaxed drop-shadow-[0_2px_15px_rgba(0,0,0,0.8)]"
           >
             {headerDescription}
           </motion.p>
@@ -73,20 +73,20 @@ export const HeroParallax = ({
           >
             <div className="p-4 rounded-2xl bg-neutral-950/80 border border-neutral-800/80 backdrop-blur-md flex flex-col items-center text-center">
               <Zap className="w-6 h-6 text-amber-400 mb-2" />
-              <span className="text-xs font-mono font-bold text-white uppercase tracking-wider">Cobro por Segundo</span>
-              <span className="text-[11px] font-mono text-neutral-400 mt-1">Tarifa regulada sin redondeos</span>
+              <span className="text-xs font-sans font-bold text-white uppercase tracking-wider">Cobro por Segundo</span>
+              <span className="text-[11px] font-sans text-neutral-400 mt-1">Tarifa regulada sin redondeos</span>
             </div>
 
             <div className="p-4 rounded-2xl bg-neutral-950/80 border border-neutral-800/80 backdrop-blur-md flex flex-col items-center text-center">
               <ShieldCheck className="w-6 h-6 text-emerald-400 mb-2" />
-              <span className="text-xs font-mono font-bold text-white uppercase tracking-wider">Cero Multas</span>
-              <span className="text-[11px] font-mono text-neutral-400 mt-1">Protección activa continua</span>
+              <span className="text-xs font-sans font-bold text-white uppercase tracking-wider">Cero Multas</span>
+              <span className="text-[11px] font-sans text-neutral-400 mt-1">Protección activa continua</span>
             </div>
 
             <div className="p-4 rounded-2xl bg-neutral-950/80 border border-neutral-800/80 backdrop-blur-md flex flex-col items-center text-center">
               <Clock className="w-6 h-6 text-cyan-400 mb-2" />
-              <span className="text-xs font-mono font-bold text-white uppercase tracking-wider">0 Filas • 0 Monedas</span>
-              <span className="text-[11px] font-mono text-neutral-400 mt-1">Tecnología SSS.Solutions</span>
+              <span className="text-xs font-sans font-bold text-white uppercase tracking-wider">0 Filas • 0 Monedas</span>
+              <span className="text-[11px] font-sans text-neutral-400 mt-1">Tecnología SSS.Solutions</span>
             </div>
           </motion.div>
 

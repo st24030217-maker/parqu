@@ -40,7 +40,7 @@ export const LoadingScreen = ({ onComplete }) => {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden select-none pointer-events-auto bg-transparent font-azeret">
+    <div className="fixed inset-0 z-50 overflow-hidden select-none pointer-events-auto bg-transparent font-sans">
       {/* 
         ══════════════════════════════════════════════════════════════
         FONDO TOTALMENTE LISO: 5 PERSIANAS UNIFORMES SIN LÍNEAS NI BORDES
@@ -90,8 +90,8 @@ export const LoadingScreen = ({ onComplete }) => {
             />
           </div>
 
-          {/* Slogan en Tipografía Azeret Mono */}
-          <p className="font-azeret text-base sm:text-lg md:text-xl text-[#D4D6E6] font-medium tracking-wide leading-relaxed px-2">
+          {/* Slogan en Tipografía Satoshi */}
+          <p className="font-sans text-base sm:text-lg md:text-xl text-[#D4D6E6] font-normal tracking-normal leading-relaxed px-2">
             Sistema Inteligente de <span className="text-white font-bold">Parquímetros</span> y Autocobro Digital
           </p>
 
@@ -99,7 +99,7 @@ export const LoadingScreen = ({ onComplete }) => {
           <div className="pt-2">
             <RadialGlowButton
               onClick={handleTriggerExit}
-              className="font-azeret text-sm sm:text-base font-bold shadow-2xl px-10 py-4 cursor-pointer hover:scale-105 active:scale-95 transition-all duration-300"
+              className="font-sans text-sm sm:text-base font-bold shadow-2xl px-10 py-4 cursor-pointer hover:scale-105 active:scale-95 transition-all duration-300"
             >
               <span>Empecemos</span>
               <ArrowRight className="w-5 h-5 text-white inline transition-transform duration-300 group-hover:translate-x-1.5" />

@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
 import HeroText from './hero-shutter-text';
-import CloudSky from './cloud-sky';
 import { 
   CreditCard, 
   Zap, 
@@ -52,27 +51,8 @@ export function StaggeredGrid({
   return (
     <div ref={containerRef} className={`relative w-full overflow-hidden text-white ${className}`}>
       
-      {/* ═══ 1. HERO SECTION CON ORIGINKIT CLOUD-SKY Y HERO SHUTTER TEXT ═══ */}
-      <section className="relative z-10 min-h-[500px] sm:min-h-[560px] flex flex-col items-center justify-center text-center px-4 pt-12 pb-14 overflow-hidden">
-        
-        {/* Fondo Animado WebGL Cloud-Sky de OriginKit */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-auto">
-          <CloudSky 
-            background="#01033E"
-            baseColor="#0033FF"
-            accentColor="#D4D6E6"
-            density={85}
-            speed={45}
-            size={125}
-            clouds={{ softness: 85, shadow: 80, cirrus: 40 }}
-            sun={{ x: 78, y: 90, glow: "rgba(128, 125, 254, 0.85)" }}
-            pointer={{ parallax: 130, wind: 100, damping: 25 }}
-            className="w-full h-full"
-          />
-          {/* Capas sutiles de sombreado y transición glassmorphism para contraste perfecto */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#01033E]/20 via-transparent to-[#01033E]/95 pointer-events-none" />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#01033E] to-transparent pointer-events-none" />
-        </div>
+      {/* ═══ 1. HERO SECTION CON HERO SHUTTER TEXT & HALO HORIZON BACKGROUND ═══ */}
+      <section className="relative z-10 min-h-[480px] sm:min-h-[540px] flex flex-col items-center justify-center text-center px-4 pt-12 pb-14 overflow-hidden">
 
         {/* Badge Superior */}
         <div className="relative z-10 mb-4 inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-[#01033E]/70 backdrop-blur-md border border-[#807DFE]/40 text-xs font-mono text-[#D4D6E6] shadow-[0_0_20px_rgba(0,51,255,0.25)]">
@@ -91,7 +71,7 @@ export function StaggeredGrid({
         </div>
 
         {/* Subtítulo Hero */}
-        <p className="relative z-10 mt-3 sm:mt-4 text-xs sm:text-sm md:text-base text-[#D4D6E6] font-mono max-w-2xl mx-auto leading-relaxed px-3 sm:px-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+        <p className="relative z-10 mt-3 sm:mt-4 text-xs sm:text-sm md:text-base text-[#D4D6E6] font-sans max-w-2xl mx-auto leading-relaxed px-3 sm:px-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
           La plataforma metropolitana que elimina las filas, las monedas y las multas. Autocobro continuo segundo a segundo con tecnología de <strong className="text-white">SSS.Solutions</strong>.
         </p>
 
@@ -122,9 +102,9 @@ export function StaggeredGrid({
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
           <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-[#D4D6E6]">
             <Sparkles className="w-4 h-4 text-[#807DFE]" />
-            <span className="font-bold text-white">Pilares de la Plataforma Metropolitana</span>
+            <span className="font-bold text-white font-sans">Pilares de la Plataforma Metropolitana</span>
           </div>
-          <span className="text-[11px] font-mono text-[#D4D6E6]/70">
+          <span className="text-[11px] font-sans text-[#D4D6E6]/70">
             Pasa el cursor o haz clic en cualquier pilar para expandir
           </span>
         </div>
@@ -173,7 +153,7 @@ export function StaggeredGrid({
                   </h3>
                   
                   {isActive && (
-                    <p className="text-xs sm:text-sm text-[#D4D6E6] font-mono leading-relaxed pt-2 animate-in fade-in duration-300">
+                    <p className="text-xs sm:text-sm text-[#D4D6E6] font-sans leading-relaxed pt-2 animate-in fade-in duration-300">
                       {bento.desc}
                     </p>
                   )}
@@ -181,7 +161,7 @@ export function StaggeredGrid({
 
                 {/* Botón de Acción en Activo */}
                 {isActive && (
-                  <div className="pt-6 relative z-10 flex items-center justify-between border-t border-white/10 text-xs font-mono text-white font-bold">
+                  <div className="pt-6 relative z-10 flex items-center justify-between border-t border-white/10 text-xs font-sans text-white font-bold">
                     <span className="flex items-center gap-1.5 text-emerald-400">
                       <CheckCircle2 className="w-3.5 h-3.5" />
                       Módulo Disponible

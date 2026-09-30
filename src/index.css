@@ -1,3 +1,4 @@
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,800,700,600,500,400,300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,100..900;1,100..900&display=swap');
 
 @tailwind base;
@@ -6,12 +7,14 @@
 
 @layer base {
   html, body {
-    font-family: 'Satoshi', 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Satoshi', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
-}
-
-.font-azeret {
-  font-family: 'Azeret Mono', monospace !important;
+  h1, h2, h3, h4, h5, h6, p, button, input, textarea, select, label, a {
+    font-family: 'Satoshi', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  .font-mono, .font-azeret, [data-mono], .mono-data, code, kbd, samp, pre {
+    font-family: 'Azeret Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  }
 }
 
 :root {
@@ -31,13 +34,13 @@
 }
 
 body {
-  font-family: 'Satoshi', 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Satoshi', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background-color: #01033E;
   color: #D4D6E6;
 }
 
 .font-mono-card {
-  font-family: 'Space Grotesk', monospace;
+  font-family: 'Azeret Mono', monospace !important;
 }
 
 /* Efectos holográficos de alta gama para la tarjeta digital en Azul Eléctrico y Lavanda Hielo */
@@ -98,7 +101,7 @@ body {
 [data-sileo-title] {
   color: #D4D6E6 !important;
   font-weight: 800 !important;
-  font-family: 'Space Grotesk', monospace, sans-serif !important;
+  font-family: 'Satoshi', system-ui, sans-serif !important;
   letter-spacing: -0.01em !important;
 }
 

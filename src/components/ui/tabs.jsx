@@ -58,7 +58,7 @@ export const Tabs = ({
               type="button"
               onClick={() => handleSelectTab(tab)}
               className={cn(
-                "relative flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-mono font-bold transition-colors select-none cursor-pointer z-10 shrink-0 whitespace-nowrap",
+                "relative flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-sans font-bold transition-colors select-none cursor-pointer z-10 shrink-0 whitespace-nowrap",
                 isActive
                   ? "text-white"
                   : "text-[#D4D6E6]/70 hover:text-white hover:bg-white/5",

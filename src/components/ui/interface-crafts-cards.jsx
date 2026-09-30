@@ -87,10 +87,10 @@ export const InterfaceCraftsCards = ({
 
             {/* Contenido Central: Título y Subtítulo */}
             <div className="relative z-10 space-y-1">
-              <h4 className="text-sm font-bold text-white tracking-tight font-mono group-hover/card:text-white transition-colors">
+              <h4 className="text-sm font-bold text-white tracking-tight font-sans group-hover/card:text-white transition-colors">
                 {item.title}
               </h4>
-              <p className="text-[11px] font-mono text-neutral-400 line-clamp-1 leading-snug">
+              <p className="text-[11px] font-sans text-neutral-400 line-clamp-1 leading-snug">
                 {item.subtitle || item.description}
               </p>
             </div>

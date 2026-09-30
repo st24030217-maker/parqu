@@ -63,16 +63,16 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
   }, []);
 
   return (
-    <div id="panel-control-metropolitano" className="w-full space-y-3 font-mono scroll-mt-28">
+    <div id="panel-control-metropolitano" className="w-full space-y-3 font-sans scroll-mt-28">
       {/* Subtítulo organizador */}
       <div className="flex items-center justify-between px-1">
         <div className="flex items-center gap-1.5 sm:gap-2 text-xs text-neutral-400">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-          <span className="font-bold text-white uppercase tracking-wider text-[10px] sm:text-[11px]">
+          <span className="font-bold text-white uppercase tracking-wider text-[10px] sm:text-[11px] font-sans">
             PANEL DE CONTROL METROPOLITANO
           </span>
           <span className="text-neutral-600 hidden sm:inline">•</span>
-          <span className="text-neutral-500 text-[10px] hidden sm:inline">MÉTRICAS & CANVAS REVEAL EFFECT</span>
+          <span className="text-neutral-500 text-[10px] hidden sm:inline font-sans">MÉTRICAS & CANVAS REVEAL EFFECT</span>
         </div>
 
         {/* Telemetría mini-bars */}
@@ -84,7 +84,7 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
               style={{ height: '100%' }}
             />
           ))}
-          <span className="text-[9px] text-neutral-400 ml-1">SYNC</span>
+          <span className="text-[9px] font-mono text-neutral-400 ml-1">SYNC</span>
         </div>
       </div>
 
@@ -128,12 +128,12 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
             )}
           </AnimatePresence>
 
-          <div className="relative z-10">
+          <div className="relative z-10 font-sans">
             <div className="flex items-center justify-between mb-3">
               <span className="p-2 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-[#D4D6E6] shadow-sm">
                 <Clock className="w-4 h-4" />
               </span>
-              <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${
+              <span className={`text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full border ${
                 activeSession 
                   ? 'bg-amber-950/70 text-amber-300 border-amber-600/60 animate-pulse' 
                   : 'bg-white/10 backdrop-blur-sm text-[#D4D6E6] border border-white/10'
@@ -142,28 +142,28 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
               </span>
             </div>
 
-            <div className="text-[11px] text-[#D4D6E6] font-bold uppercase tracking-wider">
+            <div className="text-[11px] text-[#D4D6E6] font-bold uppercase tracking-wider font-sans">
               Parquímetro Metropolitano
             </div>
 
             <div className="mt-1">
               {activeSession ? (
                 <div className="flex items-baseline gap-2">
-                  <div className="text-xl font-black text-amber-300">
+                  <div className="text-xl font-black text-amber-300 font-mono">
                     {formatTimeFromSeconds(activeSession.secondsElapsed)}
                   </div>
-                  <div className="text-xs text-[#D4D6E6]">
+                  <div className="text-xs text-[#D4D6E6] font-mono">
                     <AnimeCounter 
                       value={activeSession.currentCost} 
                       prefix="$" 
                       decimals={2} 
                       duration={300}
-                      className="font-bold text-emerald-400"
+                      className="font-bold text-emerald-400 font-mono"
                     />
                   </div>
                 </div>
               ) : (
-                <div className="text-xl font-black text-[#D4D6E6]">
+                <div className="text-xl font-black text-[#D4D6E6] font-sans">
                   Listo para Ocupar
                 </div>
               )}
@@ -215,33 +215,33 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
             )}
           </AnimatePresence>
 
-          <div className="relative z-10">
+          <div className="relative z-10 font-sans">
             <div className="flex items-center justify-between mb-3">
               <span className="p-2 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-[#D4D6E6] shadow-sm">
                 <CurrencyDollarIcon size={16} strokeWidth={2.2} />
               </span>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 backdrop-blur-sm text-[#D4D6E6] border border-white/10">
+              <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-white/10 backdrop-blur-sm text-[#D4D6E6] border border-white/10">
                 + RECARGAR
               </span>
             </div>
 
-            <div className="text-[11px] text-[#D4D6E6] font-bold uppercase tracking-wider">
+            <div className="text-[11px] text-[#D4D6E6] font-bold uppercase tracking-wider font-sans">
               Saldo Monedero Parqu
             </div>
 
-            <div className="mt-1 text-xl font-black text-[#D4D6E6] flex items-baseline gap-1">
+            <div className="mt-1 text-xl font-black text-[#D4D6E6] flex items-baseline gap-1 font-mono">
               <AnimeCounter 
                 value={card?.balance ?? 0} 
                 prefix="$" 
                 decimals={2} 
                 duration={500}
-                className="text-xl font-black text-emerald-400"
+                className="text-xl font-black text-emerald-400 font-mono"
               />
-              <span className="text-[10px] text-[#D4D6E6]">MXN</span>
+              <span className="text-[10px] text-[#D4D6E6] font-mono">MXN</span>
             </div>
           </div>
 
-          <div className="relative z-10 pt-3 mt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-[#D4D6E6] group-hover:text-[#D4D6E6] transition">
+          <div className="relative z-10 pt-3 mt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-[#D4D6E6] group-hover:text-[#D4D6E6] transition font-sans">
             <span>Pase Contactless Activo</span>
             <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
           </div>
@@ -284,26 +284,26 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
             )}
           </AnimatePresence>
 
-          <div className="relative z-10">
+          <div className="relative z-10 font-sans">
             <div className="flex items-center justify-between mb-3">
               <span className="p-2 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-[#D4D6E6] shadow-sm">
                 <Car className="w-4 h-4" />
               </span>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 backdrop-blur-sm text-[#D4D6E6] border border-white/10">
+              <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-white/10 backdrop-blur-sm text-[#D4D6E6] border border-white/10">
                 VINCULADO
               </span>
             </div>
 
-            <div className="text-[11px] text-[#D4D6E6] font-bold uppercase tracking-wider">
+            <div className="text-[11px] text-[#D4D6E6] font-bold uppercase tracking-wider font-sans">
               Vehículo en Padrón
             </div>
 
-            <div className="mt-1 text-xl font-black text-[#D4D6E6] tracking-wide">
+            <div className="mt-1 text-xl font-black text-[#D4D6E6] tracking-wide font-mono">
               {formatPlate(vehicle.plates)}
             </div>
           </div>
 
-          <div className="relative z-10 pt-3 mt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-[#D4D6E6] group-hover:text-[#D4D6E6] transition">
+          <div className="relative z-10 pt-3 mt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-[#D4D6E6] group-hover:text-[#D4D6E6] transition font-sans">
             <span className="truncate max-w-[140px]">{vehicle.brand} {vehicle.model}</span>
             <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
           </div>
@@ -346,27 +346,27 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
             )}
           </AnimatePresence>
 
-          <div className="relative z-10">
+          <div className="relative z-10 font-sans">
             <div className="flex items-center justify-between mb-3">
               <span className="p-2 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-[#D4D6E6] shadow-sm">
                 <MapPin className="w-4 h-4" />
               </span>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 backdrop-blur-sm text-[#D4D6E6] border border-white/10">
+              <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-white/10 backdrop-blur-sm text-[#D4D6E6] border border-white/10">
                 GPS ACTIVO
               </span>
             </div>
 
-            <div className="text-[11px] text-[#D4D6E6] font-bold uppercase tracking-wider">
+            <div className="text-[11px] text-[#D4D6E6] font-bold uppercase tracking-wider font-sans">
               Ubicaciones Fijadas
             </div>
 
             <div className="mt-1 text-xl font-black text-[#D4D6E6] flex items-baseline gap-1.5">
-              <span>{pinnedLocations.length}</span>
-              <span className="text-xs text-[#D4D6E6] font-normal">en bitácora</span>
+              <span className="font-mono">{pinnedLocations.length}</span>
+              <span className="text-xs text-[#D4D6E6] font-normal font-sans">en bitácora</span>
             </div>
           </div>
 
-          <div className="relative z-10 pt-3 mt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-[#D4D6E6] group-hover:text-[#D4D6E6] transition">
+          <div className="relative z-10 pt-3 mt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-[#D4D6E6] group-hover:text-[#D4D6E6] transition font-sans">
             <span>Autocobro: {autoPay?.enabled ? 'Activo' : 'Pausado'}</span>
             <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
           </div>

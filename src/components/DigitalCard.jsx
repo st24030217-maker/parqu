@@ -193,10 +193,10 @@ export const DigitalCard = () => {
               {/* Fila Inferior: Titular, Autocobro y Botón QR Flotante 3D */}
               <CardItem translateZ="60" className="w-full flex items-end justify-between z-10 pt-3 border-t border-white/10 flex-wrap gap-3">
                 <div>
-                  <span className="text-[10px] text-[#D4D6E6]/80 uppercase tracking-wider block font-semibold font-mono">
+                  <span className="text-[10px] text-[#D4D6E6]/80 uppercase tracking-wider block font-semibold font-sans">
                     Titular / Propietario
                   </span>
-                  <span className="font-mono-card font-bold text-base tracking-wide text-white uppercase flex items-center gap-1.5">
+                  <span className="font-sans font-bold text-base tracking-wide text-white uppercase flex items-center gap-1.5">
                     <User className="w-4 h-4 text-[#807DFE] inline" />
                     {owner.fullName || 'NOMBRE DEL TITULAR'}
                   </span>
@@ -208,16 +208,16 @@ export const DigitalCard = () => {
                 {/* Estado de Cobro y QR */}
                 <div className="flex items-center gap-4">
                   <div className="text-right">
-                    <span className="text-[10px] text-[#D4D6E6]/80 uppercase tracking-wider block font-semibold font-mono">
+                    <span className="text-[10px] text-[#D4D6E6]/80 uppercase tracking-wider block font-semibold font-sans">
                       Modalidad Autocobro
                     </span>
                     {autoPay.enabled ? (
-                      <span className="text-xs font-semibold text-white flex items-center gap-1 justify-end font-mono">
+                      <span className="text-xs font-semibold text-white flex items-center gap-1 justify-end font-sans">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
                         {autoPay.fundingSource === 'CARD' ? 'Débito Bancario' : 'Saldo Monedero'}
                       </span>
                     ) : (
-                      <span className="text-xs font-semibold text-rose-400 flex items-center gap-1 justify-end font-mono">
+                      <span className="text-xs font-semibold text-rose-400 flex items-center gap-1 justify-end font-sans">
                         <AlertCircle className="w-3.5 h-3.5" />
                         Desactivado
                       </span>
@@ -293,8 +293,8 @@ export const DigitalCard = () => {
       {showQRModal && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xl flex items-center justify-center p-4">
           <div className="bg-[#01033E]/95 backdrop-blur-2xl border border-[#807DFE]/30 rounded-3xl max-w-sm w-full p-6 text-center shadow-[0_0_50px_rgba(0,51,255,0.3)] relative animate-in fade-in zoom-in-95 duration-200">
-            <h3 className="text-lg font-bold text-white mb-1 font-mono">Credencial QR de Inspección</h3>
-            <p className="text-xs text-[#D4D6E6]/80 mb-6 font-mono">
+            <h3 className="text-lg font-bold text-white mb-1 font-sans">Credencial QR de Inspección</h3>
+            <p className="text-xs text-[#D4D6E6]/80 mb-6 font-sans">
               Escaneable por agentes de tránsito y lectores automáticos de parquímetro
             </p>
 
@@ -340,10 +340,10 @@ export const DigitalCard = () => {
               </svg>
             </div>
 
-            <div className="bg-white/5 rounded-2xl p-3 text-left font-mono text-xs space-y-1 mb-6 border border-white/10">
+            <div className="bg-white/5 rounded-2xl p-3 text-left font-sans text-xs space-y-1 mb-6 border border-white/10">
               <div className="flex justify-between">
                 <span className="text-[#D4D6E6]/70">Placas:</span>
-                <span className="font-bold text-white">{vehicle.plates}</span>
+                <span className="font-bold text-white font-mono">{vehicle.plates}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-[#D4D6E6]/70">Titular:</span>
@@ -351,17 +351,17 @@ export const DigitalCard = () => {
               </div>
               <div className="flex justify-between">
                 <span className="text-[#D4D6E6]/70">Autocobro:</span>
-                <span className="font-bold text-emerald-400">{autoPay.enabled ? 'HABILITADO' : 'INACTIVO'}</span>
+                <span className="font-bold text-emerald-400 font-mono">{autoPay.enabled ? 'HABILITADO' : 'INACTIVO'}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-[#D4D6E6]/70">Estatus:</span>
-                <span className="font-bold text-amber-300">{isParked ? 'ESTACIONADO' : 'DISPONIBLE'}</span>
+                <span className="font-bold text-amber-300 font-mono">{isParked ? 'ESTACIONADO' : 'DISPONIBLE'}</span>
               </div>
             </div>
 
             <button
               onClick={() => setShowQRModal(false)}
-              className="w-full py-3 bg-[#0033FF] hover:bg-[#2250ff] text-white font-bold font-mono text-xs uppercase tracking-wider rounded-xl transition shadow-[0_0_20px_rgba(0,51,255,0.4)]"
+              className="w-full py-3 bg-[#0033FF] hover:bg-[#2250ff] text-white font-bold font-sans text-xs uppercase tracking-wider rounded-xl transition shadow-[0_0_20px_rgba(0,51,255,0.4)]"
             >
               Cerrar Visualizador
             </button>
@@ -376,14 +376,14 @@ export const DigitalCard = () => {
             <div className="w-12 h-12 rounded-2xl bg-[#0033FF]/20 backdrop-blur-sm border border-[#807DFE]/40 text-[#807DFE] flex items-center justify-center mx-auto mb-3 shadow-[0_0_20px_rgba(0,51,255,0.3)]">
               <CurrencyDollarIcon size={24} strokeWidth={2} />
             </div>
-            <h3 className="text-lg font-bold text-white mb-1 font-mono text-center">Recargar Saldo de Parquímetro</h3>
-            <p className="text-xs text-[#D4D6E6]/80 mb-5 font-mono text-center">
+            <h3 className="text-lg font-bold text-white mb-1 font-sans text-center">Recargar Saldo de Parquímetro</h3>
+            <p className="text-xs text-[#D4D6E6]/80 mb-5 font-sans text-center">
               Agrega fondos inmediatos a tu Tarjeta Digital para autocobros
             </p>
 
-            <form onSubmit={handleRecharge} className="space-y-4 font-mono">
+            <form onSubmit={handleRecharge} className="space-y-4 font-sans">
               <div>
-                <label className="text-xs text-[#D4D6E6]/80 font-mono block mb-2">
+                <label className="text-xs text-[#D4D6E6]/80 font-sans block mb-2">
                   Selecciona o ingresa monto (MXN)
                 </label>
                 <div className="grid grid-cols-3 gap-2 mb-3">
@@ -417,16 +417,16 @@ export const DigitalCard = () => {
                 <button
                   type="button"
                   onClick={() => setShowRechargeModal(false)}
-                  className="flex-1 py-2.5 bg-white/5 hover:bg-white/10 text-[#D4D6E6] font-mono text-xs font-semibold rounded-xl border border-white/10 transition"
+                  className="flex-1 py-2.5 bg-white/5 hover:bg-white/10 text-[#D4D6E6] font-sans text-xs font-semibold rounded-xl border border-white/10 transition"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 bg-[#0033FF] hover:bg-[#2250ff] text-white font-mono text-xs font-bold rounded-xl transition shadow-[0_0_15px_rgba(0,51,255,0.4)] flex items-center justify-center gap-1.5"
+                  className="flex-1 py-2.5 bg-[#0033FF] hover:bg-[#2250ff] text-white font-sans text-xs font-bold rounded-xl transition shadow-[0_0_15px_rgba(0,51,255,0.4)] flex items-center justify-center gap-1.5"
                 >
                   <CurrencyDollarIcon size={14} strokeWidth={2.2} />
-                  <span>Confirmar ${rechargeAmount}</span>
+                  <span>Confirmar <span className="font-mono">${rechargeAmount}</span></span>
                 </button>
               </div>
             </form>
