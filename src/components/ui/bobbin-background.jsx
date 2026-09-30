@@ -1,124 +1,263 @@
 import React from 'react';
-import { Lottie } from 'lottie-react';
-import bobbinGold from './bobbin-lottie-gold.json';
 
 /**
- * BobbinBackground - Fondo Auténtico de WithBobbin (https://withbobbin.com/)
- * Inspirado directamente en la sección "Your lessons, your threads, all in one place":
- * 1. Columnas cinéticas de hilos/cápsulas vectoriales que oscilan continuamente con alta visibilidad.
- * 2. Horizonte radiante .yellow-fade auténtico (#fbf27e) proyectando calidez dorada desde la base.
- * 3. Integración en anchura completa (full-width) manteniendo las nubes y el hero intactos.
+ * BobbinBackground - Sistema Cinético Horizontal ("Acostados")
+ * Estilo Grandioso con la Paleta Oficial del Sistema:
+ * - Azul Eléctrico (#0033FF)
+ * - Lavanda Periwinkle (#807DFE)
+ * - Plata Hielo (#D4D6E6)
+ * - Cian Neón (#06B6D4)
+ * 
+ * Cápsulas luminosas horizontales que se desplazan y respiran en parallax
+ * con núcleos de luz láser y resplandor radial inferior eléctrico.
  */
 export const BobbinBackground = ({
   children,
   className = '',
-  showYellowFade = true,
-  threadIntensity = 'vibrant', // 'vibrant', 'subtle', or 'intense'
+  showElectricFade = true,
+  showYellowFade,
 }) => {
-  // 9 hilos/cápsulas cinéticas distribuidas por todo el ancho de la pantalla
-  const threads = [
-    { id: 1, left: '4%',  width: 44, height: 260, top: '10%', duration: '6.2s', delay: '0s',    color: '#fbf27e' },
-    { id: 2, left: '14%', width: 52, height: 340, top: '22%', duration: '7.5s', delay: '-1.8s', color: '#f7f4f0' },
-    { id: 3, left: '26%', width: 48, height: 290, top: '8%',  duration: '5.8s', delay: '-3.2s', color: '#fbf27e' },
-    { id: 4, left: '38%', width: 56, height: 380, top: '25%', duration: '8.1s', delay: '-2.4s', color: '#F4FF2B' },
-    { id: 5, left: '50%', width: 62, height: 320, top: '12%', duration: '6.6s', delay: '-4.5s', color: '#fbf27e' },
-    { id: 6, left: '62%', width: 50, height: 360, top: '28%', duration: '7.8s', delay: '-1.1s', color: '#f7f4f0' },
-    { id: 7, left: '74%', width: 54, height: 280, top: '15%', duration: '6.0s', delay: '-3.7s', color: '#fbf27e' },
-    { id: 8, left: '86%', width: 46, height: 350, top: '20%', duration: '7.2s', delay: '-2.0s', color: '#F4FF2B' },
-    { id: 9, left: '95%', width: 42, height: 270, top: '6%',  duration: '6.4s', delay: '-4.0s', color: '#fbf27e' },
+  const displayElectricFade = showYellowFade !== undefined ? showYellowFade : showElectricFade;
+  // 10 haces / cápsulas cinéticas horizontales distribuidas verticalmente
+  const horizontalBeams = [
+    {
+      id: 1,
+      top: '5%',
+      left: '-2%',
+      width: 460,
+      height: 42,
+      duration: '7.8s',
+      delay: '0s',
+      direction: 'right',
+      gradient: 'linear-gradient(90deg, rgba(0,51,255,0.2) 0%, rgba(0,51,255,0.85) 30%, rgba(128,125,254,0.95) 70%, rgba(212,214,230,0.85) 100%)',
+      glowColor: 'rgba(0, 51, 255, 0.75)',
+      secondaryGlow: 'rgba(128, 125, 254, 0.55)',
+    },
+    {
+      id: 2,
+      top: '14%',
+      right: '1%',
+      width: 540,
+      height: 48,
+      duration: '9.2s',
+      delay: '-2.4s',
+      direction: 'left',
+      gradient: 'linear-gradient(90deg, rgba(212,214,230,0.9) 0%, rgba(128,125,254,0.95) 40%, rgba(0,51,255,0.85) 80%, rgba(0,51,255,0.2) 100%)',
+      glowColor: 'rgba(128, 125, 254, 0.75)',
+      secondaryGlow: 'rgba(0, 51, 255, 0.60)',
+    },
+    {
+      id: 3,
+      top: '23%',
+      left: '12%',
+      width: 420,
+      height: 38,
+      duration: '8.4s',
+      delay: '-4.1s',
+      direction: 'right',
+      gradient: 'linear-gradient(90deg, rgba(6,182,212,0.3) 0%, rgba(6,182,212,0.9) 35%, rgba(0,51,255,0.9) 75%, rgba(128,125,254,0.8) 100%)',
+      glowColor: 'rgba(6, 182, 212, 0.75)',
+      secondaryGlow: 'rgba(0, 51, 255, 0.60)',
+    },
+    {
+      id: 4,
+      top: '33%',
+      right: '8%',
+      width: 620,
+      height: 52,
+      duration: '10.5s',
+      delay: '-1.5s',
+      direction: 'left',
+      gradient: 'linear-gradient(90deg, rgba(0,51,255,0.85) 0%, rgba(128,125,254,0.95) 50%, rgba(212,214,230,0.95) 85%, rgba(212,214,230,0.2) 100%)',
+      glowColor: 'rgba(0, 51, 255, 0.85)',
+      secondaryGlow: 'rgba(128, 125, 254, 0.70)',
+    },
+    {
+      id: 5,
+      top: '43%',
+      left: '3%',
+      width: 480,
+      height: 44,
+      duration: '8.8s',
+      delay: '-5.2s',
+      direction: 'right',
+      gradient: 'linear-gradient(90deg, rgba(128,125,254,0.3) 0%, rgba(128,125,254,0.9) 30%, rgba(212,214,230,0.95) 70%, rgba(0,51,255,0.8) 100%)',
+      glowColor: 'rgba(128, 125, 254, 0.70)',
+      secondaryGlow: 'rgba(212, 214, 230, 0.55)',
+    },
+    {
+      id: 6,
+      top: '54%',
+      right: '4%',
+      width: 580,
+      height: 50,
+      duration: '9.6s',
+      delay: '-3.7s',
+      direction: 'left',
+      gradient: 'linear-gradient(90deg, rgba(6,182,212,0.9) 0%, rgba(0,51,255,0.95) 50%, rgba(128,125,254,0.85) 90%, rgba(128,125,254,0.2) 100%)',
+      glowColor: 'rgba(0, 51, 255, 0.80)',
+      secondaryGlow: 'rgba(6, 182, 212, 0.65)',
+    },
+    {
+      id: 7,
+      top: '64%',
+      left: '8%',
+      width: 450,
+      height: 40,
+      duration: '8.2s',
+      delay: '-6.0s',
+      direction: 'right',
+      gradient: 'linear-gradient(90deg, rgba(0,51,255,0.2) 0%, rgba(128,125,254,0.85) 30%, rgba(0,51,255,0.95) 75%, rgba(6,182,212,0.85) 100%)',
+      glowColor: 'rgba(128, 125, 254, 0.75)',
+      secondaryGlow: 'rgba(0, 51, 255, 0.60)',
+    },
+    {
+      id: 8,
+      top: '74%',
+      right: '6%',
+      width: 520,
+      height: 46,
+      duration: '9.0s',
+      delay: '-2.8s',
+      direction: 'left',
+      gradient: 'linear-gradient(90deg, rgba(212,214,230,0.9) 0%, rgba(0,51,255,0.95) 50%, rgba(128,125,254,0.8) 85%, rgba(0,51,255,0.2) 100%)',
+      glowColor: 'rgba(0, 51, 255, 0.85)',
+      secondaryGlow: 'rgba(128, 125, 254, 0.60)',
+    },
+    {
+      id: 9,
+      top: '84%',
+      left: '4%',
+      width: 490,
+      height: 42,
+      duration: '8.6s',
+      delay: '-4.9s',
+      direction: 'right',
+      gradient: 'linear-gradient(90deg, rgba(6,182,212,0.2) 0%, rgba(0,51,255,0.85) 30%, rgba(128,125,254,0.95) 70%, rgba(212,214,230,0.9) 100%)',
+      glowColor: 'rgba(0, 51, 255, 0.75)',
+      secondaryGlow: 'rgba(128, 125, 254, 0.55)',
+    },
+    {
+      id: 10,
+      top: '93%',
+      right: '10%',
+      width: 470,
+      height: 44,
+      duration: '9.8s',
+      delay: '-1.1s',
+      direction: 'left',
+      gradient: 'linear-gradient(90deg, rgba(128,125,254,0.85) 0%, rgba(0,51,255,0.95) 45%, rgba(6,182,212,0.9) 80%, rgba(6,182,212,0.2) 100%)',
+      glowColor: 'rgba(128, 125, 254, 0.80)',
+      secondaryGlow: 'rgba(0, 51, 255, 0.65)',
+    },
   ];
 
   return (
     <div className={`relative w-full overflow-hidden select-none ${className}`}>
       
-      {/* ═══ 1. ESTILOS DE ANIMACIÓN CINÉTICA HARDWARE-ACCELERATED (60/120 FPS) ═══ */}
+      {/* ═══ 1. KEYFRAMES HORIZONTALES CINEMÁTICOS ACELERADOS POR GPU (60/120 FPS) ═══ */}
       <style>{`
-        @keyframes bobbinThreadFloat {
+        @keyframes beamGlideRight {
           0%, 100% {
-            transform: translate3d(0, 0, 0) scaleY(1);
-            opacity: 0.55;
+            transform: translate3d(0, 0, 0) scaleX(1);
+            opacity: 0.65;
           }
           50% {
-            transform: translate3d(0, 75px, 0) scaleY(1.35);
-            opacity: 0.90;
+            transform: translate3d(110px, -8px, 0) scaleX(1.35);
+            opacity: 0.98;
           }
         }
-        @keyframes bobbinPulseGlow {
+        @keyframes beamGlideLeft {
           0%, 100% {
-            opacity: 0.70;
-            transform: scale(1);
+            transform: translate3d(0, 0, 0) scaleX(1);
+            opacity: 0.65;
           }
           50% {
-            opacity: 1;
-            transform: scale(1.04);
+            transform: translate3d(-110px, 8px, 0) scaleX(1.35);
+            opacity: 0.98;
           }
         }
-        .bobbin-thread-pill {
-          animation: bobbinThreadFloat ease-in-out infinite;
+        @keyframes electricAuroraPulse {
+          0%, 100% {
+            opacity: 0.65;
+            transform: scaleY(1);
+          }
+          50% {
+            opacity: 0.95;
+            transform: scaleY(1.15);
+          }
+        }
+        .beam-glide-right {
+          animation: beamGlideRight ease-in-out infinite;
           will-change: transform, opacity;
         }
-        .bobbin-glow-bottom {
-          animation: bobbinPulseGlow 7s ease-in-out infinite;
+        .beam-glide-left {
+          animation: beamGlideLeft ease-in-out infinite;
+          will-change: transform, opacity;
+        }
+        .electric-aurora {
+          animation: electricAuroraPulse 8s ease-in-out infinite;
+          will-change: transform, opacity;
         }
       `}</style>
 
-      {/* ═══ 2. CAPA DE FONDO ORGÁNICO SUAVE QUE PERMITE VER LAS NUBES POR DETRÁS ═══ */}
+      {/* ═══ 2. CAPA TRANSLÚCIDA QUE PRESERVA LAS NUBES DEL FONDO Y SUMA PROFUNDIDAD ═══ */}
       <div 
-        className="pointer-events-none absolute inset-0 z-0 bg-[#01033E]/50 backdrop-blur-md"
+        className="pointer-events-none absolute inset-0 z-0 bg-[#01033E]/40 backdrop-blur-md"
         aria-hidden="true" 
       />
 
-      {/* ═══ 3. HILOS CINÉTICOS DE WITHBOBBIN ALTAMENTE VISIBLES A TODO LO ANCHO ═══ */}
+      {/* ═══ 3. HACES / CÁPSULAS HORIZONTALES ACOSTARAS DE ALTO IMPACTO VISUAL ═══ */}
       <div 
         className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
         aria-hidden="true"
       >
-        {threads.map((t) => (
-          <div
-            key={t.id}
-            className="bobbin-thread-pill absolute rounded-full"
-            style={{
-              left: t.left,
-              top: t.top,
-              width: `${t.width}px`,
-              height: `${t.height}px`,
-              animationDuration: t.duration,
-              animationDelay: t.delay,
-              background: `linear-gradient(180deg, ${t.color}99 0%, ${t.color}33 50%, ${t.color}cc 100%)`,
-              boxShadow: `0 0 40px ${t.color}66, inset 0 0 20px ${t.color}88`,
-              border: `1px solid ${t.color}66`,
-            }}
-          />
-        ))}
+        {horizontalBeams.map((beam) => {
+          const animationClass = beam.direction === 'right' ? 'beam-glide-right' : 'beam-glide-left';
 
-        {/* Lottie original con escalado forzado al 100% para complementar el flujo */}
-        <div className="absolute inset-0 opacity-40 mix-blend-screen scale-110">
-          <Lottie
-            animationData={bobbinGold}
-            loop={true}
-            autoplay={true}
-            style={{ width: '100%', height: '100%' }}
-            rendererSettings={{
-              preserveAspectRatio: 'xMidYMin slice',
-            }}
-          />
-        </div>
+          return (
+            <div
+              key={beam.id}
+              className={`${animationClass} absolute rounded-full flex items-center justify-center`}
+              style={{
+                top: beam.top,
+                left: beam.left,
+                right: beam.right,
+                width: `${beam.width}px`,
+                height: `${beam.height}px`,
+                animationDuration: beam.duration,
+                animationDelay: beam.delay,
+                background: beam.gradient,
+                boxShadow: `0 0 50px ${beam.glowColor}, 0 0 100px ${beam.secondaryGlow}, inset 0 0 25px rgba(212, 214, 230, 0.6)`,
+                border: '1px solid rgba(212, 214, 230, 0.35)',
+              }}
+            >
+              {/* Núcleo de luz láser interna súper refinada */}
+              <div 
+                className="w-[82%] h-[3px] rounded-full blur-[0.5px]"
+                style={{
+                  background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.95) 50%, transparent 100%)',
+                  boxShadow: '0 0 12px #FFFFFF, 0 0 24px #807DFE',
+                }}
+              />
+            </div>
+          );
+        })}
       </div>
 
-      {/* ═══ 4. RESPLANDOR RADIAL INFERIOR (.yellow-fade OFICIAL DE WITHBOBBIN: #fbf27e) ═══ */}
-      {showYellowFade && (
+      {/* ═══ 4. HORIZONTE RADIANTE AZUL ELÉCTRICO & PERIWINKLE (ESTILO PARQU SYSTEM) ═══ */}
+      {displayElectricFade && (
         <div
-          className="bobbin-glow-bottom pointer-events-none absolute inset-x-0 bottom-0 h-[480px] max-h-[50%] z-0"
+          className="electric-aurora pointer-events-none absolute inset-x-0 bottom-0 h-[520px] max-h-[55%] z-0 select-none"
           style={{
-            background: 'radial-gradient(147.57% 102.54% at 50% 100%, #fbf27e 32%, rgba(251, 242, 126, 0.45) 55%, rgba(251, 242, 126, 0) 100%)',
-            opacity: 0.85,
+            background: 'radial-gradient(147.57% 102.54% at 50% 100%, rgba(0, 51, 255, 0.70) 10%, rgba(128, 125, 254, 0.50) 45%, rgba(6, 182, 212, 0.20) 75%, transparent 100%)',
             mixBlendMode: 'screen',
           }}
           aria-hidden="true"
         />
       )}
 
-      {/* ═══ 5. CONTENIDO DEL SISTEMA (Z-INDEX SUPERIOR INTERACTIVO) ═══ */}
+      {/* ═══ 5. CONTENIDO DEL SISTEMA (Z-INDEX 10 PARA TOTAL INTERACTIVIDAD) ═══ */}
       <div className="relative z-10 w-full">
         {children}
       </div>
