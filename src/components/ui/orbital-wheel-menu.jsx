@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParking } from '../../context/ParkingContext';
 import { sileo } from 'sileo';
 import {
@@ -11,8 +11,8 @@ import {
   Car,
   History,
   Activity,
-  Sparkles,
-  ChevronLeft,
+  ChevronUp,
+  ChevronDown,
   ChevronRight,
   Copy,
   Radio,
@@ -115,12 +115,12 @@ export const ORBIT_ITEMS = [
   },
 ];
 
-// Cálculo de coordenadas en el arco semicircular (viewBox 0 0 700 380)
-const CX = 350;
-const CY = 310;
-const RADIUS = 230;
-const ANGLE_START = 170 * (Math.PI / 180);
-const ANGLE_END = 10 * (Math.PI / 180);
+function shortestAngularDiff(targetIndex, currentOffset, count = 8) {
+  let diff = (targetIndex - currentOffset) % count;
+  if (diff > count / 2) diff -= count;
+  if (diff < -count / 2) diff += count;
+  return diff;
+}
 
 export const OrbitalWheelMenu = ({
   activeTab,
@@ -145,9 +145,54 @@ export const OrbitalWheelMenu = ({
   } = useParking();
 
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [orbitOffset, setOrbitOffset] = useState(0);
+  const targetOffsetRef = useRef(0);
+  const animFrameRef = useRef(null);
+
+  // Estados de arrastre y scroll
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartYRef = useRef(0);
+  const dragStartOffsetRef = useRef(0);
+  const wheelTimeoutRef = useRef(null);
+
   const [isTestingPing, setIsTestingPing] = useState(false);
   const [pingLatency, setPingLatency] = useState(14);
   const [copied, setCopied] = useState(false);
+
+  // Bucle de animación fluida tipo lerp con amortiguación
+  const startAnimationLoop = useCallback(() => {
+    if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+
+    const step = () => {
+      setOrbitOffset((current) => {
+        const delta = targetOffsetRef.current - current;
+        if (Math.abs(delta) < 0.005) {
+          const nearest = Math.round(targetOffsetRef.current);
+          const normalized = ((nearest % 8) + 8) % 8;
+          setSelectedIndex(normalized);
+          return targetOffsetRef.current;
+        }
+        animFrameRef.current = requestAnimationFrame(step);
+        return current + delta * 0.2; // Amortiguación fluida
+      });
+    };
+    animFrameRef.current = requestAnimationFrame(step);
+  }, []);
+
+  // Rotar hacia un índice específico con el camino angular más corto
+  const rotateToIndex = useCallback(
+    (targetIdx) => {
+      const currentNorm = ((Math.round(targetOffsetRef.current) % 8) + 8) % 8;
+      let diff = targetIdx - currentNorm;
+      if (diff > 4) diff -= 8;
+      if (diff < -4) diff += 8;
+
+      targetOffsetRef.current = Math.round(targetOffsetRef.current) + diff;
+      setSelectedIndex(targetIdx);
+      startAnimationLoop();
+    },
+    [startAnimationLoop]
+  );
 
   // Sincronizar índice cuando activeTab cambia externamente
   useEffect(() => {
@@ -156,22 +201,80 @@ export const OrbitalWheelMenu = ({
       (item) => item.actionTarget === activeTab && item.id !== 'parking-map'
     );
     if (foundIndex !== -1 && foundIndex !== selectedIndex) {
-      setSelectedIndex(foundIndex);
+      rotateToIndex(foundIndex);
     }
   }, [activeTab]);
+
+  // Manejo de SCROLL mediante rueda del ratón (Mouse Wheel / Trackpad)
+  const handleWheel = useCallback(
+    (e) => {
+      e.preventDefault();
+      const stepDelta = e.deltaY > 0 ? 1 : -1;
+      targetOffsetRef.current = targetOffsetRef.current + stepDelta;
+
+      if (wheelTimeoutRef.current) clearTimeout(wheelTimeoutRef.current);
+
+      // Al cesar el scroll, acoplar al elemento más cercano
+      wheelTimeoutRef.current = setTimeout(() => {
+        const nearest = Math.round(targetOffsetRef.current);
+        targetOffsetRef.current = nearest;
+        const normalized = ((nearest % 8) + 8) % 8;
+        setSelectedIndex(normalized);
+      }, 140);
+
+      startAnimationLoop();
+    },
+    [startAnimationLoop]
+  );
+
+  // Manejo de Arrastre Vertical (Drag / Touch Swipe)
+  const handlePointerDown = useCallback((e) => {
+    setIsDragging(true);
+    dragStartYRef.current = e.clientY;
+    dragStartOffsetRef.current = targetOffsetRef.current;
+    if (e.currentTarget.setPointerCapture) {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    }
+  }, []);
+
+  const handlePointerMove = useCallback(
+    (e) => {
+      if (!isDragging) return;
+      const dy = e.clientY - dragStartYRef.current;
+      const stepSize = 65; // Píxeles por paso vertical
+      targetOffsetRef.current = dragStartOffsetRef.current - dy / stepSize;
+      startAnimationLoop();
+    },
+    [isDragging, startAnimationLoop]
+  );
+
+  const handlePointerUp = useCallback(
+    (e) => {
+      if (!isDragging) return;
+      setIsDragging(false);
+      const nearest = Math.round(targetOffsetRef.current);
+      targetOffsetRef.current = nearest;
+      const normalized = ((nearest % 8) + 8) % 8;
+      setSelectedIndex(normalized);
+      startAnimationLoop();
+    },
+    [isDragging, startAnimationLoop]
+  );
+
+  const handlePrev = useCallback(() => {
+    targetOffsetRef.current = Math.round(targetOffsetRef.current) - 1;
+    startAnimationLoop();
+  }, [startAnimationLoop]);
+
+  const handleNext = useCallback(() => {
+    targetOffsetRef.current = Math.round(targetOffsetRef.current) + 1;
+    startAnimationLoop();
+  }, [startAnimationLoop]);
 
   const currentItem = ORBIT_ITEMS[selectedIndex] || ORBIT_ITEMS[0];
   const CurrentIcon = currentItem.icon;
 
-  const handlePrev = useCallback(() => {
-    setSelectedIndex((prev) => (prev - 1 + ORBIT_ITEMS.length) % ORBIT_ITEMS.length);
-  }, []);
-
-  const handleNext = useCallback(() => {
-    setSelectedIndex((prev) => (prev + 1) % ORBIT_ITEMS.length);
-  }, []);
-
-  // Acciones directas
+  // Acciones operativas
   const handleStartParking = useCallback(() => {
     startParking('Centro Histórico • Espacio #1042', 0.25);
     sileo.success({
@@ -266,38 +369,45 @@ export const OrbitalWheelMenu = ({
     }
   }, [vehicle]);
 
+  // Geometría del Semicírculo Vertical
+  const dialHeight = 420;
+  const centerY = dialHeight / 2; // 210
+  const orbitRadius = 190;
+  const centerX = 260;
+  const angleStepRad = 0.44;
+
   return (
-    <div className={`w-full bg-transparent border-0 shadow-none font-sans relative overflow-hidden select-none ${className}`}>
+    <div className={`w-full bg-transparent border-0 shadow-none font-sans relative select-none ${className}`}>
       
-      {/* Resplandor ambiental de fondo 100% transparente sin bordes ni cajas */}
+      {/* Resplandor suave de fondo 100% transparente sin bordes */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[340px] rounded-full blur-[120px] pointer-events-none transition-colors duration-700 opacity-25"
+        className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[360px] rounded-full blur-[130px] pointer-events-none transition-colors duration-700 opacity-25"
         style={{ backgroundColor: currentItem.color }}
       />
 
-      {/* ═══ 1. BARRA SUPERIOR TOTALMENTE TRANSPARENTE Y SIN CONTORNOS ═══ */}
+      {/* ═══ 1. ENCABEZADO MINIMALISTA TOTALMENTE TRANSPARENTE ═══ */}
       <div className="flex flex-wrap items-center justify-between gap-3 pb-3">
         <div className="flex items-center gap-2">
           <span
-            className="w-2 h-2 rounded-full animate-pulse"
+            className="w-2.5 h-2.5 rounded-full animate-pulse"
             style={{ backgroundColor: currentItem.color }}
           />
-          <h3 className="font-sans font-black text-lg text-white tracking-tight flex items-center gap-2">
+          <h3 className="font-sans font-black text-lg sm:text-xl text-white tracking-tight flex items-center gap-2">
             <span>Acciones Rápidas</span>
             <span
-              className="font-mono text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full"
+              className="font-mono text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full"
               style={{
                 color: currentItem.color,
                 backgroundColor: `${currentItem.color}15`,
               }}
             >
-              SEMICÍRCULO 3D
+              SEMICÍRCULO VERTICAL 3D
             </span>
           </h3>
         </div>
 
         {/* Accesos rápidos superiores (Sin bordes, 100% transparentes) */}
-        <div className="flex items-center gap-1 text-xs">
+        <div className="flex items-center gap-1.5 text-xs">
           <button
             type="button"
             onClick={() => handleInstantRecharge(100)}
@@ -350,125 +460,19 @@ export const OrbitalWheelMenu = ({
         </div>
       </div>
 
-      {/* ═══ 2. EL ESCENARIO SEMICIRCULAR CENTRAL ═══ */}
-      <div className="relative w-full max-w-4xl mx-auto h-[350px] sm:h-[390px] flex items-center justify-center my-2">
+      {/* ═══ 2. ESCENARIO VERTICAL: CONTENIDO DENTRO DEL SEMICÍRCULO + RULETA SCROLLABLE ═══ */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center min-h-[420px] relative py-2">
         
-        {/* SVG del Semicírculo Flotante (Sin contornos de caja) */}
-        <svg
-          className="absolute inset-0 w-full h-full pointer-events-none"
-          viewBox="0 0 700 380"
-          fill="none"
-        >
-          {/* Arco guía semicircular con trazo sutil */}
-          <path
-            d="M 123.5 270 A 230 230 0 0 1 576.5 270"
-            stroke="rgba(255, 255, 255, 0.12)"
-            strokeWidth="1.5"
-            strokeDasharray="4 8"
-          />
-
-          {/* Resplandor del semicírculo con el color de la opción activa */}
-          <path
-            d="M 123.5 270 A 230 230 0 0 1 576.5 270"
-            stroke={currentItem.color}
-            strokeWidth="2.5"
-            strokeOpacity="0.4"
-            style={{
-              filter: `drop-shadow(0 0 10px ${currentItem.color})`,
-            }}
-          />
-        </svg>
-
-        {/* Botones de navegación laterales discretos (Anterior / Siguiente) */}
-        <button
-          type="button"
-          onClick={handlePrev}
-          style={{ '--primary': currentItem.color }}
-          className="fx-67 absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full text-white/80 hover:text-white flex items-center justify-center transition cursor-pointer z-30"
-          title="Opción anterior"
-        >
-          <span className="btn-label">
-            <ChevronLeft className="w-5 h-5" />
-          </span>
-        </button>
-
-        <button
-          type="button"
-          onClick={handleNext}
-          style={{ '--primary': currentItem.color }}
-          className="fx-67 absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full text-white/80 hover:text-white flex items-center justify-center transition cursor-pointer z-30"
-          title="Opción siguiente"
-        >
-          <span className="btn-label">
-            <ChevronRight className="w-5 h-5" />
-          </span>
-        </button>
-
-        {/* ═══ 8 OPCIONES DISTRIBUIDAS A LO LARGO DEL SEMICÍRCULO ═══ */}
-        {ORBIT_ITEMS.map((item, idx) => {
-          const isSelected = selectedIndex === idx;
-          const Icon = item.icon;
-
-          // Cálculo del ángulo y posición en el arco
-          const angle = ANGLE_START - (idx / 7) * (ANGLE_START - ANGLE_END);
-          const x = CX + RADIUS * Math.cos(angle);
-          const y = CY - RADIUS * Math.sin(angle);
-
-          // Convertir a porcentajes del contenedor (700 x 380)
-          const leftPct = (x / 700) * 100;
-          const topPct = (y / 380) * 100;
-
-          return (
-            <div
-              key={item.id}
-              style={{
-                position: 'absolute',
-                left: `${leftPct}%`,
-                top: `${topPct}%`,
-                transform: 'translate(-50%, -50%)',
-              }}
-              className="z-20"
-            >
-              <button
-                type="button"
-                onClick={() => setSelectedIndex(idx)}
-                style={{
-                  '--primary': item.color,
-                }}
-                className={`fx-67 rounded-full flex flex-col items-center justify-center transition-all duration-300 cursor-pointer ${
-                  isSelected
-                    ? 'w-13 h-13 sm:w-14 sm:h-14 is-active scale-110'
-                    : 'w-10 h-10 sm:w-11 sm:h-11 opacity-65 hover:opacity-100 hover:scale-105'
-                }`}
-                title={item.label}
-              >
-                <span className="btn-label flex items-center justify-center">
-                  <div
-                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-colors"
-                    style={{
-                      color: isSelected ? '#FFFFFF' : item.color,
-                      backgroundColor: isSelected ? `${item.color}35` : `${item.color}15`,
-                      boxShadow: isSelected ? `0 0 16px ${item.glowColor}` : undefined,
-                    }}
-                  >
-                    <Icon className={isSelected ? 'w-4 h-4 sm:w-5 sm:h-5' : 'w-3.5 h-3.5 sm:w-4 sm:h-4'} />
-                  </div>
-                </span>
-              </button>
-            </div>
-          );
-        })}
-
-        {/* ═══ 3. CONTENIDO PRINCIPAL: APARECE DENTRO DEL SEMICÍRCULO ═══ */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center pt-8 sm:pt-10 px-4 text-center pointer-events-none z-10">
+        {/* ═══ PANEL IZQUIERDO: APARECE DENTRO DEL SEMICÍRCULO (100% TRANSPARENTE, SIN CONTORNOS) ═══ */}
+        <div className="lg:col-span-7 flex flex-col justify-center items-center lg:items-start text-center lg:text-left px-2 sm:px-6 z-20">
           <div
             key={currentItem.id}
-            className="pointer-events-auto flex flex-col items-center max-w-sm sm:max-w-md w-full animate-in fade-in zoom-in-95 duration-250"
+            className="flex flex-col items-center lg:items-start max-w-lg w-full animate-in fade-in zoom-in-95 duration-250"
           >
             
-            {/* Categoría e índice flotante */}
+            {/* Categoría y conteo */}
             <div
-              className="flex items-center gap-2 mb-2 font-mono text-[10px] sm:text-[11px] font-bold tracking-widest uppercase"
+              className="flex items-center gap-2 mb-2 font-mono text-[11px] font-bold tracking-widest uppercase"
               style={{ color: currentItem.color }}
             >
               <span
@@ -480,30 +484,30 @@ export const OrbitalWheelMenu = ({
               <span className="text-white/60">0{selectedIndex + 1} / 08</span>
             </div>
 
-            {/* Icono central de gran tamaño con resplandor líquido */}
+            {/* Icono central de gran tamaño con aura flotante */}
             <div
-              className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-2.5 transition-all duration-500"
+              className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center mb-3 transition-all duration-500"
               style={{
-                backgroundColor: `${currentItem.color}18`,
+                backgroundColor: `${currentItem.color}15`,
                 color: currentItem.color,
-                boxShadow: `0 0 32px ${currentItem.glowColor}`,
+                boxShadow: `0 0 35px ${currentItem.glowColor}`,
               }}
             >
-              <CurrentIcon className="w-7 h-7 sm:w-8 sm:h-8" />
+              <CurrentIcon className="w-8 h-8 sm:w-10 sm:h-10 drop-shadow-md" />
             </div>
 
             {/* Título de la opción seleccionada */}
-            <h4 className="font-sans font-black text-xl sm:text-2xl text-white tracking-tight drop-shadow-md mb-1.5">
+            <h4 className="font-sans font-black text-2xl sm:text-3xl text-white tracking-tight drop-shadow-md mb-2">
               {currentItem.label}
             </h4>
 
-            {/* Datos específicos dentro del semicírculo (Completamente transparentes) */}
-            <div className="min-h-[46px] flex flex-col items-center justify-center text-xs font-mono text-[#D4D6E6]/80 mb-3 px-2">
+            {/* Datos específicos dentro del semicírculo */}
+            <div className="min-h-[42px] flex items-center text-xs sm:text-sm font-mono text-[#D4D6E6]/80 mb-4">
               {/* 1. Parquímetro */}
               {currentItem.id === 'dashboard' && (
                 activeSession ? (
-                  <div className="flex items-center gap-2">
-                    <span className="font-mono font-bold text-amber-300 text-sm">
+                  <div className="flex items-center gap-2.5">
+                    <span className="font-mono font-black text-amber-300 text-base">
                       {formatTimeFromSeconds(activeSession.secondsElapsed)}
                     </span>
                     <span className="text-white/40">•</span>
@@ -513,7 +517,7 @@ export const OrbitalWheelMenu = ({
                   </div>
                 ) : (
                   <span className="text-emerald-400 font-sans font-semibold">
-                    Listo para Estacionar • Tarifa $0.25/min
+                    Listo para Estacionar • Tarifa regulada $0.25/min
                   </span>
                 )
               )}
@@ -521,8 +525,8 @@ export const OrbitalWheelMenu = ({
               {/* 2. Recarga */}
               {currentItem.id === 'recharge' && (
                 <div className="flex items-center gap-2">
-                  <span>Saldo actual:</span>
-                  <span className="text-amber-400 font-bold text-sm">
+                  <span>Saldo disponible en tarjeta:</span>
+                  <span className="text-amber-400 font-black text-base">
                     ${Number(card?.balance ?? 0).toFixed(2)} MXN
                   </span>
                 </div>
@@ -533,25 +537,25 @@ export const OrbitalWheelMenu = ({
                 <div className="flex items-center gap-2">
                   <span>{autoPay?.bank || 'Santander Platinum •••• 8821'}</span>
                   <span className="text-white/40">•</span>
-                  <span className={autoPay?.enabled ? 'text-emerald-400' : 'text-rose-400'}>
-                    {autoPay?.enabled ? 'Activo' : 'En Pausa'}
+                  <span className={autoPay?.enabled ? 'text-emerald-400 font-bold' : 'text-rose-400 font-bold'}>
+                    {autoPay?.enabled ? 'Autocobro Activo' : 'Autocobro Pausado'}
                   </span>
                 </div>
               )}
 
               {/* 4. Pase QR */}
               {currentItem.id === 'qr-credential' && (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2.5">
                   <span className="text-white font-bold tracking-wider">{formatPlate(vehicle?.plates)}</span>
                   <span className="text-white/40">•</span>
-                  <span className="text-sky-400">Validado AES-256</span>
+                  <span className="text-sky-400 font-semibold">Validado Oficial AES-256</span>
                 </div>
               )}
 
               {/* 5. Mapa GPS */}
               {currentItem.id === 'parking-map' && (
                 <span>
-                  {pinnedLocations.length} espacio(s) guardado(s) en Centro Histórico
+                  {pinnedLocations.length} espacio(s) guardado(s) • Centro Histórico
                 </span>
               )}
 
@@ -571,14 +575,14 @@ export const OrbitalWheelMenu = ({
 
               {/* 8. Telemetría */}
               {currentItem.id === 'telemetry' && (
-                <span className="text-emerald-400">
-                  Latencia: {pingLatency}ms • Satélites Conectados al 100%
+                <span className="text-emerald-400 font-semibold">
+                  Latencia de enlace: {pingLatency}ms • Satélites Conectados
                 </span>
               )}
             </div>
 
-            {/* ═══ BOTONES DE ACCIÓN DENTRO DEL SEMICÍRCULO (100% TRANSPARENTES, SIN CONTORNOS) ═══ */}
-            <div className="flex flex-wrap items-center justify-center gap-2">
+            {/* ═══ BOTONES DE ACCIÓN DENTRO DEL SEMICÍRCULO (SIN CONTORNOS, LLENADO 100%) ═══ */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5">
               
               {/* Acción Parquímetro */}
               {currentItem.id === 'dashboard' && (
@@ -587,10 +591,10 @@ export const OrbitalWheelMenu = ({
                     type="button"
                     onClick={handleStopParking}
                     style={{ '--primary': '#F43F5E' }}
-                    className="fx-67 px-4 py-2 rounded-xl text-rose-300 font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
+                    className="fx-67 px-4 py-2.5 rounded-xl text-rose-300 font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
                   >
                     <span className="btn-label flex items-center gap-1.5">
-                      <Square className="w-3.5 h-3.5 fill-current" />
+                      <Square className="w-4 h-4 fill-current" />
                       <span>Finalizar Parquímetro</span>
                     </span>
                   </button>
@@ -599,26 +603,26 @@ export const OrbitalWheelMenu = ({
                     type="button"
                     onClick={handleStartParking}
                     style={{ '--primary': '#10B981' }}
-                    className="fx-67 px-4 py-2 rounded-xl text-emerald-300 font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
+                    className="fx-67 px-4 py-2.5 rounded-xl text-emerald-300 font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
                   >
                     <span className="btn-label flex items-center gap-1.5">
-                      <Play className="w-3.5 h-3.5 fill-current" />
+                      <Play className="w-4 h-4 fill-current" />
                       <span>Iniciar Parquímetro</span>
                     </span>
                   </button>
                 )
               )}
 
-              {/* Acción Recarga: Presets rápidos */}
+              {/* Acción Recarga */}
               {currentItem.id === 'recharge' && (
-                <div className="flex items-center gap-1.5">
+                <div className="flex flex-wrap items-center gap-1.5">
                   {[50, 100, 200, 500].map((amt) => (
                     <button
                       key={amt}
                       type="button"
                       onClick={() => handleInstantRecharge(amt)}
                       style={{ '--primary': '#F59E0B' }}
-                      className="fx-67 px-2.5 py-1.5 rounded-lg text-amber-300 font-mono text-xs font-bold transition cursor-pointer"
+                      className="fx-67 px-3 py-1.5 rounded-lg text-amber-300 font-mono text-xs font-bold transition cursor-pointer"
                     >
                       <span className="btn-label">+${amt}</span>
                     </button>
@@ -627,7 +631,7 @@ export const OrbitalWheelMenu = ({
                     type="button"
                     onClick={onOpenRecharge}
                     style={{ '--primary': '#F59E0B' }}
-                    className="fx-67 px-3 py-1.5 rounded-lg text-white font-sans text-xs font-bold transition cursor-pointer ml-1"
+                    className="fx-67 px-3.5 py-1.5 rounded-lg text-white font-sans text-xs font-bold transition cursor-pointer ml-1"
                   >
                     <span className="btn-label">Otro Monto</span>
                   </button>
@@ -640,10 +644,10 @@ export const OrbitalWheelMenu = ({
                   type="button"
                   onClick={handleToggleAutoPay}
                   style={{ '--primary': autoPay?.enabled ? '#F43F5E' : '#10B981' }}
-                  className="fx-67 px-4 py-2 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 transition cursor-pointer"
+                  className="fx-67 px-4 py-2.5 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 transition cursor-pointer"
                 >
                   <span className="btn-label flex items-center gap-1.5">
-                    <Zap className="w-3.5 h-3.5" />
+                    <Zap className="w-4 h-4" />
                     <span className={autoPay?.enabled ? 'text-rose-300' : 'text-emerald-300'}>
                       {autoPay?.enabled ? 'Pausar Autocobro' : 'Activar Autocobro'}
                     </span>
@@ -658,10 +662,10 @@ export const OrbitalWheelMenu = ({
                     type="button"
                     onClick={handleCopyPlates}
                     style={{ '--primary': '#807DFE' }}
-                    className="fx-67 px-3 py-2 rounded-xl text-white font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
+                    className="fx-67 px-3.5 py-2.5 rounded-xl text-white font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
                   >
                     <span className="btn-label flex items-center gap-1.5">
-                      {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                      {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
                       <span>{copied ? 'Copiado' : 'Copiar Placas'}</span>
                     </span>
                   </button>
@@ -670,10 +674,10 @@ export const OrbitalWheelMenu = ({
                     type="button"
                     onClick={onOpenQR}
                     style={{ '--primary': '#38BDF8' }}
-                    className="fx-67 px-4 py-2 rounded-xl text-sky-300 font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
+                    className="fx-67 px-4 py-2.5 rounded-xl text-sky-300 font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
                   >
                     <span className="btn-label flex items-center gap-1.5">
-                      <QrCode className="w-3.5 h-3.5" />
+                      <QrCode className="w-4 h-4" />
                       <span>Abrir Pase QR</span>
                     </span>
                   </button>
@@ -686,10 +690,10 @@ export const OrbitalWheelMenu = ({
                   type="button"
                   onClick={handlePinCurrentLocation}
                   style={{ '--primary': '#FB923C' }}
-                  className="fx-67 px-4 py-2 rounded-xl text-orange-300 font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
+                  className="fx-67 px-4 py-2.5 rounded-xl text-orange-300 font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
                 >
                   <span className="btn-label flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5" />
+                    <MapPin className="w-4 h-4" />
                     <span>Fijar Aquí mi Lugar</span>
                   </span>
                 </button>
@@ -701,10 +705,10 @@ export const OrbitalWheelMenu = ({
                   type="button"
                   onClick={handleToggleVehicle}
                   style={{ '--primary': '#F43F5E' }}
-                  className="fx-67 px-4 py-2 rounded-xl text-rose-300 font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
+                  className="fx-67 px-4 py-2.5 rounded-xl text-rose-300 font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
                 >
                   <span className="btn-label flex items-center gap-1.5">
-                    <RefreshCw className="w-3.5 h-3.5" />
+                    <RefreshCw className="w-4 h-4" />
                     <span>Alternar Vehículo</span>
                   </span>
                 </button>
@@ -716,7 +720,7 @@ export const OrbitalWheelMenu = ({
                   type="button"
                   onClick={() => onSelectTab('history')}
                   style={{ '--primary': '#EC4899' }}
-                  className="fx-67 px-4 py-2 rounded-xl text-pink-300 font-sans text-xs font-bold transition cursor-pointer"
+                  className="fx-67 px-4 py-2.5 rounded-xl text-pink-300 font-sans text-xs font-bold transition cursor-pointer"
                 >
                   <span className="btn-label">Ver Historial Completo</span>
                 </button>
@@ -729,21 +733,21 @@ export const OrbitalWheelMenu = ({
                   onClick={handleRunPingTest}
                   disabled={isTestingPing}
                   style={{ '--primary': '#A78BFA' }}
-                  className="fx-67 px-4 py-2 rounded-xl text-purple-300 font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer disabled:opacity-50"
+                  className="fx-67 px-4 py-2.5 rounded-xl text-purple-300 font-sans text-xs font-bold flex items-center gap-1.5 transition cursor-pointer disabled:opacity-50"
                 >
                   <span className="btn-label flex items-center gap-1.5">
-                    <Radio className={`w-3.5 h-3.5 ${isTestingPing ? 'animate-spin' : ''}`} />
+                    <Radio className={`w-4 h-4 ${isTestingPing ? 'animate-spin' : ''}`} />
                     <span>{isTestingPing ? 'Midiendo Latencia...' : 'Ejecutar Test Ping'}</span>
                   </span>
                 </button>
               )}
 
-              {/* Enlace secundario para ir a la vista completa */}
+              {/* Enlace al módulo completo */}
               <button
                 type="button"
                 onClick={() => onSelectTab(currentItem.actionTarget)}
                 style={{ '--primary': currentItem.color }}
-                className="fx-67 px-3 py-2 rounded-xl text-xs font-sans text-white/70 hover:text-white flex items-center gap-1 transition cursor-pointer"
+                className="fx-67 px-3.5 py-2.5 rounded-xl text-xs font-sans text-white/70 hover:text-white flex items-center gap-1.5 transition cursor-pointer"
                 title="Abrir módulo completo"
               >
                 <span className="btn-label flex items-center gap-1">
@@ -757,9 +761,151 @@ export const OrbitalWheelMenu = ({
           </div>
         </div>
 
+        {/* ═══ PANEL DERECHO: RULETA EN SEMICÍRCULO VERTICAL CON SCROLL & DRAG ═══ */}
+        <div
+          onWheel={handleWheel}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
+          className="lg:col-span-5 h-[390px] sm:h-[430px] relative flex items-center justify-center cursor-grab active:cursor-grabbing touch-none overflow-hidden"
+          title="Gira la rueda del ratón o arrastra para rotar el semicírculo vertical"
+        >
+          
+          {/* Botones de navegación vertical sutiles */}
+          <div className="absolute right-2 top-2 z-40 flex flex-col gap-1">
+            <button
+              type="button"
+              onClick={handlePrev}
+              style={{ '--primary': currentItem.color }}
+              className="fx-67 w-7 h-7 rounded-full text-white/80 hover:text-white flex items-center justify-center transition cursor-pointer"
+              title="Anterior"
+            >
+              <span className="btn-label">
+                <ChevronUp className="w-4 h-4" />
+              </span>
+            </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              style={{ '--primary': currentItem.color }}
+              className="fx-67 w-7 h-7 rounded-full text-white/80 hover:text-white flex items-center justify-center transition cursor-pointer"
+              title="Siguiente"
+            >
+              <span className="btn-label">
+                <ChevronDown className="w-4 h-4" />
+              </span>
+            </button>
+          </div>
+
+          {/* Línea láser ápex que conecta el semicírculo con el contenido interior */}
+          <div
+            className="absolute z-30 pointer-events-none flex items-center gap-1.5"
+            style={{
+              left: '18px',
+              top: `${centerY}px`,
+              transform: 'translateY(-50%)',
+            }}
+          >
+            <div
+              className="h-10 w-1 rounded-full transition-colors duration-300"
+              style={{
+                backgroundColor: currentItem.color,
+                boxShadow: `0 0 16px ${currentItem.color}`,
+              }}
+            />
+          </div>
+
+          {/* SVG del Semicírculo Vertical (Arco Flotante, Sin Contornos) */}
+          <svg
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            viewBox="0 0 340 420"
+            fill="none"
+          >
+            {/* Arco guía vertical sutil */}
+            <path
+              d="M 194 40 A 180 180 0 0 0 194 380"
+              stroke="rgba(255, 255, 255, 0.12)"
+              strokeWidth="1.5"
+              strokeDasharray="4 8"
+            />
+
+            {/* Resplandor del semicírculo con el color de la opción activa */}
+            <path
+              d="M 194 40 A 180 180 0 0 0 194 380"
+              stroke={currentItem.color}
+              strokeWidth="2.5"
+              strokeOpacity="0.45"
+              style={{
+                filter: `drop-shadow(0 0 12px ${currentItem.color})`,
+              }}
+            />
+          </svg>
+
+          {/* Elementos orbitando a lo largo del semicírculo vertical */}
+          <div className="w-full h-full relative pointer-events-none">
+            {ORBIT_ITEMS.map((item, index) => {
+              const diff = shortestAngularDiff(index, orbitOffset, 8);
+              const absDiff = Math.abs(diff);
+
+              if (absDiff > 2.8) return null;
+
+              const angle = Math.PI - diff * angleStepRad;
+              const iconX = centerX + orbitRadius * Math.cos(angle);
+              const iconY = centerY + orbitRadius * Math.sin(angle);
+
+              const opacity = Math.max(0, 1 - Math.pow(absDiff / 2.8, 1.6));
+              const scale = Math.max(0.75, 1 - absDiff * 0.08);
+              const isSelected = absDiff < 0.45;
+              const Icon = item.icon;
+
+              return (
+                <div
+                  key={item.id}
+                  onClick={() => rotateToIndex(index)}
+                  style={{
+                    position: 'absolute',
+                    left: `${iconX}px`,
+                    top: `${iconY}px`,
+                    transform: `translate(-50%, -50%) scale(${scale})`,
+                    opacity,
+                    zIndex: isSelected ? 30 : 20 - Math.round(absDiff * 2),
+                  }}
+                  className="pointer-events-auto flex items-center gap-2 cursor-pointer transition-transform duration-150 group"
+                >
+                  {/* Icono del nodo vertical */}
+                  <div
+                    className="w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all duration-300"
+                    style={{
+                      backgroundColor: isSelected ? `${item.color}35` : `${item.color}15`,
+                      color: isSelected ? '#FFFFFF' : item.color,
+                      boxShadow: isSelected ? `0 0 20px ${item.glowColor}` : undefined,
+                    }}
+                  >
+                    <Icon className="w-5 h-5 transition-transform group-hover:scale-110" />
+                  </div>
+
+                  {/* Etiqueta limpia del nodo activo */}
+                  {isSelected && (
+                    <div
+                      className="px-3 py-1 rounded-full text-xs font-sans font-bold whitespace-nowrap shadow-lg text-white"
+                      style={{
+                        backgroundColor: `${item.color}35`,
+                      }}
+                    >
+                      {item.shortLabel}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+        </div>
+
       </div>
 
-      {/* ═══ 4. SELECTOR INFERIOR DE 8 OPCIONES (100% TRANSPARENTE, SIN CONTORNOS, SE LLENA BIEN AL 100%) ═══ */}
+      {/* ═══ 3. SELECTOR INFERIOR DE 8 OPCIONES (100% TRANSPARENTE, SIN CONTORNOS, SE LLENA AL 100%) ═══ */}
       <div className="pt-3">
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-1">
           {ORBIT_ITEMS.map((item, idx) => {
@@ -770,7 +916,7 @@ export const OrbitalWheelMenu = ({
               <button
                 key={item.id}
                 type="button"
-                onClick={() => setSelectedIndex(idx)}
+                onClick={() => rotateToIndex(idx)}
                 style={{
                   '--primary': item.color,
                 }}
