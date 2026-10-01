@@ -81,10 +81,10 @@ const MainContent = () => {
       title: 'Recargar Saldo',
       subtitle: 'Añadir saldo express',
       badge: `$${Number(card?.balance ?? 0).toFixed(2)}`,
-      badgeClassName: 'bg-white/10 backdrop-blur-sm text-[#D4D6E6] border border-white/10 font-mono',
-      iconBg: 'bg-white/10 backdrop-blur-sm border border-white/10 text-[#D4D6E6]',
-      borderClassName: 'border-white/10 hover:border-white/25',
-      glowGradient: 'from-[#0033FF]/30 via-transparent to-transparent',
+      badgeClassName: 'bg-slate-100 text-slate-800 border border-slate-200 font-mono font-bold',
+      iconBg: 'bg-slate-100 border border-slate-200 text-black',
+      borderClassName: 'border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50 shadow-sm',
+      glowGradient: 'from-slate-100/50 via-transparent to-transparent',
       footerText: 'Monedero Parqu Activo',
       activeStatus: true,
       onClick: () => setShowRechargeQuickModal(true),
@@ -95,10 +95,10 @@ const MainContent = () => {
       title: 'Credencial QR',
       subtitle: 'Inspección de tránsito',
       badge: 'AES-256',
-      badgeClassName: 'bg-white/10 backdrop-blur-sm text-[#D4D6E6] border border-white/10 font-mono',
-      iconBg: 'bg-white/10 backdrop-blur-sm border border-white/10 text-[#D4D6E6]',
-      borderClassName: 'border-white/10 hover:border-white/25',
-      glowGradient: 'from-[#0033FF]/30 via-transparent to-transparent',
+      badgeClassName: 'bg-slate-100 text-slate-800 border border-slate-200 font-mono font-bold',
+      iconBg: 'bg-slate-100 border border-slate-200 text-black',
+      borderClassName: 'border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50 shadow-sm',
+      glowGradient: 'from-slate-100/50 via-transparent to-transparent',
       footerText: 'Pase Contactless Oficial',
       activeStatus: true,
       onClick: () => setShowQRQuickModal(true),
@@ -109,10 +109,10 @@ const MainContent = () => {
       title: activeSession ? 'Estacionamiento Activo' : 'Mapa & Ubicación',
       subtitle: activeSession ? activeSession.zoneName : 'Fijar Ubicación & Registro',
       badge: activeSession ? 'EN VIVO' : 'GPS & BITÁCORA',
-      badgeClassName: activeSession ? 'bg-amber-950/60 text-amber-300 border-amber-700/50 animate-pulse font-mono' : 'bg-white/10 backdrop-blur-sm text-[#D4D6E6] border border-white/10 font-mono',
-      iconBg: 'bg-white/10 backdrop-blur-sm border border-white/10 text-[#D4D6E6]',
-      borderClassName: 'border-white/10 hover:border-white/25',
-      glowGradient: 'from-[#0033FF]/30 via-transparent to-transparent',
+      badgeClassName: activeSession ? 'bg-amber-100 text-amber-800 border-amber-300 font-mono font-bold' : 'bg-slate-100 text-slate-800 border border-slate-200 font-mono font-bold',
+      iconBg: 'bg-slate-100 border border-slate-200 text-black',
+      borderClassName: 'border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50 shadow-sm',
+      glowGradient: 'from-slate-100/50 via-transparent to-transparent',
       footerText: activeSession ? 'Debitando segundo a segundo' : 'Mapa Satelital + Rutas 3D',
       activeStatus: activeSession !== null,
       onClick: () => {
@@ -129,10 +129,10 @@ const MainContent = () => {
       title: 'Modo Autocobro',
       subtitle: 'Débito continuo sin filas',
       badge: autoPay?.enabled ? 'ACTIVO' : 'PAUSADO',
-      badgeClassName: autoPay?.enabled ? 'bg-white/10 backdrop-blur-sm text-[#D4D6E6] border border-white/10 font-mono' : 'bg-rose-950/60 text-rose-300 border-rose-700/50 font-mono',
-      iconBg: 'bg-white/10 backdrop-blur-sm border border-white/10 text-[#D4D6E6]',
-      borderClassName: 'border-white/10 hover:border-white/25',
-      glowGradient: 'from-[#0033FF]/30 via-transparent to-transparent',
+      badgeClassName: autoPay?.enabled ? 'bg-emerald-100 text-emerald-800 border-emerald-200 font-mono font-bold' : 'bg-rose-100 text-rose-800 border-rose-200 font-mono font-bold',
+      iconBg: 'bg-slate-100 border border-slate-200 text-black',
+      borderClassName: 'border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50 shadow-sm',
+      glowGradient: 'from-slate-100/50 via-transparent to-transparent',
       footerText: autoPay?.fundingSource === 'CARD' ? 'Débito Bancario' : 'Saldo Virtual',
       activeStatus: Boolean(autoPay?.enabled),
       onClick: () => {
@@ -149,10 +149,10 @@ const MainContent = () => {
       title: vehicle?.plates || 'XYZ-7842',
       subtitle: `${vehicle?.brand || 'Volkswagen'} ${vehicle?.model || 'Jetta'}`,
       badge: 'PADRÓN',
-      badgeClassName: 'bg-white/10 backdrop-blur-sm text-[#D4D6E6] border border-white/10 font-mono',
-      iconBg: 'bg-white/10 backdrop-blur-sm border border-white/10 text-[#D4D6E6]',
-      borderClassName: 'border-white/10 hover:border-white/25',
-      glowGradient: 'from-[#0033FF]/30 via-transparent to-transparent',
+      badgeClassName: 'bg-slate-100 text-slate-800 border border-slate-200 font-mono font-bold',
+      iconBg: 'bg-slate-100 border border-slate-200 text-black',
+      borderClassName: 'border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50 shadow-sm',
+      glowGradient: 'from-slate-100/50 via-transparent to-transparent',
       footerText: owner?.fullName || 'Sebastián Salinas',
       activeStatus: true,
       onClick: () => {
@@ -169,10 +169,10 @@ const MainContent = () => {
       title: 'Diagnóstico en Vivo',
       subtitle: 'Multi-Step Loader',
       badge: 'ANIMACIÓN',
-      badgeClassName: 'bg-[#D4D6E6] text-[#1B3A2F] border-[#D4D6E6] font-mono',
-      iconBg: 'bg-white/10 backdrop-blur-sm border border-white/10 text-[#D4D6E6]',
-      borderClassName: 'border-white/10 hover:border-white/25',
-      glowGradient: 'from-[#0033FF]/30 via-transparent to-transparent',
+      badgeClassName: 'bg-slate-100 text-slate-800 border border-slate-200 font-mono font-bold',
+      iconBg: 'bg-slate-100 border border-slate-200 text-black',
+      borderClassName: 'border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50 shadow-sm',
+      glowGradient: 'from-slate-100/50 via-transparent to-transparent',
       activeStatus: true,
       onClick: () => {
         sileo.success({
@@ -192,86 +192,86 @@ const MainContent = () => {
       badge: 'CRAFTS',
       content: (
         <AnimeStaggerGroup triggerKey={activeTab} className="space-y-6">
-          <div className="anime-stagger-card p-6 sm:p-8 rounded-3xl bg-[#01033E] border border-slate-200/80 shadow-2xl space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+          <div className="anime-stagger-card p-6 sm:p-8 rounded-3xl bg-white/95 backdrop-blur-xl border border-slate-200 shadow-sm space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
               <div>
-                <div className="flex items-center gap-2 mb-1 text-xs font-mono text-[#D4D6E6]">
-                  <span className="w-2 h-2 rounded-full bg-[#D4D6E6] animate-pulse" />
-                  <span className="tracking-widest uppercase font-bold text-[#D4D6E6] text-[11px]">
+                <div className="flex items-center gap-2 mb-1 text-xs font-mono text-slate-500">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="tracking-widest uppercase font-bold text-slate-700 text-[11px]">
                     ACETERNITY INTERFACE CRAFTS
                   </span>
-                  <span className="text-[#D4D6E6]/60">•</span>
-                  <span className="text-[#D4D6E6] text-[11px]">PANEL DE ACCESO INMEDIATO</span>
+                  <span className="text-slate-300">•</span>
+                  <span className="text-slate-500 text-[11px]">PANEL DE ACCESO INMEDIATO</span>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2.5 font-sans">
-                  <Zap className="w-5 h-5 text-[#807DFE]" />
+                <h3 className="text-xl sm:text-2xl font-black text-black tracking-tight flex items-center gap-2.5 font-sans">
+                  <Zap className="w-5 h-5 text-black" />
                   Apartado de Funciones Rápidas
                 </h3>
-                <p className="text-xs text-[#D4D6E6] mt-1 font-sans">
+                <p className="text-xs text-slate-600 mt-1 font-sans">
                   Ejecuta recargas, abre la credencial QR para tránsitos, fija tu ubicación en el mapa o administra el autocobro en 1 toque.
                 </p>
               </div>
 
-              <span className="text-[11px] font-bold text-[#D4D6E6] bg-white/10 backdrop-blur-sm border border-white/10 px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm font-sans w-fit">
-                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                <span className="font-mono">6</span> Accesos Configurados
+              <span className="text-[11px] font-bold text-slate-700 bg-slate-100 border border-slate-200 px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm font-sans w-fit">
+                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                <span className="font-mono text-black font-black">6</span> Accesos Configurados
               </span>
             </div>
 
             <InterfaceCraftsCards items={quickActionsItems} />
 
             {/* Accesos de 1 clic a montos rápidos de recarga y acciones instantáneas */}
-            <div className="pt-4 border-t border-white/10 grid grid-cols-1 md:grid-cols-3 gap-4 font-sans">
+            <div className="pt-4 border-t border-slate-100 grid grid-cols-1 md:grid-cols-3 gap-4 font-sans">
               <div 
                 onClick={() => setShowRechargeQuickModal(true)}
-                className="p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 hover:bg-white/8 cursor-pointer transition group shadow-md"
+                className="p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 cursor-pointer transition group shadow-sm"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-bold text-[#D4D6E6] font-sans flex items-center gap-1.5">
-                    <CurrencyDollarIcon size={14} className="text-[#D4D6E6]" />
+                  <span className="text-xs font-bold text-black font-sans flex items-center gap-1.5">
+                    <CurrencyDollarIcon size={14} className="text-black" />
                     Recarga Inmediata
                   </span>
-                  <span className="text-[10px] font-mono text-[#D4D6E6] px-2 py-0.5 rounded-full bg-white/10 border border-white/10">
+                  <span className="text-[10px] font-mono text-black font-bold px-2 py-0.5 rounded-full bg-slate-200/80 border border-slate-300">
                     EXPRESS
                   </span>
                 </div>
-                <p className="text-[11px] text-[#D4D6E6] font-sans">
-                  Añade <span className="font-mono">$100</span>, <span className="font-mono">$200</span> o <span className="font-mono">$500</span> a tu tarjeta Parqu sin comisiones.
+                <p className="text-[11px] text-slate-600 font-sans">
+                  Añade <span className="font-mono font-bold text-black">$100</span>, <span className="font-mono font-bold text-black">$200</span> o <span className="font-mono font-bold text-black">$500</span> a tu tarjeta Parqu sin comisiones.
                 </p>
               </div>
 
               <div 
                 onClick={() => setShowQRQuickModal(true)}
-                className="p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 hover:bg-white/8 cursor-pointer transition group shadow-md"
+                className="p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 cursor-pointer transition group shadow-sm"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-bold text-[#D4D6E6] font-sans flex items-center gap-1.5">
-                    <QrCode className="w-3.5 h-3.5 text-[#D4D6E6]" />
+                  <span className="text-xs font-bold text-black font-sans flex items-center gap-1.5">
+                    <QrCode className="w-3.5 h-3.5 text-black" />
                     Credencial QR Oficial
                   </span>
-                  <span className="text-[10px] font-mono text-[#D4D6E6] px-2 py-0.5 rounded-full bg-white/10 border border-white/10">
+                  <span className="text-[10px] font-mono text-black font-bold px-2 py-0.5 rounded-full bg-slate-200/80 border border-slate-300">
                     AES-256
                   </span>
                 </div>
-                <p className="text-[11px] text-[#D4D6E6] font-sans">
+                <p className="text-[11px] text-slate-600 font-sans">
                   Muestra tu pase contactless al oficial vial para verificar estancia.
                 </p>
               </div>
 
               <div 
                 onClick={() => handleSelectFeature('dashboard')}
-                className="p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 hover:bg-white/8 cursor-pointer transition group shadow-md"
+                className="p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 cursor-pointer transition group shadow-sm"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-bold text-[#D4D6E6] font-sans flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-[#D4D6E6]" />
+                  <span className="text-xs font-bold text-black font-sans flex items-center gap-1.5">
+                    <MapPin className="w-3.5 h-3.5 text-black" />
                     Mapa & Rutas 3D
                   </span>
-                  <span className="text-[10px] font-mono text-[#D4D6E6] px-2 py-0.5 rounded-full bg-white/10 border border-white/10">
+                  <span className="text-[10px] font-mono text-black font-bold px-2 py-0.5 rounded-full bg-slate-200/80 border border-slate-300">
                     EN VIVO
                   </span>
                 </div>
-                <p className="text-[11px] text-[#D4D6E6] font-sans">
+                <p className="text-[11px] text-slate-600 font-sans">
                   Fija tu ubicación en el mapa, asigna tu número de espacio o simula tu recorrido animado en 3D.
                 </p>
               </div>
@@ -293,11 +293,11 @@ const MainContent = () => {
             {/* Tarjeta Digital (Col 1 a 7) */}
             <div className="anime-stagger-card lg:col-span-7 space-y-4">
               <div className="flex items-center justify-between">
-                <h3 className="text-xs uppercase tracking-wider font-bold text-neutral-400 font-sans flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-white" />
+                <h3 className="text-xs uppercase tracking-wider font-bold text-slate-700 font-sans flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-black" />
                   Tu Tarjeta Digital de Parquímetro
                 </h3>
-                <span className="text-[11px] text-neutral-500 font-sans">
+                <span className="text-[11px] text-slate-500 font-sans">
                   Actualización en tiempo real
                 </span>
               </div>
@@ -307,57 +307,54 @@ const MainContent = () => {
 
             {/* Panel de Ayuda y Estatus Rápido (Col 8 a 12) */}
             <div className="anime-stagger-card lg:col-span-5 h-full">
-              <WobbleCard
-                containerClassName="w-full h-full bg-gradient-to-br from-[#01033E]/70 via-[#01033E]/40 to-transparent border-white/10 hover:border-[#807DFE]/30 backdrop-blur-xl backdrop-saturate-150 transition-colors shadow-2xl"
-                className="p-6 sm:p-7 flex flex-col justify-between"
-              >
+              <div className="w-full h-full p-6 sm:p-7 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <span className="px-3 py-1 rounded-full bg-[#0033FF]/20 backdrop-blur-sm border border-[#807DFE]/40 text-[10px] font-mono font-bold uppercase tracking-widest text-[#D4D6E6]">
+                    <span className="px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-[10px] font-mono font-bold uppercase tracking-widest text-slate-800">
                       GARANTÍA CERO MULTAS
                     </span>
-                    <span className="text-[11px] font-mono text-emerald-400 flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-[11px] font-mono text-emerald-600 flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                       Activo
                     </span>
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl font-black text-[#D4D6E6] tracking-tight leading-tight font-sans">
+                  <h3 className="text-xl sm:text-2xl font-black text-black tracking-tight leading-tight font-sans">
                     Protección & Monitoreo Satelital
                   </h3>
-                  <p className="mt-2 text-xs text-[#D4D6E6] font-sans leading-relaxed">
-                    El sistema debita segundo a segundo exacto con tarifa regulada de <strong className="text-[#D4D6E6] font-mono">$0.25 MXN/min</strong> con encriptación oficial de <strong className="text-[#D4D6E6]">SSS.Solutions</strong>.
+                  <p className="mt-2 text-xs text-slate-600 font-sans leading-relaxed">
+                    El sistema debita segundo a segundo exacto con tarifa regulada de <strong className="text-black font-mono">$0.25 MXN/min</strong> con encriptación oficial de <strong className="text-black">SSS.Solutions</strong>.
                   </p>
 
                   <div className="space-y-3 mt-4 text-xs font-sans">
-                    <div className="flex items-start gap-3 p-3 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
-                      <Zap className="w-4 h-4 text-amber-300 flex-shrink-0 mt-0.5" />
+                    <div className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
+                      <Zap className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
                       <div>
-                        <span className="font-bold text-[#D4D6E6] block">Sin multas por expiración</span>
-                        <span className="text-[11px] text-[#D4D6E6]">Débito continuo sin necesidad de volver al coche.</span>
+                        <span className="font-bold text-black block">Sin multas por expiración</span>
+                        <span className="text-[11px] text-slate-500">Débito continuo sin necesidad de volver al coche.</span>
                       </div>
                     </div>
 
-                    <div className="flex items-start gap-3 p-3 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
-                      <Smartphone className="w-4 h-4 text-[#D4D6E6] flex-shrink-0 mt-0.5" />
+                    <div className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
+                      <Smartphone className="w-4 h-4 text-black flex-shrink-0 mt-0.5" />
                       <div>
-                        <span className="font-bold text-[#D4D6E6] block">Credencial Oficial de Tránsito</span>
-                        <span className="text-[11px] text-[#D4D6E6]">Escaneo QR oficial y contactless NFC para agentes viales.</span>
+                        <span className="font-bold text-black block">Credencial Oficial de Tránsito</span>
+                        <span className="text-[11px] text-slate-500">Escaneo QR oficial y contactless NFC para agentes viales.</span>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="pt-4 mt-4 border-t border-white/10">
+                <div className="pt-4 mt-4 border-t border-slate-100">
                   <button
                     onClick={() => setActiveTab('autopay')}
-                    className="w-full py-2.5 rounded-xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-sans font-bold text-xs transition flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,51,255,0.6)]"
+                    className="w-full py-2.5 rounded-xl bg-black hover:bg-slate-800 text-white font-sans font-bold text-xs transition flex items-center justify-center gap-2 shadow-sm"
                   >
                     <Zap className="w-4 h-4 text-white" />
                     Configurar Reglas del Autocobro
                   </button>
                 </div>
-              </WobbleCard>
+              </div>
             </div>
 
           </div>
@@ -440,17 +437,25 @@ const MainContent = () => {
         )}
 
         {/* 1. SECCIÓN DE BIENVENIDA & STAGGERED GRID SHOWCASE DE FUNCIONES (FONDO DE NUBES HERO INTACTO) */}
-        <div className="w-full bg-[#01033E] border-b border-slate-200">
+        <div className="w-full bg-[#01033E] relative overflow-hidden">
           <ErrorBoundary fallbackText="Bienvenido a Parqu - Cargando Funciones...">
             <StaggeredGrid 
               centerText="BIENVENIDOS A PARQU"
               onSelectFeature={handleSelectFeature}
             />
           </ErrorBoundary>
+
+          {/* Gradiente de disolución y mezcla perfecta: El cielo de nubes se funde suavemente con el fondo blanco sin cortes ni separación */}
+          <div 
+            className="absolute inset-x-0 bottom-0 h-52 sm:h-80 pointer-events-none z-20"
+            style={{
+              background: 'linear-gradient(to bottom, rgba(1, 3, 62, 0) 0%, rgba(1, 3, 62, 0.2) 20%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.85) 75%, #ffffff 100%)',
+            }}
+          />
         </div>
 
         {/* 2. SECCIÓN DEL SISTEMA INTERACTIVO CON FONDO BLANCO */}
-        <section className="w-full relative bg-white py-10 sm:py-16">
+        <section className="w-full relative bg-white pb-10 sm:pb-16 -mt-10 sm:-mt-14">
           <main 
             ref={systemRef} 
             id="interactive-system"
@@ -465,18 +470,18 @@ const MainContent = () => {
           />
 
           {/* 2. ENCABEZADO DEL CENTRO DE OPERACIONES */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-[#01033E] border border-slate-200/80 shadow-2xl flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div className="p-6 sm:p-8 rounded-3xl bg-white/95 backdrop-blur-xl border border-slate-200 shadow-[0_4px_25px_rgba(0,0,0,0.04)] flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div>
-              <div className="flex items-center gap-2 mb-1.5 text-xs font-mono text-[#D4D6E6]">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="tracking-widest uppercase font-bold text-[#D4D6E6]">SISTEMA METROPOLITANO EN VIVO</span>
-                <span className="text-[#D4D6E6]/60">•</span>
-                <span className="text-[#D4D6E6]">0 Filas • 0 Monedas</span>
+              <div className="flex items-center gap-2 mb-1.5 text-xs font-mono text-slate-500">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="tracking-widest uppercase font-bold text-slate-800">SISTEMA METROPOLITANO EN VIVO</span>
+                <span className="text-slate-300">•</span>
+                <span className="text-slate-500">0 Filas • 0 Monedas</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-3 font-sans">
+              <h2 className="text-2xl sm:text-3xl font-black text-black tracking-tight flex items-center gap-3 font-sans">
                 <span>Centro de Operaciones Parqu</span>
               </h2>
-              <p className="text-xs sm:text-sm text-[#D4D6E6] mt-1 font-sans">
+              <p className="text-xs sm:text-sm text-slate-600 mt-1 font-sans">
                 Control centralizado de tarjeta virtual, parquímetros municipales y sistema de autocobro.
               </p>
             </div>
@@ -488,7 +493,7 @@ const MainContent = () => {
                   const el = document.getElementById('selector-orbital-metropolitano');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-[#0033FF] to-[#807DFE] hover:from-[#2250ff] hover:to-[#928ffe] text-white font-sans font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_0_20px_rgba(0,51,255,0.4)] transition-all transform active:scale-95 cursor-pointer"
+                className="px-4 py-2.5 rounded-2xl bg-black hover:bg-slate-800 text-white font-sans font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-sm transition-all transform active:scale-95 cursor-pointer"
                 title="Ir al Selector Orbital 3D"
               >
                 <Compass className="w-4 h-4 text-white" />
@@ -503,18 +508,18 @@ const MainContent = () => {
                     description: 'Enlace metropolitano y sensores de parquímetro activos al 100%.',
                   });
                 }}
-                className="px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-white/15 text-white font-sans font-bold text-xs uppercase tracking-wider flex items-center gap-2 border border-white/15 transition-all transform active:scale-95 cursor-pointer"
+                className="px-4 py-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-black font-sans font-bold text-xs uppercase tracking-wider flex items-center gap-2 border border-slate-200 transition-all transform active:scale-95 cursor-pointer"
                 title="Ejecutar diagnóstico de red"
               >
-                <Sparkles className="w-4 h-4 fill-current text-amber-300" />
+                <Sparkles className="w-4 h-4 fill-current text-amber-500" />
                 <span>Diagnóstico de Red</span>
               </button>
 
-              <div className="flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white/8 backdrop-blur-sm border border-white/10 shrink-0">
-                <PlugConnectedIcon size={18} className="text-emerald-400" />
+              <div className="flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 shrink-0">
+                <PlugConnectedIcon size={18} className="text-emerald-500" />
                 <div className="text-left font-sans">
-                  <div className="text-[10px] text-[#D4D6E6] uppercase tracking-widest font-bold font-mono">Sistema Online</div>
-                  <div className="text-xs font-bold text-[#D4D6E6]">Red Municipal Conectada</div>
+                  <div className="text-[10px] text-slate-500 uppercase tracking-widest font-bold font-mono">Sistema Online</div>
+                  <div className="text-xs font-bold text-black">Red Municipal Conectada</div>
                 </div>
               </div>
             </div>
@@ -522,19 +527,19 @@ const MainContent = () => {
 
           {/* Modal Rápido de Recarga de Saldo */}
           {showRechargeQuickModal && (
-            <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xl flex items-center justify-center p-4">
-              <div className="bg-[#01033E]/50 backdrop-blur-2xl border border-white/15 rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
-                <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/15 text-[#D4D6E6] flex items-center justify-center mx-auto mb-3 shadow-[0_0_20px_rgba(0,51,255,0.4)]">
-                  <CurrencyDollarIcon size={24} strokeWidth={2} />
+            <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-md flex items-center justify-center p-4">
+              <div className="bg-white border border-slate-200 rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+                <div className="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-200 text-black flex items-center justify-center mx-auto mb-3 shadow-sm">
+                  <CurrencyDollarIcon size={24} strokeWidth={2} className="text-black" />
                 </div>
-                <h3 className="text-lg font-bold text-[#D4D6E6] mb-1 font-sans">Recarga Rápida de Saldo</h3>
-                <p className="text-xs text-[#D4D6E6] mb-6 font-sans">
-                  Saldo disponible: <span className="text-emerald-400 font-bold font-mono">${Number(card?.balance ?? 0).toFixed(2)} MXN</span>
+                <h3 className="text-lg font-black text-black mb-1 font-sans">Recarga Rápida de Saldo</h3>
+                <p className="text-xs text-slate-600 mb-6 font-sans">
+                  Saldo disponible: <span className="text-emerald-600 font-bold font-mono">${Number(card?.balance ?? 0).toFixed(2)} MXN</span>
                 </p>
 
                 <form onSubmit={handleQuickRechargeSubmit} className="space-y-4 text-left font-sans">
                   <div>
-                    <label className="text-xs text-neutral-400 font-sans block mb-2">Selecciona un monto:</label>
+                    <label className="text-xs text-slate-700 font-sans block mb-2 font-bold">Selecciona un monto:</label>
                     <div className="grid grid-cols-3 gap-2">
                       {[100, 200, 500].map((amt) => (
                         <button
@@ -543,8 +548,8 @@ const MainContent = () => {
                           onClick={() => setRechargeAmt(amt)}
                           className={`py-2 rounded-xl text-xs font-sans font-bold border transition flex items-center justify-center gap-1 ${
                             rechargeAmt === amt
-                              ? 'bg-[#0033FF] text-white border-[#807DFE] shadow-[0_0_15px_rgba(0,51,255,0.4)]'
-                              : 'bg-white/5 text-[#D4D6E6] border-white/10 hover:border-white/20 hover:bg-white/8'
+                              ? 'bg-black text-white border-black shadow-sm'
+                              : 'bg-slate-100 text-slate-800 border-slate-200 hover:bg-slate-200'
                           }`}
                         >
                           <CurrencyDollarIcon size={12} strokeWidth={2.2} />
@@ -558,13 +563,13 @@ const MainContent = () => {
                     <button
                       type="button"
                       onClick={() => setShowRechargeQuickModal(false)}
-                      className="flex-1 py-2.5 rounded-xl border border-white/15 text-[#D4D6E6] text-xs font-sans hover:bg-white/5 transition"
+                      className="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-700 text-xs font-sans hover:bg-slate-50 transition cursor-pointer"
                     >
                       Cancelar
                     </button>
                     <button
                       type="submit"
-                      className="flex-1 py-2.5 rounded-xl bg-[#0033FF] text-white text-xs font-sans font-bold hover:bg-[#2250ff] transition shadow-[0_0_20px_rgba(0,51,255,0.7)] flex items-center justify-center gap-1.5"
+                      className="flex-1 py-2.5 rounded-xl bg-black hover:bg-slate-800 text-white text-xs font-sans font-bold transition shadow-sm flex items-center justify-center gap-1.5 cursor-pointer"
                     >
                       <CurrencyDollarIcon size={14} strokeWidth={2.2} />
                       <span>Recargar <span className="font-mono">${rechargeAmt}</span></span>
@@ -577,50 +582,50 @@ const MainContent = () => {
 
           {/* Modal Rápido de Código QR */}
           {showQRQuickModal && (
-            <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xl flex items-center justify-center p-4">
-              <div className="bg-[#01033E]/50 backdrop-blur-2xl border border-white/15 rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
-                <h3 className="text-lg font-bold text-[#D4D6E6] mb-1 font-sans">Credencial QR de Inspección</h3>
-                <p className="text-xs text-[#D4D6E6] mb-6 font-sans">
+            <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-md flex items-center justify-center p-4">
+              <div className="bg-white border border-slate-200 rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+                <h3 className="text-lg font-black text-black mb-1 font-sans">Credencial QR de Inspección</h3>
+                <p className="text-xs text-slate-600 mb-6 font-sans">
                   Lectura directa para agentes de tránsito vial
                 </p>
 
-                <div className="bg-[#D4D6E6] p-4 rounded-2xl inline-block shadow-inner mb-4">
+                <div className="bg-slate-50 border border-slate-200 p-4 rounded-2xl inline-block shadow-inner mb-4">
                   <svg className="w-48 h-48 mx-auto" viewBox="0 0 100 100">
-                    <rect width="100" height="100" fill="#D4D6E6" />
-                    <rect x="5" y="5" width="26" height="26" fill="#0033FF" />
-                    <rect x="9" y="9" width="18" height="18" fill="#D4D6E6" />
-                    <rect x="13" y="13" width="10" height="10" fill="#0033FF" />
-                    <rect x="69" y="5" width="26" height="26" fill="#0033FF" />
-                    <rect x="73" y="9" width="18" height="18" fill="#D4D6E6" />
-                    <rect x="77" y="13" width="10" height="10" fill="#0033FF" />
-                    <rect x="5" y="69" width="26" height="26" fill="#0033FF" />
-                    <rect x="9" y="73" width="18" height="18" fill="#D4D6E6" />
-                    <rect x="13" y="77" width="10" height="10" fill="#0033FF" />
-                    <rect x="36" y="10" width="8" height="8" fill="#0033FF" />
-                    <rect x="48" y="10" width="6" height="6" fill="#0033FF" />
-                    <rect x="36" y="24" width="6" height="6" fill="#0033FF" />
-                    <rect x="46" y="20" width="10" height="10" fill="#0033FF" />
-                    <rect x="10" y="38" width="6" height="6" fill="#0033FF" />
-                    <rect x="20" y="44" width="8" height="8" fill="#0033FF" />
-                    <rect x="35" y="40" width="30" height="20" fill="#0033FF" />
-                    <rect x="40" y="45" width="20" height="10" fill="#D4D6E6" />
-                    <rect x="70" y="40" width="8" height="8" fill="#0033FF" />
-                    <rect x="82" y="48" width="6" height="6" fill="#0033FF" />
-                    <rect x="38" y="70" width="8" height="8" fill="#0033FF" />
-                    <rect x="50" y="76" width="12" height="12" fill="#0033FF" />
-                    <rect x="68" y="70" width="6" height="6" fill="#0033FF" />
-                    <rect x="78" y="80" width="10" height="10" fill="#0033FF" />
+                    <rect width="100" height="100" fill="#F8FAFC" />
+                    <rect x="5" y="5" width="26" height="26" fill="#000000" />
+                    <rect x="9" y="9" width="18" height="18" fill="#F8FAFC" />
+                    <rect x="13" y="13" width="10" height="10" fill="#000000" />
+                    <rect x="69" y="5" width="26" height="26" fill="#000000" />
+                    <rect x="73" y="9" width="18" height="18" fill="#F8FAFC" />
+                    <rect x="77" y="13" width="10" height="10" fill="#000000" />
+                    <rect x="5" y="69" width="26" height="26" fill="#000000" />
+                    <rect x="9" y="73" width="18" height="18" fill="#F8FAFC" />
+                    <rect x="13" y="77" width="10" height="10" fill="#000000" />
+                    <rect x="36" y="10" width="8" height="8" fill="#000000" />
+                    <rect x="48" y="10" width="6" height="6" fill="#000000" />
+                    <rect x="36" y="24" width="6" height="6" fill="#000000" />
+                    <rect x="46" y="20" width="10" height="10" fill="#000000" />
+                    <rect x="10" y="38" width="6" height="6" fill="#000000" />
+                    <rect x="20" y="44" width="8" height="8" fill="#000000" />
+                    <rect x="35" y="40" width="30" height="20" fill="#000000" />
+                    <rect x="40" y="45" width="20" height="10" fill="#F8FAFC" />
+                    <rect x="70" y="40" width="8" height="8" fill="#000000" />
+                    <rect x="82" y="48" width="6" height="6" fill="#000000" />
+                    <rect x="38" y="70" width="8" height="8" fill="#000000" />
+                    <rect x="50" y="76" width="12" height="12" fill="#000000" />
+                    <rect x="68" y="70" width="6" height="6" fill="#000000" />
+                    <rect x="78" y="80" width="10" height="10" fill="#000000" />
                   </svg>
                 </div>
 
-                <div className="bg-white/5 border border-white/10 rounded-xl p-2.5 mb-6 text-xs font-sans text-[#D4D6E6] flex items-center justify-between">
-                  <span>Placas: <strong className="text-[#D4D6E6] font-mono">{vehicle.plates}</strong></span>
-                  <span className="text-[#D4D6E6]">● Validado</span>
+                <div className="bg-slate-50 border border-slate-200 rounded-xl p-2.5 mb-6 text-xs font-sans text-slate-800 flex items-center justify-between">
+                  <span>Placas: <strong className="text-black font-mono">{vehicle.plates}</strong></span>
+                  <span className="text-emerald-700 font-bold">● Validado</span>
                 </div>
 
                 <button
                   onClick={() => setShowQRQuickModal(false)}
-                  className="w-full py-2.5 rounded-xl bg-[#0033FF] text-white text-xs font-sans font-bold hover:bg-[#2250ff] transition shadow-[0_0_20px_rgba(0,51,255,0.7)]"
+                  className="w-full py-2.5 rounded-xl bg-black hover:bg-slate-800 text-white text-xs font-sans font-bold transition shadow-sm cursor-pointer"
                 >
                   Cerrar Credencial
                 </button>

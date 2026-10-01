@@ -405,37 +405,32 @@ export const OrbitalWheelMenu = ({
 
             {/* Icono central de gran tamaño con aura flotante */}
             <div
-              className="w-14 h-14 sm:w-18 sm:h-18 rounded-2xl flex items-center justify-center mb-2.5 transition-all duration-500"
-              style={{
-                backgroundColor: `${currentItem.color}15`,
-                color: currentItem.color,
-                boxShadow: `0 0 32px ${currentItem.glowColor}`,
-              }}
+              className="w-14 h-14 sm:w-18 sm:h-18 rounded-2xl flex items-center justify-center mb-2.5 transition-all duration-500 bg-white border border-slate-200 shadow-md text-black"
             >
-              <CurrentIcon className="w-7 h-7 sm:w-9 sm:h-9 drop-shadow-md" />
+              <CurrentIcon className="w-7 h-7 sm:w-9 sm:h-9 text-black drop-shadow-sm" />
             </div>
 
             {/* Título de la opción seleccionada */}
-            <h4 className="font-sans font-black text-xl sm:text-3xl text-slate-900 tracking-tight drop-shadow-sm mb-2">
+            <h4 className="font-sans font-black text-xl sm:text-3xl text-black tracking-tight drop-shadow-sm mb-2">
               {currentItem.label}
             </h4>
 
             {/* Datos en vivo específicos del módulo */}
-            <div className="min-h-[38px] flex items-center text-xs sm:text-sm font-mono text-slate-600 mb-3.5">
+            <div className="min-h-[38px] flex items-center text-xs sm:text-sm font-mono text-slate-700 mb-3.5">
               {/* 1. Parquímetro */}
               {currentItem.id === 'dashboard' && (
                 activeSession ? (
                   <div className="flex items-center gap-2">
-                    <span className="font-mono font-black text-amber-300 text-sm sm:text-base">
+                    <span className="font-mono font-black text-amber-600 text-sm sm:text-base">
                       {formatTimeFromSeconds(activeSession.secondsElapsed)}
                     </span>
-                    <span className="text-white/40">•</span>
-                    <span className="text-emerald-400 font-bold">
+                    <span className="text-slate-300">•</span>
+                    <span className="text-emerald-600 font-bold">
                       ${activeSession.currentCost.toFixed(2)} MXN
                     </span>
                   </div>
                 ) : (
-                  <span className="text-emerald-400 font-sans font-semibold">
+                  <span className="text-emerald-700 font-sans font-semibold">
                     Listo para Estacionar • Tarifa $0.25/min
                   </span>
                 )
@@ -444,8 +439,8 @@ export const OrbitalWheelMenu = ({
               {/* 2. Recarga */}
               {currentItem.id === 'recharge' && (
                 <div className="flex items-center gap-2">
-                  <span>Saldo en tarjeta:</span>
-                  <span className="text-amber-400 font-black text-sm sm:text-base">
+                  <span className="text-slate-600">Saldo en tarjeta:</span>
+                  <span className="text-black font-black text-sm sm:text-base">
                     ${Number(card?.balance ?? 0).toFixed(2)} MXN
                   </span>
                 </div>
@@ -454,9 +449,9 @@ export const OrbitalWheelMenu = ({
               {/* 3. Autocobro */}
               {currentItem.id === 'autopay' && (
                 <div className="flex items-center gap-2">
-                  <span>{autoPay?.bank || 'Santander Platinum •••• 8821'}</span>
-                  <span className="text-white/40">•</span>
-                  <span className={autoPay?.enabled ? 'text-emerald-400 font-bold' : 'text-rose-400 font-bold'}>
+                  <span className="text-slate-800">{autoPay?.bank || 'Santander Platinum •••• 8821'}</span>
+                  <span className="text-slate-300">•</span>
+                  <span className={autoPay?.enabled ? 'text-emerald-600 font-bold' : 'text-rose-600 font-bold'}>
                     {autoPay?.enabled ? 'Autocobro Activo' : 'Autocobro Pausado'}
                   </span>
                 </div>
@@ -465,35 +460,35 @@ export const OrbitalWheelMenu = ({
               {/* 4. Pase QR */}
               {currentItem.id === 'qr-credential' && (
                 <div className="flex items-center gap-2">
-                  <span className="text-white font-bold tracking-wider">{formatPlate(vehicle?.plates)}</span>
-                  <span className="text-white/40">•</span>
-                  <span className="text-sky-400 font-semibold">Validado Oficial AES-256</span>
+                  <span className="text-black font-bold tracking-wider font-mono">{formatPlate(vehicle?.plates)}</span>
+                  <span className="text-slate-300">•</span>
+                  <span className="text-sky-700 font-semibold">Validado Oficial AES-256</span>
                 </div>
               )}
 
               {/* 5. Mapa GPS */}
               {currentItem.id === 'parking-map' && (
-                <span>
+                <span className="text-slate-700">
                   {pinnedLocations.length} espacio(s) guardado(s) • Centro Histórico
                 </span>
               )}
 
               {/* 6. Vehículo */}
               {currentItem.id === 'vehicle' && (
-                <span>
+                <span className="text-slate-800">
                   {vehicle?.brand || 'Volkswagen'} {vehicle?.model || 'Jetta'} ({formatPlate(vehicle?.plates)})
                 </span>
               )}
 
               {/* 7. Historial */}
               {currentItem.id === 'history' && (
-                <span>
+                <span className="text-slate-700">
                   {transactions?.length || 0} recibos auditados • Folio: {transactions?.[0]?.folio || 'PQM-88A2'}
                 </span>
               )}
             </div>
 
-            {/* ═══ BOTONES DE ACCIÓN (SIN CONTORNOS, LLENADO 100%) ═══ */}
+            {/* ═══ BOTONES DE ACCIÓN (ESTILO ELEGANTE Y LEGIBLE EN BLANCO) ═══ */}
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
               
               {/* Acción Parquímetro */}
@@ -502,25 +497,19 @@ export const OrbitalWheelMenu = ({
                   <button
                     type="button"
                     onClick={handleStopParking}
-                    style={{ '--primary': '#F43F5E' }}
-                    className="fx-67 px-4 py-2 rounded-xl text-rose-300 font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer"
+                    className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition shadow-sm cursor-pointer"
                   >
-                    <span className="btn-label flex items-center gap-1.5">
-                      <Square className="w-3.5 h-3.5 fill-current" />
-                      <span>Finalizar Parquímetro</span>
-                    </span>
+                    <Square className="w-3.5 h-3.5 fill-current text-white" />
+                    <span>Finalizar Parquímetro</span>
                   </button>
                 ) : (
                   <button
                     type="button"
                     onClick={handleStartParking}
-                    style={{ '--primary': '#10B981' }}
-                    className="fx-67 px-4 py-2 rounded-xl text-emerald-300 font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer"
+                    className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition shadow-sm cursor-pointer"
                   >
-                    <span className="btn-label flex items-center gap-1.5">
-                      <Play className="w-3.5 h-3.5 fill-current" />
-                      <span>Iniciar Parquímetro</span>
-                    </span>
+                    <Play className="w-3.5 h-3.5 fill-current text-white" />
+                    <span>Iniciar Parquímetro</span>
                   </button>
                 )
               )}
@@ -533,19 +522,17 @@ export const OrbitalWheelMenu = ({
                       key={amt}
                       type="button"
                       onClick={() => handleInstantRecharge(amt)}
-                      style={{ '--primary': '#F59E0B' }}
-                      className="fx-67 px-2.5 sm:px-3 py-1.5 rounded-lg text-amber-300 font-mono text-xs font-bold transition cursor-pointer"
+                      className="px-2.5 sm:px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-200 text-black font-mono text-xs font-bold transition cursor-pointer"
                     >
-                      <span className="btn-label">+${amt}</span>
+                      +${amt}
                     </button>
                   ))}
                   <button
                     type="button"
                     onClick={onOpenRecharge}
-                    style={{ '--primary': '#F59E0B' }}
-                    className="fx-67 px-3 py-1.5 rounded-lg text-white font-sans text-xs font-bold transition cursor-pointer"
+                    className="px-3 py-1.5 rounded-lg bg-black hover:bg-slate-800 text-white font-sans text-xs font-bold transition cursor-pointer shadow-sm"
                   >
-                    <span className="btn-label">Otro Monto</span>
+                    Otro Monto
                   </button>
                 </div>
               )}
@@ -555,14 +542,11 @@ export const OrbitalWheelMenu = ({
                 <button
                   type="button"
                   onClick={handleToggleAutoPay}
-                  style={{ '--primary': autoPay?.enabled ? '#F43F5E' : '#10B981' }}
-                  className="fx-67 px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-bold flex items-center gap-1.5 transition cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-xs sm:text-sm font-sans font-bold flex items-center gap-1.5 transition cursor-pointer text-black"
                 >
-                  <span className="btn-label flex items-center gap-1.5">
-                    <Zap className="w-3.5 h-3.5" />
-                    <span className={autoPay?.enabled ? 'text-rose-300' : 'text-emerald-300'}>
-                      {autoPay?.enabled ? 'Pausar Autocobro' : 'Activar Autocobro'}
-                    </span>
+                  <Zap className="w-3.5 h-3.5 text-black" />
+                  <span className={autoPay?.enabled ? 'text-rose-600 font-bold' : 'text-emerald-700 font-bold'}>
+                    {autoPay?.enabled ? 'Pausar Autocobro' : 'Activar Autocobro'}
                   </span>
                 </button>
               )}
@@ -573,25 +557,19 @@ export const OrbitalWheelMenu = ({
                   <button
                     type="button"
                     onClick={handleCopyPlates}
-                    style={{ '--primary': '#807DFE' }}
-                    className="fx-67 px-3.5 py-2 rounded-xl text-white font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer"
+                    className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-black font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer"
                   >
-                    <span className="btn-label flex items-center gap-1.5">
-                      {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                      <span>{copied ? 'Copiado' : 'Copiar Placas'}</span>
-                    </span>
+                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5 text-black" />}
+                    <span>{copied ? 'Copiado' : 'Copiar Placas'}</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={onOpenQR}
-                    style={{ '--primary': '#38BDF8' }}
-                    className="fx-67 px-4 py-2 rounded-xl text-sky-300 font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer"
+                    className="px-4 py-2 rounded-xl bg-black hover:bg-slate-800 text-white font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer shadow-sm"
                   >
-                    <span className="btn-label flex items-center gap-1.5">
-                      <QrCode className="w-3.5 h-3.5" />
-                      <span>Abrir Pase QR</span>
-                    </span>
+                    <QrCode className="w-3.5 h-3.5 text-white" />
+                    <span>Abrir Pase QR</span>
                   </button>
                 </div>
               )}
@@ -601,13 +579,10 @@ export const OrbitalWheelMenu = ({
                 <button
                   type="button"
                   onClick={handlePinCurrentLocation}
-                  style={{ '--primary': '#FB923C' }}
-                  className="fx-67 px-4 py-2 rounded-xl text-orange-300 font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-black font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer"
                 >
-                  <span className="btn-label flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5" />
-                    <span>Fijar Aquí mi Lugar</span>
-                  </span>
+                  <MapPin className="w-3.5 h-3.5 text-black" />
+                  <span>Fijar Aquí mi Lugar</span>
                 </button>
               )}
 
@@ -616,13 +591,10 @@ export const OrbitalWheelMenu = ({
                 <button
                   type="button"
                   onClick={handleToggleVehicle}
-                  style={{ '--primary': '#F43F5E' }}
-                  className="fx-67 px-4 py-2 rounded-xl text-rose-300 font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-black font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer"
                 >
-                  <span className="btn-label flex items-center gap-1.5">
-                    <RefreshCw className="w-3.5 h-3.5" />
-                    <span>Alternar Vehículo</span>
-                  </span>
+                  <RefreshCw className="w-3.5 h-3.5 text-black" />
+                  <span>Alternar Vehículo</span>
                 </button>
               )}
 
@@ -631,10 +603,9 @@ export const OrbitalWheelMenu = ({
                 <button
                   type="button"
                   onClick={() => onSelectTab('history')}
-                  style={{ '--primary': '#EC4899' }}
-                  className="fx-67 px-4 py-2 rounded-xl text-pink-300 font-sans text-xs sm:text-sm font-bold transition cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-black font-sans text-xs sm:text-sm font-bold transition cursor-pointer"
                 >
-                  <span className="btn-label">Ver Historial Completo</span>
+                  Ver Historial Completo
                 </button>
               )}
 
@@ -642,14 +613,11 @@ export const OrbitalWheelMenu = ({
               <button
                 type="button"
                 onClick={() => onSelectTab(currentItem.actionTarget)}
-                style={{ '--primary': currentItem.color }}
-                className="fx-67 px-3 py-2 rounded-xl text-xs font-sans text-white/70 hover:text-white flex items-center gap-1 transition cursor-pointer"
+                className="px-3.5 py-2 rounded-xl text-xs font-sans font-bold text-black bg-white hover:bg-slate-50 border border-slate-200 flex items-center gap-1.5 transition cursor-pointer shadow-sm"
                 title="Abrir módulo completo"
               >
-                <span className="btn-label flex items-center gap-1">
-                  <span>Ir al Módulo</span>
-                  <ChevronRight className="w-3.5 h-3.5" />
-                </span>
+                <span>Ir al Módulo</span>
+                <ChevronRight className="w-3.5 h-3.5 text-black" />
               </button>
 
             </div>
@@ -674,28 +642,22 @@ export const OrbitalWheelMenu = ({
             <button
               type="button"
               onClick={handlePrev}
-              style={{ '--primary': currentItem.color }}
-              className="fx-67 w-7 h-7 rounded-full text-white/80 hover:text-white flex items-center justify-center transition cursor-pointer"
+              className="w-7 h-7 rounded-full bg-white border border-slate-200 text-black hover:bg-slate-50 flex items-center justify-center transition shadow-sm cursor-pointer"
               title="Anterior"
             >
-              <span className="btn-label">
-                <ChevronUp className="w-4 h-4" />
-              </span>
+              <ChevronUp className="w-4 h-4 text-black" />
             </button>
             <button
               type="button"
               onClick={handleNext}
-              style={{ '--primary': currentItem.color }}
-              className="fx-67 w-7 h-7 rounded-full text-white/80 hover:text-white flex items-center justify-center transition cursor-pointer"
+              className="w-7 h-7 rounded-full bg-white border border-slate-200 text-black hover:bg-slate-50 flex items-center justify-center transition shadow-sm cursor-pointer"
               title="Siguiente"
             >
-              <span className="btn-label">
-                <ChevronDown className="w-4 h-4" />
-              </span>
+              <ChevronDown className="w-4 h-4 text-black" />
             </button>
           </div>
 
-          {/* Elementos orbitando verticalmente (7 módulos, sin líneas duras) */}
+          {/* Elementos orbitando verticalmente (7 módulos con iconos y letras en negro) */}
           <div className="w-full h-full relative pointer-events-none">
             {ORBIT_ITEMS.map((item, index) => {
               const diff = shortestAngularDiff(index, orbitOffset, 7);
@@ -726,25 +688,23 @@ export const OrbitalWheelMenu = ({
                   }}
                   className="pointer-events-auto flex items-center gap-2 cursor-pointer transition-transform duration-150 group"
                 >
-                  {/* Icono del nodo vertical sin líneas duras */}
+                  {/* Icono del nodo vertical en negro */}
                   <div
                     className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all duration-300"
                     style={{
-                      backgroundColor: isSelected ? `${item.color}35` : `${item.color}15`,
-                      color: isSelected ? '#FFFFFF' : item.color,
-                      boxShadow: isSelected ? `0 0 20px ${item.glowColor}` : undefined,
+                      backgroundColor: isSelected ? '#FFFFFF' : '#F1F5F9',
+                      color: '#000000',
+                      border: isSelected ? '2px solid #000000' : '1px solid #CBD5E1',
+                      boxShadow: isSelected ? '0 4px 16px rgba(0,0,0,0.12)' : '0 2px 6px rgba(0,0,0,0.03)',
                     }}
                   >
-                    <Icon className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:scale-110" />
+                    <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-black transition-transform group-hover:scale-110" />
                   </div>
 
-                  {/* Etiqueta limpia del nodo activo */}
+                  {/* Etiqueta limpia del nodo activo con letras en negro */}
                   {isSelected && (
                     <div
-                      className="px-2.5 sm:px-3 py-1 rounded-full text-xs font-sans font-bold whitespace-nowrap shadow-lg text-white"
-                      style={{
-                        backgroundColor: `${item.color}35`,
-                      }}
+                      className="px-3 py-1 rounded-full text-xs font-sans font-black whitespace-nowrap shadow-md text-black bg-white border border-slate-200"
                     >
                       {item.shortLabel}
                     </div>

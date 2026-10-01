@@ -118,7 +118,7 @@ export function StaggeredGrid({
       </section>
 
       {/* ═══ 2. SECCIÓN BENTO EXPANDIBLE: PILARES DE LA PLATAFORMA ═══ */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-28 sm:pb-36 relative z-10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
           <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-[#D4D6E6]">
             <Sparkles className="w-4 h-4 text-[#807DFE]" />
