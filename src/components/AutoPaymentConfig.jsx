@@ -146,18 +146,19 @@ export const AutoPaymentConfig = () => {
         </div>
 
         {/* Modalidad de Autocobro */}
-        <div>
-          <label className="text-xs uppercase tracking-wider font-bold text-[#D4D6E6] block mb-2.5 font-sans">
+        <fieldset role="radiogroup" aria-labelledby="funding-source-legend">
+          <legend id="funding-source-legend" className="text-xs uppercase tracking-wider font-bold text-[#D4D6E6] block mb-2.5 font-sans">
             Fuente de Pago para Autocobro
-          </label>
+          </legend>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <label className={`p-4 rounded-2xl border cursor-pointer transition flex items-start gap-3 ${
+            <label htmlFor="fundingSource-card" className={`p-4 rounded-2xl border cursor-pointer transition flex items-start gap-3 ${
               formData.fundingSource === 'CARD'
                 ? 'bg-[#0033FF]/20 backdrop-blur-sm border-[#807DFE]/60 text-[#D4D6E6] shadow-[0_0_15px_rgba(0,51,255,0.2)]'
                 : 'bg-white/5 border-white/10 text-[#D4D6E6]/80 hover:bg-white/8'
             }`}>
               <input
                 type="radio"
+                id="fundingSource-card"
                 name="fundingSource"
                 value="CARD"
                 checked={formData.fundingSource === 'CARD'}
@@ -175,13 +176,14 @@ export const AutoPaymentConfig = () => {
               </div>
             </label>
 
-            <label className={`p-4 rounded-2xl border cursor-pointer transition flex items-start gap-3 ${
+            <label htmlFor="fundingSource-wallet" className={`p-4 rounded-2xl border cursor-pointer transition flex items-start gap-3 ${
               formData.fundingSource === 'WALLET_BALANCE'
                 ? 'bg-[#0033FF]/20 backdrop-blur-sm border-[#807DFE]/60 text-[#D4D6E6] shadow-[0_0_15px_rgba(0,51,255,0.2)]'
                 : 'bg-white/5 border-white/10 text-[#D4D6E6]/80 hover:bg-white/8'
             }`}>
               <input
                 type="radio"
+                id="fundingSource-wallet"
                 name="fundingSource"
                 value="WALLET_BALANCE"
                 checked={formData.fundingSource === 'WALLET_BALANCE'}
@@ -199,7 +201,7 @@ export const AutoPaymentConfig = () => {
               </div>
             </label>
           </div>
-        </div>
+        </fieldset>
 
         {/* Datos Bancarios (si aplica tarjeta) */}
         {formData.fundingSource === 'CARD' && (
@@ -216,13 +218,15 @@ export const AutoPaymentConfig = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
-                  Nombre del Titular en la Tarjeta
+                <label htmlFor="cardHolder" className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
+                  Nombre del Titular en la Tarjeta *
                 </label>
                 <input
+                  id="cardHolder"
                   type="text"
                   name="cardHolder"
                   required
+                  aria-required="true"
                   value={formData.cardHolder}
                   onChange={handleChange}
                   placeholder="NOMBRE TAL COMO APARECE"
@@ -231,13 +235,15 @@ export const AutoPaymentConfig = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
-                  Número de Tarjeta (16 dígitos)
+                <label htmlFor="cardNumber" className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
+                  Número de Tarjeta (16 dígitos) *
                 </label>
                 <input
+                  id="cardNumber"
                   type="text"
                   name="cardNumber"
                   required
+                  aria-required="true"
                   value={formData.cardNumber}
                   onChange={handleChange}
                   placeholder="4152 •••• •••• 9921"
@@ -246,10 +252,11 @@ export const AutoPaymentConfig = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
+                <label htmlFor="bank" className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
                   Banco Emisor / Identificador
                 </label>
                 <input
+                  id="bank"
                   type="text"
                   name="bank"
                   value={formData.bank}
@@ -261,10 +268,11 @@ export const AutoPaymentConfig = () => {
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
+                  <label htmlFor="expiry" className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
                     Vencimiento (MM/AA)
                   </label>
                   <input
+                    id="expiry"
                     type="text"
                     name="expiry"
                     maxLength="5"
@@ -275,10 +283,11 @@ export const AutoPaymentConfig = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
+                  <label htmlFor="cvv" className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
                     CVV Dinámico
                   </label>
                   <input
+                    id="cvv"
                     type="password"
                     name="cvv"
                     maxLength="4"
@@ -296,7 +305,7 @@ export const AutoPaymentConfig = () => {
         {/* Reglas de Seguridad y Límites de Autocobro */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
+            <label htmlFor="maxLimitPerSession" className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
               Tope Máximo de Autocobro por Sesión (MXN)
             </label>
             <div className="relative">
@@ -304,6 +313,7 @@ export const AutoPaymentConfig = () => {
                 <CurrencyDollarIcon size={16} strokeWidth={2} className="text-[#D4D6E6]" />
               </span>
               <input
+                id="maxLimitPerSession"
                 type="number"
                 name="maxLimitPerSession"
                 min="50"
@@ -319,8 +329,9 @@ export const AutoPaymentConfig = () => {
           </div>
 
           <div className="space-y-3 pt-2 font-sans">
-            <label className="flex items-center gap-2.5 cursor-pointer text-xs text-[#D4D6E6]">
+            <label htmlFor="smsNotification" className="flex items-center gap-2.5 cursor-pointer text-xs text-[#D4D6E6]">
               <input
+                id="smsNotification"
                 type="checkbox"
                 name="smsNotification"
                 checked={formData.smsNotification}
@@ -330,8 +341,9 @@ export const AutoPaymentConfig = () => {
               <span>Enviar comprobante instantáneo vía SMS / Push</span>
             </label>
 
-            <label className="flex items-center gap-2.5 cursor-pointer text-xs text-[#D4D6E6]">
+            <label htmlFor="autoRenew" className="flex items-center gap-2.5 cursor-pointer text-xs text-[#D4D6E6]">
               <input
+                id="autoRenew"
                 type="checkbox"
                 name="autoRenew"
                 checked={formData.autoRenew}
@@ -366,7 +378,8 @@ export const AutoPaymentConfig = () => {
         <div className="flex justify-end pt-2">
           <button
             type="submit"
-            className="px-6 py-3.5 rounded-2xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-bold font-sans text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_0_20px_rgba(0,51,255,0.6)] transition transform active:scale-95"
+            aria-label="Guardar formato y activar autocobro"
+            className="px-6 py-3.5 rounded-2xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-bold font-sans text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_0_20px_rgba(0,51,255,0.6)] transition transform active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#01033E]"
           >
             <FileCheck2 className="w-4 h-4 text-white" />
             Guardar Formato y Activar Autocobro

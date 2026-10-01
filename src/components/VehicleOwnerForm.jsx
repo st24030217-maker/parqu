@@ -74,13 +74,15 @@ export const VehicleOwnerForm = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 font-sans">
             <div>
-              <label className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
+              <label htmlFor="veh-plates" className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
                 Placas Vehiculares *
               </label>
               <input
+                id="veh-plates"
                 type="text"
                 name="plates"
                 required
+                aria-required="true"
                 value={vehFormData.plates}
                 onChange={handleVehicleChange}
                 placeholder="Ej. XYZ-7842"
@@ -89,13 +91,15 @@ export const VehicleOwnerForm = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
+              <label htmlFor="veh-brand" className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
                 Marca *
               </label>
               <input
+                id="veh-brand"
                 type="text"
                 name="brand"
                 required
+                aria-required="true"
                 value={vehFormData.brand}
                 onChange={handleVehicleChange}
                 placeholder="Ej. Volkswagen"
@@ -104,13 +108,15 @@ export const VehicleOwnerForm = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
+              <label htmlFor="veh-model" className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
                 Submarca / Modelo *
               </label>
               <input
+                id="veh-model"
                 type="text"
                 name="model"
                 required
+                aria-required="true"
                 value={vehFormData.model}
                 onChange={handleVehicleChange}
                 placeholder="Ej. Golf GTI"
@@ -119,10 +125,11 @@ export const VehicleOwnerForm = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
+              <label htmlFor="veh-color" className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
                 Color
               </label>
               <input
+                id="veh-color"
                 type="text"
                 name="color"
                 value={vehFormData.color}
@@ -133,10 +140,11 @@ export const VehicleOwnerForm = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
+              <label htmlFor="veh-year" className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
                 Año / Modelo
               </label>
               <input
+                id="veh-year"
                 type="text"
                 name="year"
                 value={vehFormData.year}
@@ -147,10 +155,11 @@ export const VehicleOwnerForm = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
+              <label htmlFor="veh-state" className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
                 Estado Emisor de Placas
               </label>
               <input
+                id="veh-state"
                 type="text"
                 name="state"
                 value={vehFormData.state}
@@ -171,13 +180,15 @@ export const VehicleOwnerForm = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 font-sans">
             <div className="sm:col-span-2">
-              <label className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
+              <label htmlFor="owner-fullName" className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
                 Nombre Completo del Propietario / Titular *
               </label>
               <input
+                id="owner-fullName"
                 type="text"
                 name="fullName"
                 required
+                aria-required="true"
                 value={ownerFormData.fullName}
                 onChange={handleOwnerChange}
                 placeholder="Ej. Sebastián Salinas"
@@ -186,10 +197,11 @@ export const VehicleOwnerForm = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
+              <label htmlFor="owner-rfc" className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
                 RFC o Identificador
               </label>
               <input
+                id="owner-rfc"
                 type="text"
                 name="rfc"
                 value={ownerFormData.rfc}
@@ -200,10 +212,11 @@ export const VehicleOwnerForm = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
+              <label htmlFor="owner-email" className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
                 Correo Electrónico para Recibos
               </label>
               <input
+                id="owner-email"
                 type="email"
                 name="email"
                 value={ownerFormData.email}
@@ -214,10 +227,11 @@ export const VehicleOwnerForm = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
+              <label htmlFor="owner-phone" className="block text-xs font-medium text-[#D4D6E6] mb-1 font-sans">
                 Teléfono de Notificaciones SMS
               </label>
               <input
+                id="owner-phone"
                 type="tel"
                 name="phone"
                 value={ownerFormData.phone}
@@ -233,7 +247,8 @@ export const VehicleOwnerForm = () => {
         <div className="flex justify-end pt-4">
           <button
             type="submit"
-            className="px-6 py-3.5 rounded-2xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-bold font-sans text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_0_20px_rgba(0,51,255,0.4)] transition transform active:scale-95"
+            aria-label="Guardar datos y actualizar tarjeta virtual"
+            className="px-6 py-3.5 rounded-2xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-bold font-sans text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_0_20px_rgba(0,51,255,0.4)] transition transform active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#01033E]"
           >
             <RefreshCw className="w-4 h-4 text-white" />
             Guardar & Actualizar Tarjeta Virtual

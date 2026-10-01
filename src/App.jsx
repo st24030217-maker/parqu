@@ -54,6 +54,20 @@ const MainContent = () => {
   const [rechargeAmt, setRechargeAmt] = useState(150);
   const systemRef = useRef(null);
 
+  // Accesibilidad WCAG 2.1: Cerrar modales superpuestos con la tecla Escape
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setShowRechargeQuickModal(false);
+        setShowQRQuickModal(false);
+      }
+    };
+    if (showRechargeQuickModal || showQRQuickModal) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showRechargeQuickModal, showQRQuickModal]);
+
   const handleSelectFeature = (tabId) => {
     setActiveTab(tabId);
     if (systemRef.current) {
@@ -223,8 +237,17 @@ const MainContent = () => {
             {/* Accesos de 1 clic a montos rápidos de recarga y acciones instantáneas */}
             <div className="pt-4 border-t border-slate-100 grid grid-cols-1 md:grid-cols-3 gap-4 font-sans">
               <div 
+                role="button"
+                tabIndex={0}
+                aria-label="Abrir recarga express de saldo: 100, 200 o 500 pesos"
                 onClick={() => setShowRechargeQuickModal(true)}
-                className="p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 cursor-pointer transition group shadow-sm"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setShowRechargeQuickModal(true);
+                  }
+                }}
+                className="p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 cursor-pointer transition group shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-bold text-black font-sans flex items-center gap-1.5">
@@ -241,8 +264,17 @@ const MainContent = () => {
               </div>
 
               <div 
+                role="button"
+                tabIndex={0}
+                aria-label="Abrir credencial QR oficial para verificación vial"
                 onClick={() => setShowQRQuickModal(true)}
-                className="p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 cursor-pointer transition group shadow-sm"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setShowQRQuickModal(true);
+                  }
+                }}
+                className="p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 cursor-pointer transition group shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-bold text-black font-sans flex items-center gap-1.5">
@@ -259,8 +291,17 @@ const MainContent = () => {
               </div>
 
               <div 
+                role="button"
+                tabIndex={0}
+                aria-label="Navegar al apartado de Mapa y Rutas 3D"
                 onClick={() => handleSelectFeature('dashboard')}
-                className="p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 cursor-pointer transition group shadow-sm"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleSelectFeature('dashboard');
+                  }
+                }}
+                className="p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 cursor-pointer transition group shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-bold text-black font-sans flex items-center gap-1.5">
@@ -347,8 +388,10 @@ const MainContent = () => {
 
                 <div className="pt-4 mt-4 border-t border-slate-100">
                   <button
+                    type="button"
+                    aria-label="Configurar reglas del autocobro"
                     onClick={() => setActiveTab('autopay')}
-                    className="w-full py-2.5 rounded-xl bg-black hover:bg-slate-800 text-white font-sans font-bold text-xs transition flex items-center justify-center gap-2 shadow-sm"
+                    className="w-full py-2.5 rounded-xl bg-black hover:bg-slate-800 text-white font-sans font-bold text-xs transition flex items-center justify-center gap-2 shadow-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
                   >
                     <Zap className="w-4 h-4 text-white" />
                     Configurar Reglas del Autocobro
@@ -412,6 +455,9 @@ const MainContent = () => {
 
   return (
     <div className="min-h-screen bg-white flex flex-col font-sans selection:bg-[#0033FF] selection:text-white">
+      {/* Título semántico principal accesible H1 para lectores de pantalla */}
+      <h1 className="sr-only">Parqu - Sistema Metropolitano de Parquímetro Digital y Autocobro Inteligente</h1>
+      
       <div className="relative z-10 flex flex-col min-h-screen">
         <Header 
           onNavigateToPanel={() => {
@@ -424,11 +470,20 @@ const MainContent = () => {
           }}
         />
 
-        {/* Banner de Sesión Activa si está en otra pestaña */}
+        {/* Banner de Sesión Activa si está en otra pestaña con soporte completo de teclado */}
         {activeSession && activeTab !== 'dashboard' && (
           <div 
+            role="button"
+            tabIndex={0}
+            aria-label={`Vehículo ${vehicle.plates} actualmente en parquímetro. Clic para ver contador o liberar estancia`}
             onClick={() => handleSelectFeature('dashboard')}
-            className="bg-black/95 border-b border-neutral-800 px-4 py-2.5 text-center text-xs font-sans font-semibold text-white flex items-center justify-center gap-2 cursor-pointer hover:bg-neutral-950 transition backdrop-blur-md sticky top-20 z-30 shadow-2xl"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleSelectFeature('dashboard');
+              }
+            }}
+            className="bg-black/95 border-b border-neutral-800 px-4 py-2.5 text-center text-xs font-sans font-semibold text-white flex items-center justify-center gap-2 cursor-pointer hover:bg-neutral-950 transition backdrop-blur-md sticky top-20 z-30 shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
           >
             <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
             <span>Vehículo <span className="font-mono">{vehicle.plates}</span> actualmente en parquímetro. Clic para ver contador o liberar estacionamiento.</span>
@@ -489,11 +544,12 @@ const MainContent = () => {
             <div className="flex flex-wrap items-center gap-3 font-sans">
               <button
                 type="button"
+                aria-label="Ir al Selector Orbital 3D"
                 onClick={() => {
                   const el = document.getElementById('selector-orbital-metropolitano');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="px-4 py-2.5 rounded-2xl bg-black hover:bg-slate-800 text-white font-sans font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-sm transition-all transform active:scale-95 cursor-pointer"
+                className="px-4 py-2.5 rounded-2xl bg-black hover:bg-slate-800 text-white font-sans font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-sm transition-all transform active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
                 title="Ir al Selector Orbital 3D"
               >
                 <Compass className="w-4 h-4 text-white" />
@@ -502,13 +558,14 @@ const MainContent = () => {
 
               <button
                 type="button"
+                aria-label="Ejecutar diagnóstico de red metropolitana"
                 onClick={() => {
                   sileo.success({
                     title: 'Diagnóstico Completado',
                     description: 'Enlace metropolitano y sensores de parquímetro activos al 100%.',
                   });
                 }}
-                className="px-4 py-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-black font-sans font-bold text-xs uppercase tracking-wider flex items-center gap-2 border border-slate-200 transition-all transform active:scale-95 cursor-pointer"
+                className="px-4 py-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-black font-sans font-bold text-xs uppercase tracking-wider flex items-center gap-2 border border-slate-200 transition-all transform active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
                 title="Ejecutar diagnóstico de red"
               >
                 <Sparkles className="w-4 h-4 fill-current text-amber-500" />
@@ -527,12 +584,17 @@ const MainContent = () => {
 
           {/* Modal Rápido de Recarga de Saldo */}
           {showRechargeQuickModal && (
-            <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-md flex items-center justify-center p-4">
+            <div 
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="quick-recharge-dialog-title"
+              className="fixed inset-0 z-50 bg-black/50 backdrop-blur-md flex items-center justify-center p-4"
+            >
               <div className="bg-white border border-slate-200 rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
                 <div className="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-200 text-black flex items-center justify-center mx-auto mb-3 shadow-sm">
                   <CurrencyDollarIcon size={24} strokeWidth={2} className="text-black" />
                 </div>
-                <h3 className="text-lg font-black text-black mb-1 font-sans">Recarga Rápida de Saldo</h3>
+                <h3 id="quick-recharge-dialog-title" className="text-lg font-black text-black mb-1 font-sans">Recarga Rápida de Saldo</h3>
                 <p className="text-xs text-slate-600 mb-6 font-sans">
                   Saldo disponible: <span className="text-emerald-600 font-bold font-mono">${Number(card?.balance ?? 0).toFixed(2)} MXN</span>
                 </p>
@@ -545,8 +607,9 @@ const MainContent = () => {
                         <button
                           key={amt}
                           type="button"
+                          aria-label={`Seleccionar recarga de ${amt} pesos`}
                           onClick={() => setRechargeAmt(amt)}
-                          className={`py-2 rounded-xl text-xs font-sans font-bold border transition flex items-center justify-center gap-1 ${
+                          className={`py-2 rounded-xl text-xs font-sans font-bold border transition flex items-center justify-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 ${
                             rechargeAmt === amt
                               ? 'bg-black text-white border-black shadow-sm'
                               : 'bg-slate-100 text-slate-800 border-slate-200 hover:bg-slate-200'
@@ -563,13 +626,13 @@ const MainContent = () => {
                     <button
                       type="button"
                       onClick={() => setShowRechargeQuickModal(false)}
-                      className="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-700 text-xs font-sans hover:bg-slate-50 transition cursor-pointer"
+                      className="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-700 text-xs font-sans hover:bg-slate-50 transition cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
                     >
                       Cancelar
                     </button>
                     <button
                       type="submit"
-                      className="flex-1 py-2.5 rounded-xl bg-black hover:bg-slate-800 text-white text-xs font-sans font-bold transition shadow-sm flex items-center justify-center gap-1.5 cursor-pointer"
+                      className="flex-1 py-2.5 rounded-xl bg-black hover:bg-slate-800 text-white text-xs font-sans font-bold transition shadow-sm flex items-center justify-center gap-1.5 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
                     >
                       <CurrencyDollarIcon size={14} strokeWidth={2.2} />
                       <span>Recargar <span className="font-mono">${rechargeAmt}</span></span>
@@ -582,15 +645,20 @@ const MainContent = () => {
 
           {/* Modal Rápido de Código QR */}
           {showQRQuickModal && (
-            <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-md flex items-center justify-center p-4">
+            <div 
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="quick-qr-dialog-title"
+              className="fixed inset-0 z-50 bg-black/50 backdrop-blur-md flex items-center justify-center p-4"
+            >
               <div className="bg-white border border-slate-200 rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
-                <h3 className="text-lg font-black text-black mb-1 font-sans">Credencial QR de Inspección</h3>
+                <h3 id="quick-qr-dialog-title" className="text-lg font-black text-black mb-1 font-sans">Credencial QR de Inspección</h3>
                 <p className="text-xs text-slate-600 mb-6 font-sans">
                   Lectura directa para agentes de tránsito vial
                 </p>
 
                 <div className="bg-slate-50 border border-slate-200 p-4 rounded-2xl inline-block shadow-inner mb-4">
-                  <svg className="w-48 h-48 mx-auto" viewBox="0 0 100 100">
+                  <svg className="w-48 h-48 mx-auto" viewBox="0 0 100 100" role="img" aria-label={`Código QR para el vehículo con placas ${vehicle.plates}`}>
                     <rect width="100" height="100" fill="#F8FAFC" />
                     <rect x="5" y="5" width="26" height="26" fill="#000000" />
                     <rect x="9" y="9" width="18" height="18" fill="#F8FAFC" />
@@ -624,8 +692,9 @@ const MainContent = () => {
                 </div>
 
                 <button
+                  type="button"
                   onClick={() => setShowQRQuickModal(false)}
-                  className="w-full py-2.5 rounded-xl bg-black hover:bg-slate-800 text-white text-xs font-sans font-bold transition shadow-sm cursor-pointer"
+                  className="w-full py-2.5 rounded-xl bg-black hover:bg-slate-800 text-white text-xs font-sans font-bold transition shadow-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
                 >
                   Cerrar Credencial
                 </button>

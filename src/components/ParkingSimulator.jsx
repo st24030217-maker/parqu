@@ -118,8 +118,10 @@ export const ParkingMeter = () => {
             </div>
 
             <button
+              type="button"
+              aria-label="Cerrar notificación de autocobro"
               onClick={() => setJustChargedNotice(null)}
-              className="text-xs text-neutral-400 hover:text-white px-2 py-1 font-sans transition"
+              className="text-xs text-neutral-400 hover:text-white px-2 py-1 font-sans transition cursor-pointer rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
               ✕
             </button>
@@ -206,8 +208,10 @@ export const ParkingMeter = () => {
             </div>
 
             <button
+              type="button"
+              aria-label="Liberar estacionamiento y liquidar autocobro"
               onClick={handleStop}
-              className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-bold font-sans text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,51,255,0.6)] transition transform active:scale-95"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-bold font-sans text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,51,255,0.6)] transition transform active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#01033E]"
             >
               <Square className="w-4 h-4 fill-current text-rose-500" />
               Liberar Estacionamiento & Liquidar Autocobro
@@ -242,8 +246,10 @@ export const ParkingMeter = () => {
             </div>
 
             <button
+              type="button"
+              aria-label="Registrar estacionamiento y activar parquímetro"
               onClick={() => handleStart(selectedZone)}
-              className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-bold font-sans text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(0,51,255,0.6)] transition transform active:scale-95"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-bold font-sans text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(0,51,255,0.6)] transition transform active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#01033E]"
             >
               <Play className="w-4 h-4 fill-current text-white" />
               Registrar Estacionamiento

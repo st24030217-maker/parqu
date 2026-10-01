@@ -27,12 +27,23 @@ export const InterfaceCraftsCards = ({
         return (
           <motion.div
             key={item.id || index}
+            role="button"
+            tabIndex={0}
+            aria-label={`${item.title}${item.subtitle ? ` - ${item.subtitle}` : ''}`}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
             onClick={() => {
               setSelectedIndex(index);
               if (onItemClick) onItemClick(item);
               if (item.onClick) item.onClick();
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setSelectedIndex(index);
+                if (onItemClick) onItemClick(item);
+                if (item.onClick) item.onClick();
+              }
             }}
             layout
             whileHover={{ y: -4, scale: 1.02 }}
@@ -43,7 +54,7 @@ export const InterfaceCraftsCards = ({
               damping: 25,
             }}
             className={cn(
-              "relative group/card cursor-pointer rounded-2xl p-4 flex flex-col justify-between overflow-hidden border backdrop-blur-xl transition-all duration-300",
+              "relative group/card cursor-pointer rounded-2xl p-4 flex flex-col justify-between overflow-hidden border backdrop-blur-xl transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
               item.borderClassName || "border-neutral-800/80 hover:border-neutral-600",
               item.bgClassName || "bg-neutral-950/80 hover:bg-neutral-900/90",
               isSelected && "ring-2 ring-white border-transparent"

@@ -496,8 +496,9 @@ export const OrbitalWheelMenu = ({
                 activeSession ? (
                   <button
                     type="button"
+                    aria-label="Finalizar estancia en parquímetro"
                     onClick={handleStopParking}
-                    className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition shadow-sm cursor-pointer"
+                    className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition shadow-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
                   >
                     <Square className="w-3.5 h-3.5 fill-current text-white" />
                     <span>Finalizar Parquímetro</span>
@@ -505,8 +506,9 @@ export const OrbitalWheelMenu = ({
                 ) : (
                   <button
                     type="button"
+                    aria-label="Iniciar estancia en parquímetro"
                     onClick={handleStartParking}
-                    className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition shadow-sm cursor-pointer"
+                    className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition shadow-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
                   >
                     <Play className="w-3.5 h-3.5 fill-current text-white" />
                     <span>Iniciar Parquímetro</span>
@@ -521,16 +523,18 @@ export const OrbitalWheelMenu = ({
                     <button
                       key={amt}
                       type="button"
+                      aria-label={`Recargar ${amt} pesos al monedero`}
                       onClick={() => handleInstantRecharge(amt)}
-                      className="px-2.5 sm:px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-200 text-black font-mono text-xs font-bold transition cursor-pointer"
+                      className="px-2.5 sm:px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-200 text-black font-mono text-xs font-bold transition cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-1"
                     >
                       +${amt}
                     </button>
                   ))}
                   <button
                     type="button"
+                    aria-label="Recargar otro monto"
                     onClick={onOpenRecharge}
-                    className="px-3 py-1.5 rounded-lg bg-black hover:bg-slate-800 text-white font-sans text-xs font-bold transition cursor-pointer shadow-sm"
+                    className="px-3 py-1.5 rounded-lg bg-black hover:bg-slate-800 text-white font-sans text-xs font-bold transition cursor-pointer shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-1"
                   >
                     Otro Monto
                   </button>
@@ -541,8 +545,9 @@ export const OrbitalWheelMenu = ({
               {currentItem.id === 'autopay' && (
                 <button
                   type="button"
+                  aria-label={autoPay?.enabled ? 'Pausar modalidad de autocobro' : 'Activar modalidad de autocobro'}
                   onClick={handleToggleAutoPay}
-                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-xs sm:text-sm font-sans font-bold flex items-center gap-1.5 transition cursor-pointer text-black"
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-xs sm:text-sm font-sans font-bold flex items-center gap-1.5 transition cursor-pointer text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
                 >
                   <Zap className="w-3.5 h-3.5 text-black" />
                   <span className={autoPay?.enabled ? 'text-rose-600 font-bold' : 'text-emerald-700 font-bold'}>
@@ -556,8 +561,9 @@ export const OrbitalWheelMenu = ({
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
+                    aria-label="Copiar placas del vehículo al portapapeles"
                     onClick={handleCopyPlates}
-                    className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-black font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer"
+                    className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-black font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
                   >
                     {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5 text-black" />}
                     <span>{copied ? 'Copiado' : 'Copiar Placas'}</span>
@@ -565,8 +571,9 @@ export const OrbitalWheelMenu = ({
 
                   <button
                     type="button"
+                    aria-label="Abrir credencial QR oficial para inspección"
                     onClick={onOpenQR}
-                    className="px-4 py-2 rounded-xl bg-black hover:bg-slate-800 text-white font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer shadow-sm"
+                    className="px-4 py-2 rounded-xl bg-black hover:bg-slate-800 text-white font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
                   >
                     <QrCode className="w-3.5 h-3.5 text-white" />
                     <span>Abrir Pase QR</span>
@@ -578,8 +585,9 @@ export const OrbitalWheelMenu = ({
               {currentItem.id === 'parking-map' && (
                 <button
                   type="button"
+                  aria-label="Fijar mi ubicación GPS actual aquí"
                   onClick={handlePinCurrentLocation}
-                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-black font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-black font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
                 >
                   <MapPin className="w-3.5 h-3.5 text-black" />
                   <span>Fijar Aquí mi Lugar</span>
@@ -590,8 +598,9 @@ export const OrbitalWheelMenu = ({
               {currentItem.id === 'vehicle' && (
                 <button
                   type="button"
+                  aria-label="Alternar vehículo activo"
                   onClick={handleToggleVehicle}
-                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-black font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-black font-sans text-xs sm:text-sm font-bold flex items-center gap-1.5 transition cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
                 >
                   <RefreshCw className="w-3.5 h-3.5 text-black" />
                   <span>Alternar Vehículo</span>
@@ -602,8 +611,9 @@ export const OrbitalWheelMenu = ({
               {currentItem.id === 'history' && (
                 <button
                   type="button"
+                  aria-label="Ver historial completo de cobros"
                   onClick={() => onSelectTab('history')}
-                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-black font-sans text-xs sm:text-sm font-bold transition cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-black font-sans text-xs sm:text-sm font-bold transition cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
                 >
                   Ver Historial Completo
                 </button>
@@ -612,8 +622,9 @@ export const OrbitalWheelMenu = ({
               {/* Enlace al módulo completo */}
               <button
                 type="button"
+                aria-label={`Ir al módulo completo de ${currentItem.label}`}
                 onClick={() => onSelectTab(currentItem.actionTarget)}
-                className="px-3.5 py-2 rounded-xl text-xs font-sans font-bold text-black bg-white hover:bg-slate-50 border border-slate-200 flex items-center gap-1.5 transition cursor-pointer shadow-sm"
+                className="px-3.5 py-2 rounded-xl text-xs font-sans font-bold text-black bg-white hover:bg-slate-50 border border-slate-200 flex items-center gap-1.5 transition cursor-pointer shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
                 title="Abrir módulo completo"
               >
                 <span>Ir al Módulo</span>
@@ -641,16 +652,18 @@ export const OrbitalWheelMenu = ({
           <div className="absolute right-1 sm:right-3 top-1 sm:top-2 z-40 flex flex-col gap-1">
             <button
               type="button"
+              aria-label="Módulo anterior"
               onClick={handlePrev}
-              className="w-7 h-7 rounded-full bg-white border border-slate-200 text-black hover:bg-slate-50 flex items-center justify-center transition shadow-sm cursor-pointer"
+              className="w-7 h-7 rounded-full bg-white border border-slate-200 text-black hover:bg-slate-50 flex items-center justify-center transition shadow-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
               title="Anterior"
             >
               <ChevronUp className="w-4 h-4 text-black" />
             </button>
             <button
               type="button"
+              aria-label="Módulo siguiente"
               onClick={handleNext}
-              className="w-7 h-7 rounded-full bg-white border border-slate-200 text-black hover:bg-slate-50 flex items-center justify-center transition shadow-sm cursor-pointer"
+              className="w-7 h-7 rounded-full bg-white border border-slate-200 text-black hover:bg-slate-50 flex items-center justify-center transition shadow-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
               title="Siguiente"
             >
               <ChevronDown className="w-4 h-4 text-black" />
@@ -677,7 +690,16 @@ export const OrbitalWheelMenu = ({
               return (
                 <div
                   key={item.id}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Seleccionar módulo: ${item.label}`}
                   onClick={() => rotateToIndex(index)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      rotateToIndex(index);
+                    }
+                  }}
                   style={{
                     position: 'absolute',
                     left: `${iconX}px`,
@@ -686,7 +708,7 @@ export const OrbitalWheelMenu = ({
                     opacity,
                     zIndex: isSelected ? 30 : 20 - Math.round(absDiff * 2),
                   }}
-                  className="pointer-events-auto flex items-center gap-2 cursor-pointer transition-transform duration-150 group"
+                  className="pointer-events-auto flex items-center gap-2 cursor-pointer transition-transform duration-150 group rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
                 >
                   {/* Icono del nodo vertical en negro */}
                   <div

@@ -43,8 +43,17 @@ export const Header = ({ onNavigateToPanel, onNavigateToOrbital }) => {
         
         {/* Logotipo Oficial PARQU - Transición fluida entre logo blanco y logo negro */}
         <div 
+          role="button"
+          tabIndex={0}
+          aria-label="Parqu Digital - Volver al inicio"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="flex items-center gap-2 sm:gap-3.5 cursor-pointer group shrink-0"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          }}
+          className="flex items-center gap-2 sm:gap-3.5 cursor-pointer group shrink-0 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
           title="Parqu Digital - Volver al Inicio"
         >
           <div className="relative flex items-center justify-center p-0.5 sm:p-1 group-hover:scale-105 transition-transform duration-300">
@@ -149,6 +158,7 @@ export const Header = ({ onNavigateToPanel, onNavigateToOrbital }) => {
           {/* Botón Acceso Rápido al Selector Orbital 3D */}
           <button
             type="button"
+            aria-label="Ir al Selector Orbital 3D"
             onClick={() => {
               if (onNavigateToOrbital) {
                 onNavigateToOrbital();
@@ -157,7 +167,7 @@ export const Header = ({ onNavigateToPanel, onNavigateToOrbital }) => {
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className={`flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full text-xs font-sans font-bold transition-all duration-300 active:scale-95 cursor-pointer shadow-sm ${
+            className={`flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full text-xs font-sans font-bold transition-all duration-300 active:scale-95 cursor-pointer shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 ${
               isScrolled
                 ? 'bg-slate-100 hover:bg-slate-200 text-black border border-slate-200'
                 : 'bg-white/10 hover:bg-white/20 text-white border border-white/10'
@@ -172,6 +182,7 @@ export const Header = ({ onNavigateToPanel, onNavigateToOrbital }) => {
           {/* Botón Acceso Rápido al Panel de Control Metropolitano */}
           <button
             type="button"
+            aria-label="Ir directo al Panel de Control Metropolitano"
             onClick={() => {
               if (onNavigateToPanel) {
                 onNavigateToPanel();
@@ -180,7 +191,7 @@ export const Header = ({ onNavigateToPanel, onNavigateToOrbital }) => {
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className={`flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full text-xs font-sans font-bold transition-all duration-300 active:scale-95 cursor-pointer shadow-sm ${
+            className={`flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full text-xs font-sans font-bold transition-all duration-300 active:scale-95 cursor-pointer shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 ${
               isScrolled
                 ? 'bg-black hover:bg-slate-800 text-white border border-black'
                 : 'bg-[#0033FF]/30 text-white hover:bg-[#0033FF]/50 border border-[#0033FF]/60 shadow-[0_0_20px_rgba(0,51,255,0.4)]'

@@ -93,10 +93,19 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
         
         {/* 1. ESTADO DE PARQUÍMETRO */}
         <div 
+          role="button"
+          tabIndex={0}
+          aria-label="Ver estado de parquímetro metropolitano y tiempo transcurrido"
           onClick={() => onNavigateTab && onNavigateTab('dashboard')}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              onNavigateTab && onNavigateTab('dashboard');
+            }
+          }}
           onMouseEnter={() => setHoveredCard(1)}
           onMouseLeave={() => setHoveredCard(null)}
-          className="metric-hub-card group relative p-5 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 transition-all cursor-pointer shadow-sm hover:shadow-md flex flex-col justify-between overflow-hidden"
+          className="metric-hub-card group relative p-5 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 transition-all cursor-pointer shadow-sm hover:shadow-md flex flex-col justify-between overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
         >
           {/* Aceternity Corner Cross Accents */}
           <AceternityCornerIcon className="absolute -top-1.5 -left-1.5 text-slate-300 group-hover:text-black transition-colors z-20" />
@@ -180,10 +189,19 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
 
         {/* 2. SALDO Y PASE DIGITAL */}
         <div 
+          role="button"
+          tabIndex={0}
+          aria-label="Recargar saldo del monedero Parqu"
           onClick={() => onOpenRecharge && onOpenRecharge()}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              onOpenRecharge && onOpenRecharge();
+            }
+          }}
           onMouseEnter={() => setHoveredCard(2)}
           onMouseLeave={() => setHoveredCard(null)}
-          className="metric-hub-card group relative p-5 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 transition-all cursor-pointer shadow-sm hover:shadow-md flex flex-col justify-between overflow-hidden"
+          className="metric-hub-card group relative p-5 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 transition-all cursor-pointer shadow-sm hover:shadow-md flex flex-col justify-between overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
         >
           {/* Aceternity Corner Cross Accents */}
           <AceternityCornerIcon className="absolute -top-1.5 -left-1.5 text-slate-300 group-hover:text-black transition-colors z-20" />
@@ -249,10 +267,19 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
 
         {/* 3. PADRÓN VEHICULAR & PLACAS */}
         <div 
+          role="button"
+          tabIndex={0}
+          aria-label="Gestionar vehículo en padrón y placas"
           onClick={() => onNavigateTab && onNavigateTab('vehicle')}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              onNavigateTab && onNavigateTab('vehicle');
+            }
+          }}
           onMouseEnter={() => setHoveredCard(3)}
           onMouseLeave={() => setHoveredCard(null)}
-          className="metric-hub-card group relative p-5 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 transition-all cursor-pointer shadow-sm hover:shadow-md flex flex-col justify-between overflow-hidden"
+          className="metric-hub-card group relative p-5 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 transition-all cursor-pointer shadow-sm hover:shadow-md flex flex-col justify-between overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
         >
           {/* Aceternity Corner Cross Accents */}
           <AceternityCornerIcon className="absolute -top-1.5 -left-1.5 text-slate-300 group-hover:text-black transition-colors z-20" />
@@ -311,10 +338,19 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
 
         {/* 4. BITÁCORA GPS & AUTOCOBRO */}
         <div 
+          role="button"
+          tabIndex={0}
+          aria-label="Ver bitácora GPS y ubicaciones fijadas"
           onClick={() => onNavigateTab && onNavigateTab('history')}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              onNavigateTab && onNavigateTab('history');
+            }
+          }}
           onMouseEnter={() => setHoveredCard(4)}
           onMouseLeave={() => setHoveredCard(null)}
-          className="metric-hub-card group relative p-5 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 transition-all cursor-pointer shadow-sm hover:shadow-md flex flex-col justify-between overflow-hidden"
+          className="metric-hub-card group relative p-5 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 transition-all cursor-pointer shadow-sm hover:shadow-md flex flex-col justify-between overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
         >
           {/* Aceternity Corner Cross Accents */}
           <AceternityCornerIcon className="absolute -top-1.5 -left-1.5 text-slate-300 group-hover:text-black transition-colors z-20" />

@@ -135,14 +135,26 @@ export function StaggeredGrid({
             return (
               <div
                 key={bento.id}
+                role="button"
+                tabIndex={0}
+                aria-label={`${bento.title} - ${bento.subtitle}`}
                 onClick={() => {
                   setActiveBento(index);
                   if (onSelectFeature && bento.actionTab) {
                     onSelectFeature(bento.actionTab);
                   }
                 }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setActiveBento(index);
+                    if (onSelectFeature && bento.actionTab) {
+                      onSelectFeature(bento.actionTab);
+                    }
+                  }
+                }}
                 onMouseEnter={() => setActiveBento(index)}
-                className={`relative overflow-hidden rounded-3xl p-6 sm:p-7 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] cursor-pointer border flex flex-col justify-between backdrop-blur-xl ${
+                className={`relative overflow-hidden rounded-3xl p-6 sm:p-7 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] cursor-pointer border flex flex-col justify-between backdrop-blur-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#01033E] ${
                   isActive
                     ? 'md:w-3/5 bg-gradient-to-br from-[#01033E]/90 via-[#0033FF]/20 to-[#01033E]/90 border-[#807DFE]/50 shadow-[0_0_40px_rgba(0,51,255,0.3)]'
                     : 'md:w-1/5 bg-[#01033E]/40 border-white/10 hover:border-white/20 hover:bg-[#01033E]/60'

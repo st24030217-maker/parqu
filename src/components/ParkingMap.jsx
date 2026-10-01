@@ -639,7 +639,7 @@ export const ParkingMap = ({
                 
                 {/* Input del Número de Parquímetro / Espacio */}
                 <div className="md:col-span-6">
-                  <label className="text-[10px] uppercase font-bold text-neutral-400 mb-1 flex items-center gap-1 font-sans">
+                  <label htmlFor="parking-spot-number" className="text-[10px] uppercase font-bold text-neutral-400 mb-1 flex items-center gap-1 font-sans">
                     <Hash className="w-3 h-3 text-amber-400" />
                     <span>Número de Parquímetro o Espacio</span>
                   </label>
@@ -648,11 +648,13 @@ export const ParkingMap = ({
                       #
                     </div>
                     <input
+                      id="parking-spot-number"
                       type="text"
+                      aria-label="Número de parquímetro o espacio"
                       value={spotNumber}
                       onChange={(e) => setSpotNumber(e.target.value)}
                       placeholder="1042"
-                      className="w-full h-11 px-4 rounded-xl bg-white/5 border border-white/15 focus:border-[#807DFE] focus:bg-white/10 focus:outline-none text-white font-mono text-base font-bold placeholder:text-neutral-500 transition"
+                      className="w-full h-11 px-4 rounded-xl bg-white/5 border border-white/15 focus:border-[#807DFE] focus:bg-white/10 focus:outline-none text-white font-mono text-base font-bold placeholder:text-neutral-500 transition focus-visible:ring-2 focus-visible:ring-[#807DFE]"
                     />
                   </div>
                 </div>
@@ -662,8 +664,9 @@ export const ParkingMap = ({
                   {!activeSession ? (
                     <button
                       type="button"
+                      aria-label="Registrar estacionamiento en el parquímetro"
                       onClick={handleRegisterParking}
-                      className="w-full h-11 px-6 rounded-xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-sans font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(0,51,255,0.6)] hover:scale-[1.02] active:scale-95 transition-all"
+                      className="w-full h-11 px-6 rounded-xl bg-[#0033FF] hover:bg-[#2250ff] text-white font-sans font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(0,51,255,0.6)] hover:scale-[1.02] active:scale-95 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2"
                     >
                       <CheckCircle2 className="w-4 h-4 text-emerald-300" />
                       <span>Registrar Estacionamiento</span>
@@ -677,8 +680,9 @@ export const ParkingMap = ({
                       {onStopSession && (
                         <button
                           type="button"
+                          aria-label="Liberar estacionamiento"
                           onClick={onStopSession}
-                          className="h-11 px-4 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-sans font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 transition"
+                          className="h-11 px-4 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-sans font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 transition cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                         >
                           <Square className="w-3.5 h-3.5 fill-current" />
                           <span>Liberar</span>
@@ -690,9 +694,10 @@ export const ParkingMap = ({
                   {/* Acceso a AniMaps 3D */}
                   <button
                     type="button"
+                    aria-label="Ver recorrido animado de ruta en 3D con animaps-react"
                     onClick={() => setViewMode('animaps')}
                     title="Ver recorrido animado con animaps-react"
-                    className="h-11 px-3.5 rounded-xl bg-white/10 hover:bg-white/15 text-white border border-[#807DFE]/40 font-sans text-xs flex items-center justify-center gap-1.5 transition shrink-0"
+                    className="h-11 px-3.5 rounded-xl bg-white/10 hover:bg-white/15 text-white border border-[#807DFE]/40 font-sans text-xs flex items-center justify-center gap-1.5 transition shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                   >
                     <Sparkles className="w-4 h-4 text-[#807DFE] animate-pulse" />
                     <span className="hidden sm:inline">Ruta 3D</span>
