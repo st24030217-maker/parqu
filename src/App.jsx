@@ -447,15 +447,15 @@ const MainContent = () => {
 
           {/* Gradiente de disolución y mezcla perfecta: El cielo de nubes se funde suavemente con el fondo blanco sin cortes ni separación */}
           <div 
-            className="absolute inset-x-0 bottom-0 h-52 sm:h-80 pointer-events-none z-20"
+            className="absolute inset-x-0 bottom-0 h-64 sm:h-96 pointer-events-none z-20"
             style={{
-              background: 'linear-gradient(to bottom, rgba(1, 3, 62, 0) 0%, rgba(1, 3, 62, 0.2) 20%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.85) 75%, #ffffff 100%)',
+              background: 'linear-gradient(to bottom, rgba(1, 3, 62, 0) 0%, rgba(1, 3, 62, 0.05) 15%, rgba(255, 255, 255, 0.15) 30%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.85) 70%, #ffffff 85%, #ffffff 100%)',
             }}
           />
         </div>
 
-        {/* 2. SECCIÓN DEL SISTEMA INTERACTIVO CON FONDO BLANCO */}
-        <section className="w-full relative bg-white pb-10 sm:pb-16 -mt-10 sm:-mt-14">
+        {/* 2. SECCIÓN DEL SISTEMA INTERACTIVO CON FONDO BLANCO (Cero cortes, se fusiona directamente desde la zona blanca pura) */}
+        <section className="w-full relative bg-white pb-10 sm:pb-16 -mt-px">
           <main 
             ref={systemRef} 
             id="interactive-system"
