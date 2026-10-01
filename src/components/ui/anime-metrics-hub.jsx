@@ -66,25 +66,25 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
     <div id="panel-control-metropolitano" className="w-full space-y-3 font-sans scroll-mt-28">
       {/* Subtítulo organizador */}
       <div className="flex items-center justify-between px-1">
-        <div className="flex items-center gap-1.5 sm:gap-2 text-xs text-neutral-400">
+        <div className="flex items-center gap-1.5 sm:gap-2 text-xs text-slate-500">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-          <span className="font-bold text-white uppercase tracking-wider text-[10px] sm:text-[11px] font-sans">
+          <span className="font-bold text-slate-900 uppercase tracking-wider text-[10px] sm:text-[11px] font-sans">
             PANEL DE CONTROL METROPOLITANO
           </span>
-          <span className="text-neutral-600 hidden sm:inline">•</span>
-          <span className="text-neutral-500 text-[10px] hidden sm:inline font-sans">MÉTRICAS & CANVAS REVEAL EFFECT</span>
+          <span className="text-slate-300 hidden sm:inline">•</span>
+          <span className="text-slate-500 text-[10px] hidden sm:inline font-sans">MÉTRICAS & CANVAS REVEAL EFFECT</span>
         </div>
 
         {/* Telemetría mini-bars */}
-        <div ref={barsRef} className="flex items-end gap-1 h-3.5 px-2 py-0.5 rounded-full bg-white/8 backdrop-blur-sm border border-white/10">
+        <div ref={barsRef} className="flex items-end gap-1 h-3.5 px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200">
           {[...Array(6)].map((_, i) => (
             <div
               key={i}
-              className="telemetry-mini-bar w-1 rounded-full bg-emerald-400 origin-bottom"
+              className="telemetry-mini-bar w-1 rounded-full bg-emerald-500 origin-bottom"
               style={{ height: '100%' }}
             />
           ))}
-          <span className="text-[9px] font-mono text-neutral-400 ml-1">SYNC</span>
+          <span className="text-[9px] font-mono text-slate-500 ml-1">SYNC</span>
         </div>
       </div>
 
@@ -96,7 +96,7 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
           onClick={() => onNavigateTab && onNavigateTab('dashboard')}
           onMouseEnter={() => setHoveredCard(1)}
           onMouseLeave={() => setHoveredCard(null)}
-          className="metric-hub-card group relative p-5 rounded-2xl bg-[#01033E]/50 backdrop-blur-xl backdrop-saturate-150 border border-white/10 hover:border-[#807DFE]/40 transition-all cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_32px_rgba(0,51,255,0.3)] flex flex-col justify-between overflow-hidden"
+          className="metric-hub-card group relative p-5 rounded-2xl bg-[#01033E] border border-slate-200/80 hover:border-[#0033FF]/50 transition-all cursor-pointer shadow-xl hover:shadow-[0_12px_36px_rgba(0,51,255,0.18)] flex flex-col justify-between overflow-hidden"
         >
           {/* Aceternity Corner Cross Accents */}
           <AceternityCornerIcon className="absolute -top-1.5 -left-1.5 text-neutral-600 group-hover:text-[#D4D6E6] transition-colors z-20" />
@@ -183,7 +183,7 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
           onClick={() => onOpenRecharge && onOpenRecharge()}
           onMouseEnter={() => setHoveredCard(2)}
           onMouseLeave={() => setHoveredCard(null)}
-          className="metric-hub-card group relative p-5 rounded-2xl bg-[#01033E]/50 backdrop-blur-xl backdrop-saturate-150 border border-white/10 hover:border-[#807DFE]/40 transition-all cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_32px_rgba(0,51,255,0.3)] flex flex-col justify-between overflow-hidden"
+          className="metric-hub-card group relative p-5 rounded-2xl bg-[#01033E] border border-slate-200/80 hover:border-[#0033FF]/50 transition-all cursor-pointer shadow-xl hover:shadow-[0_12px_36px_rgba(0,51,255,0.18)] flex flex-col justify-between overflow-hidden"
         >
           {/* Aceternity Corner Cross Accents */}
           <AceternityCornerIcon className="absolute -top-1.5 -left-1.5 text-neutral-600 group-hover:text-[#D4D6E6] transition-colors z-20" />
@@ -252,7 +252,7 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
           onClick={() => onNavigateTab && onNavigateTab('vehicle')}
           onMouseEnter={() => setHoveredCard(3)}
           onMouseLeave={() => setHoveredCard(null)}
-          className="metric-hub-card group relative p-5 rounded-2xl bg-[#01033E]/50 backdrop-blur-xl backdrop-saturate-150 border border-white/10 hover:border-[#807DFE]/40 transition-all cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_32px_rgba(0,51,255,0.3)] flex flex-col justify-between overflow-hidden"
+          className="metric-hub-card group relative p-5 rounded-2xl bg-[#01033E] border border-slate-200/80 hover:border-[#0033FF]/50 transition-all cursor-pointer shadow-xl hover:shadow-[0_12px_36px_rgba(0,51,255,0.18)] flex flex-col justify-between overflow-hidden"
         >
           {/* Aceternity Corner Cross Accents */}
           <AceternityCornerIcon className="absolute -top-1.5 -left-1.5 text-neutral-600 group-hover:text-[#D4D6E6] transition-colors z-20" />
@@ -314,7 +314,7 @@ export const AnimeMetricsHub = ({ onNavigateTab, onOpenRecharge, onOpenQR }) => 
           onClick={() => onNavigateTab && onNavigateTab('history')}
           onMouseEnter={() => setHoveredCard(4)}
           onMouseLeave={() => setHoveredCard(null)}
-          className="metric-hub-card group relative p-5 rounded-2xl bg-[#01033E]/50 backdrop-blur-xl backdrop-saturate-150 border border-white/10 hover:border-[#807DFE]/40 transition-all cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_32px_rgba(0,51,255,0.3)] flex flex-col justify-between overflow-hidden"
+          className="metric-hub-card group relative p-5 rounded-2xl bg-[#01033E] border border-slate-200/80 hover:border-[#0033FF]/50 transition-all cursor-pointer shadow-xl hover:shadow-[0_12px_36px_rgba(0,51,255,0.18)] flex flex-col justify-between overflow-hidden"
         >
           {/* Aceternity Corner Cross Accents */}
           <AceternityCornerIcon className="absolute -top-1.5 -left-1.5 text-neutral-600 group-hover:text-[#D4D6E6] transition-colors z-20" />

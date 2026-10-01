@@ -57,7 +57,7 @@ export const ParkingMeter = () => {
 
   return (
     <WobbleCard
-      containerClassName="w-full bg-gradient-to-br from-[#01033E]/70 via-[#01033E]/40 to-transparent border-white/10 hover:border-[#807DFE]/30 transition-colors shadow-2xl backdrop-blur-xl backdrop-saturate-150"
+      containerClassName="w-full bg-gradient-to-br from-[#01033E] via-[#01033E] to-[#02052b] border border-slate-200/80 shadow-2xl transition-colors"
       className="p-6 sm:p-8 flex flex-col justify-between"
     >
       {/* Encabezado Wobble Card */}

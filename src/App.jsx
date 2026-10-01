@@ -10,7 +10,6 @@ import { AutoPaymentConfig } from './components/AutoPaymentConfig';
 import { ParkingMeter } from './components/ParkingMeter';
 import { TransactionHistory } from './components/TransactionHistory';
 import { StaggeredGrid } from './components/ui/staggered-grid';
-import { BackgroundGradientAnimation } from './components/ui/background-gradient-animation';
 import { HeroParallax } from './components/ui/hero-parallax';
 import { WobbleCard } from './components/ui/wobble-card';
 import { InterfaceCraftsCards } from './components/ui/interface-crafts-cards';
@@ -21,7 +20,6 @@ import { CurrencyDollarIcon, PlugConnectedIcon } from './components/icons';
 import { AnimeMetricsHub } from './components/ui/anime-metrics-hub';
 import { AnimeStaggerGroup } from './components/ui/anime-stagger-group';
 import { OrbitalWheelMenu } from './components/ui/orbital-wheel-menu';
-import { BobbinBackground } from './components/ui/bobbin-background';
 import { 
   CreditCard, 
   Car, 
@@ -194,7 +192,7 @@ const MainContent = () => {
       badge: 'CRAFTS',
       content: (
         <AnimeStaggerGroup triggerKey={activeTab} className="space-y-6">
-          <div className="anime-stagger-card p-6 sm:p-8 rounded-3xl bg-[#1B3A2F]/12 backdrop-blur-xl backdrop-saturate-150 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.25)] space-y-6">
+          <div className="anime-stagger-card p-6 sm:p-8 rounded-3xl bg-[#01033E] border border-slate-200/80 shadow-2xl space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
               <div>
                 <div className="flex items-center gap-2 mb-1 text-xs font-mono text-[#D4D6E6]">
@@ -205,8 +203,8 @@ const MainContent = () => {
                   <span className="text-[#D4D6E6]/60">•</span>
                   <span className="text-[#D4D6E6] text-[11px]">PANEL DE ACCESO INMEDIATO</span>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-black text-[#D4D6E6] tracking-tight flex items-center gap-2.5 font-sans">
-                  <Zap className="w-5 h-5 text-[#D4D6E6]" />
+                <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2.5 font-sans">
+                  <Zap className="w-5 h-5 text-[#807DFE]" />
                   Apartado de Funciones Rápidas
                 </h3>
                 <p className="text-xs text-[#D4D6E6] mt-1 font-sans">
@@ -416,18 +414,7 @@ const MainContent = () => {
   ];
 
   return (
-    <BackgroundGradientAnimation
-      gradientBackgroundStart="rgb(1, 3, 62)"
-      gradientBackgroundEnd="rgb(0, 1, 20)"
-      firstColor="0, 51, 255"
-      secondColor="128, 125, 254"
-      thirdColor="212, 214, 230"
-      fourthColor="1, 3, 62"
-      fifthColor="47, 49, 231"
-      pointerColor="128, 125, 254"
-      size="75%"
-      className="min-h-screen flex flex-col text-[#D4D6E6] selection:bg-[#0033FF] selection:text-[#D4D6E6]"
-    >
+    <div className="min-h-screen bg-white flex flex-col font-sans selection:bg-[#0033FF] selection:text-white">
       <div className="relative z-10 flex flex-col min-h-screen">
         <Header 
           onNavigateToPanel={() => {
@@ -452,8 +439,8 @@ const MainContent = () => {
           </div>
         )}
 
-        {/* 1. SECCIÓN DE BIENVENIDA & STAGGERED GRID SHOWCASE DE FUNCIONES */}
-        <div className="w-full bg-transparent border-b border-white/10">
+        {/* 1. SECCIÓN DE BIENVENIDA & STAGGERED GRID SHOWCASE DE FUNCIONES (FONDO DE NUBES HERO INTACTO) */}
+        <div className="w-full bg-[#01033E] border-b border-slate-200">
           <ErrorBoundary fallbackText="Bienvenido a Parqu - Cargando Funciones...">
             <StaggeredGrid 
               centerText="BIENVENIDOS A PARQU"
@@ -462,14 +449,13 @@ const MainContent = () => {
           </ErrorBoundary>
         </div>
 
-        {/* 2. SECCIÓN DEL SISTEMA INTERACTIVO CON FONDO FULL-WIDTH WITHBOBBIN */}
-        <section className="w-full relative border-y border-white/10">
-          <BobbinBackground showYellowFade={true} className="py-8 sm:py-14">
-            <main 
-              ref={systemRef} 
-              id="interactive-system"
-              className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 space-y-10 scroll-mt-24"
-            >
+        {/* 2. SECCIÓN DEL SISTEMA INTERACTIVO CON FONDO BLANCO */}
+        <section className="w-full relative bg-white py-10 sm:py-16">
+          <main 
+            ref={systemRef} 
+            id="interactive-system"
+            className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 space-y-10 scroll-mt-24"
+          >
           
           {/* 1. PANEL DE CONTROL METROPOLITANO (ACCESO INMEDIATO Y CENTRAL) */}
           <AnimeMetricsHub 
@@ -479,7 +465,7 @@ const MainContent = () => {
           />
 
           {/* 2. ENCABEZADO DEL CENTRO DE OPERACIONES */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-[#1B3A2F]/12 backdrop-blur-xl backdrop-saturate-150 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.25)] flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div className="p-6 sm:p-8 rounded-3xl bg-[#01033E] border border-slate-200/80 shadow-2xl flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div>
               <div className="flex items-center gap-2 mb-1.5 text-xs font-mono text-[#D4D6E6]">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -487,7 +473,7 @@ const MainContent = () => {
                 <span className="text-[#D4D6E6]/60">•</span>
                 <span className="text-[#D4D6E6]">0 Filas • 0 Monedas</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-[#D4D6E6] tracking-tight flex items-center gap-3 font-sans">
+              <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-3 font-sans">
                 <span>Centro de Operaciones Parqu</span>
               </h2>
               <p className="text-xs sm:text-sm text-[#D4D6E6] mt-1 font-sans">
@@ -663,11 +649,10 @@ const MainContent = () => {
           />
 
             </main>
-          </BobbinBackground>
         </section>
 
         {/* 3. SECCIÓN BANNER: La Nueva Era del Parquímetro Digital */}
-        <section className="w-full border-t border-white/10 overflow-hidden">
+        <section className="w-full border-t border-slate-200 overflow-hidden bg-white">
           <HeroParallax 
             headerTitle="La Nueva Era del Parquímetro Digital"
             headerSubtitle="SISTEMA METROPOLITANO PARQU"
@@ -676,26 +661,26 @@ const MainContent = () => {
         </section>
 
         {/* Footer con Logos 100% Transparentes y Powered by SSS.Solutions */}
-        <footer className="border-t border-white/10 bg-[#1B3A2F]/10 backdrop-blur-xl py-8 text-center text-xs text-[#D4D6E6] mt-12">
+        <footer className="border-t border-slate-200 bg-slate-50 py-10 text-center text-xs text-slate-600 mt-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
             
-            {/* Identidad Parqu - Logo Transparente sin cajas de fondo */}
+            {/* Identidad Parqu - Logo Negro para fondo blanco */}
             <div className="flex items-center gap-3">
               <img 
-                src="./parqu-logo-white.png" 
+                src="./parqu-logo-black.png" 
                 alt="Parqu" 
                 style={{ maxHeight: '32px' }}
-                className="h-8 w-auto object-contain drop-shadow-[0_0_10px_rgba(245,241,232,0.2)]"
+                className="h-8 w-auto object-contain"
               />
               <div className="text-left font-sans">
-                <span className="font-bold text-[#D4D6E6] tracking-wide block">Parqu Digital</span>
-                <span className="text-[11px] text-[#D4D6E6]/70">Parquímetro inteligente con autocobro</span>
+                <span className="font-bold text-slate-900 tracking-wide block">Parqu Digital</span>
+                <span className="text-[11px] text-slate-500">Parquímetro inteligente con autocobro</span>
               </div>
             </div>
 
-            {/* Powered by SSS.Solutions - Logo Transparente sin cajas de fondo */}
-            <div className="flex flex-col sm:flex-row items-center gap-3 py-2 px-5 rounded-full bg-white/5 border border-white/10 font-sans">
-              <span className="text-[11px] uppercase tracking-[0.2em] font-mono text-[#D4D6E6]">
+            {/* Powered by SSS.Solutions - Logo Oficial */}
+            <div className="flex flex-col sm:flex-row items-center gap-3 py-2 px-5 rounded-full bg-white border border-slate-200 font-sans shadow-sm">
+              <span className="text-[11px] uppercase tracking-[0.2em] font-mono text-slate-500">
                 Powered by
               </span>
               <div className="flex items-center gap-2">
@@ -703,21 +688,21 @@ const MainContent = () => {
                   src="/sss-solutions-logo.png" 
                   alt="SSS Solutions" 
                   style={{ maxHeight: '28px' }}
-                  className="h-7 w-auto object-contain drop-shadow-[0_0_12px_rgba(245,241,232,0.2)] hover:scale-105 transition-transform"
+                  className="h-7 w-auto object-contain hover:scale-105 transition-transform"
                 />
               </div>
             </div>
 
             {/* Seguridad y Derechos */}
-            <div className="text-center md:text-right font-sans text-[11px] text-[#D4D6E6]/70">
+            <div className="text-center md:text-right font-sans text-[11px] text-slate-500">
               <span>© {new Date().getFullYear()} Todos los derechos reservados.</span>
-              <span className="block text-[#D4D6E6]/50">Tecnología SSS.Solutions • Encriptación 256-bit</span>
+              <span className="block text-slate-400">Tecnología SSS.Solutions • Encriptación 256-bit</span>
             </div>
 
           </div>
         </footer>
       </div>
-    </BackgroundGradientAnimation>
+    </div>
   );
 };
 

@@ -374,7 +374,7 @@ export const OrbitalWheelMenu = ({
           className="w-2.5 h-2.5 rounded-full animate-pulse"
           style={{ backgroundColor: currentItem.color }}
         />
-        <h3 className="font-sans font-black text-xl sm:text-2xl text-white tracking-tight">
+        <h3 className="font-sans font-black text-xl sm:text-2xl text-slate-900 tracking-tight">
           Acciones Rápidas
         </h3>
       </div>
@@ -399,8 +399,8 @@ export const OrbitalWheelMenu = ({
                 style={{ backgroundColor: currentItem.color }}
               />
               <span>{currentItem.category}</span>
-              <span className="text-white/30">•</span>
-              <span className="text-white/60">0{selectedIndex + 1} / 07</span>
+              <span className="text-slate-300">•</span>
+              <span className="text-slate-500 font-mono">0{selectedIndex + 1} / 07</span>
             </div>
 
             {/* Icono central de gran tamaño con aura flotante */}
@@ -416,12 +416,12 @@ export const OrbitalWheelMenu = ({
             </div>
 
             {/* Título de la opción seleccionada */}
-            <h4 className="font-sans font-black text-xl sm:text-3xl text-white tracking-tight drop-shadow-md mb-2">
+            <h4 className="font-sans font-black text-xl sm:text-3xl text-slate-900 tracking-tight drop-shadow-sm mb-2">
               {currentItem.label}
             </h4>
 
             {/* Datos en vivo específicos del módulo */}
-            <div className="min-h-[38px] flex items-center text-xs sm:text-sm font-mono text-[#D4D6E6]/80 mb-3.5">
+            <div className="min-h-[38px] flex items-center text-xs sm:text-sm font-mono text-slate-600 mb-3.5">
               {/* 1. Parquímetro */}
               {currentItem.id === 'dashboard' && (
                 activeSession ? (
